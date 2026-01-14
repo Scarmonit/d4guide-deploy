@@ -1,0 +1,3732 @@
+/* ========================================
+   Shadow Quest - Browser RPG Game Engine
+   Real-time action combat with progression
+   ======================================== */
+
+// ========================================
+// Game Configuration
+// ========================================
+const CONFIG = {
+    canvas: {
+        width: 800,
+        height: 600
+    },
+    player: {
+        size: 40,
+        speed: 5,
+        dashSpeed: 15,
+        dashDuration: 150,
+        dashCooldown: 1000,
+        attackRange: 60,
+        attackCooldown: 400,
+        attackAnimation: 200
+    },
+    enemy: {
+        baseSize: 35,
+        baseSpeed: 2,
+        attackRange: 50,
+        attackCooldown: 1500
+    },
+    xpPerLevel: 100,
+    healAmount: 50
+};
+
+// ========================================
+// Game State
+// ========================================
+let gameState = {
+    screen: 'title',
+    paused: false,
+    player: null,
+    enemies: [],
+    projectiles: [],
+    particles: [],
+    loot: [],
+    currentDungeon: null,
+    currentWave: 0,
+    waveEnemiesRemaining: 0,
+    keys: {},
+    mouse: { x: 0, y: 0, down: false },
+    lastTime: 0,
+    animationId: null,
+    hitEnemies: new Set(),
+    currentBoss: null,
+    waveDelay: false,
+    // New features
+    combo: { count: 0, timer: 0, maxTime: 2000 },
+    difficulty: 'normal',
+    difficultyMultipliers: {
+        easy: { enemyHp: 0.7, enemyAtk: 0.7, xp: 1.2, gold: 1.2 },
+        normal: { enemyHp: 1.0, enemyAtk: 1.0, xp: 1.0, gold: 1.0 },
+        hard: { enemyHp: 1.5, enemyAtk: 1.3, xp: 1.5, gold: 1.5 }
+    },
+    // Achievement system
+    achievements: {},
+    // Statistics tracking
+    stats: {
+        enemiesKilled: 0,
+        bossesKilled: 0,
+        damageDealt: 0,
+        damageTaken: 0,
+        goldEarned: 0,
+        dungeonsCleared: 0,
+        maxCombo: 0,
+        criticalHits: 0,
+        dodgesPerformed: 0,
+        potionsUsed: 0
+    }
+};
+
+// ========================================
+// Status Effects System
+// ========================================
+const STATUS_EFFECTS = {
+    poison: {
+        name: 'Poison',
+        icon: '☠️',
+        color: '#22c55e',
+        duration: 5000,
+        tickRate: 1000,
+        damagePercent: 0.03 // 3% max HP per tick
+    },
+    burn: {
+        name: 'Burn',
+        icon: '🔥',
+        color: '#f97316',
+        duration: 3000,
+        tickRate: 500,
+        damagePercent: 0.05 // 5% max HP per tick
+    },
+    freeze: {
+        name: 'Freeze',
+        icon: '❄️',
+        color: '#38bdf8',
+        duration: 2000,
+        slowPercent: 0.7 // 70% slow
+    },
+    bleed: {
+        name: 'Bleed',
+        icon: '🩸',
+        color: '#dc2626',
+        duration: 4000,
+        tickRate: 800,
+        damagePercent: 0.04 // 4% max HP per tick
+    }
+};
+
+// ========================================
+// Achievement Definitions
+// ========================================
+const ACHIEVEMENTS = {
+    firstBlood: {
+        id: 'firstBlood',
+        name: 'First Blood',
+        desc: 'Defeat your first enemy',
+        icon: '⚔️',
+        condition: (stats) => stats.enemiesKilled >= 1,
+        reward: { gold: 25 }
+    },
+    slayerI: {
+        id: 'slayerI',
+        name: 'Monster Slayer I',
+        desc: 'Defeat 50 enemies',
+        icon: '🗡️',
+        condition: (stats) => stats.enemiesKilled >= 50,
+        reward: { gold: 100 }
+    },
+    slayerII: {
+        id: 'slayerII',
+        name: 'Monster Slayer II',
+        desc: 'Defeat 200 enemies',
+        icon: '⚔️',
+        condition: (stats) => stats.enemiesKilled >= 200,
+        reward: { gold: 300 }
+    },
+    bossHunter: {
+        id: 'bossHunter',
+        name: 'Boss Hunter',
+        desc: 'Defeat your first boss',
+        icon: '👑',
+        condition: (stats) => stats.bossesKilled >= 1,
+        reward: { gold: 150 }
+    },
+    comboMaster: {
+        id: 'comboMaster',
+        name: 'Combo Master',
+        desc: 'Reach a 20 hit combo',
+        icon: '💥',
+        condition: (stats) => stats.maxCombo >= 20,
+        reward: { gold: 200 }
+    },
+    dungeonCrawler: {
+        id: 'dungeonCrawler',
+        name: 'Dungeon Crawler',
+        desc: 'Clear 5 dungeons',
+        icon: '🏰',
+        condition: (stats) => stats.dungeonsCleared >= 5,
+        reward: { gold: 250 }
+    },
+    criticalStriker: {
+        id: 'criticalStriker',
+        name: 'Critical Striker',
+        desc: 'Land 50 critical hits',
+        icon: '💢',
+        condition: (stats) => stats.criticalHits >= 50,
+        reward: { gold: 150 }
+    },
+    dodgeMaster: {
+        id: 'dodgeMaster',
+        name: 'Dodge Master',
+        desc: 'Perform 100 dodges',
+        icon: '💨',
+        condition: (stats) => stats.dodgesPerformed >= 100,
+        reward: { gold: 100 }
+    },
+    wealthy: {
+        id: 'wealthy',
+        name: 'Wealthy Adventurer',
+        desc: 'Earn 1000 gold total',
+        icon: '💰',
+        condition: (stats) => stats.goldEarned >= 1000,
+        reward: { gold: 200 }
+    }
+};
+
+// ========================================
+// Equipment Drop System
+// ========================================
+const EQUIPMENT_DROPS = {
+    common: {
+        weapons: [
+            { id: 'rusty_sword', name: 'Rusty Sword', icon: '🗡️', type: 'weapon', atk: 3, rarity: 'common' },
+            { id: 'wooden_staff', name: 'Wooden Staff', icon: '🪄', type: 'weapon', atk: 4, rarity: 'common' }
+        ],
+        armor: [
+            { id: 'cloth_robe', name: 'Cloth Robe', icon: '👘', type: 'armor', def: 2, rarity: 'common' },
+            { id: 'leather_vest', name: 'Leather Vest', icon: '🦺', type: 'armor', def: 3, rarity: 'common' }
+        ],
+        accessories: [
+            { id: 'copper_ring', name: 'Copper Ring', icon: '💍', type: 'accessory', spd: 1, rarity: 'common' }
+        ]
+    },
+    uncommon: {
+        weapons: [
+            { id: 'steel_blade', name: 'Steel Blade', icon: '⚔️', type: 'weapon', atk: 8, rarity: 'uncommon' },
+            { id: 'fire_wand', name: 'Fire Wand', icon: '🔥', type: 'weapon', atk: 10, rarity: 'uncommon' }
+        ],
+        armor: [
+            { id: 'scale_mail', name: 'Scale Mail', icon: '🛡️', type: 'armor', def: 6, rarity: 'uncommon' },
+            { id: 'hunters_cloak', name: "Hunter's Cloak", icon: '🧥', type: 'armor', def: 4, spd: 2, rarity: 'uncommon' }
+        ],
+        accessories: [
+            { id: 'silver_amulet', name: 'Silver Amulet', icon: '📿', type: 'accessory', spd: 2, rarity: 'uncommon' },
+            { id: 'warriors_band', name: "Warrior's Band", icon: '💍', type: 'accessory', atk: 3, rarity: 'uncommon' }
+        ]
+    },
+    rare: {
+        weapons: [
+            { id: 'demon_slayer', name: 'Demon Slayer', icon: '🔱', type: 'weapon', atk: 15, rarity: 'rare' },
+            { id: 'arcane_staff', name: 'Arcane Staff', icon: '🪄', type: 'weapon', atk: 18, rarity: 'rare' },
+            { id: 'shadow_dagger', name: 'Shadow Dagger', icon: '🗡️', type: 'weapon', atk: 12, spd: 3, rarity: 'rare' }
+        ],
+        armor: [
+            { id: 'dragon_scale', name: 'Dragon Scale Armor', icon: '🐉', type: 'armor', def: 12, rarity: 'rare' },
+            { id: 'mage_robes', name: "Archmage's Robes", icon: '🧙', type: 'armor', def: 6, atk: 5, rarity: 'rare' }
+        ],
+        accessories: [
+            { id: 'phoenix_feather', name: 'Phoenix Feather', icon: '🪶', type: 'accessory', spd: 4, rarity: 'rare' },
+            { id: 'blood_ruby', name: 'Blood Ruby', icon: '💎', type: 'accessory', atk: 5, rarity: 'rare' }
+        ]
+    },
+    legendary: {
+        weapons: [
+            { id: 'excalibur', name: 'Excalibur', icon: '⚔️', type: 'weapon', atk: 25, def: 5, rarity: 'legendary' },
+            { id: 'staff_elements', name: 'Staff of Elements', icon: '🌀', type: 'weapon', atk: 22, spd: 2, rarity: 'legendary' }
+        ],
+        armor: [
+            { id: 'divine_armor', name: 'Divine Armor', icon: '✨', type: 'armor', def: 18, atk: 3, rarity: 'legendary' }
+        ],
+        accessories: [
+            { id: 'crown_kings', name: 'Crown of Kings', icon: '👑', type: 'accessory', atk: 5, def: 5, spd: 5, rarity: 'legendary' }
+        ]
+    }
+};
+
+const RARITY_COLORS = {
+    common: '#9ca3af',
+    uncommon: '#22c55e',
+    rare: '#3b82f6',
+    legendary: '#f59e0b'
+};
+
+// ========================================
+// Character Customization Options
+// ========================================
+
+const CHARACTER_OPTIONS = {
+    bodyTypes: [
+        { id: 'average', name: 'Average', scale: 1.0 },
+        { id: 'athletic', name: 'Athletic', scale: 0.95 },
+        { id: 'heavy', name: 'Heavy', scale: 1.15 },
+        { id: 'slim', name: 'Slim', scale: 0.85 }
+    ],
+    skinTones: [
+        { id: 'fair', name: 'Fair', color: '#FFE0BD' },
+        { id: 'light', name: 'Light', color: '#F5D0B0' },
+        { id: 'medium', name: 'Medium', color: '#D4A574' },
+        { id: 'olive', name: 'Olive', color: '#C19A6B' },
+        { id: 'tan', name: 'Tan', color: '#A67B5B' },
+        { id: 'brown', name: 'Brown', color: '#8D6E4C' },
+        { id: 'dark', name: 'Dark', color: '#5C4033' },
+        { id: 'deep', name: 'Deep', color: '#3D2B1F' }
+    ],
+    hairStyles: [
+        { id: 'none', name: 'Bald' },
+        { id: 'short', name: 'Short' },
+        { id: 'medium', name: 'Medium' },
+        { id: 'long', name: 'Long' },
+        { id: 'spiky', name: 'Spiky' },
+        { id: 'mohawk', name: 'Mohawk' },
+        { id: 'ponytail', name: 'Ponytail' },
+        { id: 'braided', name: 'Braided' }
+    ],
+    eyeStyles: [
+        { id: 'normal', name: 'Normal' },
+        { id: 'narrow', name: 'Narrow' },
+        { id: 'wide', name: 'Wide' },
+        { id: 'fierce', name: 'Fierce' }
+    ],
+    facialHair: [
+        { id: 'none', name: 'None' },
+        { id: 'stubble', name: 'Stubble' },
+        { id: 'beard', name: 'Beard' },
+        { id: 'goatee', name: 'Goatee' },
+        { id: 'mustache', name: 'Mustache' }
+    ]
+};
+
+const DEFAULT_APPEARANCE = {
+    bodyType: 'average',
+    skinTone: '#D4A574',
+    hairStyle: 'short',
+    hairColor: '#3D2B1F',
+    eyeStyle: 'normal',
+    eyeColor: '#4A3728',
+    facialHair: 'none'
+};
+
+// Current appearance selection during character creation
+let selectedAppearance = { ...DEFAULT_APPEARANCE };
+let previewRotation = 0;
+
+// ========================================
+// Classes
+// ========================================
+
+// Base class stats by class type
+const CLASS_STATS = {
+    warrior: { hp: 150, atk: 12, def: 8, spd: 4, icon: '⚔️', color: '#ef4444' },
+    mage: { hp: 80, atk: 18, def: 3, spd: 5, icon: '🔮', color: '#8b5cf6' },
+    rogue: { hp: 100, atk: 10, def: 4, spd: 8, icon: '🗡️', color: '#22c55e' }
+};
+
+class Player {
+    constructor(name, classType, appearance = null) {
+        const stats = CLASS_STATS[classType];
+        this.name = name;
+        this.classType = classType;
+        this.icon = stats.icon;
+        this.color = stats.color;
+
+        // Stats
+        this.level = 1;
+        this.xp = 0;
+        this.xpToNext = CONFIG.xpPerLevel;
+        this.maxHp = stats.hp;
+        this.hp = stats.hp;
+        this.baseAtk = stats.atk;
+        this.baseDef = stats.def;
+        this.baseSpd = stats.spd;
+        this.gold = 0;
+
+        // Combat
+        this.x = 0;
+        this.y = 0;
+        this.vx = 0;
+        this.vy = 0;
+        this.size = CONFIG.player.size; // Add size for collision detection
+        this.facing = 0; // angle in radians
+        this.isAttacking = false;
+        this.attackTimer = 0;
+        this.isDashing = false;
+        this.dashTimer = 0;
+        this.canDash = true;
+        this.invincible = false;
+        this.invincibleTimer = 0;
+        this.dashCooldownTimer = 0;
+
+        // Ability
+        this.abilityCooldown = 0;
+        this.abilityMaxCooldown = { warrior: 5000, mage: 3000, rogue: 4000 };
+
+        // Status Effects
+        this.statusEffects = {};
+
+        // Skill Points System
+        this.skillPoints = 0;
+        this.skills = {
+            vitality: 0,      // +10 max HP per point
+            strength: 0,      // +2 ATK per point
+            toughness: 0,     // +2 DEF per point
+            agility: 0,       // +1 SPD per point
+            critChance: 0,    // +2% crit chance per point
+            lifesteal: 0      // +1% lifesteal per point
+        };
+
+        // Character Appearance
+        this.appearance = appearance || { ...DEFAULT_APPEARANCE };
+
+        // Inventory
+        this.inventory = {
+            potions: 3,
+            equipmentBag: [] // Store unequipped items
+        };
+        this.equipment = {
+            weapon: null,
+            armor: null,
+            accessory: null
+        };
+
+        // Crit stats
+        this.baseCritChance = 0.15; // 15% base
+        this.baseCritDamage = 2.0;  // 2x damage
+    }
+
+    // Get crit chance including skill bonuses
+    get critChance() {
+        return this.baseCritChance + (this.skills.critChance * 0.02);
+    }
+
+    // Get lifesteal percentage
+    get lifestealPercent() {
+        return this.skills.lifesteal * 0.01;
+    }
+
+    get atk() {
+        let bonus = 0;
+        if (this.equipment.weapon) bonus += this.equipment.weapon.atk || 0;
+        if (this.equipment.armor) bonus += this.equipment.armor.atk || 0;
+        if (this.equipment.accessory) bonus += this.equipment.accessory.atk || 0;
+        return this.baseAtk + Math.floor(this.level * 1.5) + bonus + (this.skills.strength * 2);
+    }
+
+    get def() {
+        let bonus = 0;
+        if (this.equipment.weapon) bonus += this.equipment.weapon.def || 0;
+        if (this.equipment.armor) bonus += this.equipment.armor.def || 0;
+        if (this.equipment.accessory) bonus += this.equipment.accessory.def || 0;
+        return this.baseDef + Math.floor(this.level * 0.5) + bonus + (this.skills.toughness * 2);
+    }
+
+    get spd() {
+        let bonus = 0;
+        if (this.equipment.weapon) bonus += this.equipment.weapon.spd || 0;
+        if (this.equipment.armor) bonus += this.equipment.armor.spd || 0;
+        if (this.equipment.accessory) bonus += this.equipment.accessory.spd || 0;
+        return this.baseSpd + bonus + this.skills.agility;
+    }
+
+    get totalMaxHp() {
+        return this.maxHp + (this.skills.vitality * 10);
+    }
+
+    get speed() {
+        let baseSpeed = CONFIG.player.speed + (this.spd * 0.3);
+        // Apply freeze slow if affected
+        if (this.statusEffects.freeze) {
+            baseSpeed *= (1 - STATUS_EFFECTS.freeze.slowPercent);
+        }
+        return baseSpeed;
+    }
+
+    // Apply a status effect
+    applyStatusEffect(effectType) {
+        const effect = STATUS_EFFECTS[effectType];
+        if (!effect) return;
+
+        this.statusEffects[effectType] = {
+            duration: effect.duration,
+            tickTimer: effect.tickRate || 0
+        };
+    }
+
+    // Update status effects
+    updateStatusEffects(dt) {
+        for (const [type, data] of Object.entries(this.statusEffects)) {
+            const effect = STATUS_EFFECTS[type];
+
+            // Reduce duration
+            data.duration -= dt;
+
+            // Apply damage over time
+            if (effect.damagePercent && effect.tickRate) {
+                data.tickTimer -= dt;
+                if (data.tickTimer <= 0) {
+                    data.tickTimer = effect.tickRate;
+                    const damage = Math.floor(this.totalMaxHp * effect.damagePercent);
+                    this.hp = Math.max(1, this.hp - damage);
+                    showDamageNumber(this.x, this.y - 30, damage, 'dot');
+                    createParticles(this.x, this.y, effect.color, 3);
+                }
+            }
+
+            // Remove expired effects
+            if (data.duration <= 0) {
+                delete this.statusEffects[type];
+            }
+        }
+    }
+
+    // Allocate skill point
+    allocateSkill(skillName) {
+        if (this.skillPoints > 0 && this.skills.hasOwnProperty(skillName)) {
+            this.skills[skillName]++;
+            this.skillPoints--;
+
+            // If vitality, also heal for the HP bonus
+            if (skillName === 'vitality') {
+                this.hp = Math.min(this.hp + 10, this.totalMaxHp);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    takeDamage(amount) {
+        if (this.invincible) return 0;
+
+        const damage = Math.max(1, amount - this.def);
+        this.hp = Math.max(0, this.hp - damage);
+
+        // Brief invincibility
+        this.invincible = true;
+        this.invincibleTimer = 500;
+
+        return damage;
+    }
+
+    heal(amount) {
+        const healed = Math.min(amount, this.maxHp - this.hp);
+        this.hp += healed;
+        return healed;
+    }
+
+    gainXp(amount) {
+        this.xp += amount;
+        let leveledUp = false;
+
+        while (this.xp >= this.xpToNext) {
+            this.xp -= this.xpToNext;
+            this.level++;
+            this.xpToNext = Math.floor(CONFIG.xpPerLevel * Math.pow(1.2, this.level - 1));
+            this.maxHp += 10;
+            this.hp = this.totalMaxHp; // Full heal on level up
+            this.baseAtk += 2;
+            this.baseDef += 1;
+            this.skillPoints += 2; // Award 2 skill points per level
+            leveledUp = true;
+
+            // Show level up celebration
+            showLevelUp(this.level);
+        }
+
+        return leveledUp;
+    }
+
+    usePotion() {
+        if (this.inventory.potions > 0 && this.hp < this.maxHp) {
+            this.inventory.potions--;
+            const healed = this.heal(CONFIG.healAmount);
+            return healed;
+        }
+        return 0;
+    }
+
+    update(dt, canvasWidth, canvasHeight) {
+        // Movement
+        let moveX = 0;
+        let moveY = 0;
+
+        if (gameState.keys['KeyW'] || gameState.keys['ArrowUp']) moveY -= 1;
+        if (gameState.keys['KeyS'] || gameState.keys['ArrowDown']) moveY += 1;
+        if (gameState.keys['KeyA'] || gameState.keys['ArrowLeft']) moveX -= 1;
+        if (gameState.keys['KeyD'] || gameState.keys['ArrowRight']) moveX += 1;
+
+        // Normalize diagonal movement
+        if (moveX !== 0 && moveY !== 0) {
+            moveX *= 0.707;
+            moveY *= 0.707;
+        }
+
+        // Apply movement
+        if (this.isDashing) {
+            this.dashTimer -= dt;
+            if (this.dashTimer <= 0) {
+                this.isDashing = false;
+            }
+        } else {
+            this.vx = moveX * this.speed;
+            this.vy = moveY * this.speed;
+        }
+
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // Keep in bounds
+        const halfSize = CONFIG.player.size / 2;
+        this.x = Math.max(halfSize, Math.min(canvasWidth - halfSize, this.x));
+        this.y = Math.max(halfSize, Math.min(canvasHeight - halfSize, this.y));
+
+        // Face mouse
+        this.facing = Math.atan2(
+            gameState.mouse.y - this.y,
+            gameState.mouse.x - this.x
+        );
+
+        // Attack cooldown
+        if (this.attackTimer > 0) {
+            this.attackTimer -= dt;
+            if (this.attackTimer <= CONFIG.player.attackCooldown - CONFIG.player.attackAnimation) {
+                this.isAttacking = false;
+            }
+        }
+
+        // Dash cooldown
+        if (!this.canDash) {
+            this.dashCooldownTimer -= dt;
+            if (this.dashCooldownTimer <= 0) {
+                this.canDash = true;
+            }
+        }
+
+        // Invincibility
+        if (this.invincible) {
+            this.invincibleTimer -= dt;
+            if (this.invincibleTimer <= 0) {
+                this.invincible = false;
+            }
+        }
+
+        // Ability cooldown
+        if (this.abilityCooldown > 0) {
+            this.abilityCooldown -= dt;
+            // Update UI
+            const maxCd = this.abilityMaxCooldown[this.classType];
+            const cdPercent = (this.abilityCooldown / maxCd) * 100;
+            const cdEl = document.getElementById('ability-cooldown');
+            if (cdEl) cdEl.style.height = cdPercent + '%';
+        }
+    }
+
+    attack() {
+        if (this.attackTimer <= 0) {
+            this.isAttacking = true;
+            this.attackTimer = CONFIG.player.attackCooldown;
+            return true;
+        }
+        return false;
+    }
+
+    dash() {
+        if (this.canDash && !this.isDashing) {
+            this.isDashing = true;
+            this.dashTimer = CONFIG.player.dashDuration;
+            this.canDash = false;
+            this.dashCooldownTimer = CONFIG.player.dashCooldown;
+            this.invincible = true;
+            this.invincibleTimer = CONFIG.player.dashDuration;
+
+            // Dash in movement direction or facing direction
+            let dashX = 0;
+            let dashY = 0;
+
+            if (gameState.keys['KeyW'] || gameState.keys['ArrowUp']) dashY -= 1;
+            if (gameState.keys['KeyS'] || gameState.keys['ArrowDown']) dashY += 1;
+            if (gameState.keys['KeyA'] || gameState.keys['ArrowLeft']) dashX -= 1;
+            if (gameState.keys['KeyD'] || gameState.keys['ArrowRight']) dashX += 1;
+
+            if (dashX === 0 && dashY === 0) {
+                dashX = Math.cos(this.facing);
+                dashY = Math.sin(this.facing);
+            } else {
+                const len = Math.sqrt(dashX * dashX + dashY * dashY);
+                dashX /= len;
+                dashY /= len;
+            }
+
+            this.vx = dashX * CONFIG.player.dashSpeed;
+            this.vy = dashY * CONFIG.player.dashSpeed;
+
+            // Create dash particles
+            createParticles(this.x, this.y, this.color, 8);
+
+            // Track dodge statistic
+            trackDodge();
+
+            return true;
+        }
+        return false;
+    }
+
+    draw(ctx) {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+
+        // Invincibility flash
+        if (this.invincible && Math.floor(Date.now() / 100) % 2 === 0) {
+            ctx.globalAlpha = 0.5;
+        }
+
+        // Apply body scale from appearance
+        const bodyType = CHARACTER_OPTIONS.bodyTypes.find(b => b.id === this.appearance.bodyType);
+        const bodyScale = bodyType ? bodyType.scale : 1.0;
+        ctx.scale(bodyScale, bodyScale);
+
+        // Layer 1: Body/Torso
+        this.drawBody(ctx);
+
+        // Layer 2: Head with skin
+        this.drawHead(ctx);
+
+        // Layer 3: Eyes
+        this.drawEyes(ctx);
+
+        // Layer 4: Facial hair (before hair for proper layering)
+        this.drawFacialHair(ctx);
+
+        // Layer 5: Hair
+        this.drawHair(ctx);
+
+        // Layer 6: Class outfit/armor
+        this.drawOutfit(ctx);
+
+        // Direction indicator (reset scale first)
+        ctx.scale(1/bodyScale, 1/bodyScale);
+        ctx.rotate(this.facing);
+        ctx.beginPath();
+        ctx.moveTo(CONFIG.player.size / 2, 0);
+        ctx.lineTo(CONFIG.player.size / 2 + 10, 0);
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        // Attack swing
+        if (this.isAttacking) {
+            ctx.beginPath();
+            ctx.arc(0, 0, CONFIG.player.attackRange, -Math.PI / 3, Math.PI / 3);
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+            ctx.lineWidth = 4;
+            ctx.stroke();
+        }
+
+        ctx.restore();
+    }
+
+    drawBody(ctx) {
+        const size = CONFIG.player.size;
+        // Torso - elliptical body shape
+        ctx.beginPath();
+        ctx.ellipse(0, size * 0.15, size * 0.28, size * 0.35, 0, 0, Math.PI * 2);
+        ctx.fillStyle = this.appearance.skinTone;
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+    }
+
+    drawHead(ctx) {
+        const size = CONFIG.player.size;
+        // Head - circle
+        ctx.beginPath();
+        ctx.arc(0, -size * 0.25, size * 0.22, 0, Math.PI * 2);
+        ctx.fillStyle = this.appearance.skinTone;
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(0,0,0,0.15)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+    }
+
+    drawEyes(ctx) {
+        const size = CONFIG.player.size;
+        const eyeY = -size * 0.27;
+        const eyeSpacing = size * 0.08;
+
+        // Get eye style properties
+        let eyeWidth = 3.5;
+        let eyeHeight = 2.5;
+
+        switch (this.appearance.eyeStyle) {
+            case 'narrow':
+                eyeWidth = 4;
+                eyeHeight = 1.5;
+                break;
+            case 'wide':
+                eyeWidth = 4;
+                eyeHeight = 3.5;
+                break;
+            case 'fierce':
+                eyeWidth = 3;
+                eyeHeight = 2;
+                break;
+        }
+
+        // Eye whites
+        ctx.fillStyle = '#fff';
+        ctx.beginPath();
+        ctx.ellipse(-eyeSpacing, eyeY, eyeWidth, eyeHeight, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.ellipse(eyeSpacing, eyeY, eyeWidth, eyeHeight, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Pupils/Iris
+        ctx.fillStyle = this.appearance.eyeColor;
+        ctx.beginPath();
+        ctx.arc(-eyeSpacing, eyeY, 1.8, 0, Math.PI * 2);
+        ctx.arc(eyeSpacing, eyeY, 1.8, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Pupil center (black)
+        ctx.fillStyle = '#000';
+        ctx.beginPath();
+        ctx.arc(-eyeSpacing, eyeY, 0.8, 0, Math.PI * 2);
+        ctx.arc(eyeSpacing, eyeY, 0.8, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    drawHair(ctx) {
+        if (this.appearance.hairStyle === 'none') return;
+
+        const size = CONFIG.player.size;
+        ctx.fillStyle = this.appearance.hairColor;
+
+        switch (this.appearance.hairStyle) {
+            case 'short':
+                // Short cropped hair
+                ctx.beginPath();
+                ctx.arc(0, -size * 0.35, size * 0.18, Math.PI, 0);
+                ctx.quadraticCurveTo(size * 0.15, -size * 0.25, size * 0.1, -size * 0.15);
+                ctx.lineTo(-size * 0.1, -size * 0.15);
+                ctx.quadraticCurveTo(-size * 0.15, -size * 0.25, 0, -size * 0.35);
+                ctx.fill();
+                break;
+
+            case 'medium':
+                // Medium length hair
+                ctx.beginPath();
+                ctx.arc(0, -size * 0.35, size * 0.2, Math.PI * 0.9, Math.PI * 0.1);
+                ctx.quadraticCurveTo(size * 0.2, -size * 0.15, size * 0.18, -size * 0.05);
+                ctx.lineTo(-size * 0.18, -size * 0.05);
+                ctx.quadraticCurveTo(-size * 0.2, -size * 0.15, -size * 0.18, -size * 0.35);
+                ctx.fill();
+                break;
+
+            case 'long':
+                // Long flowing hair
+                ctx.beginPath();
+                ctx.arc(0, -size * 0.35, size * 0.22, Math.PI * 0.85, Math.PI * 0.15);
+                ctx.quadraticCurveTo(size * 0.25, 0, size * 0.2, size * 0.15);
+                ctx.lineTo(-size * 0.2, size * 0.15);
+                ctx.quadraticCurveTo(-size * 0.25, 0, -size * 0.22, -size * 0.35);
+                ctx.fill();
+                break;
+
+            case 'spiky':
+                // Spiky anime-style hair
+                for (let i = -4; i <= 4; i++) {
+                    ctx.beginPath();
+                    const baseX = i * size * 0.04;
+                    const baseY = -size * 0.35;
+                    const tipY = -size * 0.55 - Math.abs(i) * size * 0.02;
+                    ctx.moveTo(baseX - size * 0.03, baseY);
+                    ctx.lineTo(baseX, tipY);
+                    ctx.lineTo(baseX + size * 0.03, baseY);
+                    ctx.fill();
+                }
+                // Base cap
+                ctx.beginPath();
+                ctx.arc(0, -size * 0.35, size * 0.18, Math.PI, 0);
+                ctx.fill();
+                break;
+
+            case 'mohawk':
+                // Mohawk style
+                ctx.beginPath();
+                ctx.moveTo(-size * 0.04, -size * 0.35);
+                ctx.lineTo(0, -size * 0.6);
+                ctx.lineTo(size * 0.04, -size * 0.35);
+                ctx.fill();
+                // Add more spikes along the mohawk
+                for (let i = 0; i < 3; i++) {
+                    ctx.beginPath();
+                    const offsetY = -size * 0.25 + i * size * 0.08;
+                    ctx.moveTo(-size * 0.03, offsetY);
+                    ctx.lineTo(0, offsetY - size * 0.15);
+                    ctx.lineTo(size * 0.03, offsetY);
+                    ctx.fill();
+                }
+                break;
+
+            case 'ponytail':
+                // Short top with ponytail
+                ctx.beginPath();
+                ctx.arc(0, -size * 0.35, size * 0.18, Math.PI, 0);
+                ctx.fill();
+                // Ponytail
+                ctx.beginPath();
+                ctx.moveTo(0, -size * 0.2);
+                ctx.quadraticCurveTo(size * 0.1, -size * 0.1, size * 0.08, size * 0.1);
+                ctx.lineTo(-size * 0.02, size * 0.08);
+                ctx.quadraticCurveTo(size * 0.02, -size * 0.1, 0, -size * 0.2);
+                ctx.fill();
+                break;
+
+            case 'braided':
+                // Braided hair
+                ctx.beginPath();
+                ctx.arc(0, -size * 0.35, size * 0.18, Math.PI, 0);
+                ctx.fill();
+                // Two braids
+                for (let side of [-1, 1]) {
+                    for (let i = 0; i < 4; i++) {
+                        ctx.beginPath();
+                        const bx = side * size * 0.15;
+                        const by = -size * 0.1 + i * size * 0.08;
+                        ctx.arc(bx, by, size * 0.04, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+                break;
+        }
+    }
+
+    drawFacialHair(ctx) {
+        if (this.appearance.facialHair === 'none') return;
+
+        const size = CONFIG.player.size;
+        // Use darker version of hair color for facial hair
+        ctx.fillStyle = this.appearance.hairColor;
+
+        switch (this.appearance.facialHair) {
+            case 'stubble':
+                // Dotted stubble pattern
+                ctx.fillStyle = this.appearance.hairColor + '80'; // Semi-transparent
+                for (let i = 0; i < 15; i++) {
+                    const sx = (Math.random() - 0.5) * size * 0.15;
+                    const sy = -size * 0.12 + Math.random() * size * 0.08;
+                    ctx.beginPath();
+                    ctx.arc(sx, sy, 0.5, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                break;
+
+            case 'beard':
+                // Full beard
+                ctx.beginPath();
+                ctx.moveTo(-size * 0.12, -size * 0.15);
+                ctx.quadraticCurveTo(-size * 0.15, -size * 0.05, -size * 0.1, size * 0.02);
+                ctx.quadraticCurveTo(0, size * 0.08, size * 0.1, size * 0.02);
+                ctx.quadraticCurveTo(size * 0.15, -size * 0.05, size * 0.12, -size * 0.15);
+                ctx.fill();
+                break;
+
+            case 'goatee':
+                // Goatee
+                ctx.beginPath();
+                ctx.moveTo(-size * 0.04, -size * 0.12);
+                ctx.quadraticCurveTo(-size * 0.05, 0, 0, size * 0.04);
+                ctx.quadraticCurveTo(size * 0.05, 0, size * 0.04, -size * 0.12);
+                ctx.fill();
+                break;
+
+            case 'mustache':
+                // Handlebar mustache
+                ctx.beginPath();
+                ctx.moveTo(-size * 0.08, -size * 0.15);
+                ctx.quadraticCurveTo(-size * 0.12, -size * 0.12, -size * 0.1, -size * 0.14);
+                ctx.lineTo(0, -size * 0.13);
+                ctx.lineTo(size * 0.1, -size * 0.14);
+                ctx.quadraticCurveTo(size * 0.12, -size * 0.12, size * 0.08, -size * 0.15);
+                ctx.fill();
+                break;
+        }
+    }
+
+    drawOutfit(ctx) {
+        const size = CONFIG.player.size;
+        ctx.fillStyle = this.color; // Class color
+
+        switch (this.classType) {
+            case 'warrior':
+                // Armor chest plate
+                ctx.beginPath();
+                ctx.moveTo(-size * 0.22, size * 0.0);
+                ctx.lineTo(size * 0.22, size * 0.0);
+                ctx.lineTo(size * 0.18, size * 0.3);
+                ctx.lineTo(-size * 0.18, size * 0.3);
+                ctx.closePath();
+                ctx.fill();
+                // Shoulder pads
+                ctx.beginPath();
+                ctx.ellipse(-size * 0.25, size * 0.02, size * 0.08, size * 0.06, 0, 0, Math.PI * 2);
+                ctx.ellipse(size * 0.25, size * 0.02, size * 0.08, size * 0.06, 0, 0, Math.PI * 2);
+                ctx.fill();
+                // Metal shine
+                ctx.fillStyle = 'rgba(255,255,255,0.3)';
+                ctx.beginPath();
+                ctx.moveTo(-size * 0.1, size * 0.05);
+                ctx.lineTo(size * 0.05, size * 0.05);
+                ctx.lineTo(size * 0.02, size * 0.15);
+                ctx.lineTo(-size * 0.08, size * 0.15);
+                ctx.fill();
+                break;
+
+            case 'mage':
+                // Robe
+                ctx.beginPath();
+                ctx.moveTo(-size * 0.18, size * -0.02);
+                ctx.lineTo(size * 0.18, size * -0.02);
+                ctx.lineTo(size * 0.22, size * 0.4);
+                ctx.lineTo(-size * 0.22, size * 0.4);
+                ctx.closePath();
+                ctx.fill();
+                // Robe collar
+                ctx.beginPath();
+                ctx.moveTo(-size * 0.12, -size * 0.05);
+                ctx.quadraticCurveTo(0, -size * 0.12, size * 0.12, -size * 0.05);
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = 3;
+                ctx.stroke();
+                // Magic glow effect
+                ctx.fillStyle = 'rgba(139, 92, 246, 0.3)';
+                ctx.beginPath();
+                ctx.arc(0, size * 0.1, size * 0.1, 0, Math.PI * 2);
+                ctx.fill();
+                break;
+
+            case 'rogue':
+                // Leather vest
+                ctx.beginPath();
+                ctx.moveTo(-size * 0.18, size * 0.0);
+                ctx.lineTo(size * 0.18, size * 0.0);
+                ctx.lineTo(size * 0.15, size * 0.28);
+                ctx.lineTo(-size * 0.15, size * 0.28);
+                ctx.closePath();
+                ctx.fill();
+                // Belt
+                ctx.fillStyle = '#8B4513';
+                ctx.fillRect(-size * 0.16, size * 0.18, size * 0.32, size * 0.04);
+                // Belt buckle
+                ctx.fillStyle = '#FFD700';
+                ctx.fillRect(-size * 0.03, size * 0.17, size * 0.06, size * 0.06);
+                // Hood outline
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(0, -size * 0.25, size * 0.28, Math.PI * 0.7, Math.PI * 0.3, true);
+                ctx.stroke();
+                break;
+        }
+    }
+
+    useAbility() {
+
+        if (this.abilityCooldown > 0) return false;
+
+        const maxCd = this.abilityMaxCooldown[this.classType];
+        this.abilityCooldown = maxCd;
+
+        switch (this.classType) {
+            case 'warrior':
+                // Shield Bash - stun and damage nearby enemies
+                gameState.enemies.forEach(enemy => {
+                    const dx = enemy.x - this.x;
+                    const dy = enemy.y - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 100) {
+                        enemy.stunned = true;
+                        enemy.stunnedTimer = 1500;
+                        enemy.takeDamage(Math.floor(this.atk * 0.5));
+                        showDamageNumber(enemy.x, enemy.y - 30, Math.floor(this.atk * 0.5), 'enemy');
+                        createParticles(enemy.x, enemy.y, '#fbbf24', 8);
+                    }
+                });
+                createParticles(this.x, this.y, '#fbbf24', 15);
+                showToast('Shield Bash!');
+                break;
+
+            case 'mage':
+                // Fireball - launch projectile toward mouse
+                const angle = Math.atan2(gameState.mouse.y - this.y, gameState.mouse.x - this.x);
+                const fireball = new Projectile(
+                    this.x + Math.cos(angle) * 30,
+                    this.y + Math.sin(angle) * 30,
+                    angle,
+                    8,
+                    Math.floor(this.atk * 1.5),
+                    'player',
+                    '#f97316'
+                );
+                gameState.projectiles.push(fireball);
+                createParticles(this.x, this.y, '#f97316', 8);
+                showToast('Fireball!');
+                break;
+
+            case 'rogue':
+                // Backstab - teleport behind nearest enemy and deal damage
+                let nearestEnemy = null;
+                let nearestDist = Infinity;
+
+                gameState.enemies.forEach(enemy => {
+                    const dx = enemy.x - this.x;
+                    const dy = enemy.y - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < nearestDist && dist < 300) {
+                        nearestDist = dist;
+                        nearestEnemy = enemy;
+                    }
+                });
+
+                if (nearestEnemy) {
+                    // Teleport behind enemy
+                    const behindAngle = Math.atan2(this.y - nearestEnemy.y, this.x - nearestEnemy.x);
+                    createParticles(this.x, this.y, '#22c55e', 10);
+
+                    this.x = nearestEnemy.x + Math.cos(behindAngle) * 40;
+                    this.y = nearestEnemy.y + Math.sin(behindAngle) * 40;
+
+                    // Deal backstab damage
+                    const damage = Math.floor(this.atk * 2);
+                    nearestEnemy.takeDamage(damage);
+                    showDamageNumber(nearestEnemy.x, nearestEnemy.y - 30, damage, 'crit');
+                    createParticles(nearestEnemy.x, nearestEnemy.y, '#22c55e', 12);
+                    showToast('Backstab!');
+                } else {
+                    // Refund cooldown if no target
+                    this.abilityCooldown = 0;
+                    showToast('No target!');
+                }
+                break;
+        }
+
+        return true;
+    }
+}
+
+class Enemy {
+    constructor(type, x, y, dungeonLevel) {
+        this.type = type;
+        this.x = x;
+        this.y = y;
+
+        const enemyData = ENEMY_TYPES[type];
+        this.name = enemyData.name;
+        this.icon = enemyData.icon;
+        this.color = enemyData.color;
+        this.size = CONFIG.enemy.baseSize * enemyData.sizeMultiplier;
+
+        // Scale stats with dungeon level
+        const levelMultiplier = 1 + (dungeonLevel - 1) * 0.3;
+        this.maxHp = Math.floor(enemyData.hp * levelMultiplier);
+        this.hp = this.maxHp;
+        this.baseAtk = Math.floor(enemyData.atk * levelMultiplier);
+        this.atk = this.baseAtk;
+        this.baseSpeed = CONFIG.enemy.baseSpeed * enemyData.speedMultiplier;
+        this.speed = this.baseSpeed;
+        this.xpReward = Math.floor(enemyData.xp * levelMultiplier);
+        this.goldReward = Math.floor(enemyData.gold * levelMultiplier);
+
+        this.attackCooldown = CONFIG.enemy.attackCooldown;
+        this.attackTimer = this.attackCooldown;
+        this.knockbackX = 0;
+        this.knockbackY = 0;
+
+        this.pattern = enemyData.pattern || 'chase';
+        this.patternTimer = 0;
+        this.patternPhase = 0;
+
+        // Ranged attack properties
+        this.rangedAttack = enemyData.rangedAttack || false;
+        this.projectileSpeed = enemyData.projectileSpeed || 5;
+        this.projectileColor = enemyData.projectileColor || this.color;
+        this.attackRange = enemyData.attackRange || CONFIG.enemy.attackRange;
+
+        // Status effect properties
+        this.statusEffect = enemyData.statusEffect || null;
+        this.statusChance = enemyData.statusChance || 0;
+
+        // Stun
+        this.stunned = false;
+        this.stunnedTimer = 0;
+
+        // Boss flag and phases
+        this.isBoss = false;
+        this.phases = [];
+        this.triggeredPhases = new Set();
+
+        // Teleport pattern
+        this.teleportCooldown = 3000;
+        this.teleportTimer = this.teleportCooldown;
+
+        // Projectile multiplier for boss phases
+        this.projectileMulti = 1;
+    }
+
+    takeDamage(amount) {
+        this.hp = Math.max(0, this.hp - amount);
+        return amount;
+    }
+
+    update(dt, player, canvasWidth, canvasHeight) {
+        // Handle stun
+        if (this.stunned) {
+            this.stunnedTimer -= dt;
+            if (this.stunnedTimer <= 0) {
+                this.stunned = false;
+            }
+            return { canAttack: false, canRangedAttack: false }; // Skip all actions while stunned
+        }
+
+        const dx = player.x - this.x;
+        const dy = player.y - this.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        // Apply knockback
+        if (Math.abs(this.knockbackX) > 0.1 || Math.abs(this.knockbackY) > 0.1) {
+            this.x += this.knockbackX;
+            this.y += this.knockbackY;
+            this.knockbackX *= 0.85;
+            this.knockbackY *= 0.85;
+        } else {
+            // Movement based on pattern
+            if (this.pattern === 'chase' || this.pattern === 'boss') {
+                if (dist > CONFIG.enemy.attackRange) {
+                    this.x += (dx / dist) * this.speed;
+                    this.y += (dy / dist) * this.speed;
+                }
+            } else if (this.pattern === 'strafe') {
+                this.patternTimer += dt;
+                const strafeAngle = Math.atan2(dy, dx) + Math.sin(this.patternTimer / 500) * Math.PI / 2;
+                if (dist > CONFIG.enemy.attackRange * 1.5) {
+                    this.x += Math.cos(strafeAngle) * this.speed;
+                    this.y += Math.sin(strafeAngle) * this.speed;
+                } else if (dist < CONFIG.enemy.attackRange) {
+                    this.x -= Math.cos(strafeAngle) * this.speed;
+                    this.y -= Math.sin(strafeAngle) * this.speed;
+                }
+            } else if (this.pattern === 'ranged') {
+                // Stay at range and strafe
+                const idealDist = this.attackRange * 0.7;
+                this.patternTimer += dt;
+                const strafeAngle = Math.atan2(dy, dx) + Math.sin(this.patternTimer / 600) * Math.PI / 3;
+
+                if (dist > idealDist + 50) {
+                    // Move closer
+                    this.x += (dx / dist) * this.speed;
+                    this.y += (dy / dist) * this.speed;
+                } else if (dist < idealDist - 50) {
+                    // Move away
+                    this.x -= (dx / dist) * this.speed;
+                    this.y -= (dy / dist) * this.speed;
+                } else {
+                    // Strafe side to side
+                    this.x += Math.cos(strafeAngle + Math.PI/2) * this.speed * 0.5;
+                    this.y += Math.sin(strafeAngle + Math.PI/2) * this.speed * 0.5;
+                }
+            } else if (this.pattern === 'teleport') {
+                // Teleport pattern - occasionally teleport to random position
+                this.teleportTimer -= dt;
+                if (this.teleportTimer <= 0 && dist < 200) {
+                    this.teleportTimer = this.teleportCooldown;
+                    // Teleport to a random position away from player
+                    const teleportAngle = Math.random() * Math.PI * 2;
+                    const teleportDist = 150 + Math.random() * 100;
+                    const newX = player.x + Math.cos(teleportAngle) * teleportDist;
+                    const newY = player.y + Math.sin(teleportAngle) * teleportDist;
+
+                    // Clamp to bounds
+                    this.x = Math.max(this.size, Math.min(canvasWidth - this.size, newX));
+                    this.y = Math.max(this.size, Math.min(canvasHeight - this.size, newY));
+
+                    createParticles(this.x, this.y, this.color, 10);
+                } else {
+                    // Chase when not teleporting
+                    if (dist > CONFIG.enemy.attackRange) {
+                        this.x += (dx / dist) * this.speed;
+                        this.y += (dy / dist) * this.speed;
+                    }
+                }
+            }
+        }
+
+        // Keep in bounds
+        this.x = Math.max(this.size, Math.min(canvasWidth - this.size, this.x));
+        this.y = Math.max(this.size, Math.min(canvasHeight - this.size, this.y));
+
+        // Attack cooldown
+        this.attackTimer -= dt;
+
+        // Check for melee attack
+        const canMelee = this.attackTimer <= 0 && dist < CONFIG.enemy.attackRange && !this.rangedAttack;
+
+        // Check for ranged attack
+        const canRanged = this.attackTimer <= 0 && dist < this.attackRange && this.rangedAttack;
+
+        return {
+            distance: dist,
+            canAttack: canMelee,
+            canRangedAttack: canRanged,
+            angle: Math.atan2(dy, dx)
+        };
+    }
+
+    // Perform ranged attack
+    performRangedAttack(angle) {
+        this.attackTimer = this.attackCooldown;
+        const projectiles = [];
+
+        // Fire multiple projectiles if projectileMulti > 1
+        const count = this.projectileMulti || 1;
+        const spreadAngle = count > 1 ? Math.PI / 6 : 0;
+
+        for (let i = 0; i < count; i++) {
+            let projAngle = angle;
+            if (count > 1) {
+                projAngle = angle - spreadAngle/2 + (spreadAngle * i / (count - 1));
+            }
+
+            projectiles.push(new Projectile(
+                this.x + Math.cos(projAngle) * (this.size / 2 + 5),
+                this.y + Math.sin(projAngle) * (this.size / 2 + 5),
+                projAngle,
+                this.projectileSpeed,
+                this.atk,
+                'enemy',
+                this.projectileColor,
+                this.statusEffect,  // Pass status effect
+                this.statusChance   // Pass status chance
+            ));
+        }
+
+        return projectiles;
+    }
+
+    // Check and trigger boss phases
+    checkPhases(canvas) {
+        if (!this.isBoss || !this.phases) return [];
+
+        const hpPercent = this.hp / this.maxHp;
+        const spawnedEnemies = [];
+
+        for (const phase of this.phases) {
+            if (hpPercent <= phase.hpPercent && !this.triggeredPhases.has(phase.hpPercent)) {
+                this.triggeredPhases.add(phase.hpPercent);
+
+                // Show phase message
+                if (phase.message) {
+                    showToast(`⚠️ ${phase.message}`);
+                }
+
+                // Apply speed boost
+                if (phase.speedBoost) {
+                    this.speed = this.baseSpeed * phase.speedBoost;
+                }
+
+                // Apply attack boost
+                if (phase.atkBoost) {
+                    this.atk = Math.floor(this.baseAtk * phase.atkBoost);
+                }
+
+                // Apply projectile multiplier
+                if (phase.projectileMulti) {
+                    this.projectileMulti = phase.projectileMulti;
+                }
+
+                // Summon minions
+                if (phase.summon && phase.count) {
+                    for (let i = 0; i < phase.count; i++) {
+                        const spawnAngle = Math.random() * Math.PI * 2;
+                        const spawnDist = 80 + Math.random() * 50;
+                        const spawnX = this.x + Math.cos(spawnAngle) * spawnDist;
+                        const spawnY = this.y + Math.sin(spawnAngle) * spawnDist;
+
+                        if (ENEMY_TYPES[phase.summon]) {
+                            const minion = new Enemy(
+                                phase.summon,
+                                Math.max(50, Math.min(canvas.width - 50, spawnX)),
+                                Math.max(50, Math.min(canvas.height - 50, spawnY)),
+                                gameState.currentDungeon.level
+                            );
+                            spawnedEnemies.push(minion);
+                            createParticles(minion.x, minion.y, minion.color, 8);
+                        }
+                    }
+                }
+            }
+        }
+
+        return spawnedEnemies;
+    }
+
+    attack() {
+        this.attackTimer = this.attackCooldown;
+    }
+
+    draw(ctx) {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+
+        // Shadow
+        ctx.beginPath();
+        ctx.ellipse(0, this.size / 2, this.size / 2, this.size / 4, 0, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        ctx.fill();
+
+        // Body
+        ctx.beginPath();
+        ctx.arc(0, 0, this.size / 2, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Icon
+        ctx.font = `${this.size * 0.8}px serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(this.icon, 0, 0);
+
+        ctx.restore();
+
+        // HP Bar
+        const barWidth = this.size * 1.2;
+        const barHeight = 6;
+        const barY = this.y - this.size / 2 - 12;
+
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.fillRect(this.x - barWidth / 2, barY, barWidth, barHeight);
+
+        const hpPercent = this.hp / this.maxHp;
+        ctx.fillStyle = hpPercent > 0.3 ? '#ef4444' : '#ff0000';
+        ctx.fillRect(this.x - barWidth / 2, barY, barWidth * hpPercent, barHeight);
+    }
+}
+
+// ========================================
+// Enemy Types
+// ========================================
+const ENEMY_TYPES = {
+    slime: {
+        name: 'Slime',
+        icon: '🟢',
+        color: '#22c55e',
+        hp: 30,
+        atk: 5,
+        sizeMultiplier: 0.8,
+        speedMultiplier: 0.7,
+        xp: 15,
+        gold: 5,
+        pattern: 'chase',
+        statusEffect: 'poison', // Can inflict poison
+        statusChance: 0.15
+    },
+    bat: {
+        name: 'Bat',
+        icon: '🦇',
+        color: '#6b21a8',
+        hp: 20,
+        atk: 8,
+        sizeMultiplier: 0.7,
+        speedMultiplier: 1.5,
+        xp: 20,
+        gold: 8,
+        pattern: 'strafe'
+    },
+    skeleton: {
+        name: 'Skeleton',
+        icon: '💀',
+        color: '#e2e8f0',
+        hp: 50,
+        atk: 12,
+        sizeMultiplier: 1,
+        speedMultiplier: 0.9,
+        xp: 30,
+        gold: 15,
+        pattern: 'chase'
+    },
+    skeletonArcher: {
+        name: 'Skeleton Archer',
+        icon: '🏹',
+        color: '#d1d5db',
+        hp: 35,
+        atk: 10,
+        sizeMultiplier: 0.9,
+        speedMultiplier: 0.7,
+        xp: 35,
+        gold: 20,
+        pattern: 'ranged',
+        rangedAttack: true,
+        projectileSpeed: 5,
+        attackRange: 300
+    },
+    ghost: {
+        name: 'Ghost',
+        icon: '👻',
+        color: '#a5b4fc',
+        hp: 40,
+        atk: 15,
+        sizeMultiplier: 1,
+        speedMultiplier: 1.2,
+        xp: 35,
+        gold: 20,
+        pattern: 'strafe',
+        statusEffect: 'freeze',
+        statusChance: 0.20
+    },
+    orc: {
+        name: 'Orc',
+        icon: '👹',
+        color: '#65a30d',
+        hp: 80,
+        atk: 18,
+        sizeMultiplier: 1.3,
+        speedMultiplier: 0.6,
+        xp: 50,
+        gold: 30,
+        pattern: 'chase',
+        statusEffect: 'bleed',
+        statusChance: 0.25
+    },
+    darkMage: {
+        name: 'Dark Mage',
+        icon: '🧙',
+        color: '#7c3aed',
+        hp: 45,
+        atk: 20,
+        sizeMultiplier: 1,
+        speedMultiplier: 0.6,
+        xp: 60,
+        gold: 40,
+        pattern: 'ranged',
+        rangedAttack: true,
+        projectileSpeed: 6,
+        projectileColor: '#a855f7',
+        attackRange: 350
+    },
+    demon: {
+        name: 'Demon',
+        icon: '😈',
+        color: '#dc2626',
+        hp: 100,
+        atk: 25,
+        sizeMultiplier: 1.4,
+        speedMultiplier: 0.8,
+        xp: 75,
+        gold: 50,
+        pattern: 'chase',
+        statusEffect: 'burn',
+        statusChance: 0.30
+    },
+    fireElemental: {
+        name: 'Fire Elemental',
+        icon: '🔥',
+        color: '#f97316',
+        hp: 70,
+        atk: 18,
+        sizeMultiplier: 1.2,
+        speedMultiplier: 1.0,
+        xp: 65,
+        gold: 45,
+        pattern: 'ranged',
+        rangedAttack: true,
+        projectileSpeed: 7,
+        projectileColor: '#f97316',
+        attackRange: 250,
+        statusEffect: 'burn',
+        statusChance: 0.40
+    },
+    iceElemental: {
+        name: 'Ice Elemental',
+        icon: '❄️',
+        color: '#38bdf8',
+        hp: 75,
+        atk: 16,
+        sizeMultiplier: 1.2,
+        speedMultiplier: 0.9,
+        xp: 65,
+        gold: 45,
+        pattern: 'ranged',
+        rangedAttack: true,
+        projectileSpeed: 6,
+        projectileColor: '#38bdf8',
+        attackRange: 280,
+        statusEffect: 'freeze',
+        statusChance: 0.35
+    },
+    dragon: {
+        name: 'Dragon',
+        icon: '🐉',
+        color: '#f59e0b',
+        hp: 200,
+        atk: 35,
+        sizeMultiplier: 1.8,
+        speedMultiplier: 0.5,
+        xp: 150,
+        gold: 100,
+        pattern: 'strafe',
+        rangedAttack: true,
+        projectileSpeed: 8,
+        projectileColor: '#ef4444',
+        attackRange: 400,
+        statusEffect: 'burn',
+        statusChance: 0.50
+    },
+    voidWalker: {
+        name: 'Void Walker',
+        icon: '👁️',
+        color: '#1e1b4b',
+        hp: 120,
+        atk: 28,
+        sizeMultiplier: 1.3,
+        speedMultiplier: 1.1,
+        xp: 100,
+        gold: 80,
+        pattern: 'teleport',
+        statusEffect: 'poison',
+        statusChance: 0.35
+    }
+};
+
+// ========================================
+// Boss Types
+// ========================================
+const BOSS_TYPES = {
+    slimeKing: {
+        name: 'Slime King',
+        icon: '👑',
+        color: '#15803d',
+        hp: 500,
+        atk: 20,
+        sizeMultiplier: 2.5,
+        speedMultiplier: 0.4,
+        xp: 200,
+        gold: 150,
+        pattern: 'boss',
+        statusEffect: 'poison',
+        statusChance: 0.30,
+        phases: [
+            { hpPercent: 0.5, speedBoost: 1.3, message: 'Slime King is enraged!' }
+        ]
+    },
+    lich: {
+        name: 'The Lich',
+        icon: '☠️',
+        color: '#581c87',
+        hp: 600,
+        atk: 25,
+        sizeMultiplier: 2,
+        speedMultiplier: 0.5,
+        xp: 300,
+        gold: 200,
+        pattern: 'boss',
+        rangedAttack: true,
+        projectileSpeed: 5,
+        projectileColor: '#a855f7',
+        attackRange: 350,
+        phases: [
+            { hpPercent: 0.6, summon: 'skeleton', count: 2, message: 'The Lich summons minions!' },
+            { hpPercent: 0.3, atkBoost: 1.5, message: 'The Lich channels dark magic!' }
+        ]
+    },
+    orcWarlord: {
+        name: 'Orc Warlord',
+        icon: '👹',
+        color: '#166534',
+        hp: 800,
+        atk: 35,
+        sizeMultiplier: 2.2,
+        speedMultiplier: 0.6,
+        xp: 400,
+        gold: 250,
+        pattern: 'boss',
+        statusEffect: 'bleed',
+        statusChance: 0.40,
+        phases: [
+            { hpPercent: 0.7, summon: 'orc', count: 1, message: 'Orc Warlord calls for reinforcements!' },
+            { hpPercent: 0.4, speedBoost: 1.5, atkBoost: 1.3, message: 'Orc Warlord goes berserk!' }
+        ]
+    },
+    infernalLord: {
+        name: 'Infernal Lord',
+        icon: '👿',
+        color: '#b91c1c',
+        hp: 1000,
+        atk: 40,
+        sizeMultiplier: 2.5,
+        speedMultiplier: 0.5,
+        xp: 500,
+        gold: 350,
+        pattern: 'boss',
+        rangedAttack: true,
+        projectileSpeed: 7,
+        projectileColor: '#ef4444',
+        attackRange: 300,
+        statusEffect: 'burn',
+        statusChance: 0.50,
+        phases: [
+            { hpPercent: 0.6, summon: 'fireElemental', count: 2, message: 'Fire Elementals emerge!' },
+            { hpPercent: 0.3, atkBoost: 1.5, projectileMulti: 3, message: 'The Infernal Lord unleashes hellfire!' }
+        ]
+    },
+    voidEmperor: {
+        name: 'Void Emperor',
+        icon: '🌀',
+        color: '#0f172a',
+        hp: 1200,
+        atk: 45,
+        sizeMultiplier: 2.3,
+        speedMultiplier: 0.7,
+        xp: 600,
+        gold: 400,
+        pattern: 'boss',
+        statusEffect: 'freeze',
+        statusChance: 0.35,
+        phases: [
+            { hpPercent: 0.7, summon: 'voidWalker', count: 1, message: 'A Void Walker appears!' },
+            { hpPercent: 0.5, teleport: true, message: 'The Void Emperor warps reality!' },
+            { hpPercent: 0.25, atkBoost: 2.0, message: 'The Void consumes all!' }
+        ]
+    },
+    elderDragon: {
+        name: 'Elder Dragon',
+        icon: '🐲',
+        color: '#ca8a04',
+        hp: 1500,
+        atk: 50,
+        sizeMultiplier: 3.0,
+        speedMultiplier: 0.4,
+        xp: 800,
+        gold: 500,
+        pattern: 'boss',
+        rangedAttack: true,
+        projectileSpeed: 9,
+        projectileColor: '#eab308',
+        attackRange: 450,
+        statusEffect: 'burn',
+        statusChance: 0.60,
+        phases: [
+            { hpPercent: 0.7, message: 'The Elder Dragon takes flight!' },
+            { hpPercent: 0.5, projectileMulti: 5, message: 'Dragon breathes fire in all directions!' },
+            { hpPercent: 0.25, atkBoost: 1.8, speedBoost: 1.5, message: 'Elder Dragon enters a fury!' }
+        ]
+    }
+};
+
+// ========================================
+// Projectile Class
+// ========================================
+class Projectile {
+    constructor(x, y, angle, speed, damage, owner, color = '#f59e0b', statusEffect = null, statusChance = 0) {
+        this.x = x;
+        this.y = y;
+        this.angle = angle;
+        this.speed = speed;
+        this.damage = damage;
+        this.owner = owner; // 'player' or 'enemy'
+        this.color = color;
+        this.statusEffect = statusEffect;
+        this.statusChance = statusChance;
+        this.size = 8;
+        this.life = 2000; // ms
+        this.vx = Math.cos(angle) * speed;
+        this.vy = Math.sin(angle) * speed;
+    }
+
+    update(dt) {
+        this.x += this.vx * dt * 0.06;
+        this.y += this.vy * dt * 0.06;
+        this.life -= dt;
+        return this.life > 0;
+    }
+
+    draw(ctx) {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.angle);
+
+        // Glow
+        ctx.shadowColor = this.color;
+        ctx.shadowBlur = 15;
+
+        // Fireball shape
+        ctx.beginPath();
+        ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+
+        // Core
+        ctx.beginPath();
+        ctx.arc(0, 0, this.size * 0.5, 0, Math.PI * 2);
+        ctx.fillStyle = '#fff';
+        ctx.fill();
+
+        ctx.restore();
+    }
+}
+
+// ========================================
+// Loot Class
+// ========================================
+const LOOT_TYPES = {
+    gold: { icon: '💰', color: '#fbbf24' },
+    health: { icon: '❤️', color: '#ef4444' },
+    xp: { icon: '✨', color: '#22c55e' },
+    gem: { icon: '💎', color: '#8b5cf6' }
+};
+
+class Loot {
+    constructor(x, y, type, value) {
+        this.x = x;
+        this.y = y;
+        this.type = type;
+        this.value = value;
+        this.size = 20;
+        this.bobOffset = Math.random() * Math.PI * 2;
+        this.collected = false;
+        this.magnetRange = 80;
+    }
+
+    update(dt, player) {
+        // Bob up and down
+        this.bobOffset += dt * 0.005;
+
+        // Magnet toward player
+        const dx = player.x - this.x;
+        const dy = player.y - this.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < this.magnetRange) {
+            const speed = (1 - dist / this.magnetRange) * 5;
+            this.x += (dx / dist) * speed;
+            this.y += (dy / dist) * speed;
+        }
+
+        // Collect if touching player
+        if (dist < player.size / 2 + this.size / 2) {
+            this.collected = true;
+            return this.collect(player);
+        }
+        return null;
+    }
+
+    collect(player) {
+        switch (this.type) {
+            case 'gold':
+                player.gold += this.value;
+                gameState.stats.goldEarned += this.value;
+                return { type: 'gold', value: this.value };
+            case 'health':
+                const healed = Math.min(this.value, player.maxHp - player.hp);
+                player.hp += healed;
+                return { type: 'health', value: healed };
+            case 'xp':
+                player.gainXp(this.value);
+                return { type: 'xp', value: this.value };
+            case 'gem':
+                player.gold += this.value;
+                gameState.stats.goldEarned += this.value;
+                return { type: 'gem', value: this.value };
+        }
+    }
+
+    draw(ctx) {
+        const bobY = Math.sin(this.bobOffset) * 3;
+        const lootType = LOOT_TYPES[this.type];
+
+        ctx.save();
+        ctx.translate(this.x, this.y + bobY);
+
+        // Glow
+        ctx.shadowColor = lootType.color;
+        ctx.shadowBlur = 10;
+
+        ctx.font = `${this.size}px serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(lootType.icon, 0, 0);
+
+        ctx.restore();
+    }
+}
+
+function spawnLoot(x, y, enemy) {
+    const loot = [];
+
+    // Always drop some gold
+    loot.push(new Loot(x + (Math.random() - 0.5) * 30, y + (Math.random() - 0.5) * 30, 'gold', enemy.goldReward));
+
+    // 30% chance health orb
+    if (Math.random() < 0.3) {
+        loot.push(new Loot(x + (Math.random() - 0.5) * 30, y + (Math.random() - 0.5) * 30, 'health', 15));
+    }
+
+    // 5% chance gem
+    if (Math.random() < 0.05) {
+        loot.push(new Loot(x + (Math.random() - 0.5) * 30, y + (Math.random() - 0.5) * 30, 'gem', 50));
+    }
+
+    return loot;
+}
+
+// ========================================
+// Dungeons
+// ========================================
+const DUNGEONS = [
+    {
+        id: 'cavern',
+        name: 'Dark Cavern',
+        icon: '🕳️',
+        requiredLevel: 1,
+        level: 1,
+        waves: 3,
+        enemies: ['slime', 'slime', 'bat'],
+        background: '#1a1a2e',
+        boss: 'slimeKing',
+        dropRarity: 'common'
+    },
+    {
+        id: 'crypt',
+        name: 'Ancient Crypt',
+        icon: '⚰️',
+        requiredLevel: 3,
+        level: 2,
+        waves: 4,
+        enemies: ['skeleton', 'skeletonArcher', 'ghost', 'bat'],
+        background: '#1e1e2f',
+        boss: 'lich',
+        dropRarity: 'common'
+    },
+    {
+        id: 'fortress',
+        name: 'Orc Fortress',
+        icon: '🏰',
+        requiredLevel: 5,
+        level: 3,
+        waves: 4,
+        enemies: ['orc', 'skeleton', 'skeletonArcher', 'orc'],
+        background: '#2d1f1f',
+        boss: 'orcWarlord',
+        dropRarity: 'uncommon'
+    },
+    {
+        id: 'abyss',
+        name: 'Demon Abyss',
+        icon: '🔥',
+        requiredLevel: 8,
+        level: 4,
+        waves: 5,
+        enemies: ['demon', 'fireElemental', 'darkMage', 'demon'],
+        background: '#2a0a0a',
+        boss: 'infernalLord',
+        dropRarity: 'uncommon'
+    },
+    {
+        id: 'lair',
+        name: 'Dragon\'s Lair',
+        icon: '🐲',
+        requiredLevel: 12,
+        level: 5,
+        waves: 4,
+        enemies: ['dragon', 'fireElemental', 'demon'],
+        background: '#1f1a0a',
+        boss: 'elderDragon',
+        dropRarity: 'rare'
+    },
+    {
+        id: 'frozenTemple',
+        name: 'Frozen Temple',
+        icon: '❄️',
+        requiredLevel: 10,
+        level: 4,
+        waves: 5,
+        enemies: ['iceElemental', 'ghost', 'skeletonArcher'],
+        background: '#0c1929',
+        dropRarity: 'uncommon'
+    },
+    {
+        id: 'voidRift',
+        name: 'Void Rift',
+        icon: '🌀',
+        requiredLevel: 15,
+        level: 6,
+        waves: 5,
+        enemies: ['voidWalker', 'darkMage', 'ghost', 'demon'],
+        background: '#0a0a14',
+        boss: 'voidEmperor',
+        dropRarity: 'rare'
+    },
+    {
+        id: 'chaosSpire',
+        name: 'Chaos Spire',
+        icon: '⚡',
+        requiredLevel: 20,
+        level: 7,
+        waves: 6,
+        enemies: ['voidWalker', 'dragon', 'demon', 'fireElemental', 'iceElemental'],
+        background: '#14081f',
+        dropRarity: 'legendary'
+    }
+];
+
+// ========================================
+// Shop Items
+// ========================================
+const SHOP_ITEMS = [
+    { id: 'potion', name: 'Health Potion', icon: '🧪', desc: 'Restores 50 HP', price: 25, type: 'consumable' },
+    { id: 'sword1', name: 'Iron Sword', icon: '🗡️', desc: '+5 Attack', price: 100, type: 'weapon', atk: 5 },
+    { id: 'sword2', name: 'Steel Sword', icon: '⚔️', desc: '+12 Attack', price: 300, type: 'weapon', atk: 12 },
+    { id: 'armor1', name: 'Leather Armor', icon: '🥋', desc: '+3 Defense', price: 80, type: 'armor', def: 3 },
+    { id: 'armor2', name: 'Chain Mail', icon: '🛡️', desc: '+8 Defense', price: 250, type: 'armor', def: 8 },
+    { id: 'boots', name: 'Swift Boots', icon: '👢', desc: '+3 Speed', price: 150, type: 'accessory', spd: 3 }
+];
+
+// ========================================
+// Particles
+// ========================================
+class Particle {
+    constructor(x, y, color, size, vx, vy, life) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.size = size;
+        this.vx = vx;
+        this.vy = vy;
+        this.life = life;
+        this.maxLife = life;
+    }
+
+    update(dt) {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.life -= dt;
+        this.vy += 0.1; // gravity
+    }
+
+    draw(ctx) {
+        const alpha = this.life / this.maxLife;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size * alpha, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = alpha;
+        ctx.fill();
+        ctx.globalAlpha = 1;
+    }
+}
+
+function createParticles(x, y, color, count) {
+    for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 2 + Math.random() * 4;
+        gameState.particles.push(new Particle(
+            x, y, color,
+            3 + Math.random() * 4,
+            Math.cos(angle) * speed,
+            Math.sin(angle) * speed,
+            300 + Math.random() * 300
+        ));
+    }
+}
+
+// ========================================
+// Damage Numbers
+// ========================================
+function showDamageNumber(x, y, amount, type = 'enemy') {
+    const container = document.getElementById('damage-numbers');
+    const elem = document.createElement('div');
+    elem.className = `damage-number ${type}`;
+    elem.textContent = type === 'heal' ? `+${amount}` : amount;
+    elem.style.left = `${x}px`;
+    elem.style.top = `${y}px`;
+    container.appendChild(elem);
+
+    setTimeout(() => elem.remove(), 1000);
+}
+
+// ========================================
+// Toast Notifications
+// ========================================
+function showToast(message, duration = 2000) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.remove('hidden');
+    toast.classList.add('show');
+
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.classList.add('hidden'), 300);
+    }, duration);
+}
+
+// ========================================
+// Screen Management
+// ========================================
+function showScreen(screenId) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(`${screenId}-screen`).classList.add('active');
+    gameState.screen = screenId;
+}
+
+// ========================================
+// UI Updates
+// ========================================
+function updateHUD() {
+    const p = gameState.player;
+    if (!p) return;
+
+    // Town HUD
+    document.getElementById('hud-name').textContent = p.name;
+    document.getElementById('hud-level').textContent = p.level;
+    document.getElementById('hud-hp-bar').style.width = `${(p.hp / p.maxHp) * 100}%`;
+    document.getElementById('hud-hp-text').textContent = `${p.hp}/${p.maxHp}`;
+    document.getElementById('hud-xp-bar').style.width = `${(p.xp / p.xpToNext) * 100}%`;
+    document.getElementById('hud-xp-text').textContent = `${p.xp}/${p.xpToNext}`;
+    document.getElementById('hud-gold').textContent = p.gold;
+    document.getElementById('player-portrait').textContent = p.icon;
+
+    // Combat HUD
+    document.getElementById('combat-hp-bar').style.width = `${(p.hp / p.maxHp) * 100}%`;
+    document.getElementById('combat-hp-text').textContent = `${p.hp}/${p.maxHp}`;
+    document.getElementById('potion-count').textContent = p.inventory.potions;
+}
+
+function updateDungeonList() {
+    const container = document.getElementById('dungeon-list');
+    container.innerHTML = '';
+
+    DUNGEONS.forEach(dungeon => {
+        const locked = gameState.player.level < dungeon.requiredLevel;
+        const div = document.createElement('div');
+        div.className = `dungeon-item ${locked ? 'locked' : ''}`;
+        div.innerHTML = `
+            <div class="dungeon-info">
+                <span class="dungeon-item-name">${dungeon.name}</span>
+                <span class="dungeon-item-level">Recommended Lv. ${dungeon.requiredLevel}+</span>
+            </div>
+            <span class="dungeon-item-icon">${locked ? '🔒' : dungeon.icon}</span>
+        `;
+
+        if (!locked) {
+            div.addEventListener('click', () => startDungeon(dungeon));
+        }
+
+        container.appendChild(div);
+    });
+}
+
+function updateShop() {
+    document.getElementById('shop-gold').textContent = gameState.player.gold;
+    const container = document.getElementById('shop-items');
+    container.innerHTML = '';
+
+    SHOP_ITEMS.forEach(item => {
+        const canBuy = gameState.player.gold >= item.price;
+        const div = document.createElement('div');
+        div.className = 'shop-item';
+        div.innerHTML = `
+            <span class="shop-item-icon">${item.icon}</span>
+            <div class="shop-item-info">
+                <div class="shop-item-name">${item.name}</div>
+                <div class="shop-item-desc">${item.desc}</div>
+            </div>
+            <div class="shop-item-buy">
+                <span class="shop-item-price">💰 ${item.price}</span>
+                <button class="buy-btn" ${canBuy ? '' : 'disabled'}>Buy</button>
+            </div>
+        `;
+
+        div.querySelector('.buy-btn').addEventListener('click', () => buyItem(item));
+        container.appendChild(div);
+    });
+}
+
+function updateInventory() {
+    const p = gameState.player;
+
+    // Stats
+    const statsContainer = document.getElementById('inventory-stats');
+    statsContainer.innerHTML = `
+        <div class="stat-row"><span>Level</span><span>${p.level}</span></div>
+        <div class="stat-row"><span>HP</span><span>${p.hp}/${p.maxHp}</span></div>
+        <div class="stat-row"><span>Attack</span><span>${p.atk}</span></div>
+        <div class="stat-row"><span>Defense</span><span>${p.def}</span></div>
+        <div class="stat-row"><span>Speed</span><span>${p.spd}</span></div>
+    `;
+
+    // Items
+    const itemsContainer = document.getElementById('inventory-items');
+    itemsContainer.innerHTML = '';
+
+    // Potions slot
+    const potionSlot = document.createElement('div');
+    potionSlot.className = 'item-slot';
+    potionSlot.innerHTML = `🧪<span class="item-count">${p.inventory.potions}</span>`;
+    itemsContainer.appendChild(potionSlot);
+
+    // Empty slots
+    for (let i = 0; i < 7; i++) {
+        const slot = document.createElement('div');
+        slot.className = 'item-slot';
+        itemsContainer.appendChild(slot);
+    }
+
+    // Equipment
+    const equipContainer = document.getElementById('equipment-slots');
+    equipContainer.innerHTML = `
+        <div class="equip-slot">
+            <span class="equip-slot-type">Weapon</span>
+            <span class="equip-slot-item">${p.equipment.weapon ? `${p.equipment.weapon.icon} ${p.equipment.weapon.name}` : '- Empty -'}</span>
+        </div>
+        <div class="equip-slot">
+            <span class="equip-slot-type">Armor</span>
+            <span class="equip-slot-item">${p.equipment.armor ? `${p.equipment.armor.icon} ${p.equipment.armor.name}` : '- Empty -'}</span>
+        </div>
+        <div class="equip-slot">
+            <span class="equip-slot-type">Accessory</span>
+            <span class="equip-slot-item">${p.equipment.accessory ? `${p.equipment.accessory.icon} ${p.equipment.accessory.name}` : '- Empty -'}</span>
+        </div>
+    `;
+
+    // Skill Tree
+    renderSkillTree();
+}
+
+function renderSkillTree() {
+    const p = gameState.player;
+    if (!p) return;
+
+    const skillPointsEl = document.getElementById('skill-points-count');
+    if (skillPointsEl) {
+        skillPointsEl.textContent = p.skillPoints;
+    }
+
+    const skillTreeEl = document.getElementById('skill-tree');
+    if (!skillTreeEl) return;
+
+    // Clear existing
+    skillTreeEl.innerHTML = '';
+
+    const skillDescriptions = {
+        vitality: { name: 'Vitality', icon: '❤️', desc: '+10 Max HP per point', bonus: `+${p.skills.vitality * 10} HP` },
+        strength: { name: 'Strength', icon: '💪', desc: '+2 Attack per point', bonus: `+${p.skills.strength * 2} ATK` },
+        toughness: { name: 'Toughness', icon: '🛡️', desc: '+2 Defense per point', bonus: `+${p.skills.toughness * 2} DEF` },
+        agility: { name: 'Agility', icon: '⚡', desc: '+1 Speed per point', bonus: `+${p.skills.agility} SPD` },
+        critChance: { name: 'Precision', icon: '🎯', desc: '+2% Crit Chance per point', bonus: `+${p.skills.critChance * 2}%` },
+        lifesteal: { name: 'Vampirism', icon: '🩸', desc: '+1% Lifesteal per point', bonus: `+${p.skills.lifesteal}%` }
+    };
+
+    for (const [skillId, skillData] of Object.entries(skillDescriptions)) {
+        const row = document.createElement('div');
+        row.className = 'skill-row';
+
+        const info = document.createElement('div');
+        info.className = 'skill-info';
+
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'skill-name';
+        nameSpan.textContent = `${skillData.icon} ${skillData.name}`;
+
+        const descSpan = document.createElement('span');
+        descSpan.className = 'skill-desc';
+        descSpan.textContent = skillData.desc;
+
+        info.appendChild(nameSpan);
+        info.appendChild(descSpan);
+
+        const valueSpan = document.createElement('span');
+        valueSpan.className = 'skill-value';
+        valueSpan.textContent = `${p.skills[skillId]} (${skillData.bonus})`;
+
+        const btn = document.createElement('button');
+        btn.className = 'skill-btn';
+        btn.textContent = '+';
+        btn.disabled = p.skillPoints <= 0;
+        btn.addEventListener('click', () => {
+            if (p.allocateSkill(skillId)) {
+                renderSkillTree();
+                updateInventory();
+                if (typeof AudioManager !== 'undefined') AudioManager.playSFX('collect');
+            }
+        });
+
+        row.appendChild(info);
+        row.appendChild(valueSpan);
+        row.appendChild(btn);
+        skillTreeEl.appendChild(row);
+    }
+}
+
+// ========================================
+// Shop Logic
+// ========================================
+function buyItem(item) {
+    const p = gameState.player;
+    if (p.gold < item.price) return;
+
+    p.gold -= item.price;
+
+    if (item.type === 'consumable') {
+        p.inventory.potions++;
+        showToast(`Bought ${item.name}!`);
+    } else if (item.type === 'weapon') {
+        p.equipment.weapon = item;
+        showToast(`Equipped ${item.name}!`);
+    } else if (item.type === 'armor') {
+        p.equipment.armor = item;
+        showToast(`Equipped ${item.name}!`);
+    } else if (item.type === 'accessory') {
+        p.equipment.accessory = item;
+        showToast(`Equipped ${item.name}!`);
+    }
+
+    updateShop();
+    updateHUD();
+}
+
+// ========================================
+// Dungeon & Combat
+// ========================================
+function startDungeon(dungeon) {
+    gameState.currentDungeon = dungeon;
+    gameState.currentWave = 0;
+    gameState.enemies = [];
+    gameState.particles = [];
+    gameState.projectiles = [];
+    gameState.loot = [];
+    gameState.waveDelay = false;
+    gameState.hitEnemies.clear();
+    gameState.currentBoss = null;
+
+    document.getElementById('dungeon-name').textContent = dungeon.name;
+    document.getElementById('boss-health-container').classList.add('hidden');
+
+    // Show screen FIRST so container has dimensions
+    showScreen('game');
+
+    // NOW resize canvas after screen is visible
+    const canvas = document.getElementById('game-canvas');
+    const container = document.getElementById('game-screen');
+    canvas.width = container.clientWidth;
+    canvas.height = container.clientHeight;
+
+    // Position player in center (now canvas has proper dimensions)
+    gameState.player.x = canvas.width / 2;
+    gameState.player.y = canvas.height / 2;
+    gameState.player.vx = 0;
+    gameState.player.vy = 0;
+
+    startWave();
+    startGameLoop();
+}
+
+function startWave() {
+    gameState.currentWave++;
+    gameState.waveDelay = true;
+    gameState.hitEnemies.clear();
+
+    // Show wave announcement
+    const waveAnnouncement = document.getElementById('wave-announcement');
+    const waveNumber = document.getElementById('wave-number');
+    waveNumber.textContent = gameState.currentWave;
+    waveAnnouncement.classList.remove('hidden');
+
+    document.getElementById('wave-info').textContent = `Wave ${gameState.currentWave}/${gameState.currentDungeon.waves}`;
+
+    // Delay enemy spawn for dramatic effect
+    setTimeout(() => {
+        waveAnnouncement.classList.add('hidden');
+        spawnWaveEnemies();
+        gameState.waveDelay = false;
+    }, 2000);
+}
+
+function spawnWaveEnemies() {
+    const canvas = document.getElementById('game-canvas');
+    const dungeon = gameState.currentDungeon;
+    const isFinalWave = gameState.currentWave >= dungeon.waves;
+
+    // Spawn enemies based on wave  
+    const enemyCount = isFinalWave ? Math.floor((3 + gameState.currentWave) / 2) : Math.min(3 + gameState.currentWave, 8);
+    const enemyTypes = dungeon.enemies;
+
+    for (let i = 0; i < enemyCount; i++) {
+        const type = enemyTypes[Math.floor(Math.random() * enemyTypes.length)];
+
+        // Spawn at edges
+        let x, y;
+        if (Math.random() > 0.5) {
+            x = Math.random() > 0.5 ? 50 : canvas.width - 50;
+            y = 50 + Math.random() * (canvas.height - 100);
+        } else {
+            x = 50 + Math.random() * (canvas.width - 100);
+            y = Math.random() > 0.5 ? 50 : canvas.height - 50;
+        }
+
+        gameState.enemies.push(new Enemy(type, x, y, dungeon.level));
+    }
+
+    // Spawn boss on final wave
+    if (isFinalWave && dungeon.boss && BOSS_TYPES[dungeon.boss]) {
+        const bossData = BOSS_TYPES[dungeon.boss];
+
+        // Create boss as a special enemy
+        const boss = new Enemy('slime', canvas.width / 2, 80, dungeon.level);
+        boss.isBoss = true;
+        boss.name = bossData.name;
+        boss.icon = bossData.icon;
+        boss.color = bossData.color;
+        boss.size = CONFIG.enemy.baseSize * bossData.sizeMultiplier;
+        boss.maxHp = bossData.hp;
+        boss.hp = bossData.hp;
+        boss.atk = bossData.atk;
+        boss.xpReward = bossData.xp;
+        boss.goldReward = bossData.gold;
+        boss.speed = CONFIG.enemy.baseSpeed * (bossData.speedMultiplier || 0.8); // Add speed!
+        boss.pattern = 'chase'; // Use chase pattern so boss moves
+
+        gameState.enemies.push(boss);
+        gameState.currentBoss = boss;
+
+        // Show boss health bar
+        const bossContainer = document.getElementById('boss-health-container');
+        document.getElementById('boss-name').textContent = boss.name;
+        bossContainer.classList.remove('hidden');
+
+        showToast(`⚠️ ${boss.name} has appeared!`);
+    }
+
+    gameState.waveEnemiesRemaining = gameState.enemies.length;
+}
+
+// Level up notification
+function showLevelUp(newLevel) {
+    const notification = document.getElementById('level-up-notification');
+    const newLevelSpan = document.getElementById('new-level');
+
+    newLevelSpan.textContent = newLevel;
+    notification.classList.remove('hidden');
+
+    // Create golden particles
+    const canvas = document.getElementById('game-canvas');
+    for (let i = 0; i < 20; i++) {
+        createParticles(canvas.width / 2, canvas.height / 2, '#fbbf24', 3);
+    }
+
+    setTimeout(() => {
+        notification.classList.add('hidden');
+    }, 2500);
+}
+
+// Screen shake
+function triggerScreenShake() {
+    const container = document.getElementById('game-container');
+    container.classList.add('shake-screen');
+    setTimeout(() => container.classList.remove('shake-screen'), 300);
+}
+
+function completeDungeon() {
+    cancelAnimationFrame(gameState.animationId);
+
+    const dungeon = gameState.currentDungeon;
+    const xpReward = dungeon.level * 50;
+    const goldReward = dungeon.level * 30;
+
+    gameState.player.gainXp(xpReward);
+    gameState.player.gold += goldReward;
+
+    // Track statistics
+    gameState.stats.goldEarned += goldReward;
+    gameState.stats.dungeonsCleared++;
+
+    // Quest progress for gold and dungeons
+    if (window.ShadowQuestFeatures) {
+        window.ShadowQuestFeatures.updateQuestProgress('gold', goldReward);
+        window.ShadowQuestFeatures.updateQuestProgress('dungeons', 1);
+    }
+
+    // Check achievements after dungeon clear
+    checkAchievements();
+
+    document.getElementById('victory-xp').textContent = xpReward;
+    document.getElementById('victory-gold').textContent = goldReward;
+    document.getElementById('victory-loot').textContent = '';
+
+    showScreen('victory');
+}
+
+function gameOver() {
+    cancelAnimationFrame(gameState.animationId);
+    showScreen('gameover');
+}
+
+// ========================================
+// Game Loop
+// ========================================
+function startGameLoop() {
+    gameState.lastTime = performance.now();
+    gameLoop();
+}
+
+function gameLoop(timestamp = performance.now()) {
+    if (gameState.paused || gameState.screen !== 'game') return;
+
+    const dt = timestamp - gameState.lastTime;
+    gameState.lastTime = timestamp;
+
+    update(dt);
+    render();
+
+    gameState.animationId = requestAnimationFrame(gameLoop);
+}
+
+function update(dt) {
+    const canvas = document.getElementById('game-canvas');
+    const p = gameState.player;
+
+    // Skip if in wave delay
+    if (gameState.waveDelay) return;
+
+    // Update player
+    p.update(dt, canvas.width, canvas.height);
+
+    // Update player status effects (poison, burn, etc.)
+    p.updateStatusEffects(dt);
+
+    // Update combo timer
+    updateCombo(dt);
+    // Clear hit tracking when attack ends
+    if (!p.isAttacking) {
+        gameState.hitEnemies.clear();
+    }
+
+    // Handle player attack - with hit tracking to prevent multi-hit
+    if (p.isAttacking && p.attackTimer >= CONFIG.player.attackCooldown - 50) {
+        gameState.enemies.forEach(enemy => {
+            // Skip if already hit this swing
+            if (gameState.hitEnemies.has(enemy)) return;
+
+            const dx = enemy.x - p.x;
+            const dy = enemy.y - p.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < CONFIG.player.attackRange + enemy.size / 2) {
+                const angle = Math.atan2(dy, dx);
+                let angleDiff = angle - p.facing;
+                while (angleDiff > Math.PI) angleDiff -= Math.PI * 2;
+                while (angleDiff < -Math.PI) angleDiff += Math.PI * 2;
+
+                if (Math.abs(angleDiff) < Math.PI / 3) {
+                    // Mark as hit
+                    gameState.hitEnemies.add(enemy);
+
+                    // Use player crit chance (includes skill bonuses)
+                    const isCrit = Math.random() < p.critChance;
+                    const damage = isCrit ? Math.floor(p.atk * p.baseCritDamage) : p.atk;
+                    enemy.takeDamage(damage);
+
+                    // Track statistics
+                    gameState.stats.damageDealt += damage;
+                    if (isCrit) gameState.stats.criticalHits++;
+
+                    // Quest progress for damage
+                    if (window.ShadowQuestFeatures) {
+                        window.ShadowQuestFeatures.updateQuestProgress('damage', damage);
+                    }
+
+                    // Lifesteal
+                    if (p.lifestealPercent > 0) {
+                        const healAmount = Math.floor(damage * p.lifestealPercent);
+                        if (healAmount > 0) {
+                            p.hp = Math.min(p.totalMaxHp, p.hp + healAmount);
+                        }
+                    }
+
+                    // Knockback
+                    enemy.knockbackX = (dx / dist) * 10;
+                    enemy.knockbackY = (dy / dist) * 10;
+
+                    showDamageNumber(enemy.x, enemy.y - 30, damage, isCrit ? 'crit' : 'enemy');
+                    createParticles(enemy.x, enemy.y, enemy.color, 5);
+
+                    // Combo and audio
+                    addCombo();
+                    if (typeof AudioManager !== 'undefined') {
+                        AudioManager.playSFX(isCrit ? 'critical' : 'hit');
+                    }
+                }
+            }
+        });
+    }
+
+    // Update enemies
+    gameState.enemies = gameState.enemies.filter(enemy => {
+        const result = enemy.update(dt, p, canvas.width, canvas.height);
+
+        // Enemy melee attacks
+        if (result.canAttack) {
+            enemy.attack();
+            const damage = p.takeDamage(enemy.atk);
+            if (damage > 0) {
+                showDamageNumber(p.x, p.y - 30, damage, 'player');
+                createParticles(p.x, p.y, '#ef4444', 8);
+                triggerScreenShake();
+                gameState.stats.damageTaken += damage;
+
+                // Apply status effect on hit
+                if (enemy.statusEffect && Math.random() < enemy.statusChance) {
+                    p.applyStatusEffect(enemy.statusEffect);
+                    const effectData = STATUS_EFFECTS[enemy.statusEffect];
+                    if (effectData) {
+                        showToast(`${effectData.icon} ${effectData.name}!`);
+                    }
+                }
+            }
+        }
+
+        // Enemy ranged attacks
+        if (result.canRangedAttack) {
+            const newProjectiles = enemy.performRangedAttack(result.angle);
+            gameState.projectiles.push(...newProjectiles);
+            if (typeof AudioManager !== 'undefined') AudioManager.playSFX('projectile');
+        }
+
+        // Check boss phases
+        if (enemy.isBoss) {
+            const spawned = enemy.checkPhases(canvas);
+            if (spawned.length > 0) {
+                gameState.enemies.push(...spawned);
+                gameState.waveEnemiesRemaining += spawned.length;
+            }
+
+            // Update boss health bar
+            const hpPercent = (enemy.hp / enemy.maxHp) * 100;
+            document.getElementById('boss-hp-bar').style.width = hpPercent + '%';
+        }
+
+        // Check if dead
+        if (enemy.hp <= 0) {
+            p.gainXp(enemy.xpReward);
+            createParticles(enemy.x, enemy.y, enemy.color, 15);
+
+            // Track statistics
+            gameState.stats.enemiesKilled++;
+            if (enemy.isBoss) gameState.stats.bossesKilled++;
+
+            // Integrate with extended features (quests, bestiary)
+            if (window.ShadowQuestFeatures) {
+                window.ShadowQuestFeatures.updateQuestProgress('kills', 1);
+                if (enemy.isBoss) {
+                    window.ShadowQuestFeatures.updateQuestProgress('bosses', 1);
+                }
+                window.ShadowQuestFeatures.recordEnemyKill(enemy.type || enemy.name, {
+                    name: enemy.name,
+                    damage: enemy.damage
+                });
+            }
+
+            // Check achievements
+            checkAchievements();
+
+            // Spawn loot - extra for bosses
+            if (enemy.isBoss) {
+                gameState.currentBoss = null;
+                document.getElementById('boss-health-container').classList.add('hidden');
+                showToast(`🎉 ${enemy.name} defeated!`);
+
+                // Extra boss loot
+                for (let i = 0; i < 5; i++) {
+                    gameState.loot.push(new Loot(
+                        enemy.x + (Math.random() - 0.5) * 60,
+                        enemy.y + (Math.random() - 0.5) * 60,
+                        'gold',
+                        Math.floor(enemy.goldReward / 5)
+                    ));
+                }
+                gameState.loot.push(new Loot(enemy.x, enemy.y, 'gem', 100));
+
+                // Guaranteed equipment drop from boss
+                rollEquipmentDrop(enemy, true);
+            } else {
+                const newLoot = spawnLoot(enemy.x, enemy.y, enemy);
+                gameState.loot.push(...newLoot);
+
+                // Chance for equipment drop from regular enemies
+                if (Math.random() < 0.1) { // 10% chance
+                    rollEquipmentDrop(enemy, false);
+                }
+            }
+
+            return false;
+        }
+        return true;
+    });
+
+    // Update projectiles
+    gameState.projectiles = gameState.projectiles.filter(proj => {
+        const alive = proj.update(dt);
+        if (!alive) return false;
+
+        // Check collision with enemies (player projectile)
+        if (proj.owner === 'player') {
+            for (let enemy of gameState.enemies) {
+                const dx = enemy.x - proj.x;
+                const dy = enemy.y - proj.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < enemy.size / 2 + proj.size) {
+                    enemy.takeDamage(proj.damage);
+                    showDamageNumber(enemy.x, enemy.y - 30, proj.damage, 'enemy');
+                    createParticles(enemy.x, enemy.y, proj.color, 5);
+                    gameState.stats.damageDealt += proj.damage;
+                    return false;
+                }
+            }
+        }
+
+        // Check collision with player (enemy projectile)
+        if (proj.owner === 'enemy') {
+            const dx = p.x - proj.x;
+            const dy = p.y - proj.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < p.size / 2 + proj.size && !p.isDashing) {
+                const damage = p.takeDamage(proj.damage);
+                if (damage > 0) {
+                    showDamageNumber(p.x, p.y - 30, damage, 'player');
+                    triggerScreenShake();
+                    gameState.stats.damageTaken += damage;
+
+                    // Apply status effect from projectile if source enemy had one
+                    if (proj.statusEffect && Math.random() < (proj.statusChance || 0.3)) {
+                        p.applyStatusEffect(proj.statusEffect);
+                        const effectData = STATUS_EFFECTS[proj.statusEffect];
+                        if (effectData) {
+                            showToast(`${effectData.icon} ${effectData.name}!`);
+                        }
+                    }
+                }
+                return false;
+            }
+        }
+
+        return true;
+    });
+
+    // Update loot
+    gameState.loot = gameState.loot.filter(loot => {
+        const result = loot.update(dt, p);
+        if (loot.collected) {
+            if (result) {
+                const msg = result.type === 'gold' ? `+${result.value} Gold` :
+                    result.type === 'health' ? `+${result.value} HP` :
+                        result.type === 'xp' ? `+${result.value} XP` :
+                            `+${result.value} Gold`;
+                showToast(msg);
+            }
+            return false;
+        }
+        return true;
+    });
+
+    // Update particles
+    gameState.particles = gameState.particles.filter(particle => {
+        particle.update(dt);
+        return particle.life > 0;
+    });
+
+    // Check wave completion
+    if (gameState.enemies.length === 0 && !gameState.waveDelay) {
+        if (gameState.currentWave >= gameState.currentDungeon.waves) {
+            completeDungeon();
+        } else {
+            gameState.waveDelay = true;
+            setTimeout(() => {
+                if (gameState.screen === 'game') startWave();
+            }, 1500);
+        }
+    }
+
+    // Check player death
+    if (p.hp <= 0) {
+        gameOver();
+    }
+
+    // Update HUD
+    updateHUD();
+}
+
+function render() {
+    const canvas = document.getElementById('game-canvas');
+    const ctx = canvas.getContext('2d');
+
+    // Clear
+    ctx.fillStyle = gameState.currentDungeon?.background || '#0d0d15';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Draw grid pattern
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+    ctx.lineWidth = 1;
+    for (let x = 0; x < canvas.width; x += 50) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
+        ctx.stroke();
+    }
+    for (let y = 0; y < canvas.height; y += 50) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
+        ctx.stroke();
+    }
+
+    // Draw particles
+    gameState.particles.forEach(p => p.draw(ctx));
+
+    // Draw loot
+    gameState.loot.forEach(l => l.draw(ctx));
+
+    // Draw enemies
+    gameState.enemies.forEach(e => e.draw(ctx));
+
+    // Draw projectiles
+    gameState.projectiles.forEach(p => p.draw(ctx));
+
+    // Draw player
+    gameState.player.draw(ctx);
+
+    // Draw mini-map
+    drawMiniMap();
+}
+
+// ========================================
+// Input Handling
+// ========================================
+function setupInput() {
+    const canvas = document.getElementById('game-canvas');
+
+    // Keyboard
+    document.addEventListener('keydown', e => {
+        gameState.keys[e.code] = true;
+
+        if (gameState.screen === 'game' && !gameState.paused) {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                gameState.player.attack();
+            }
+            if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
+                e.preventDefault();
+                gameState.player.dash();
+            }
+            if (e.code === 'Digit1') {
+                const healed = gameState.player.usePotion();
+                if (healed > 0) {
+                    showDamageNumber(gameState.player.x, gameState.player.y - 30, healed, 'heal');
+                    showToast('Healed!');
+                    gameState.stats.potionsUsed++;
+                    // Quest progress for potions
+                    if (window.ShadowQuestFeatures) {
+                        window.ShadowQuestFeatures.updateQuestProgress('potions', 1);
+                    }
+                }
+            }
+            if (e.code === 'KeyE') {
+                e.preventDefault();
+                gameState.player.useAbility();
+            }
+        }
+
+        if (e.code === 'Escape') {
+            if (gameState.screen === 'game') {
+                togglePause();
+            }
+        }
+    });
+
+    document.addEventListener('keyup', e => {
+        gameState.keys[e.code] = false;
+    });
+
+    // Mouse
+    canvas.addEventListener('mousemove', e => {
+        const rect = canvas.getBoundingClientRect();
+        gameState.mouse.x = (e.clientX - rect.left) * (canvas.width / rect.width);
+        gameState.mouse.y = (e.clientY - rect.top) * (canvas.height / rect.height);
+    });
+
+    canvas.addEventListener('mousedown', e => {
+        gameState.mouse.down = true;
+        if (gameState.screen === 'game' && !gameState.paused) {
+            gameState.player.attack();
+        }
+    });
+
+    canvas.addEventListener('mouseup', e => {
+        gameState.mouse.down = false;
+    });
+}
+
+function togglePause() {
+    gameState.paused = !gameState.paused;
+    document.getElementById('pause-overlay').classList.toggle('hidden', !gameState.paused);
+
+    if (!gameState.paused) {
+        gameState.lastTime = performance.now();
+        gameLoop();
+    }
+}
+
+// ========================================
+// Canvas Setup
+// ========================================
+function setupCanvas() {
+    const canvas = document.getElementById('game-canvas');
+    const container = document.getElementById('game-screen');
+
+    function resize() {
+        canvas.width = container.clientWidth;
+        canvas.height = container.clientHeight;
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+}
+
+// ========================================
+// Save/Load System
+// ========================================
+function saveGame() {
+    const p = gameState.player;
+    const saveData = {
+        name: p.name,
+        classType: p.classType,
+        level: p.level,
+        xp: p.xp,
+        hp: p.hp,
+        maxHp: p.maxHp,
+        baseAtk: p.baseAtk,
+        baseDef: p.baseDef,
+        baseSpd: p.baseSpd,
+        gold: p.gold,
+        inventory: p.inventory,
+        equipment: {
+            weapon: p.equipment.weapon,
+            armor: p.equipment.armor,
+            accessory: p.equipment.accessory
+        },
+        // New feature data
+        skillPoints: p.skillPoints,
+        skills: p.skills,
+        stats: gameState.stats,
+        achievements: gameState.achievements,
+        // Character appearance
+        appearance: p.appearance
+    };
+
+    localStorage.setItem('shadowquest_save', JSON.stringify(saveData));
+    showToast('Game Saved!');
+}
+
+function loadGame() {
+    const saveData = localStorage.getItem('shadowquest_save');
+    if (!saveData) return false;
+
+    try {
+        const data = JSON.parse(saveData);
+        const player = new Player(data.name, data.classType, data.appearance || null);
+
+        player.level = data.level;
+        player.xp = data.xp;
+        player.xpToNext = Math.floor(CONFIG.xpPerLevel * Math.pow(1.2, data.level - 1));
+        player.hp = data.hp;
+        player.maxHp = data.maxHp;
+        player.baseAtk = data.baseAtk;
+        player.baseDef = data.baseDef;
+        player.baseSpd = data.baseSpd;
+        player.gold = data.gold;
+        player.inventory = data.inventory || { potions: 3, equipmentBag: [] };
+        player.equipment = data.equipment;
+
+        // Load new feature data
+        player.skillPoints = data.skillPoints || 0;
+        if (data.skills) {
+            player.skills = { ...player.skills, ...data.skills };
+        }
+        if (data.stats) {
+            gameState.stats = { ...gameState.stats, ...data.stats };
+        }
+        if (data.achievements) {
+            gameState.achievements = data.achievements;
+        }
+
+        gameState.player = player;
+        return true;
+    } catch (e) {
+        console.error('Failed to load save:', e);
+        return false;
+    }
+}
+
+function hasSaveData() {
+    return localStorage.getItem('shadowquest_save') !== null;
+}
+
+// ========================================
+// Character Customization Functions
+// ========================================
+
+function initializeCustomization() {
+    // Populate body type options
+    const bodyTypeContainer = document.getElementById('body-type-options');
+    if (bodyTypeContainer) {
+        CHARACTER_OPTIONS.bodyTypes.forEach(type => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn' + (type.id === selectedAppearance.bodyType ? ' selected' : '');
+            btn.textContent = type.name;
+            btn.addEventListener('click', () => {
+                bodyTypeContainer.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                selectedAppearance.bodyType = type.id;
+                updatePreviewCanvas();
+            });
+            bodyTypeContainer.appendChild(btn);
+        });
+    }
+
+    // Populate skin tone options
+    const skinToneContainer = document.getElementById('skin-tone-options');
+    if (skinToneContainer) {
+        CHARACTER_OPTIONS.skinTones.forEach(tone => {
+            const swatch = document.createElement('div');
+            swatch.className = 'color-swatch' + (tone.color === selectedAppearance.skinTone ? ' selected' : '');
+            swatch.style.backgroundColor = tone.color;
+            swatch.title = tone.name;
+            swatch.addEventListener('click', () => {
+                skinToneContainer.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+                swatch.classList.add('selected');
+                selectedAppearance.skinTone = tone.color;
+                updatePreviewCanvas();
+            });
+            skinToneContainer.appendChild(swatch);
+        });
+    }
+
+    // Populate eye shape options
+    const eyeShapeContainer = document.getElementById('eye-shape-options');
+    if (eyeShapeContainer) {
+        CHARACTER_OPTIONS.eyeStyles.forEach(style => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn' + (style.id === selectedAppearance.eyeStyle ? ' selected' : '');
+            btn.textContent = style.name;
+            btn.addEventListener('click', () => {
+                eyeShapeContainer.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                selectedAppearance.eyeStyle = style.id;
+                updatePreviewCanvas();
+            });
+            eyeShapeContainer.appendChild(btn);
+        });
+    }
+
+    // Populate facial hair options
+    const facialHairContainer = document.getElementById('facial-hair-options');
+    if (facialHairContainer) {
+        CHARACTER_OPTIONS.facialHair.forEach(style => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn' + (style.id === selectedAppearance.facialHair ? ' selected' : '');
+            btn.textContent = style.name;
+            btn.addEventListener('click', () => {
+                facialHairContainer.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                selectedAppearance.facialHair = style.id;
+                updatePreviewCanvas();
+            });
+            facialHairContainer.appendChild(btn);
+        });
+    }
+
+    // Populate hair style options
+    const hairStyleContainer = document.getElementById('hair-style-options');
+    if (hairStyleContainer) {
+        CHARACTER_OPTIONS.hairStyles.forEach(style => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn' + (style.id === selectedAppearance.hairStyle ? ' selected' : '');
+            btn.textContent = style.name;
+            btn.addEventListener('click', () => {
+                hairStyleContainer.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                selectedAppearance.hairStyle = style.id;
+                updatePreviewCanvas();
+            });
+            hairStyleContainer.appendChild(btn);
+        });
+    }
+
+    // Eye color picker
+    const eyeColorInput = document.getElementById('eye-color');
+    if (eyeColorInput) {
+        eyeColorInput.value = selectedAppearance.eyeColor;
+        eyeColorInput.addEventListener('input', (e) => {
+            selectedAppearance.eyeColor = e.target.value;
+            updatePreviewCanvas();
+        });
+    }
+
+    // Hair color picker
+    const hairColorInput = document.getElementById('hair-color');
+    if (hairColorInput) {
+        hairColorInput.value = selectedAppearance.hairColor;
+        hairColorInput.addEventListener('input', (e) => {
+            selectedAppearance.hairColor = e.target.value;
+            updatePreviewCanvas();
+        });
+    }
+
+    // Tab switching
+    const tabBtns = document.querySelectorAll('.customization-tabs .tab-btn');
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            tabBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            const tabId = btn.dataset.tab + '-tab';
+            const tabEl = document.getElementById(tabId);
+            if (tabEl) tabEl.classList.add('active');
+        });
+    });
+
+    // Rotate buttons
+    const rotateBtns = document.querySelectorAll('.rotate-btn');
+    rotateBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const dir = btn.dataset.dir;
+            previewRotation += dir === 'left' ? -0.3 : 0.3;
+            updatePreviewCanvas();
+        });
+    });
+
+    // Initial preview
+    updatePreviewCanvas();
+}
+
+function updatePreviewCanvas() {
+    const canvas = document.getElementById('preview-canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    const width = canvas.width;
+    const height = canvas.height;
+
+    // Clear canvas
+    ctx.clearRect(0, 0, width, height);
+
+    // Draw background gradient
+    const gradient = ctx.createRadialGradient(width/2, height/2, 0, width/2, height/2, width/2);
+    gradient.addColorStop(0, '#2a2a4e');
+    gradient.addColorStop(1, '#1a1a2e');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, width, height);
+
+    // Draw character preview
+    ctx.save();
+    ctx.translate(width / 2, height / 2 + 20);
+
+    // Apply body scale
+    const bodyType = CHARACTER_OPTIONS.bodyTypes.find(b => b.id === selectedAppearance.bodyType);
+    const bodyScale = bodyType ? bodyType.scale : 1.0;
+    const scale = 2.5 * bodyScale;
+    ctx.scale(scale, scale);
+
+    const appearance = selectedAppearance;
+    const size = CONFIG.player.size;
+
+    // Draw body
+    ctx.beginPath();
+    ctx.ellipse(0, size * 0.15, size * 0.28, size * 0.35, 0, 0, Math.PI * 2);
+    ctx.fillStyle = appearance.skinTone;
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+    ctx.lineWidth = 0.5;
+    ctx.stroke();
+
+    // Draw head
+    ctx.beginPath();
+    ctx.arc(0, -size * 0.25, size * 0.22, 0, Math.PI * 2);
+    ctx.fillStyle = appearance.skinTone;
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(0,0,0,0.15)';
+    ctx.stroke();
+
+    // Draw eyes
+    const eyeY = -size * 0.27;
+    const eyeSpacing = size * 0.08;
+    let eyeWidth = 3.5, eyeHeight = 2.5;
+
+    switch (appearance.eyeStyle) {
+        case 'narrow': eyeWidth = 4; eyeHeight = 1.5; break;
+        case 'wide': eyeWidth = 4; eyeHeight = 3.5; break;
+        case 'fierce': eyeWidth = 3; eyeHeight = 2; break;
+    }
+
+    ctx.fillStyle = '#fff';
+    ctx.beginPath();
+    ctx.ellipse(-eyeSpacing, eyeY, eyeWidth, eyeHeight, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(eyeSpacing, eyeY, eyeWidth, eyeHeight, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = appearance.eyeColor;
+    ctx.beginPath();
+    ctx.arc(-eyeSpacing, eyeY, 1.8, 0, Math.PI * 2);
+    ctx.arc(eyeSpacing, eyeY, 1.8, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = '#000';
+    ctx.beginPath();
+    ctx.arc(-eyeSpacing, eyeY, 0.8, 0, Math.PI * 2);
+    ctx.arc(eyeSpacing, eyeY, 0.8, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Draw facial hair
+    if (appearance.facialHair !== 'none') {
+        ctx.fillStyle = appearance.hairColor;
+        switch (appearance.facialHair) {
+            case 'beard':
+                ctx.beginPath();
+                ctx.moveTo(-size * 0.12, -size * 0.15);
+                ctx.quadraticCurveTo(-size * 0.15, -size * 0.05, -size * 0.1, size * 0.02);
+                ctx.quadraticCurveTo(0, size * 0.08, size * 0.1, size * 0.02);
+                ctx.quadraticCurveTo(size * 0.15, -size * 0.05, size * 0.12, -size * 0.15);
+                ctx.fill();
+                break;
+            case 'goatee':
+                ctx.beginPath();
+                ctx.moveTo(-size * 0.04, -size * 0.12);
+                ctx.quadraticCurveTo(-size * 0.05, 0, 0, size * 0.04);
+                ctx.quadraticCurveTo(size * 0.05, 0, size * 0.04, -size * 0.12);
+                ctx.fill();
+                break;
+            case 'mustache':
+                ctx.beginPath();
+                ctx.moveTo(-size * 0.08, -size * 0.15);
+                ctx.quadraticCurveTo(-size * 0.12, -size * 0.12, -size * 0.1, -size * 0.14);
+                ctx.lineTo(0, -size * 0.13);
+                ctx.lineTo(size * 0.1, -size * 0.14);
+                ctx.quadraticCurveTo(size * 0.12, -size * 0.12, size * 0.08, -size * 0.15);
+                ctx.fill();
+                break;
+            case 'stubble':
+                ctx.fillStyle = appearance.hairColor + '60';
+                for (let i = 0; i < 12; i++) {
+                    const sx = (Math.random() - 0.5) * size * 0.14;
+                    const sy = -size * 0.12 + Math.random() * size * 0.06;
+                    ctx.beginPath();
+                    ctx.arc(sx, sy, 0.4, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                break;
+        }
+    }
+
+    // Draw hair
+    if (appearance.hairStyle !== 'none') {
+        ctx.fillStyle = appearance.hairColor;
+        switch (appearance.hairStyle) {
+            case 'short':
+                ctx.beginPath();
+                ctx.arc(0, -size * 0.35, size * 0.18, Math.PI, 0);
+                ctx.quadraticCurveTo(size * 0.15, -size * 0.25, size * 0.1, -size * 0.15);
+                ctx.lineTo(-size * 0.1, -size * 0.15);
+                ctx.quadraticCurveTo(-size * 0.15, -size * 0.25, 0, -size * 0.35);
+                ctx.fill();
+                break;
+            case 'medium':
+                ctx.beginPath();
+                ctx.arc(0, -size * 0.35, size * 0.2, Math.PI * 0.9, Math.PI * 0.1);
+                ctx.quadraticCurveTo(size * 0.2, -size * 0.15, size * 0.18, -size * 0.05);
+                ctx.lineTo(-size * 0.18, -size * 0.05);
+                ctx.quadraticCurveTo(-size * 0.2, -size * 0.15, -size * 0.18, -size * 0.35);
+                ctx.fill();
+                break;
+            case 'long':
+                ctx.beginPath();
+                ctx.arc(0, -size * 0.35, size * 0.22, Math.PI * 0.85, Math.PI * 0.15);
+                ctx.quadraticCurveTo(size * 0.25, 0, size * 0.2, size * 0.15);
+                ctx.lineTo(-size * 0.2, size * 0.15);
+                ctx.quadraticCurveTo(-size * 0.25, 0, -size * 0.22, -size * 0.35);
+                ctx.fill();
+                break;
+            case 'spiky':
+                for (let i = -4; i <= 4; i++) {
+                    ctx.beginPath();
+                    const baseX = i * size * 0.04;
+                    const tipY = -size * 0.55 - Math.abs(i) * size * 0.02;
+                    ctx.moveTo(baseX - size * 0.03, -size * 0.35);
+                    ctx.lineTo(baseX, tipY);
+                    ctx.lineTo(baseX + size * 0.03, -size * 0.35);
+                    ctx.fill();
+                }
+                ctx.beginPath();
+                ctx.arc(0, -size * 0.35, size * 0.18, Math.PI, 0);
+                ctx.fill();
+                break;
+            case 'mohawk':
+                ctx.beginPath();
+                ctx.moveTo(-size * 0.04, -size * 0.35);
+                ctx.lineTo(0, -size * 0.6);
+                ctx.lineTo(size * 0.04, -size * 0.35);
+                ctx.fill();
+                break;
+            case 'ponytail':
+                ctx.beginPath();
+                ctx.arc(0, -size * 0.35, size * 0.18, Math.PI, 0);
+                ctx.fill();
+                ctx.beginPath();
+                ctx.moveTo(0, -size * 0.2);
+                ctx.quadraticCurveTo(size * 0.1, -size * 0.1, size * 0.08, size * 0.1);
+                ctx.lineTo(-size * 0.02, size * 0.08);
+                ctx.quadraticCurveTo(size * 0.02, -size * 0.1, 0, -size * 0.2);
+                ctx.fill();
+                break;
+            case 'braided':
+                ctx.beginPath();
+                ctx.arc(0, -size * 0.35, size * 0.18, Math.PI, 0);
+                ctx.fill();
+                for (let side of [-1, 1]) {
+                    for (let i = 0; i < 4; i++) {
+                        ctx.beginPath();
+                        ctx.arc(side * size * 0.15, -size * 0.1 + i * size * 0.08, size * 0.04, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+                break;
+        }
+    }
+
+    // Draw simple outfit indicator
+    ctx.fillStyle = 'rgba(100, 100, 100, 0.5)';
+    ctx.beginPath();
+    ctx.ellipse(0, size * 0.2, size * 0.22, size * 0.25, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.restore();
+
+    // Draw label
+    ctx.fillStyle = '#888';
+    ctx.font = '10px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('Preview', width / 2, height - 5);
+}
+
+// ========================================
+// Event Listeners
+// ========================================
+function setupEventListeners() {
+    // Title Screen
+    document.getElementById('new-game-btn').addEventListener('click', () => showScreen('character'));
+
+    document.getElementById('continue-btn').addEventListener('click', () => {
+        if (loadGame()) {
+            showScreen('town');
+            updateHUD();
+        }
+    });
+
+    document.getElementById('controls-btn').addEventListener('click', () => {
+        document.getElementById('controls-overlay').classList.remove('hidden');
+    });
+
+    document.getElementById('close-controls-btn').addEventListener('click', () => {
+        document.getElementById('controls-overlay').classList.add('hidden');
+    });
+
+    // Character Creation
+    const classCards = document.querySelectorAll('.class-card');
+    let selectedClass = null;
+
+    classCards.forEach(card => {
+        card.addEventListener('click', () => {
+            classCards.forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            selectedClass = card.dataset.class;
+
+            const stats = CLASS_STATS[selectedClass];
+            document.getElementById('preview-hp').textContent = stats.hp;
+            document.getElementById('preview-atk').textContent = stats.atk;
+            document.getElementById('preview-def').textContent = stats.def;
+            document.getElementById('preview-spd').textContent = stats.spd;
+
+            checkCharacterReady();
+        });
+    });
+
+    document.getElementById('hero-name').addEventListener('input', checkCharacterReady);
+
+    function checkCharacterReady() {
+        const name = document.getElementById('hero-name').value.trim();
+        const ready = name.length > 0 && selectedClass;
+        document.getElementById('start-game-btn').disabled = !ready;
+    }
+
+    document.getElementById('start-game-btn').addEventListener('click', () => {
+        const name = document.getElementById('hero-name').value.trim();
+        gameState.player = new Player(name, selectedClass, { ...selectedAppearance });
+        showScreen('town');
+        updateHUD();
+    });
+
+    // Town
+    document.getElementById('dungeon-btn').addEventListener('click', () => {
+        updateDungeonList();
+        showScreen('dungeon-select');
+    });
+
+    document.getElementById('shop-btn').addEventListener('click', () => {
+        updateShop();
+        showScreen('shop');
+    });
+
+    document.getElementById('rest-btn').addEventListener('click', () => {
+        const cost = 10;
+        const p = gameState.player;
+
+        if (p.gold >= cost && p.hp < p.maxHp) {
+            p.gold -= cost;
+            p.hp = p.maxHp;
+            updateHUD();
+            showToast('Fully rested! HP restored.');
+        } else if (p.hp >= p.maxHp) {
+            showToast('Already at full HP!');
+        } else {
+            showToast('Not enough gold! (10g needed)');
+        }
+    });
+
+    document.getElementById('inventory-btn').addEventListener('click', () => {
+        updateInventory();
+        showScreen('inventory');
+    });
+
+    document.getElementById('save-btn').addEventListener('click', saveGame);
+
+    // Navigation
+    document.getElementById('back-to-town-btn').addEventListener('click', () => showScreen('town'));
+    document.getElementById('shop-back-btn').addEventListener('click', () => showScreen('town'));
+    document.getElementById('inventory-back-btn').addEventListener('click', () => showScreen('town'));
+
+    // Combat
+    document.getElementById('pause-btn').addEventListener('click', togglePause);
+    document.getElementById('resume-btn').addEventListener('click', togglePause);
+
+    document.getElementById('quit-dungeon-btn').addEventListener('click', () => {
+        gameState.paused = false;
+        document.getElementById('pause-overlay').classList.add('hidden');
+        cancelAnimationFrame(gameState.animationId);
+        showScreen('town');
+    });
+
+    // Victory/GameOver
+    document.getElementById('victory-continue-btn').addEventListener('click', () => showScreen('town'));
+    document.getElementById('retry-btn').addEventListener('click', () => startDungeon(gameState.currentDungeon));
+    document.getElementById('gameover-town-btn').addEventListener('click', () => {
+        gameState.player.hp = Math.floor(gameState.player.maxHp / 2);
+        showScreen('town');
+        updateHUD();
+    });
+}
+
+// ========================================
+// Achievement & Equipment Helper Functions
+// ========================================
+function checkAchievements() {
+    const stats = gameState.stats;
+
+    for (const [id, achievement] of Object.entries(ACHIEVEMENTS)) {
+        if (!gameState.achievements[id] && achievement.condition(stats)) {
+            unlockAchievement(id);
+        }
+    }
+}
+
+function unlockAchievement(achievementId) {
+    const achievement = ACHIEVEMENTS[achievementId];
+    if (!achievement || gameState.achievements[achievementId]) return;
+
+    gameState.achievements[achievementId] = {
+        unlocked: true,
+        unlockedAt: Date.now()
+    };
+
+    // Apply rewards
+    if (achievement.reward) {
+        if (achievement.reward.gold && gameState.player) {
+            gameState.player.gold += achievement.reward.gold;
+            gameState.stats.goldEarned += achievement.reward.gold;
+        }
+    }
+
+    // Show notification
+    showAchievementNotification(achievement);
+    if (typeof AudioManager !== 'undefined') AudioManager.playSFX('levelup');
+}
+
+function showAchievementNotification(achievement) {
+    // Create notification element using safe DOM methods
+    const notif = document.createElement('div');
+    notif.className = 'achievement-notification';
+    notif.style.cssText = `
+        position: fixed;
+        top: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(255, 170, 0, 0.1));
+        border: 2px solid #d4af37;
+        border-radius: 12px;
+        padding: 16px 24px;
+        z-index: 10000;
+        animation: achievementSlide 0.5s ease-out, achievementFade 0.5s ease-out 3s forwards;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+    `;
+
+    const iconSpan = document.createElement('span');
+    iconSpan.style.fontSize = '32px';
+    iconSpan.textContent = achievement.icon;
+
+    const textDiv = document.createElement('div');
+
+    const titleDiv = document.createElement('div');
+    titleDiv.style.cssText = 'color: #d4af37; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;';
+    titleDiv.textContent = 'Achievement Unlocked!';
+
+    const nameDiv = document.createElement('div');
+    nameDiv.style.cssText = 'color: #fff; font-size: 18px; font-weight: 600;';
+    nameDiv.textContent = achievement.name;
+
+    textDiv.appendChild(titleDiv);
+    textDiv.appendChild(nameDiv);
+    notif.appendChild(iconSpan);
+    notif.appendChild(textDiv);
+
+    document.body.appendChild(notif);
+
+    // Remove after animation
+    setTimeout(() => notif.remove(), 4000);
+}
+
+function rollEquipmentDrop(enemy, isBoss) {
+    const p = gameState.player;
+    if (!p) return;
+
+    // Determine rarity based on enemy/boss
+    let rarity;
+    const roll = Math.random();
+
+    if (isBoss) {
+        // Bosses have better loot
+        if (roll < 0.1) rarity = 'legendary';
+        else if (roll < 0.4) rarity = 'rare';
+        else if (roll < 0.75) rarity = 'uncommon';
+        else rarity = 'common';
+    } else {
+        // Regular enemies
+        if (roll < 0.02) rarity = 'rare';
+        else if (roll < 0.15) rarity = 'uncommon';
+        else rarity = 'common';
+    }
+
+    const pool = EQUIPMENT_DROPS[rarity];
+    if (!pool) return;
+
+    // Pick random category
+    const categories = Object.keys(pool);
+    const category = categories[Math.floor(Math.random() * categories.length)];
+    const items = pool[category];
+
+    if (!items || items.length === 0) return;
+
+    // Pick random item
+    const item = { ...items[Math.floor(Math.random() * items.length)] };
+
+    // Add to player's equipment bag
+    p.inventory.equipmentBag.push(item);
+
+    // Show notification
+    showEquipmentDrop(item);
+}
+
+function showEquipmentDrop(item) {
+    const color = RARITY_COLORS[item.rarity] || '#fff';
+    showToast(`${item.icon} ${item.name} (${item.rarity})`, color);
+}
+
+// Track dodge
+function trackDodge() {
+    gameState.stats.dodgesPerformed++;
+    if (gameState.combo.count > gameState.stats.maxCombo) {
+        gameState.stats.maxCombo = gameState.combo.count;
+    }
+
+    // Quest progress for dodges and combos
+    if (window.ShadowQuestFeatures) {
+        window.ShadowQuestFeatures.updateQuestProgress('dodges', 1);
+        window.ShadowQuestFeatures.updateQuestProgress('combo', gameState.combo.count);
+    }
+}
+
+// ========================================
+// Initialization
+// ========================================
+function init() {
+    setupCanvas();
+    setupInput();
+    setupEventListeners();
+    setupNewFeatures();
+    initializeCustomization();
+
+    // Check for save data
+    if (hasSaveData()) {
+        document.getElementById('continue-btn').disabled = false;
+    }
+
+    showScreen('title');
+}
+
+// Setup new feature event listeners
+function setupNewFeatures() {
+    // Difficulty selection
+    document.querySelectorAll('.difficulty-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.difficulty-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            gameState.difficulty = btn.dataset.difficulty;
+            if (typeof AudioManager !== 'undefined') AudioManager.playSFX('collect');
+        });
+    });
+
+    // Volume controls
+    const masterVol = document.getElementById('master-volume');
+    const bgmVol = document.getElementById('bgm-volume');
+    const sfxVol = document.getElementById('sfx-volume');
+
+    if (masterVol) {
+        masterVol.addEventListener('input', (e) => {
+            if (typeof AudioManager !== 'undefined') AudioManager.setMasterVolume(e.target.value / 100);
+        });
+    }
+    if (bgmVol) {
+        bgmVol.addEventListener('input', (e) => {
+            if (typeof AudioManager !== 'undefined') AudioManager.setBGMVolume(e.target.value / 100);
+        });
+    }
+    if (sfxVol) {
+        sfxVol.addEventListener('input', (e) => {
+            if (typeof AudioManager !== 'undefined') AudioManager.setSFXVolume(e.target.value / 100);
+        });
+    }
+}
+
+// Update combo system
+function updateCombo(dt) {
+    if (gameState.combo.count > 0) {
+        gameState.combo.timer -= dt;
+        if (gameState.combo.timer <= 0) {
+            gameState.combo.count = 0;
+            document.getElementById('combo-display')?.classList.add('hidden');
+        }
+    }
+}
+
+function addCombo() {
+    gameState.combo.count++;
+    gameState.combo.timer = gameState.combo.maxTime;
+
+    const display = document.getElementById('combo-display');
+    const countEl = document.getElementById('combo-count');
+    if (display && countEl) {
+        display.classList.remove('hidden');
+        countEl.textContent = gameState.combo.count;
+        // Add pulse animation
+        display.style.animation = 'none';
+        display.offsetHeight; // Trigger reflow
+        display.style.animation = 'comboPulse 0.3s ease';
+    }
+
+    if (typeof AudioManager !== 'undefined' && gameState.combo.count > 2) {
+        AudioManager.playSFX('combo');
+    }
+}
+
+function getComboMultiplier() {
+    return 1 + (gameState.combo.count * 0.1);
+}
+
+// Mini-map drawing
+function drawMiniMap() {
+    const mapCanvas = document.getElementById('mini-map');
+    if (!mapCanvas) return;
+
+    const ctx = mapCanvas.getContext('2d');
+    const mainCanvas = document.getElementById('game-canvas');
+    const scale = mapCanvas.width / mainCanvas.width;
+
+    // Clear
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+    ctx.fillRect(0, 0, mapCanvas.width, mapCanvas.height);
+
+    // Draw border
+    ctx.strokeStyle = '#8b5cf6';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(1, 1, mapCanvas.width - 2, mapCanvas.height - 2);
+
+    // Draw player (green dot)
+    if (gameState.player) {
+        ctx.fillStyle = '#22c55e';
+        ctx.beginPath();
+        ctx.arc(gameState.player.x * scale, gameState.player.y * scale, 4, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    // Draw enemies (red dots)
+    ctx.fillStyle = '#ef4444';
+    gameState.enemies.forEach(enemy => {
+        ctx.beginPath();
+        ctx.arc(enemy.x * scale, enemy.y * scale, enemy.isBoss ? 6 : 3, 0, Math.PI * 2);
+        ctx.fill();
+    });
+
+    // Draw loot (yellow dots)
+    ctx.fillStyle = '#fbbf24';
+    gameState.loot.forEach(loot => {
+        ctx.beginPath();
+        ctx.arc(loot.x * scale, loot.y * scale, 2, 0, Math.PI * 2);
+        ctx.fill();
+    });
+}
+
+// Start when DOM is ready
+document.addEventListener('DOMContentLoaded', init);

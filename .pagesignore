@@ -1,0 +1,4 @@
+# Ignore large files
+KeySpamTool.zip
+*.py
+.wrangler/

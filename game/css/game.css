@@ -1,0 +1,237 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0a0a0f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Times New Roman', serif;
+    overflow: hidden;
+}
+
+#game-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#game-canvas {
+    border: 4px solid #2a2a3a;
+    cursor: pointer;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+#game-canvas:hover {
+    cursor: crosshair;
+}
+
+/* HUD Overlay */
+#hud {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+/* Health/Mana Orbs */
+.orb-container {
+    position: absolute;
+    bottom: 10px;
+    width: 80px;
+    height: 80px;
+    pointer-events: auto;
+}
+
+#health-orb {
+    left: 10px;
+}
+
+#mana-orb {
+    right: 10px;
+}
+
+.orb {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid #333;
+    position: relative;
+    overflow: hidden;
+}
+
+.orb-fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: height 0.3s ease;
+}
+
+#health-fill {
+    background: linear-gradient(to top, #8b0000, #cc0000);
+    height: 100%;
+}
+
+#mana-fill {
+    background: linear-gradient(to top, #000080, #0000cc);
+    height: 100%;
+}
+
+.orb-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    text-shadow: 1px 1px 2px black;
+    font-weight: bold;
+}
+
+/* Floor indicator */
+#floor-display {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #c4a777;
+    font-size: 18px;
+    text-shadow: 2px 2px 4px black;
+}
+
+/* Minimap */
+#minimap {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 150px;
+    height: 150px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid #444;
+}
+
+/* Character info */
+#char-info {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: #c4a777;
+    font-size: 14px;
+    text-shadow: 1px 1px 2px black;
+}
+
+/* Main Menu Overlay */
+#main-menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+#main-menu h1 {
+    color: #c4a777;
+    font-size: 48px;
+    text-shadow: 3px 3px 6px black;
+    margin-bottom: 40px;
+    letter-spacing: 4px;
+}
+
+.menu-button {
+    background: linear-gradient(to bottom, #3a3a4a, #1a1a2e);
+    color: #c4a777;
+    border: 2px solid #555;
+    padding: 15px 40px;
+    font-size: 20px;
+    font-family: 'Times New Roman', serif;
+    cursor: pointer;
+    margin: 10px;
+    min-width: 200px;
+    transition: all 0.2s;
+}
+
+.menu-button:hover {
+    background: linear-gradient(to bottom, #4a4a5e, #2a2a3e);
+    border-color: #c4a777;
+    transform: scale(1.05);
+}
+
+/* Class Selection */
+#class-select {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+#class-select h2 {
+    color: #c4a777;
+    margin-bottom: 30px;
+}
+
+.class-options {
+    display: flex;
+    gap: 20px;
+}
+
+.class-card {
+    background: rgba(30, 30, 40, 0.9);
+    border: 2px solid #444;
+    padding: 20px;
+    width: 180px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.class-card:hover {
+    border-color: #c4a777;
+    transform: translateY(-5px);
+}
+
+.class-card h3 {
+    color: #c4a777;
+    margin-bottom: 10px;
+}
+
+.class-card p {
+    color: #888;
+    font-size: 12px;
+}
+
+.class-card .stats {
+    margin-top: 15px;
+    font-size: 11px;
+    color: #666;
+    text-align: left;
+}
+
+/* Loading screen */
+#loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #0a0a0f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #c4a777;
+    font-size: 24px;
+    z-index: 200;
+}

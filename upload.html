@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload | Scarmonit</title>
+    <meta name="description" content="Upload and share files. Supports all file types including images, videos, documents, and archives.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #050508;
+            --bg-darker: #020203;
+            --accent-purple: #6e45e2;
+            --accent-blue: #24aadb;
+            --accent-gold: #d4af37;
+            --accent-fire: #ff6b35;
+            --gold-glow: rgba(212, 175, 55, 0.5);
+            --purple-glow: rgba(110, 69, 226, 0.4);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #e8e8e8;
+            --text-dim: #a0a0a0;
+            --green: #4ade80;
+            --red: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bg-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, #0a0a12 0%, var(--bg-dark) 100%);
+            overflow: hidden;
+        }
+
+        .bg-blob {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            filter: blur(120px);
+            border-radius: 50%;
+            opacity: 0.12;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .bg-blob:nth-child(2) {
+            right: -200px;
+            bottom: -200px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-fire));
+            animation-delay: -10s;
+            animation-duration: 25s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(50px, -50px) scale(1.1); }
+            50% { transform: translate(-30px, 30px) scale(0.95); }
+            75% { transform: translate(-50px, -30px) scale(1.05); }
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(5, 5, 8, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 10000;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            background: linear-gradient(135deg, #fff 0%, var(--accent-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-gold);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .hero {
+            min-height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 20px 40px;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 30px;
+            margin-bottom: 1.5rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, var(--accent-gold) 50%, var(--accent-fire) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 60px var(--gold-glow);
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px 100px;
+        }
+
+        .upload-zone {
+            background: var(--glass-bg);
+            border: 2px dashed var(--glass-border);
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-zone::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-fire));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .upload-zone:hover, .upload-zone.dragover {
+            border-color: var(--accent-gold);
+            background: rgba(212, 175, 55, 0.05);
+            box-shadow: 0 0 40px var(--gold-glow);
+        }
+
+        .upload-zone:hover::before, .upload-zone.dragover::before {
+            transform: scaleX(1);
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .upload-zone h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .upload-zone p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+        }
+
+        .upload-zone input[type="file"] {
+            display: none;
+        }
+
+        .upload-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            margin-top: 20px;
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px var(--purple-glow);
+            filter: brightness(1.1);
+        }
+
+        .upload-progress {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .upload-progress.active {
+            display: block;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            height: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-fire));
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .progress-text {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 30px;
+            background: linear-gradient(180deg, var(--accent-gold), var(--accent-fire));
+            border-radius: 2px;
+        }
+
+        .files-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .file-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 25px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .file-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-fire));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .file-card:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 25px var(--gold-glow);
+        }
+
+        .file-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .file-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .file-icon {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .file-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .file-name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-main);
+            word-break: break-word;
+            margin-bottom: 5px;
+        }
+
+        .file-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        .file-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .file-type-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--accent-gold);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .file-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .file-btn.download {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            color: white;
+        }
+
+        .file-btn.download:hover {
+            filter: brightness(1.15);
+            transform: translateY(-2px);
+        }
+
+        .file-btn.delete {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--red);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .file-btn.delete:hover {
+            background: rgba(239, 68, 68, 0.25);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: var(--text-dim);
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--glass-border);
+            border-top-color: var(--accent-gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--text-dim);
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            color: var(--text-dim);
+            opacity: 0.7;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 15px 25px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: var(--text-main);
+            font-weight: 500;
+            transform: translateX(150%);
+            transition: transform 0.4s ease;
+            z-index: 2000;
+            max-width: 400px;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            border-left: 3px solid var(--green);
+        }
+
+        .toast.error {
+            border-left: 3px solid var(--red);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-dim);
+        }
+
+        footer a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        footer a:hover {
+            text-shadow: 0 0 10px var(--gold-glow);
+        }
+
+        /* Password Protection Modal */
+        .password-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 5, 8, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+            transition: opacity 0.4s ease;
+        }
+
+        .password-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .password-modal {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 100px var(--gold-glow);
+        }
+
+        .password-modal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-fire));
+        }
+
+        .password-modal .modal-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            letter-spacing: 3px;
+            background: linear-gradient(135deg, #fff 0%, var(--accent-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .password-modal .modal-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .password-modal .modal-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .password-input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text-main);
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .password-input:focus {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px var(--gold-glow);
+        }
+
+        .password-input::placeholder {
+            color: var(--text-dim);
+        }
+
+        .password-submit {
+            width: 100%;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-fire));
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+        }
+
+        .password-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px var(--gold-glow);
+            filter: brightness(1.1);
+        }
+
+        .password-error {
+            color: var(--red);
+            font-size: 0.9rem;
+            margin-top: 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .password-error.visible {
+            opacity: 1;
+        }
+
+        .password-modal.shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-10px); }
+            40% { transform: translateX(10px); }
+            60% { transform: translateX(-10px); }
+            80% { transform: translateX(10px); }
+        }
+
+        .main-content {
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .main-content.visible {
+            opacity: 1;
+        }
+
+        /* Mobile Menu Button */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 10001;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: var(--text-main);
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        /* Mobile Nav Active State */
+        .nav-links.active {
+            transform: translateX(0);
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+            }
+
+            /* Mobile Navigation Styles */
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: 0;
+                height: 100vh;
+                width: 70%;
+                background: rgba(5, 5, 8, 0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transform: translateX(100%);
+                transition: transform 0.3s ease-in-out;
+                z-index: 999;
+                border-left: 1px solid var(--glass-border);
+            }
+            
+            .nav-links a {
+                font-size: 1.2rem;
+                margin: 1rem 0;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+    </style>
+</head>
+<body>
+    <!-- Password Protection Modal -->
+    <div class="password-overlay" id="password-overlay">
+        <div class="password-modal" id="password-modal">
+            <span class="modal-icon">🔐</span>
+            <div class="modal-logo">SCARMONIT</div>
+            <div class="modal-title">Protected Area</div>
+            <form id="password-form">
+                <div class="password-input-group">
+                    <input type="password" class="password-input" id="password-input" placeholder="Enter password" autocomplete="off" autofocus>
+                </div>
+                <button type="submit" class="password-submit">Unlock Access</button>
+            </form>
+            <p class="password-error" id="password-error">Incorrect password. Try again.</p>
+        </div>
+    </div>
+
+    <!-- Main Content (hidden until authenticated) -->
+    <div class="bg-wrapper">
+        <div class="bg-blob"></div>
+        <div class="bg-blob"></div>
+    </div>
+
+    <nav>
+        <a href="/" class="logo">SCARMONIT</a>
+        <button class="menu-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/build-guides.html">Build Guides</a>
+            <a href="/videos.html">Videos</a>
+            <a href="/downloads.html">Downloads</a>
+            <a href="/tools">Tools</a>
+            <a href="/upload" class="active">Upload</a>
+            <a href="/game">Game</a>
+            <a href="/discord.html">Discord</a>
+        </div>
+    </nav>
+
+    <div class="main-content" id="main-content">
+
+    <header class="hero">
+        <div class="hero-badge">No Limits</div>
+        <h1>File Upload</h1>
+        <p>Upload ANY file type with NO size limit. Images, videos, code, executables, archives - everything is supported.</p>
+    </header>
+
+    <div class="container">
+        <div class="upload-zone" id="upload-zone">
+            <span class="upload-icon">📁</span>
+            <h3>Drag & Drop Any Files Here</h3>
+            <p>.py .js .json .txt .jpg .gif .mp4 .exe .zip - literally anything!</p>
+            <input type="file" id="file-input" multiple>
+            <button class="upload-btn" id="select-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                Select Files
+            </button>
+
+            <div class="upload-progress" id="upload-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <p class="progress-text" id="progress-text">Uploading...</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">Uploaded Files</h2>
+        <div id="files-container">
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <p>Loading files...</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 <a href="https://scarmonit.com">Scarmonit.com</a> - All Rights Reserved</p>
+    </footer>
+    </div><!-- End main-content -->
+
+    <div class="toast" id="toast"></div>
+
+    <script src="/cursor-particles.js"></script>
+    <script>
+        // Password Protection System
+        (function() {
+            const CORRECT_PASSWORD = 'scarmonit123';
+            const SESSION_KEY = 'scarmonit_upload_auth';
+
+            const overlay = document.getElementById('password-overlay');
+            const modal = document.getElementById('password-modal');
+            const form = document.getElementById('password-form');
+            const input = document.getElementById('password-input');
+            const error = document.getElementById('password-error');
+            const mainContent = document.getElementById('main-content');
+
+            // Check if already authenticated this session
+            function isAuthenticated() {
+                return sessionStorage.getItem(SESSION_KEY) === 'true';
+            }
+
+            // Show main content and hide overlay
+            function grantAccess() {
+                overlay.classList.add('hidden');
+                mainContent.classList.add('visible');
+                sessionStorage.setItem(SESSION_KEY, 'true');
+            }
+
+            // Show error with shake animation
+            function showError() {
+                error.classList.add('visible');
+                modal.classList.add('shake');
+                input.value = '';
+                input.focus();
+
+                setTimeout(function() {
+                    modal.classList.remove('shake');
+                }, 500);
+
+                setTimeout(function() {
+                    error.classList.remove('visible');
+                }, 3000);
+            }
+
+            // Handle form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                if (input.value === CORRECT_PASSWORD) {
+                    grantAccess();
+                } else {
+                    showError();
+                }
+            });
+
+            // Check authentication on page load
+            if (isAuthenticated()) {
+                grantAccess();
+            } else {
+                // Focus input when page loads
+                input.focus();
+            }
+        })();
+
+        // File type icons mapping - supports ALL file types
+        const fileIcons = {
+            // Images
+            'image/jpeg': '🖼️', 'image/jpg': '🖼️', 'image/png': '🖼️', 'image/gif': '🖼️',
+            'image/webp': '🖼️', 'image/svg+xml': '🖼️', 'image/bmp': '🖼️', 'image/tiff': '🖼️',
+            'image/ico': '🖼️', 'image/x-icon': '🖼️', 'image/heic': '🖼️', 'image/heif': '🖼️',
+            // Videos
+            'video/mp4': '🎬', 'video/webm': '🎬', 'video/avi': '🎬', 'video/quicktime': '🎬',
+            'video/x-msvideo': '🎬', 'video/x-matroska': '🎬', 'video/x-flv': '🎬', 'video/mpeg': '🎬',
+            // Audio
+            'audio/mpeg': '🎵', 'audio/wav': '🎵', 'audio/ogg': '🎵', 'audio/mp3': '🎵',
+            'audio/flac': '🎵', 'audio/aac': '🎵', 'audio/x-m4a': '🎵', 'audio/webm': '🎵',
+            // Documents
+            'application/pdf': '📄', 'application/msword': '📝', 'text/plain': '📄', 'text/html': '🌐',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document': '📝',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': '📊',
+            'application/vnd.openxmlformats-officedocument.presentationml.presentation': '📽️',
+            'application/vnd.ms-excel': '📊', 'application/vnd.ms-powerpoint': '📽️',
+            'text/csv': '📊', 'text/markdown': '📝', 'text/rtf': '📝',
+            // Archives
+            'application/zip': '📦', 'application/x-zip-compressed': '📦',
+            'application/x-rar-compressed': '📦', 'application/x-7z-compressed': '📦',
+            'application/gzip': '📦', 'application/x-tar': '📦', 'application/x-bzip2': '📦',
+            // Code & Development
+            'application/javascript': '⚡', 'text/javascript': '⚡', 'application/json': '📋',
+            'text/css': '🎨', 'text/xml': '📋', 'application/xml': '📋',
+            'application/x-python': '🐍', 'text/x-python': '🐍',
+            'application/x-sh': '💻', 'application/x-powershell': '💻',
+            'text/x-java-source': '☕', 'text/x-c': '💻', 'text/x-c++': '💻',
+            // Executables & Installers
+            'application/x-msdownload': '⚙️', 'application/x-executable': '⚙️',
+            'application/vnd.microsoft.portable-executable': '⚙️',
+            'application/x-msi': '⚙️', 'application/x-apple-diskimage': '⚙️',
+            // Fonts
+            'font/ttf': '🔤', 'font/otf': '🔤', 'font/woff': '🔤', 'font/woff2': '🔤',
+            // 3D & Design
+            'model/gltf-binary': '🎮', 'model/obj': '🎮', 'application/x-blender': '🎮',
+            // Database
+            'application/x-sqlite3': '🗄️', 'application/sql': '🗄️',
+            // Default for any other type
+            'default': '📁'
+        };
+
+        function getFileIcon(type) {
+            return fileIcons[type] || fileIcons['default'];
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric', month: 'short', day: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+            });
+        }
+
+        function getFileExtension(filename) {
+            return filename.split('.').pop().toUpperCase();
+        }
+
+        function showToast(message, type) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast ' + type + ' show';
+            setTimeout(function() {
+                toast.className = 'toast';
+            }, 4000);
+        }
+
+        // Create SVG element helper
+        function createSvg(paths, width, height) {
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('width', width || '16');
+            svg.setAttribute('height', height || '16');
+            svg.setAttribute('viewBox', '0 0 24 24');
+            svg.setAttribute('fill', 'none');
+            svg.setAttribute('stroke', 'currentColor');
+            svg.setAttribute('stroke-width', '2');
+            paths.forEach(function(d) {
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('d', d);
+                svg.appendChild(path);
+            });
+            return svg;
+        }
+
+        // Create file card using safe DOM methods
+        function createFileCard(file) {
+            const card = document.createElement('div');
+            card.className = 'file-card';
+            card.setAttribute('data-key', file.key);
+
+            // Header
+            const header = document.createElement('div');
+            header.className = 'file-header';
+
+            const icon = document.createElement('span');
+            icon.className = 'file-icon';
+            icon.textContent = getFileIcon(file.type);
+
+            const info = document.createElement('div');
+            info.className = 'file-info';
+
+            const name = document.createElement('div');
+            name.className = 'file-name';
+            name.textContent = file.name;
+
+            const meta = document.createElement('div');
+            meta.className = 'file-meta';
+
+            const sizeSpan = document.createElement('span');
+            sizeSpan.textContent = '📦 ' + formatFileSize(file.size);
+
+            const dateSpan = document.createElement('span');
+            dateSpan.textContent = '📅 ' + formatDate(file.uploadedAt);
+
+            meta.appendChild(sizeSpan);
+            meta.appendChild(dateSpan);
+            info.appendChild(name);
+            info.appendChild(meta);
+            header.appendChild(icon);
+            header.appendChild(info);
+
+            // Type badge
+            const badge = document.createElement('span');
+            badge.className = 'file-type-badge';
+            badge.textContent = getFileExtension(file.name);
+
+            // Actions
+            const actions = document.createElement('div');
+            actions.className = 'file-actions';
+
+            const downloadBtn = document.createElement('a');
+            downloadBtn.className = 'file-btn download';
+            downloadBtn.href = file.url;
+            downloadBtn.setAttribute('download', '');
+            downloadBtn.setAttribute('target', '_blank');
+            const dlSvg = createSvg(['M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4', 'M7 10l5 5 5-5', 'M12 15V3']);
+            downloadBtn.appendChild(dlSvg);
+            const dlText = document.createTextNode(' Download');
+            downloadBtn.appendChild(dlText);
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'file-btn delete';
+            deleteBtn.onclick = function() { deleteFile(file.key); };
+            const delSvg = createSvg(['M3 6h18', 'M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2']);
+            deleteBtn.appendChild(delSvg);
+            const delText = document.createTextNode(' Delete');
+            deleteBtn.appendChild(delText);
+
+            actions.appendChild(downloadBtn);
+            actions.appendChild(deleteBtn);
+
+            card.appendChild(header);
+            card.appendChild(badge);
+            card.appendChild(actions);
+
+            return card;
+        }
+
+        // Upload Zone Drag & Drop
+        const uploadZone = document.getElementById('upload-zone');
+        const fileInput = document.getElementById('file-input');
+        const selectBtn = document.getElementById('select-btn');
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(function(eventName) {
+            uploadZone.addEventListener(eventName, function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }, false);
+        });
+
+        ['dragenter', 'dragover'].forEach(function(eventName) {
+            uploadZone.addEventListener(eventName, function() {
+                uploadZone.classList.add('dragover');
+            }, false);
+        });
+
+        ['dragleave', 'drop'].forEach(function(eventName) {
+            uploadZone.addEventListener(eventName, function() {
+                uploadZone.classList.remove('dragover');
+            }, false);
+        });
+
+        uploadZone.addEventListener('drop', function(e) {
+            var dt = e.dataTransfer;
+            var files = dt.files;
+            handleFiles({ target: { files: files } });
+        }, false);
+
+        uploadZone.addEventListener('click', function(e) {
+            if (e.target !== selectBtn && !selectBtn.contains(e.target)) {
+                fileInput.click();
+            }
+        });
+
+        selectBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', handleFiles);
+
+        // Size threshold for multipart upload (95MB to be safe under 100MB limit)
+        const MULTIPART_THRESHOLD = 95 * 1024 * 1024;
+        // Chunk size for multipart upload (10MB per part)
+        const CHUNK_SIZE = 10 * 1024 * 1024;
+
+        async function handleFiles(e) {
+            const files = Array.from(e.target.files);
+            if (files.length === 0) return;
+
+            const progressContainer = document.getElementById('upload-progress');
+            const progressFill = document.getElementById('progress-fill');
+            const progressText = document.getElementById('progress-text');
+
+            progressContainer.classList.add('active');
+
+            let successCount = 0;
+            let failCount = 0;
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+
+                try {
+                    console.log('Uploading file:', file.name, 'Size:', formatFileSize(file.size), 'Type:', file.type);
+
+                    if (file.size >= MULTIPART_THRESHOLD) {
+                        // Use multipart upload for large files
+                        progressText.textContent = 'Uploading large file: ' + file.name + '...';
+                        const success = await uploadLargeFile(file, function(percent, status) {
+                            progressFill.style.width = ((i / files.length) * 100 + (percent / files.length)) + '%';
+                            progressText.textContent = status;
+                        });
+                        if (success) {
+                            successCount++;
+                            showToast('Uploaded: ' + file.name, 'success');
+                        } else {
+                            failCount++;
+                        }
+                    } else {
+                        // Use direct upload for smaller files
+                        progressText.textContent = 'Uploading ' + file.name + ' (' + (i + 1) + '/' + files.length + ')...';
+                        progressFill.style.width = ((i / files.length) * 100) + '%';
+
+                        const response = await fetch('/api/upload', {
+                            method: 'POST',
+                            headers: {
+                                'X-File-Name': encodeURIComponent(file.name),
+                                'X-File-Type': file.type || 'application/octet-stream',
+                                'X-File-Size': file.size.toString()
+                            },
+                            body: file
+                        });
+
+                        if (!response.ok) {
+                            const errorText = await response.text();
+                            console.error('Upload failed:', response.status, errorText);
+                            showToast('Upload failed for ' + file.name + ': ' + response.status, 'error');
+                            failCount++;
+                            continue;
+                        }
+
+                        const result = await response.json();
+                        console.log('Upload result:', result);
+
+                        if (result.success) {
+                            progressFill.style.width = (((i + 1) / files.length) * 100) + '%';
+                            successCount++;
+                            showToast('Uploaded: ' + file.name, 'success');
+                        } else {
+                            console.error('Upload returned error:', result.error);
+                            showToast('Failed: ' + file.name + ' - ' + result.error, 'error');
+                            failCount++;
+                        }
+                    }
+                } catch (error) {
+                    console.error('Upload error:', error);
+                    showToast('Error: ' + file.name + ' - ' + error.message, 'error');
+                    failCount++;
+                }
+            }
+
+            progressFill.style.width = '100%';
+
+            if (successCount > 0 && failCount === 0) {
+                progressText.textContent = 'All ' + successCount + ' file(s) uploaded!';
+            } else if (successCount > 0) {
+                progressText.textContent = successCount + ' uploaded, ' + failCount + ' failed';
+            } else {
+                progressText.textContent = 'Upload failed - check console for details';
+            }
+
+            setTimeout(function() {
+                progressContainer.classList.remove('active');
+                progressFill.style.width = '0%';
+                fileInput.value = '';
+                loadFiles();
+            }, 2000);
+        }
+
+        // Multipart upload for large files (>95MB)
+        async function uploadLargeFile(file, onProgress) {
+            try {
+                // Step 1: Start multipart upload
+                onProgress(0, 'Starting upload for ' + file.name + '...');
+                const startResponse = await fetch('/api/upload-start', {
+                    method: 'POST',
+                    headers: {
+                        'X-File-Name': encodeURIComponent(file.name),
+                        'X-File-Type': file.type || 'application/octet-stream'
+                    }
+                });
+
+                if (!startResponse.ok) {
+                    throw new Error('Failed to start multipart upload');
+                }
+
+                const startResult = await startResponse.json();
+                if (!startResult.success) {
+                    throw new Error(startResult.error || 'Failed to start upload');
+                }
+
+                const { uploadId, key } = startResult;
+                console.log('Multipart upload started:', uploadId, key);
+
+                // Step 2: Upload parts
+                const totalParts = Math.ceil(file.size / CHUNK_SIZE);
+                const uploadedParts = [];
+
+                for (let partNumber = 1; partNumber <= totalParts; partNumber++) {
+                    const start = (partNumber - 1) * CHUNK_SIZE;
+                    const end = Math.min(start + CHUNK_SIZE, file.size);
+                    const chunk = file.slice(start, end);
+
+                    const percentComplete = Math.round((partNumber / totalParts) * 100);
+                    onProgress(percentComplete, 'Uploading ' + file.name + ' - Part ' + partNumber + '/' + totalParts + ' (' + percentComplete + '%)');
+
+                    const partResponse = await fetch('/api/upload-part', {
+                        method: 'POST',
+                        headers: {
+                            'X-Upload-Id': uploadId,
+                            'X-Key': key,
+                            'X-Part-Number': partNumber.toString()
+                        },
+                        body: chunk
+                    });
+
+                    if (!partResponse.ok) {
+                        throw new Error('Failed to upload part ' + partNumber);
+                    }
+
+                    const partResult = await partResponse.json();
+                    if (!partResult.success) {
+                        throw new Error(partResult.error || 'Part upload failed');
+                    }
+
+                    uploadedParts.push({
+                        partNumber: partResult.partNumber,
+                        etag: partResult.etag
+                    });
+
+                    console.log('Part ' + partNumber + ' uploaded, etag:', partResult.etag);
+                }
+
+                // Step 3: Complete multipart upload
+                onProgress(100, 'Finalizing ' + file.name + '...');
+                const completeResponse = await fetch('/api/upload-complete', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        uploadId: uploadId,
+                        key: key,
+                        parts: uploadedParts,
+                        fileName: file.name,
+                        fileType: file.type || 'application/octet-stream',
+                        fileSize: file.size
+                    })
+                });
+
+                if (!completeResponse.ok) {
+                    throw new Error('Failed to complete multipart upload');
+                }
+
+                const completeResult = await completeResponse.json();
+                if (!completeResult.success) {
+                    throw new Error(completeResult.error || 'Complete failed');
+                }
+
+                console.log('Multipart upload complete:', completeResult);
+                onProgress(100, 'Completed: ' + file.name);
+                return true;
+
+            } catch (error) {
+                console.error('Large file upload error:', error);
+                showToast('Error uploading ' + file.name + ': ' + error.message, 'error');
+                return false;
+            }
+        }
+
+        // Load and display files using safe DOM methods
+        async function loadFiles() {
+            const container = document.getElementById('files-container');
+
+            try {
+                const response = await fetch('/api/list');
+                const result = await response.json();
+
+                // Clear container
+                while (container.firstChild) {
+                    container.removeChild(container.firstChild);
+                }
+
+                if (result.success && result.files.length > 0) {
+                    const grid = document.createElement('div');
+                    grid.className = 'files-grid';
+
+                    result.files.forEach(function(file) {
+                        grid.appendChild(createFileCard(file));
+                    });
+
+                    container.appendChild(grid);
+                } else {
+                    const empty = document.createElement('div');
+                    empty.className = 'empty-state';
+
+                    const emptyIcon = document.createElement('div');
+                    emptyIcon.className = 'empty-icon';
+                    emptyIcon.textContent = '📭';
+
+                    const emptyTitle = document.createElement('h3');
+                    emptyTitle.textContent = 'No Files Yet';
+
+                    const emptyText = document.createElement('p');
+                    emptyText.textContent = 'Upload your first file to get started!';
+
+                    empty.appendChild(emptyIcon);
+                    empty.appendChild(emptyTitle);
+                    empty.appendChild(emptyText);
+                    container.appendChild(empty);
+                }
+            } catch (error) {
+                // Clear container
+                while (container.firstChild) {
+                    container.removeChild(container.firstChild);
+                }
+
+                const empty = document.createElement('div');
+                empty.className = 'empty-state';
+
+                const emptyIcon = document.createElement('div');
+                emptyIcon.className = 'empty-icon';
+                emptyIcon.textContent = '⚠️';
+
+                const emptyTitle = document.createElement('h3');
+                emptyTitle.textContent = 'Error Loading Files';
+
+                const emptyText = document.createElement('p');
+                emptyText.textContent = error.message;
+
+                empty.appendChild(emptyIcon);
+                empty.appendChild(emptyTitle);
+                empty.appendChild(emptyText);
+                container.appendChild(empty);
+            }
+        }
+
+        async function deleteFile(key) {
+            if (!confirm('Are you sure you want to delete this file?')) return;
+
+            try {
+                const response = await fetch('/api/delete', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ key: key })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showToast('File deleted successfully', 'success');
+                    loadFiles();
+                } else {
+                    showToast('Failed to delete: ' + result.error, 'error');
+                }
+            } catch (error) {
+                showToast('Error: ' + error.message, 'error');
+            }
+        }
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', loadFiles);
+    </script>
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (menuToggle && navLinks) {
+            menuToggle.addEventListener('click', () => {
+                menuToggle.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!navLinks.contains(e.target) && !menuToggle.contains(e.target) && navLinks.classList.contains('active')) {
+                    menuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                }
+            });
+
+            // Close menu when clicking a link
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    menuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+        }
+    </script>
+</body>
+</html>

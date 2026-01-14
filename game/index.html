@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depths of Darkness - A Diablo-Inspired RPG</title>
+    <meta name="description" content="A dark dungeon-crawling RPG inspired by classic Diablo">
+    <link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading">Loading...</div>
+
+    <!-- Game Container -->
+    <div id="game-container">
+        <!-- Main Canvas -->
+        <canvas id="game-canvas"></canvas>
+
+        <!-- HUD Overlay -->
+        <div id="hud" style="display: none;">
+            <!-- Floor Display -->
+            <div id="floor-display">Cathedral - Floor 1</div>
+
+            <!-- Character Info -->
+            <div id="char-info"></div>
+
+            <!-- Health Orb -->
+            <div class="orb-container" id="health-orb">
+                <div class="orb">
+                    <div class="orb-fill" id="health-fill"></div>
+                    <span class="orb-text">100</span>
+                </div>
+            </div>
+
+            <!-- Mana Orb -->
+            <div class="orb-container" id="mana-orb">
+                <div class="orb">
+                    <div class="orb-fill" id="mana-fill"></div>
+                    <span class="orb-text">20</span>
+                </div>
+            </div>
+
+            <!-- Minimap (placeholder for future) -->
+            <div id="minimap" style="display: none;"></div>
+        </div>
+
+        <!-- Main Menu -->
+        <div id="main-menu">
+            <h1>DEPTHS OF DARKNESS</h1>
+
+            <button class="menu-button" onclick="showClassSelect()">New Game</button>
+            <button class="menu-button" onclick="continueGame()" style="opacity: 0.5;" disabled>Continue</button>
+
+            <!-- Class Selection -->
+            <div id="class-select">
+                <h2>Choose Your Class</h2>
+                <div class="class-options">
+                    <!-- Warrior -->
+                    <div class="class-card" onclick="selectClass('warrior')">
+                        <h3>Warrior</h3>
+                        <p>Master of melee combat with high strength and vitality.</p>
+                        <div class="stats">
+                            STR: 30 | DEX: 20<br>
+                            VIT: 25 | MAG: 10<br>
+                            HP: 100 | MP: 20
+                        </div>
+                    </div>
+
+                    <!-- Rogue -->
+                    <div class="class-card" onclick="selectClass('rogue')">
+                        <h3>Rogue</h3>
+                        <p>Swift and deadly, excels with bows and daggers.</p>
+                        <div class="stats">
+                            STR: 20 | DEX: 30<br>
+                            VIT: 20 | MAG: 15<br>
+                            HP: 80 | MP: 30
+                        </div>
+                    </div>
+
+                    <!-- Sorcerer -->
+                    <div class="class-card" onclick="selectClass('sorcerer')">
+                        <h3>Sorcerer</h3>
+                        <p>Wielder of arcane magic with devastating spells.</p>
+                        <div class="stats">
+                            STR: 15 | DEX: 20<br>
+                            VIT: 15 | MAG: 35<br>
+                            HP: 60 | MP: 80
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Scripts -->
+    <!-- Config must load first -->
+    <script src="js/config.js"></script>
+
+    <!-- World (tiles needed by dungeon) -->
+    <script src="js/world/tiles.js"></script>
+    <script src="js/world/dungeon.js"></script>
+
+    <!-- Engine -->
+    <script src="js/engine/sprites.js"></script>
+    <script src="js/engine/renderer.js"></script>
+    <script src="js/engine/input.js"></script>
+    <script src="js/engine/pathfinding.js"></script>
+
+    <!-- Items (must load before Inventory and Player) -->
+    <script src="js/items/item.js"></script>
+    <script src="js/items/itemDatabase.js"></script>
+
+    <!-- UI Systems -->
+    <script src="js/ui/tooltip.js"></script>
+    <script src="js/ui/inventory.js"></script>
+    <script src="js/ui/inventoryUI.js"></script>
+
+    <!-- Entities -->
+    <script src="js/entities/player.js"></script>
+
+    <!-- Main (loads last) -->
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools | Scarmonit</title>
+    <meta name="description" content="Free online utility tools. Password generator, converters, markdown editor, and gaming calculators.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #050508;
+            --bg-darker: #020203;
+            --accent-purple: #6e45e2;
+            --accent-blue: #24aadb;
+            --accent-gold: #d4af37;
+            --accent-fire: #ff6b35;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #e8e8e8;
+            --text-dim: #a0a0a0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Background Animation */
+        .bg-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, #0a0a12 0%, var(--bg-dark) 100%);
+            overflow: hidden;
+        }
+
+        .bg-blob {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            filter: blur(120px);
+            border-radius: 50%;
+            opacity: 0.12;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .bg-blob:nth-child(2) {
+            right: -200px;
+            bottom: -200px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-fire));
+            animation-delay: -10s;
+            animation-duration: 25s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-30px, 30px) scale(0.95); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(5, 5, 8, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            background: linear-gradient(135deg, #fff 0%, var(--accent-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-gold);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: var(--text-main);
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 20px 40px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(110, 69, 226, 0.15);
+            border: 1px solid var(--accent-purple);
+            color: var(--accent-purple);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 30px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, var(--accent-purple) 50%, var(--accent-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px 100px;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .tool-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .tool-card:hover {
+            border-color: var(--accent-purple);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .tool-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .tool-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+            height: 60px;
+        }
+
+        .tool-icon svg {
+            width: 48px;
+            height: 48px;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+            transition: all 0.3s ease;
+        }
+
+        .tool-card:hover .tool-icon svg {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 20px var(--accent-purple));
+        }
+
+        .tool-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .tool-desc {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+
+        /* Modal / Tool Interface */
+        .tool-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .tool-modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .tool-modal {
+            background: #0f0f15;
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .tool-modal-overlay.active .tool-modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: 20px 30px;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .modal-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--accent-purple);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #fff;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        /* General Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 15px rgba(110, 69, 226, 0.2);
+        }
+
+        .btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+        }
+
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(110, 69, 226, 0.1);
+            border: 1px solid var(--accent-purple);
+            border-radius: 8px;
+            color: #fff;
+            font-family: monospace;
+            word-break: break-all;
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.5);
+            border: none;
+            color: #ccc;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent-purple);
+            color: #fff;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-dim);
+        }
+
+        footer a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: 0;
+                height: 100vh;
+                width: 70%;
+                background: rgba(5, 5, 8, 0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transform: translateX(100%);
+                transition: transform 0.3s ease-in-out;
+                z-index: 999;
+                border-left: 1px solid var(--glass-border);
+            }
+            
+            .nav-links.active {
+                transform: translateX(0);
+            }
+
+            .menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+            .menu-toggle.active span:nth-child(2) { opacity: 0; }
+            .menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+                margin: 1rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-wrapper">
+        <div class="bg-blob"></div>
+        <div class="bg-blob"></div>
+    </div>
+
+    <nav>
+        <a href="/" class="logo">SCARMONIT</a>
+        <button class="menu-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/build-guides.html">Build Guides</a>
+            <a href="/videos.html">Videos</a>
+            <a href="/downloads.html">Downloads</a>
+            <a href="/tools.html" class="active">Tools</a>
+            <a href="/upload">Upload</a>
+            <a href="/game">Game</a>
+            <a href="/discord.html">Discord</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-badge">Web Utilities</div>
+        <h1>Scarmonit Tools</h1>
+        <p>A collection of useful tools for gamers, developers, and everyone in between. Secure, fast, and free.</p>
+    </header>
+
+    <div class="container">
+        <div class="tools-grid">
+            <!-- Tool 1: Password Gen -->
+            <div class="tool-card" onclick="openTool('password-gen')">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+                <h3 class="tool-title">Password Gen</h3>
+                <p class="tool-desc">Create strong, secure passwords instantly locally in your browser.</p>
+            </div>
+
+            <!-- Tool 2: Unit Converter -->
+            <div class="tool-card" onclick="openTool('unit-converter')">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12h20"/><path d="M2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6"/><path d="M2 12V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v6"/><path d="M6 12v-2"/><path d="M10 12v-2"/><path d="M14 12v-2"/><path d="M18 12v-2"/></svg></div>
+                <h3 class="tool-title">Unit Converter</h3>
+                <p class="tool-desc">Convert Pixels to REM, Inches to CM, and other common units.</p>
+            </div>
+
+            <!-- Tool 3: Markdown Editor -->
+            <div class="tool-card" onclick="openTool('markdown-editor')">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+                <h3 class="tool-title">Markdown Preview</h3>
+                <p class="tool-desc">Type in Markdown and see the live rendered HTML result instantly.</p>
+            </div>
+
+            <!-- Tool 4: DPS Calculator -->
+            <div class="tool-card" onclick="openTool('dps-calc')">
+                <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg></div>
+                <h3 class="tool-title">DPS Calculator</h3>
+                <p class="tool-desc">Simple Damage Per Second calculator for comparing game weapons.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="tool-modal-overlay" id="modal-overlay">
+        
+        <!-- Password Gen Modal -->
+        <div class="tool-modal" id="tool-password-gen" style="display: none;">
+            <div class="modal-header">
+                <h3 class="modal-title">🔐 Secure Password Generator</h3>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Length: <span id="pwd-len-val">16</span></label>
+                    <input type="range" class="form-input" min="8" max="64" value="16" id="pwd-length" oninput="updatePwdLen()">
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><input type="checkbox" id="pwd-upper" checked> Include Uppercase (A-Z)</label>
+                    <label class="form-label"><input type="checkbox" id="pwd-numbers" checked> Include Numbers (0-9)</label>
+                    <label class="form-label"><input type="checkbox" id="pwd-symbols" checked> Include Symbols (!@#$%)
+                    </label>
+                </div>
+                <button class="btn" onclick="generatePassword()">Generate Password</button>
+                <div class="result-box" id="pwd-result" style="display:none;">
+                    <span id="pwd-text"></span>
+                    <button class="copy-btn" onclick="copyToClipboard('pwd-text')">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Unit Converter Modal -->
+        <div class="tool-modal" id="tool-unit-converter" style="display: none;">
+            <div class="modal-header">
+                <h3 class="modal-title">📏 Universal Converter</h3>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Convert From:</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="number" class="form-input" id="conv-input" placeholder="Value" oninput="convertUnit()">
+                        <select class="form-select" id="conv-type" onchange="convertUnit()" style="width: 120px;">
+                            <option value="px-rem">PX to REM</option>
+                            <option value="rem-px">REM to PX</option>
+                            <option value="in-cm">Inch to CM</option>
+                            <option value="cm-in">CM to Inch</option>
+                            <option value="kg-lbs">KG to Lbs</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="result-box">
+                    Result: <strong id="conv-result">0</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Markdown Editor Modal -->
+        <div class="tool-modal" id="tool-markdown-editor" style="display: none;">
+            <div class="modal-header">
+                <h3 class="modal-title">📝 Markdown Live Preview</h3>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Input (Markdown):</label>
+                    <textarea class="form-textarea" id="md-input" rows="6" placeholder="# Hello World
+**Bold text**" oninput="renderMarkdown()"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Preview:</label>
+                    <div id="md-preview" style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; min-height: 100px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DPS Calculator Modal -->
+        <div class="tool-modal" id="tool-dps-calc" style="display: none;">
+            <div class="modal-header">
+                <h3 class="modal-title">⚔️ Gaming DPS Calculator</h3>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <label class="form-label">Min Damage</label>
+                        <input type="number" class="form-input" id="dps-min" placeholder="100">
+                    </div>
+                    <div>
+                        <label class="form-label">Max Damage</label>
+                        <input type="number" class="form-input" id="dps-max" placeholder="200">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Attacks Per Second (Speed)</label>
+                    <input type="number" class="form-input" id="dps-speed" placeholder="1.5">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Crit Chance (%)
+                    </label>
+                    <input type="number" class="form-input" id="dps-crit-chance" placeholder="20">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Crit Damage Multiplier (%)
+                    </label>
+                    <input type="number" class="form-input" id="dps-crit-dmg" placeholder="150">
+                </div>
+                <button class="btn" onclick="calculateDPS()">Calculate Damage</button>
+                <div class="result-box" style="margin-top: 20px; font-size: 1.2rem; text-align: center;">
+                    DPS: <strong id="dps-result" style="color: var(--accent-gold);">0</strong>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2025 <a href="https://scarmonit.com">Scarmonit.com</a> - All Rights Reserved</p>
+    </footer>
+    
+    <script src="/cursor-particles.js"></script>
+    <script>
+        // --- Navigation Logic ---
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // --- Modal Logic ---
+        const overlay = document.getElementById('modal-overlay');
+        const modals = document.querySelectorAll('.tool-modal');
+
+        function openTool(toolId) {
+            // Hide all modals first
+            modals.forEach(m => m.style.display = 'none');
+            // Show specific modal
+            document.getElementById('tool-' + toolId).style.display = 'block';
+            // Show overlay
+            overlay.classList.add('active');
+        }
+
+        function closeModal() {
+            overlay.classList.remove('active');
+            setTimeout(() => {
+                modals.forEach(m => m.style.display = 'none');
+            }, 300);
+        }
+
+        // Close on overlay click
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) closeModal();
+        });
+
+        // --- Tool 1: Password Gen ---
+        function updatePwdLen() {
+            document.getElementById('pwd-len-val').textContent = document.getElementById('pwd-length').value;
+        }
+
+        function generatePassword() {
+            const length = document.getElementById('pwd-length').value;
+            const useUpper = document.getElementById('pwd-upper').checked;
+            const useNums = document.getElementById('pwd-numbers').checked;
+            const useSyms = document.getElementById('pwd-symbols').checked;
+
+            let chars = 'abcdefghijklmnopqrstuvwxyz';
+            if (useUpper) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            if (useNums) chars += '0123456789';
+            if (useSyms) chars += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+
+            document.getElementById('pwd-text').textContent = password;
+            document.getElementById('pwd-result').style.display = 'block';
+        }
+
+        function copyToClipboard(elementId) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Copied to clipboard!');
+            });
+        }
+
+        // --- Tool 2: Unit Converter ---
+        function convertUnit() {
+            const val = parseFloat(document.getElementById('conv-input').value);
+            const type = document.getElementById('conv-type').value;
+            const resultEl = document.getElementById('conv-result');
+
+            if (isNaN(val)) {
+                resultEl.textContent = '0';
+                return;
+            }
+
+            let res = 0;
+            switch(type) {
+                case 'px-rem': res = val / 16 + ' rem'; break;
+                case 'rem-px': res = val * 16 + ' px'; break;
+                case 'in-cm': res = (val * 2.54).toFixed(2) + ' cm'; break;
+                case 'cm-in': res = (val / 2.54).toFixed(2) + ' in'; break;
+                case 'kg-lbs': res = (val * 2.20462).toFixed(2) + ' lbs'; break;
+            }
+            resultEl.textContent = res;
+        }
+
+        // --- Tool 3: Markdown (Simple Regex) ---
+        function renderMarkdown() {
+            const text = document.getElementById('md-input').value;
+            let html = text
+                .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+                .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+                .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+                .replace(/\*\*(.*)\*\*/gim, '<b>$1</b>')
+                .replace(/\*(.*)\*/gim, '<i>$1</i>')
+                .replace(/\n/gim, '<br>');
+            document.getElementById('md-preview').innerHTML = html;
+        }
+
+        // --- Tool 4: DPS Calculator ---
+        function calculateDPS() {
+            const min = parseFloat(document.getElementById('dps-min').value) || 0;
+            const max = parseFloat(document.getElementById('dps-max').value) || 0;
+            const speed = parseFloat(document.getElementById('dps-speed').value) || 1;
+            const critChance = (parseFloat(document.getElementById('dps-crit-chance').value) || 0) / 100;
+            const critDmg = (parseFloat(document.getElementById('dps-crit-dmg').value) || 0) / 100;
+
+            const avgDmg = (min + max) / 2;
+            const baseDps = avgDmg * speed;
+            
+            // Formula: BaseDPS * (1 + (CritChance * CritMultiplier))
+            // Note: CritMultiplier usually adds to base (e.g. +50% means 1.5x total damage)
+            // If user inputs 150%, it means crits deal 150% EXTRA or TOTAL?
+            // In D4 it's additive bucket, but generally: Total = NonCrit * (1-CC) + Crit * CC
+            // Crit Hit = Base * (1 + CritDmg)
+            
+            const totalDps = baseDps * (1 + (critChance * critDmg));
+
+            document.getElementById('dps-result').textContent = totalDps.toFixed(2);
+        }
+    </script>
+</body>
+</html>
