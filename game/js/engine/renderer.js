@@ -98,6 +98,22 @@ class Renderer {
         this.camera.y += (this.camera.targetY - this.camera.y) * CONFIG.CAMERA_LERP;
     }
 
+    // Convert world coordinates to screen coordinates
+    worldToScreen(worldX, worldY) {
+        return {
+            x: worldX * CONFIG.TILE_SIZE - this.camera.x + CONFIG.TILE_SIZE / 2,
+            y: worldY * CONFIG.TILE_SIZE - this.camera.y + CONFIG.TILE_SIZE / 2
+        };
+    }
+
+    // Convert screen coordinates to world coordinates
+    screenToWorld(screenX, screenY) {
+        return {
+            x: (screenX + this.camera.x - CONFIG.TILE_SIZE / 2) / CONFIG.TILE_SIZE,
+            y: (screenY + this.camera.y - CONFIG.TILE_SIZE / 2) / CONFIG.TILE_SIZE
+        };
+    }
+
     // Clear the canvas
     clear() {
         this.ctx.fillStyle = CONFIG.COLORS.unexplored;
@@ -1063,6 +1079,370 @@ class Renderer {
             player.isMoving,
             this.animFrame
         );
+
+        // Draw hit flash effect
+        if (player.hitFlashTimer && player.hitFlashTimer > 0) {
+            this.ctx.fillStyle = `rgba(255, 0, 0, ${player.hitFlashTimer * 2})`;
+            this.ctx.fillRect(screenX + 8, screenY + 8, CONFIG.TILE_SIZE - 16, CONFIG.TILE_SIZE - 16);
+        }
+    }
+
+    // Render all enemies
+    renderEnemies(enemies, playerX, playerY) {
+        if (!enemies) return;
+
+        for (const enemy of enemies) {
+            this.renderEnemy(enemy, playerX, playerY);
+        }
+    }
+
+    // Render a single enemy
+    renderEnemy(enemy, playerX, playerY) {
+        const screenX = enemy.x * CONFIG.TILE_SIZE - this.camera.x;
+        const screenY = enemy.y * CONFIG.TILE_SIZE - this.camera.y;
+
+        // Check if on screen
+        if (screenX < -CONFIG.TILE_SIZE || screenX > this.canvas.width + CONFIG.TILE_SIZE ||
+            screenY < -CONFIG.TILE_SIZE || screenY > this.canvas.height + CONFIG.TILE_SIZE) {
+            return;
+        }
+
+        // Check visibility
+        const tileKey = `${Math.floor(enemy.x)},${Math.floor(enemy.y)}`;
+        const isVisible = this.visible.has(tileKey);
+
+        if (!isVisible && CONFIG.FOG_OF_WAR) return;
+
+        const ctx = this.ctx;
+        const size = CONFIG.TILE_SIZE;
+
+        // Calculate brightness
+        const brightness = this.calculateBrightness(
+            Math.floor(enemy.x), Math.floor(enemy.y),
+            playerX, playerY,
+            isVisible
+        );
+
+        ctx.save();
+
+        // Apply death fade
+        if (enemy.isDead) {
+            ctx.globalAlpha = enemy.opacity;
+        }
+
+        // Draw enemy body based on type
+        this.drawEnemySprite(ctx, screenX, screenY, size, enemy, brightness);
+
+        // Draw health bar (if not dead)
+        if (!enemy.isDead) {
+            this.drawEnemyHealthBar(ctx, screenX, screenY, size, enemy, brightness);
+        }
+
+        // Hit flash effect
+        if (enemy.hitFlashTimer > 0) {
+            ctx.fillStyle = `rgba(255, 255, 255, ${enemy.hitFlashTimer * 3})`;
+            ctx.fillRect(screenX + 8, screenY + 8, size - 16, size - 16);
+        }
+
+        ctx.restore();
+    }
+
+    // Draw enemy sprite based on type
+    drawEnemySprite(ctx, screenX, screenY, size, enemy, brightness) {
+        const centerX = screenX + size / 2;
+        const centerY = screenY + size / 2;
+        const color = this.adjustBrightness(enemy.color, brightness);
+
+        // Animation offset for movement
+        const bobOffset = enemy.isMoving ? Math.sin(this.animFrame * 8) * 2 : 0;
+
+        switch (enemy.enemyType) {
+            case 'zombie':
+                this.drawZombieSprite(ctx, centerX, centerY + bobOffset, size, color, brightness, enemy.facing);
+                break;
+            case 'skeleton':
+                this.drawSkeletonSprite(ctx, centerX, centerY + bobOffset, size, color, brightness, enemy.facing);
+                break;
+            case 'demon':
+                this.drawDemonSprite(ctx, centerX, centerY + bobOffset, size, color, brightness, enemy.facing);
+                break;
+            case 'golem':
+                this.drawGolemSprite(ctx, centerX, centerY + bobOffset, size, color, brightness, enemy.facing);
+                break;
+            case 'ghost':
+                this.drawGhostSprite(ctx, centerX, centerY + bobOffset, size, color, brightness, enemy.facing);
+                break;
+            default:
+                // Default enemy shape
+                ctx.fillStyle = color;
+                ctx.fillRect(screenX + 12, screenY + 12, size - 24, size - 24);
+        }
+    }
+
+    // Zombie sprite - shambling undead
+    drawZombieSprite(ctx, centerX, centerY, size, color, brightness, facing) {
+        const s = size * 0.35;
+
+        // Body (hunched)
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.ellipse(centerX, centerY + 4, s * 0.7, s * 0.9, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Head (tilted)
+        const headTilt = facing.x * 0.2;
+        ctx.fillStyle = this.adjustBrightness('#5a7a5a', brightness);
+        ctx.beginPath();
+        ctx.ellipse(centerX + headTilt * 10, centerY - s * 0.7, s * 0.45, s * 0.5, headTilt, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Eyes (glowing)
+        ctx.fillStyle = this.adjustBrightness('#88ff88', brightness * 0.8);
+        ctx.beginPath();
+        ctx.arc(centerX - 5 + headTilt * 10, centerY - s * 0.7, 3, 0, Math.PI * 2);
+        ctx.arc(centerX + 5 + headTilt * 10, centerY - s * 0.7, 3, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Arms (reaching forward)
+        ctx.fillStyle = color;
+        ctx.fillRect(centerX - s - 5, centerY - 5, 10, 6);
+        ctx.fillRect(centerX + s - 5, centerY - 8, 10, 6);
+
+        // Tattered details
+        ctx.strokeStyle = this.adjustBrightness('#3a4a3a', brightness);
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(centerX - 8, centerY + s * 0.5);
+        ctx.lineTo(centerX - 5, centerY + s);
+        ctx.moveTo(centerX + 3, centerY + s * 0.5);
+        ctx.lineTo(centerX + 8, centerY + s);
+        ctx.stroke();
+    }
+
+    // Skeleton sprite - bony warrior
+    drawSkeletonSprite(ctx, centerX, centerY, size, color, brightness, facing) {
+        const s = size * 0.3;
+
+        // Ribcage
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2;
+        for (let i = 0; i < 4; i++) {
+            ctx.beginPath();
+            ctx.arc(centerX, centerY + i * 4 - 6, s * 0.5 - i * 2, Math.PI * 0.2, Math.PI * 0.8);
+            ctx.stroke();
+        }
+
+        // Spine
+        ctx.fillStyle = color;
+        ctx.fillRect(centerX - 2, centerY - 10, 4, 25);
+
+        // Skull
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.ellipse(centerX, centerY - s * 0.9, s * 0.45, s * 0.5, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Eye sockets
+        ctx.fillStyle = this.adjustBrightness('#330000', brightness);
+        ctx.beginPath();
+        ctx.ellipse(centerX - 5, centerY - s * 0.9, 4, 5, 0, 0, Math.PI * 2);
+        ctx.ellipse(centerX + 5, centerY - s * 0.9, 4, 5, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Red eye glow
+        ctx.fillStyle = this.adjustBrightness('#ff4444', brightness);
+        ctx.beginPath();
+        ctx.arc(centerX - 5, centerY - s * 0.9, 2, 0, Math.PI * 2);
+        ctx.arc(centerX + 5, centerY - s * 0.9, 2, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Arms (bone arms)
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(centerX - s * 0.5, centerY);
+        ctx.lineTo(centerX - s - 5, centerY + 10);
+        ctx.moveTo(centerX + s * 0.5, centerY);
+        ctx.lineTo(centerX + s + 5, centerY + 10);
+        ctx.stroke();
+
+        // Legs
+        ctx.beginPath();
+        ctx.moveTo(centerX - 5, centerY + 15);
+        ctx.lineTo(centerX - 8, centerY + s + 10);
+        ctx.moveTo(centerX + 5, centerY + 15);
+        ctx.lineTo(centerX + 8, centerY + s + 10);
+        ctx.stroke();
+    }
+
+    // Demon sprite - fiery creature
+    drawDemonSprite(ctx, centerX, centerY, size, color, brightness, facing) {
+        const s = size * 0.35;
+
+        // Body (muscular)
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.ellipse(centerX, centerY + 2, s * 0.8, s, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Head
+        ctx.fillStyle = this.adjustBrightness('#aa2222', brightness);
+        ctx.beginPath();
+        ctx.ellipse(centerX, centerY - s * 0.7, s * 0.5, s * 0.55, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Horns
+        ctx.fillStyle = this.adjustBrightness('#442222', brightness);
+        ctx.beginPath();
+        ctx.moveTo(centerX - 12, centerY - s * 0.7);
+        ctx.lineTo(centerX - 18, centerY - s * 1.5);
+        ctx.lineTo(centerX - 8, centerY - s * 0.9);
+        ctx.closePath();
+        ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(centerX + 12, centerY - s * 0.7);
+        ctx.lineTo(centerX + 18, centerY - s * 1.5);
+        ctx.lineTo(centerX + 8, centerY - s * 0.9);
+        ctx.closePath();
+        ctx.fill();
+
+        // Eyes (fiery)
+        ctx.fillStyle = this.adjustBrightness('#ffff00', brightness);
+        ctx.beginPath();
+        ctx.ellipse(centerX - 6, centerY - s * 0.7, 4, 3, 0, 0, Math.PI * 2);
+        ctx.ellipse(centerX + 6, centerY - s * 0.7, 4, 3, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Fire aura glow
+        const glowSize = 15 + Math.sin(this.animFrame * 4) * 3;
+        const gradient = ctx.createRadialGradient(centerX, centerY, s * 0.5, centerX, centerY, glowSize + s);
+        gradient.addColorStop(0, 'rgba(255, 100, 50, 0)');
+        gradient.addColorStop(0.5, `rgba(255, 50, 0, ${0.15 * brightness})`);
+        gradient.addColorStop(1, 'rgba(255, 0, 0, 0)');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(centerX - glowSize - s, centerY - glowSize - s, (glowSize + s) * 2, (glowSize + s) * 2);
+
+        // Arms (clawed)
+        ctx.fillStyle = color;
+        ctx.fillRect(centerX - s - 8, centerY - 5, 12, 8);
+        ctx.fillRect(centerX + s - 4, centerY - 5, 12, 8);
+    }
+
+    // Golem sprite - stone construct
+    drawGolemSprite(ctx, centerX, centerY, size, color, brightness, facing) {
+        const s = size * 0.4;
+
+        // Body (blocky)
+        ctx.fillStyle = color;
+        ctx.fillRect(centerX - s * 0.7, centerY - s * 0.5, s * 1.4, s * 1.5);
+
+        // Head (square)
+        ctx.fillStyle = this.adjustBrightness('#5a5a5a', brightness);
+        ctx.fillRect(centerX - s * 0.4, centerY - s, s * 0.8, s * 0.6);
+
+        // Eyes (glowing runes)
+        ctx.fillStyle = this.adjustBrightness('#44aaff', brightness);
+        ctx.fillRect(centerX - 8, centerY - s * 0.8, 5, 4);
+        ctx.fillRect(centerX + 3, centerY - s * 0.8, 5, 4);
+
+        // Stone texture lines
+        ctx.strokeStyle = this.adjustBrightness('#4a4a4a', brightness);
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(centerX - s * 0.5, centerY);
+        ctx.lineTo(centerX + s * 0.5, centerY + 5);
+        ctx.moveTo(centerX - s * 0.3, centerY + s * 0.5);
+        ctx.lineTo(centerX + s * 0.4, centerY + s * 0.6);
+        ctx.stroke();
+
+        // Arms (massive)
+        ctx.fillStyle = color;
+        ctx.fillRect(centerX - s - 8, centerY - s * 0.3, 12, s);
+        ctx.fillRect(centerX + s - 4, centerY - s * 0.3, 12, s);
+
+        // Rune glow on chest
+        ctx.fillStyle = `rgba(68, 170, 255, ${0.3 * brightness})`;
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY - s * 0.2);
+        ctx.lineTo(centerX - 8, centerY + s * 0.3);
+        ctx.lineTo(centerX, centerY + s * 0.6);
+        ctx.lineTo(centerX + 8, centerY + s * 0.3);
+        ctx.closePath();
+        ctx.fill();
+    }
+
+    // Ghost sprite - ethereal spirit
+    drawGhostSprite(ctx, centerX, centerY, size, color, brightness, facing) {
+        const s = size * 0.35;
+        const floatOffset = Math.sin(this.animFrame * 3) * 4;
+
+        ctx.save();
+        ctx.globalAlpha *= 0.7;
+
+        // Ethereal body
+        const gradient = ctx.createRadialGradient(centerX, centerY + floatOffset, 0, centerX, centerY + floatOffset, s * 1.2);
+        gradient.addColorStop(0, this.adjustBrightness('#aaaaee', brightness));
+        gradient.addColorStop(0.6, this.adjustBrightness(color, brightness));
+        gradient.addColorStop(1, 'rgba(136, 136, 204, 0)');
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.ellipse(centerX, centerY + floatOffset, s, s * 1.2, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Wispy tail
+        ctx.fillStyle = `rgba(136, 136, 204, ${0.4 * brightness})`;
+        ctx.beginPath();
+        ctx.moveTo(centerX - s * 0.5, centerY + s * 0.8 + floatOffset);
+        ctx.quadraticCurveTo(centerX, centerY + s * 1.5 + floatOffset, centerX - s * 0.3, centerY + s * 2 + floatOffset);
+        ctx.quadraticCurveTo(centerX + s * 0.2, centerY + s * 1.3 + floatOffset, centerX + s * 0.5, centerY + s * 0.8 + floatOffset);
+        ctx.closePath();
+        ctx.fill();
+
+        // Face
+        ctx.fillStyle = this.adjustBrightness('#000033', brightness);
+        ctx.beginPath();
+        ctx.ellipse(centerX - 8, centerY - 5 + floatOffset, 5, 7, 0, 0, Math.PI * 2);
+        ctx.ellipse(centerX + 8, centerY - 5 + floatOffset, 5, 7, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Mouth (wailing)
+        ctx.beginPath();
+        ctx.ellipse(centerX, centerY + 8 + floatOffset, 6, 8, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.restore();
+    }
+
+    // Draw enemy health bar
+    drawEnemyHealthBar(ctx, screenX, screenY, size, enemy, brightness) {
+        const barWidth = size - 16;
+        const barHeight = 4;
+        const barX = screenX + 8;
+        const barY = screenY - 8;
+
+        const healthPercent = enemy.health / enemy.maxHealth;
+
+        // Background
+        ctx.fillStyle = `rgba(0, 0, 0, ${0.7 * brightness})`;
+        ctx.fillRect(barX - 1, barY - 1, barWidth + 2, barHeight + 2);
+
+        // Health bar (color based on health %)
+        let healthColor;
+        if (healthPercent > 0.6) {
+            healthColor = '#44cc44';
+        } else if (healthPercent > 0.3) {
+            healthColor = '#cccc44';
+        } else {
+            healthColor = '#cc4444';
+        }
+
+        ctx.fillStyle = this.adjustBrightness(healthColor, brightness);
+        ctx.fillRect(barX, barY, barWidth * healthPercent, barHeight);
+
+        // Border
+        ctx.strokeStyle = `rgba(255, 255, 255, ${0.3 * brightness})`;
+        ctx.lineWidth = 1;
+        ctx.strokeRect(barX - 1, barY - 1, barWidth + 2, barHeight + 2);
     }
 
     // Render path visualization

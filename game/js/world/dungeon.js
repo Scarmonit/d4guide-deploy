@@ -16,6 +16,9 @@ class Dungeon {
         this.stairsDown = null;
         this.playerStart = null;
 
+        // Enemies
+        this.enemies = [];
+
         // Initialize with walls
         this.initializeGrid();
     }
@@ -49,6 +52,9 @@ class Dungeon {
 
         // Set player start position
         this.setPlayerStart();
+
+        // Spawn enemies
+        this.spawnEnemies();
 
         return this;
     }
@@ -241,6 +247,83 @@ class Dungeon {
                 y: firstRoom.centerY
             };
         }
+    }
+
+    // Spawn enemies in rooms
+    spawnEnemies() {
+        this.enemies = [];
+
+        // Get spawn config for this tileset
+        const spawnConfig = ENEMY_SPAWN_CONFIG[this.tileset.key] || ENEMY_SPAWN_CONFIG.cathedral;
+
+        // Skip first room (player start)
+        for (let i = 1; i < this.rooms.length; i++) {
+            const room = this.rooms[i];
+
+            // Determine number of enemies for this room
+            const roomArea = room.width * room.height;
+            const baseCount = Math.floor(roomArea * spawnConfig.density / 10);
+            const enemyCount = Math.min(
+                spawnConfig.maxPerRoom,
+                Math.max(spawnConfig.minPerRoom, baseCount)
+            );
+
+            // Spawn enemies in this room
+            for (let j = 0; j < enemyCount; j++) {
+                const pos = this.getRandomPositionInRoom(room);
+                if (pos) {
+                    // Pick random enemy type from config
+                    const enemyType = spawnConfig.types[
+                        this.randomInt(0, spawnConfig.types.length - 1)
+                    ];
+
+                    const enemy = new Enemy(pos.x, pos.y, enemyType, this.floorNumber);
+                    this.enemies.push(enemy);
+                }
+            }
+        }
+
+        console.log(`Spawned ${this.enemies.length} enemies on floor ${this.floorNumber}`);
+    }
+
+    // Get random walkable position in a specific room
+    getRandomPositionInRoom(room) {
+        const maxAttempts = 20;
+        for (let i = 0; i < maxAttempts; i++) {
+            const x = this.randomInt(room.x + 1, room.x + room.width - 2);
+            const y = this.randomInt(room.y + 1, room.y + room.height - 2);
+
+            if (this.isWalkable(x, y)) {
+                // Check not too close to stairs
+                if (this.stairsDown &&
+                    Math.abs(x - this.stairsDown.x) < 2 &&
+                    Math.abs(y - this.stairsDown.y) < 2) {
+                    continue;
+                }
+                if (this.stairsUp &&
+                    Math.abs(x - this.stairsUp.x) < 2 &&
+                    Math.abs(y - this.stairsUp.y) < 2) {
+                    continue;
+                }
+
+                // Check not too close to other enemies
+                let tooClose = false;
+                for (const enemy of this.enemies) {
+                    const dist = Math.sqrt(
+                        Math.pow(x - enemy.x, 2) + Math.pow(y - enemy.y, 2)
+                    );
+                    if (dist < 2) {
+                        tooClose = true;
+                        break;
+                    }
+                }
+
+                if (!tooClose) {
+                    return { x, y };
+                }
+            }
+        }
+        return null;
     }
 
     // Get tile at position

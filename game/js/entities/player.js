@@ -26,6 +26,18 @@ class Player {
         this.isDead = false;
         this.isAttacking = false;
         this.attackCooldown = 0;
+        this.attackCooldownMax = 1.0; // Base attack cooldown in seconds
+
+        // Combat state
+        this.inCombat = false;
+        this.combatTimer = 0;
+        this.lastAttackTime = 0;
+        this.hitFlashTimer = 0;
+        this.autoAttackTarget = null;
+
+        // Skills
+        this.skills = [];
+        this.activeSkillEffects = [];
 
         // Current floor
         this.currentFloor = 1;
@@ -167,15 +179,42 @@ class Player {
         // Update cooldowns
         if (this.attackCooldown > 0) {
             this.attackCooldown -= deltaTime;
+            if (this.attackCooldown <= 0) {
+                this.isAttacking = false;
+            }
         }
+
+        // Update hit flash
+        if (this.hitFlashTimer > 0) {
+            this.hitFlashTimer -= deltaTime;
+        }
+
+        // Update combat state
+        if (this.inCombat) {
+            this.combatTimer -= deltaTime;
+            if (this.combatTimer <= 0) {
+                this.leaveCombat();
+            }
+        }
+
+        // Update skill effects (buffs, debuffs, DoTs)
+        this.updateEffects(deltaTime);
+
+        // Update skill cooldowns
+        this.updateSkills(deltaTime);
 
         // Handle movement
         if (this.isMoving && this.path.length > 0) {
             this.moveAlongPath(deltaTime, dungeon);
         }
 
-        // Regeneration (very slow, mainly for out of combat)
-        // Will be expanded later
+        // Out of combat regeneration
+        if (!this.inCombat && !this.isDead) {
+            // Slow health regen: 1% max health per second
+            this.health = Math.min(this.maxHealth, this.health + this.maxHealth * 0.01 * deltaTime);
+            // Slow mana regen: 2% max mana per second
+            this.mana = Math.min(this.maxMana, this.mana + this.maxMana * 0.02 * deltaTime);
+        }
     }
 
     // Move along calculated path
@@ -329,6 +368,304 @@ class Player {
             return tile.direction;
         }
         return null;
+    }
+
+    // ==========================================
+    // COMBAT METHODS
+    // ==========================================
+
+    // Check if player can attack
+    canAttack() {
+        return !this.isDead && this.attackCooldown <= 0 && !this.isAttacking;
+    }
+
+    // Get attack range (melee or from weapon)
+    getAttackRange() {
+        // Base melee range is 1.5 tiles
+        let range = 1.5;
+
+        // Check for ranged weapon
+        const weapon = this.inventory?.equipment?.weapon;
+        if (weapon && weapon.range) {
+            range = weapon.range;
+        }
+
+        return range;
+    }
+
+    // Check if target is in attack range
+    isInRange(targetX, targetY, range = null) {
+        const attackRange = range || this.getAttackRange();
+        const dx = targetX - this.x;
+        const dy = targetY - this.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        return distance <= attackRange;
+    }
+
+    // Calculate damage for an attack
+    calculateDamage(isCrit = false) {
+        const baseDamage = this.damage.min + Math.random() * (this.damage.max - this.damage.min);
+        let finalDamage = Math.floor(baseDamage);
+
+        // Apply critical hit
+        if (isCrit) {
+            finalDamage = Math.floor(finalDamage * 1.5);
+        }
+
+        return finalDamage;
+    }
+
+    // Roll for critical hit
+    rollCritical() {
+        return Math.random() * 100 < this.critChance;
+    }
+
+    // Roll for hit (vs enemy dodge)
+    rollHit(enemyDodge = 0) {
+        const roll = Math.random() * 100;
+        return roll < (this.hitChance - enemyDodge);
+    }
+
+    // Perform a melee attack on an enemy
+    attack(enemy) {
+        if (!this.canAttack() || !enemy || enemy.isDead) {
+            return null;
+        }
+
+        // Check range
+        if (!this.isInRange(enemy.x, enemy.y)) {
+            return { success: false, reason: 'out_of_range' };
+        }
+
+        // Start attack animation
+        this.isAttacking = true;
+        this.attackCooldown = this.attackCooldownMax / this.attackSpeed;
+
+        // Face the enemy
+        const dx = enemy.x - this.x;
+        const dy = enemy.y - this.y;
+        const len = Math.sqrt(dx * dx + dy * dy);
+        if (len > 0) {
+            this.facing = { x: dx / len, y: dy / len };
+        }
+
+        // Enter combat
+        this.enterCombat();
+
+        // Roll to hit
+        if (!this.rollHit(enemy.dodgeChance || 0)) {
+            return { success: false, reason: 'miss', damage: 0 };
+        }
+
+        // Check for block
+        if (enemy.blockChance && Math.random() * 100 < enemy.blockChance) {
+            return { success: false, reason: 'blocked', damage: 0 };
+        }
+
+        // Calculate damage
+        const isCrit = this.rollCritical();
+        const damage = this.calculateDamage(isCrit);
+
+        // Apply damage to enemy
+        const actualDamage = enemy.takeDamage(damage);
+
+        return {
+            success: true,
+            damage: actualDamage,
+            isCrit: isCrit,
+            killed: enemy.isDead
+        };
+    }
+
+    // Use a skill
+    useSkill(skill, targetX, targetY, enemies, dungeon) {
+        if (!skill || !skill.canUse(this)) {
+            return null;
+        }
+
+        // Use mana
+        if (!this.useMana(skill.manaCost)) {
+            return { success: false, reason: 'no_mana' };
+        }
+
+        // Face the target
+        if (targetX !== undefined && targetY !== undefined) {
+            const dx = targetX - this.x;
+            const dy = targetY - this.y;
+            const len = Math.sqrt(dx * dx + dy * dy);
+            if (len > 0) {
+                this.facing = { x: dx / len, y: dy / len };
+            }
+        }
+
+        // Enter combat
+        this.enterCombat();
+
+        // Execute skill
+        const result = skill.use(this, targetX, targetY, enemies, dungeon);
+
+        // Start cooldown
+        skill.startCooldown();
+
+        return result;
+    }
+
+    // Enter combat state
+    enterCombat() {
+        this.inCombat = true;
+        this.combatTimer = 5.0; // 5 seconds out of combat to leave combat
+    }
+
+    // Leave combat state
+    leaveCombat() {
+        this.inCombat = false;
+        this.combatTimer = 0;
+        this.autoAttackTarget = null;
+    }
+
+    // Set auto-attack target
+    setAutoAttackTarget(enemy) {
+        this.autoAttackTarget = enemy;
+    }
+
+    // Clear auto-attack target
+    clearAutoAttackTarget() {
+        this.autoAttackTarget = null;
+    }
+
+    // Get enemies in range (for AoE attacks)
+    getEnemiesInRange(enemies, range, fromX = null, fromY = null) {
+        const centerX = fromX !== null ? fromX : this.x;
+        const centerY = fromY !== null ? fromY : this.y;
+
+        return enemies.filter(enemy => {
+            if (enemy.isDead) return false;
+            const dx = enemy.x - centerX;
+            const dy = enemy.y - centerY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            return distance <= range;
+        });
+    }
+
+    // Get nearest enemy
+    getNearestEnemy(enemies, maxRange = Infinity) {
+        let nearest = null;
+        let nearestDist = maxRange;
+
+        for (const enemy of enemies) {
+            if (enemy.isDead) continue;
+
+            const dx = enemy.x - this.x;
+            const dy = enemy.y - this.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < nearestDist) {
+                nearestDist = distance;
+                nearest = enemy;
+            }
+        }
+
+        return nearest;
+    }
+
+    // Apply a temporary effect (buff/debuff)
+    applyEffect(effect) {
+        // Check if effect already exists
+        const existingIndex = this.activeSkillEffects.findIndex(e => e.name === effect.name);
+
+        if (existingIndex >= 0) {
+            // Refresh duration
+            this.activeSkillEffects[existingIndex].duration = effect.duration;
+        } else {
+            // Add new effect
+            this.activeSkillEffects.push({ ...effect });
+        }
+
+        // Recalculate stats if effect modifies them
+        if (effect.statModifiers) {
+            this.recalculateStats();
+        }
+    }
+
+    // Remove an effect
+    removeEffect(effectName) {
+        const index = this.activeSkillEffects.findIndex(e => e.name === effectName);
+        if (index >= 0) {
+            const effect = this.activeSkillEffects[index];
+            this.activeSkillEffects.splice(index, 1);
+
+            // Recalculate stats if effect had modifiers
+            if (effect.statModifiers) {
+                this.recalculateStats();
+            }
+        }
+    }
+
+    // Update skill effects
+    updateEffects(deltaTime) {
+        for (let i = this.activeSkillEffects.length - 1; i >= 0; i--) {
+            const effect = this.activeSkillEffects[i];
+            effect.duration -= deltaTime;
+
+            // Apply tick effects (DoTs, HoTs)
+            if (effect.tickDamage && effect.tickTimer !== undefined) {
+                effect.tickTimer -= deltaTime;
+                if (effect.tickTimer <= 0) {
+                    this.takeDamage(effect.tickDamage);
+                    effect.tickTimer = effect.tickInterval || 1.0;
+                }
+            }
+
+            if (effect.tickHeal && effect.tickTimer !== undefined) {
+                effect.tickTimer -= deltaTime;
+                if (effect.tickTimer <= 0) {
+                    this.heal(effect.tickHeal);
+                    effect.tickTimer = effect.tickInterval || 1.0;
+                }
+            }
+
+            // Remove expired effects
+            if (effect.duration <= 0) {
+                this.removeEffect(effect.name);
+            }
+        }
+    }
+
+    // Update skills cooldowns
+    updateSkills(deltaTime) {
+        for (const skill of this.skills) {
+            if (skill.currentCooldown > 0) {
+                skill.currentCooldown -= deltaTime;
+                if (skill.currentCooldown < 0) {
+                    skill.currentCooldown = 0;
+                }
+            }
+        }
+    }
+
+    // Enhanced takeDamage with combat state
+    takeDamageWithEffects(amount, source = null) {
+        // Check for block
+        if (this.blockChance && Math.random() * 100 < this.blockChance) {
+            return { blocked: true, damage: 0 };
+        }
+
+        // Check for dodge
+        const dodgeChance = this.activeSkillEffects.find(e => e.name === 'Evasion')?.dodgeBonus || 0;
+        if (dodgeChance > 0 && Math.random() * 100 < dodgeChance) {
+            return { dodged: true, damage: 0 };
+        }
+
+        // Apply armor reduction
+        const actualDamage = this.takeDamage(amount);
+
+        // Enter combat
+        this.enterCombat();
+
+        // Hit flash
+        this.hitFlashTimer = 0.15;
+
+        return { blocked: false, dodged: false, damage: actualDamage };
     }
 
     // Serialize player data for saving

@@ -13,6 +13,11 @@ class Game {
         this.input = new Input(this.canvas);
         this.pathfinder = new Pathfinder();
 
+        // Combat systems
+        this.projectileManager = new ProjectileManager(this);
+        this.combatEffects = new CombatEffects(this);
+        this.skillBar = new SkillBar(this);
+
         // Game state
         this.state = CONFIG.STATES.MENU;
         this.isPaused = false;
@@ -20,6 +25,10 @@ class Game {
         // Game objects
         this.dungeon = null;
         this.player = null;
+        this.enemies = [];
+
+        // Mouse world position (for skill targeting)
+        this.mouseWorldPos = null;
 
         // Timing
         this.lastTime = 0;
@@ -59,6 +68,20 @@ class Game {
             }
 
             if (this.state === CONFIG.STATES.PLAYING && this.player && this.dungeon) {
+                // Check for skill targeting mode
+                if (this.skillBar.isTargeting) {
+                    this.skillBar.handleClick(tileX, tileY);
+                    return;
+                }
+
+                // Check if clicking on an enemy
+                const clickedEnemy = this.getEnemyAt(tileX, tileY);
+                if (clickedEnemy && !clickedEnemy.isDead) {
+                    // Try to attack the enemy
+                    this.playerAttack(clickedEnemy);
+                    return;
+                }
+
                 // Check if clicking on stairs
                 const tile = this.dungeon.getTile(tileX, tileY);
                 if (tile && tile.type === 'stairs') {
@@ -77,7 +100,7 @@ class Game {
             }
         };
 
-        // Right click - use consumable or skill
+        // Right click - use consumable or skill targeting
         this.input.onRightClick = (tileX, tileY, screenX, screenY) => {
             // Check if inventory is open first
             if (inventoryUI.isOpen) {
@@ -86,8 +109,11 @@ class Game {
             }
 
             if (this.state === CONFIG.STATES.PLAYING) {
-                // Future: Use skill/spell
-                console.log(`Right click at tile ${tileX}, ${tileY}`);
+                // Cancel skill targeting on right-click
+                if (this.skillBar.isTargeting) {
+                    this.skillBar.cancelTargeting();
+                    return;
+                }
             }
         };
 
@@ -99,9 +125,20 @@ class Game {
 
     // Handle key presses
     handleKeyPress(key) {
+        // Skill hotkeys (1-6)
+        if (this.state === CONFIG.STATES.PLAYING && this.player) {
+            if (key >= 'Digit1' && key <= 'Digit6') {
+                const slotNum = key.charAt(5);
+                this.skillBar.handleKeyPress(slotNum);
+                return;
+            }
+        }
+
         switch (key) {
             case 'Escape':
-                if (inventoryUI.isOpen) {
+                if (this.skillBar.isTargeting) {
+                    this.skillBar.cancelTargeting();
+                } else if (inventoryUI.isOpen) {
                     inventoryUI.close();
                 } else if (this.state === CONFIG.STATES.PLAYING) {
                     this.togglePause();
@@ -195,10 +232,20 @@ class Game {
         this.dungeon = new Dungeon(CONFIG.DUNGEON_WIDTH, CONFIG.DUNGEON_HEIGHT, 1);
         this.dungeon.generate();
 
+        // Store enemies reference
+        this.enemies = this.dungeon.enemies;
+
         // Create player at start position
         const start = this.dungeon.playerStart;
         this.player = new Player(start.x, start.y, playerClass);
         this.player.currentFloor = 1;
+
+        // Initialize skill bar with player skills
+        this.skillBar.initializeSkills(this.player);
+
+        // Clear any existing effects/projectiles
+        this.projectileManager.clear();
+        this.combatEffects.clear();
 
         // Reset renderer visibility
         this.renderer.resetVisibility();
@@ -240,6 +287,9 @@ class Game {
         this.dungeon = new Dungeon(CONFIG.DUNGEON_WIDTH, CONFIG.DUNGEON_HEIGHT, newFloor);
         this.dungeon.generate();
 
+        // Store enemies reference
+        this.enemies = this.dungeon.enemies;
+
         // Position player at appropriate stairs
         let newPos;
         if (direction === 'down') {
@@ -271,6 +321,9 @@ class Game {
         console.log('Regenerating dungeon...');
         this.dungeon = new Dungeon(CONFIG.DUNGEON_WIDTH, CONFIG.DUNGEON_HEIGHT, this.player.currentFloor);
         this.dungeon.generate();
+
+        // Store enemies reference
+        this.enemies = this.dungeon.enemies;
 
         const start = this.dungeon.playerStart;
         this.player.x = start.x;
@@ -354,15 +407,35 @@ class Game {
     update() {
         if (!this.player || !this.dungeon) return;
 
+        // Get mouse position and convert to world coords
+        const mousePos = this.input.getMousePosition();
+        this.mouseWorldPos = this.renderer.screenToWorld(mousePos.x, mousePos.y);
+
         // Handle inventory UI mouse movement
         if (inventoryUI.isOpen) {
-            const mousePos = this.input.getMousePosition();
             inventoryUI.handleMouseMove(mousePos.x, mousePos.y, this.player);
         }
+
+        // Handle skill bar mouse movement (for tooltips)
+        this.skillBar.handleMouseMove(mousePos.x, mousePos.y);
 
         // Update player (pause movement when inventory is open)
         if (!inventoryUI.isOpen) {
             this.player.update(this.deltaTime, this.dungeon);
+        }
+
+        // Update all enemies
+        this.updateEnemies();
+
+        // Update projectiles
+        this.projectileManager.update(this.deltaTime);
+
+        // Update combat effects
+        this.combatEffects.update(this.deltaTime);
+
+        // Check for player death
+        if (this.player.isDead && this.state !== CONFIG.STATES.DEAD) {
+            this.handlePlayerDeath();
         }
 
         // Update camera
@@ -375,15 +448,147 @@ class Game {
         this.updateHUD();
     }
 
+    // Update all enemies
+    updateEnemies() {
+        if (!this.enemies) return;
+
+        for (let i = this.enemies.length - 1; i >= 0; i--) {
+            const enemy = this.enemies[i];
+
+            // Update enemy AI and movement
+            enemy.update(this.deltaTime, this.dungeon, this.player, this.pathfinder, this.enemies);
+
+            // Remove fully dead enemies and award XP
+            if (enemy.isFullyDead()) {
+                // Award experience
+                this.player.gainExperience(enemy.experienceReward);
+
+                // Generate loot (for future loot system)
+                const loot = enemy.generateLoot();
+                if (loot.length > 0) {
+                    for (const item of loot) {
+                        if (item.type === 'gold') {
+                            this.player.inventory.gold += item.amount;
+                            console.log(`Picked up ${item.amount} gold!`);
+                        }
+                    }
+                }
+
+                // Remove enemy
+                this.enemies.splice(i, 1);
+                console.log(`${enemy.name} removed. ${this.enemies.length} enemies remaining.`);
+            }
+        }
+    }
+
+    // Get enemy at tile position
+    getEnemyAt(tileX, tileY) {
+        if (!this.enemies) return null;
+
+        for (const enemy of this.enemies) {
+            if (Math.floor(enemy.x) === tileX && Math.floor(enemy.y) === tileY) {
+                return enemy;
+            }
+        }
+        return null;
+    }
+
+    // Player attacks an enemy
+    playerAttack(enemy) {
+        if (!this.player || this.player.isDead) return;
+
+        const distToEnemy = Math.sqrt(
+            Math.pow(this.player.x - enemy.x, 2) +
+            Math.pow(this.player.y - enemy.y, 2)
+        );
+
+        // Check if in melee range (1.5 tiles)
+        if (distToEnemy <= 1.5) {
+            // Attack if cooldown is ready
+            if (this.player.attackCooldown <= 0) {
+                // Use player's attack method
+                const result = this.player.attack(enemy);
+
+                if (result) {
+                    if (result.success) {
+                        // Show damage number
+                        this.combatEffects.showDamageNumber(
+                            enemy.x, enemy.y,
+                            result.damage,
+                            result.isCrit
+                        );
+
+                        // Spawn blood particles
+                        this.combatEffects.spawnBloodParticles(enemy.x, enemy.y);
+
+                        // Check if killed
+                        if (result.killed) {
+                            this.combatEffects.spawnDeathEffect(enemy.x, enemy.y, enemy.color);
+                            this.combatEffects.showXPNotification(enemy.experienceReward);
+                        }
+                    } else if (result.reason === 'miss') {
+                        this.combatEffects.showMissText(enemy.x, enemy.y);
+                    } else if (result.reason === 'blocked') {
+                        this.combatEffects.showBlockedText(enemy.x, enemy.y);
+                    }
+                }
+            }
+        } else {
+            // Move towards enemy
+            this.player.setTarget(Math.floor(enemy.x), Math.floor(enemy.y), this.dungeon, this.pathfinder);
+        }
+    }
+
+    // Handle player death
+    handlePlayerDeath() {
+        this.state = CONFIG.STATES.DEAD;
+        console.log('You have died!');
+
+        // Show death screen after a delay
+        setTimeout(() => {
+            if (confirm('You have died! Return to town?')) {
+                // Reset player
+                this.player.health = this.player.maxHealth;
+                this.player.mana = this.player.maxMana;
+                this.player.isDead = false;
+
+                // Go back to floor 1
+                this.dungeon = new Dungeon(CONFIG.DUNGEON_WIDTH, CONFIG.DUNGEON_HEIGHT, 1);
+                this.dungeon.generate();
+                this.enemies = this.dungeon.enemies;
+
+                const start = this.dungeon.playerStart;
+                this.player.x = start.x;
+                this.player.y = start.y;
+                this.player.currentFloor = 1;
+                this.player.stopMovement();
+
+                this.renderer.resetVisibility();
+                this.state = CONFIG.STATES.PLAYING;
+            }
+        }, 1000);
+    }
+
     // Render game
     render() {
+        // Apply screen shake
+        const shake = this.combatEffects.getScreenShakeOffset();
+
         // Clear canvas
         this.renderer.clear();
 
         if (!this.dungeon || !this.player) return;
 
+        // Apply shake to context
+        const ctx = this.renderer.ctx;
+        ctx.save();
+        ctx.translate(shake.x, shake.y);
+
         // Render dungeon
         this.renderer.renderDungeon(this.dungeon, this.player.x, this.player.y);
+
+        // Render enemies
+        this.renderer.renderEnemies(this.enemies, this.player.x, this.player.y);
 
         // Render player path (if moving)
         if (this.player.isMoving && this.player.path.length > 0) {
@@ -393,9 +598,21 @@ class Game {
         // Render player
         this.renderer.renderPlayer(this.player);
 
+        // Render projectiles
+        this.projectileManager.render(ctx, this.renderer);
+
+        // Render combat effects (damage numbers, particles)
+        this.combatEffects.render(ctx, this.renderer);
+
+        ctx.restore();
+
+        // UI elements (not affected by screen shake)
+        // Render skill bar
+        this.skillBar.render(ctx);
+
         // Render inventory UI if open
         if (inventoryUI.isOpen) {
-            inventoryUI.render(this.renderer.ctx, this.player, this.canvas.width, this.canvas.height);
+            inventoryUI.render(ctx, this.player, this.canvas.width, this.canvas.height);
         }
     }
 

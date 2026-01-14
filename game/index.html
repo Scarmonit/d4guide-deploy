@@ -98,6 +98,16 @@
 
     <!-- World (tiles needed by dungeon) -->
     <script src="js/world/tiles.js"></script>
+
+    <!-- Skills (must load before entities that use them) -->
+    <script src="js/skills/skill.js"></script>
+    <script src="js/skills/skillDatabase.js"></script>
+
+    <!-- Entities (enemy must load before dungeon spawns them) -->
+    <script src="js/entities/enemy.js"></script>
+    <script src="js/entities/projectile.js"></script>
+
+    <!-- World (dungeon needs enemy definitions) -->
     <script src="js/world/dungeon.js"></script>
 
     <!-- Engine -->
@@ -110,10 +120,14 @@
     <script src="js/items/item.js"></script>
     <script src="js/items/itemDatabase.js"></script>
 
+    <!-- Effects -->
+    <script src="js/effects/combatEffects.js"></script>
+
     <!-- UI Systems -->
     <script src="js/ui/tooltip.js"></script>
     <script src="js/ui/inventory.js"></script>
     <script src="js/ui/inventoryUI.js"></script>
+    <script src="js/ui/skillbar.js"></script>
 
     <!-- Entities -->
     <script src="js/entities/player.js"></script>
