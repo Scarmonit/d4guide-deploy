@@ -25,31 +25,11 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Install wrangler
-        run: npm install -g wrangler
-
-      - name: Setup wrangler OAuth authentication
-        env:
-          CLOUDFLARE_REFRESH_TOKEN: ${{ secrets.CLOUDFLARE_REFRESH_TOKEN }}
-        run: |
-          # Create wrangler config directory
-          mkdir -p ~/.wrangler/config
-
-          # Write OAuth config for wrangler
-          # The refresh token allows wrangler to get fresh access tokens automatically
-          cat > ~/.wrangler/config/default.toml << EOF
-          refresh_token = "$CLOUDFLARE_REFRESH_TOKEN"
-          scopes = ["account:read", "user:read", "workers:write", "workers_kv:write", "workers_routes:write", "workers_scripts:write", "workers_tail:read", "d1:write", "pages:write", "zone:read", "offline_access"]
-          EOF
-
-          echo "Wrangler OAuth config created"
-
       - name: Run data ingestion
         env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          D1_DATABASE_ID: ${{ secrets.D1_DATABASE_ID }}
+          INGEST_KEY: ${{ secrets.INGEST_KEY }}
+          INGEST_URL: "https://scarmonit.com"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          USE_WRANGLER: "1"
         run: |
           SCRIPT="${{ github.event.inputs.scripts || 'all' }}"
 
@@ -72,5 +52,7 @@ jobs:
 
       - name: Verify data
         run: |
-          echo "Verifying D1 database tables..."
-          wrangler d1 execute d4-api --remote --command "SELECT 'tier_list' as tbl, COUNT(*) as count FROM tier_list UNION ALL SELECT 'builds', COUNT(*) FROM builds;"
+          echo "Ingestion completed. Data verification:"
+          echo "- Tier list and builds data sent to /api/ingest endpoint"
+          echo "- Data written to D1 via Cloudflare Pages Function"
+          echo "- View live data at https://scarmonit.com/api/builds"

@@ -15,7 +15,7 @@
  * Usage: node scripts/ingest-maxroll-builds.js
  */
 
-const { d1Execute, d1BatchWithProgress } = require('./d1-client');
+const { d1Execute, d1BatchWithProgress, ingestTierList, ingestBuilds, useIngestAPI } = require('./d1-client');
 
 const TIER_LIST_URL = 'https://maxroll.gg/d4/tierlists/endgame-tier-list';
 const BUILD_GUIDE_BASE = 'https://maxroll.gg/d4/build-guides/';
@@ -286,6 +286,14 @@ async function upsertBuilds(builds) {
     return 0;
   }
 
+  // Use Ingest API in CI mode
+  if (useIngestAPI()) {
+    console.log('  Using Ingest API for builds upsert...');
+    const result = await ingestBuilds(builds);
+    return result.results?.success || builds.length;
+  }
+
+  // Local mode: use wrangler/D1 directly
   const statements = builds.map(b => ({
     sql: `INSERT INTO builds (slug, build_name, class_name, tier, season, summary, playstyle, difficulty,
           skills, gear, aspects, paragon, rotation, tips, source, source_url, updated_at)
@@ -320,6 +328,24 @@ async function upsertBuilds(builds) {
  * Update tier_list table with current rankings
  */
 async function updateTierList(builds) {
+  // Use Ingest API in CI mode
+  if (useIngestAPI()) {
+    console.log('  Using Ingest API for tier_list upsert...');
+    // Convert builds to tier_list format expected by the API
+    const tierListData = builds.map(b => ({
+      build_name: b.build_name,
+      class_name: b.class_name,
+      tier: b.tier,
+      category: 'endgame',
+      source: 'maxroll',
+      source_url: b.source_url,
+      season: CURRENT_SEASON,
+    }));
+    const result = await ingestTierList(tierListData);
+    return result.results?.success || builds.length;
+  }
+
+  // Local mode: use wrangler/D1 directly
   const statements = builds.map(b => ({
     sql: `INSERT INTO tier_list (slug, build_name, class_name, tier, season, description, playstyle, difficulty, source_url, updated_at)
           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))

@@ -2,14 +2,17 @@
  * D1 Client
  * Shared module for executing SQL against Cloudflare D1.
  *
- * Supports two modes:
+ * Supports three modes:
  *   1. Wrangler CLI (local) - Uses OAuth credentials, no env vars needed
- *   2. REST API (CI) - Requires CLOUDFLARE_D1_TOKEN env var
+ *   2. REST API - Requires CLOUDFLARE_D1_TOKEN env var
+ *   3. Ingest API (CI) - POSTs to /api/ingest endpoint, requires INGEST_KEY
  *
- * Environment variables (for REST API mode):
+ * Environment variables:
  *   CLOUDFLARE_ACCOUNT_ID  - Cloudflare account ID
  *   D1_DATABASE_ID         - D1 database UUID
- *   CLOUDFLARE_D1_TOKEN    - API token with D1 write permissions
+ *   CLOUDFLARE_D1_TOKEN    - API token with D1 write permissions (REST mode)
+ *   INGEST_KEY             - Secret key for /api/ingest endpoint (CI mode)
+ *   INGEST_URL             - Base URL for ingest API (default: https://scarmonit.com)
  */
 
 const { execSync } = require('child_process');
@@ -18,11 +21,20 @@ const path = require('path');
 const ACCOUNT_ID = () => process.env.CLOUDFLARE_ACCOUNT_ID;
 const DB_ID = () => process.env.D1_DATABASE_ID;
 const TOKEN = () => process.env.CLOUDFLARE_D1_TOKEN;
+const INGEST_KEY = () => process.env.INGEST_KEY;
+const INGEST_URL = () => process.env.INGEST_URL || 'https://scarmonit.com';
 const DB_NAME = 'd4-api';
 
-// Detect whether to use wrangler CLI or REST API
+// Detect which mode to use
+function useIngestAPI() {
+  // Use Ingest API if INGEST_KEY is set (CI mode)
+  return !!INGEST_KEY();
+}
+
 function useWranglerCLI() {
   // Use CLI if no API token is set (local dev) or if USE_WRANGLER is set
+  // But not if we're using Ingest API
+  if (useIngestAPI()) return false;
   return !TOKEN() || process.env.USE_WRANGLER === '1';
 }
 
@@ -189,4 +201,79 @@ async function d1BatchWithProgress(statements, logEvery = 25) {
   return success;
 }
 
-module.exports = { d1Execute, d1Batch, d1BatchWithProgress };
+/**
+ * Post data to the Ingest API endpoint
+ * Used in CI where wrangler D1 commands don't work
+ * @param {string} action - Action type: 'tier_list', 'builds', 'clear_maxroll'
+ * @param {Array} data - Data array to ingest
+ * @returns {Promise<Object>} API response
+ */
+async function ingestAPI(action, data) {
+  const url = `${INGEST_URL()}/api/ingest`;
+  const key = INGEST_KEY();
+
+  if (!key) {
+    throw new Error('INGEST_KEY environment variable is required for Ingest API mode');
+  }
+
+  console.log(`  Posting to Ingest API: ${action} (${data.length} items)`);
+
+  const resp = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Ingest-Key': key,
+    },
+    body: JSON.stringify({ action, data }),
+  });
+
+  if (!resp.ok) {
+    const text = await resp.text();
+    throw new Error(`Ingest API HTTP ${resp.status}: ${text}`);
+  }
+
+  const result = await resp.json();
+  if (!result.success) {
+    throw new Error(`Ingest API error: ${JSON.stringify(result.error)}`);
+  }
+
+  console.log(`  Ingest API response:`, result.results);
+  return result;
+}
+
+/**
+ * Upsert tier list entries via Ingest API
+ * @param {Array} entries - Tier list entries
+ * @returns {Promise<Object>} API response
+ */
+async function ingestTierList(entries) {
+  return ingestAPI('tier_list', entries);
+}
+
+/**
+ * Upsert build entries via Ingest API
+ * @param {Array} entries - Build entries
+ * @returns {Promise<Object>} API response
+ */
+async function ingestBuilds(entries) {
+  return ingestAPI('builds', entries);
+}
+
+/**
+ * Clear all Maxroll data via Ingest API
+ * @returns {Promise<Object>} API response
+ */
+async function clearMaxrollData() {
+  return ingestAPI('clear_maxroll', []);
+}
+
+module.exports = {
+  d1Execute,
+  d1Batch,
+  d1BatchWithProgress,
+  ingestAPI,
+  ingestTierList,
+  ingestBuilds,
+  clearMaxrollData,
+  useIngestAPI,
+};
