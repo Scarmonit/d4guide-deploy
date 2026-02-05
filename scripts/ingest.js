@@ -29,7 +29,14 @@ const results = [];
 
 // Validate environment before starting
 function checkEnv() {
-  const required = ['CLOUDFLARE_ACCOUNT_ID', 'D1_DATABASE_ID', 'CLOUDFLARE_D1_TOKEN'];
+  // When USE_WRANGLER=1, wrangler uses CLOUDFLARE_API_TOKEN for auth
+  // Otherwise, we need the D1-specific token
+  const useWrangler = process.env.USE_WRANGLER === '1';
+
+  const required = useWrangler
+    ? ['CLOUDFLARE_ACCOUNT_ID'] // Wrangler uses CLOUDFLARE_API_TOKEN automatically
+    : ['CLOUDFLARE_ACCOUNT_ID', 'D1_DATABASE_ID', 'CLOUDFLARE_D1_TOKEN'];
+
   const missing = required.filter(v => !process.env[v]);
 
   if (missing.length > 0) {
@@ -42,6 +49,9 @@ function checkEnv() {
   }
 
   console.log('Environment check passed.');
+  if (useWrangler) {
+    console.log('  Using wrangler CLI mode (CLOUDFLARE_API_TOKEN)');
+  }
   if (process.env.GITHUB_TOKEN) {
     console.log('  GITHUB_TOKEN is set (authenticated GitHub API access)');
   } else {
