@@ -1,0 +1,89 @@
+---
+layout: base.njk
+title: KPass - Scarmonit
+description: Your ultimate gaming hub for Diablo 4 build guides, gaming tools, file sharing, and more.
+styles:
+  - /kpass/css/kpass.css
+scripts:
+  - /kpass/scripts/kpass.js?v=3
+---
+
+<!-- Password Protection Overlay -->
+<div id="authOverlay" class="auth-overlay">
+    <div class="auth-container">
+        <div class="lock-icon">&#128274;</div>
+        <div class="auth-title">Authentication Required</div>
+        <div class="auth-subtitle">Protected Area</div>
+
+        <div class="auth-form">
+            <input type="password" id="authPassword" placeholder="Enter password" autocomplete="off">
+            <button type="button" id="unlockBtn" class="unlock-btn">UNLOCK ACCESS</button>
+        </div>
+
+        <div id="authError" class="auth-error"></div>
+    </div>
+</div>
+
+<!-- Main Application (hidden initially) -->
+<div id="mainApp" class="main-app" style="display: none;">
+    <div class="container">
+        <h1>&#128272; Encrypted Blob Decoder</h1>
+
+    <div class="button-group">
+        <button id="clearAll" type="button" class="clear-btn">&#128465;&#65039; Clear Everything</button>
+    </div>
+
+    <div class="instructions" style="display: none;">
+        <h3>Instructions</h3>
+        <ol>
+            <li>Select your encrypted blob file (*.enc.json)</li>
+            <li>Enter the passphrase you used to encrypt the file</li>
+            <li>Click "Decrypt" to decode your KeePass data</li>
+            <li>View your password entries with secure password masking</li>
+        </ol>
+    </div>
+
+    <div class="form-group">
+        <label for="file">Select Encrypted Blob File</label>
+        <input id="file" type="file" accept=".json,.enc" />
+        <div id="fileInfo" class="file-info"></div>
+    </div>
+
+    <div class="form-group" id="passphraseGroup" style="display: none;">
+        <label for="pass">Passphrase</label>
+        <input id="pass" type="password" autocomplete="off" placeholder="Enter your passphrase..." />
+    </div>
+
+    <div class="button-group" id="decryptButtonGroup" style="display: none;">
+        <button id="decrypt" type="button">&#128275; Decrypt</button>
+    </div>
+
+    <div id="status" class="status"></div>
+
+    <!-- Search and Favorites Section -->
+    <div class="form-group" id="searchSection" style="display: none;">
+        <label for="searchInput">Search Password Entries</label>
+        <div class="search-container">
+            <input id="searchInput" type="text" placeholder="Type at least 3 characters to search by name or URL..." />
+        </div>
+        <div class="search-buttons">
+            <button id="searchBtn" type="button" style="display: none;">&#128269; Search</button>
+            <button id="favoritesBtn" type="button" style="display: none;" class="favorites-btn">&#11088; Favorites</button>
+            <button id="showAllBtn" type="button" style="display: none;" class="show-all-btn">&#128203; Show All</button>
+        </div>
+    </div>
+
+    <div class="form-group" id="entriesSection" style="display: none;">
+        <div id="searchResults" class="search-results"></div>
+        <div id="entries" class="entries-container"></div>
+    </div>
+
+    <div class="form-group" style="display: none;" id="rawJsonGroup">
+        <label for="out">Raw JSON Data</label>
+        <textarea id="out" readonly placeholder="Raw JSON data..."></textarea>
+        <div class="button-group">
+            <button type="button" id="toggleRaw">Show Raw JSON</button>
+        </div>
+        </div>
+    </div>
+</div>

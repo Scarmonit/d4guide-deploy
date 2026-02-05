@@ -1,0 +1,469 @@
+---
+layout: base.njk
+title: Lunging Strike Barbarian Build Guide | D4 Season 11
+description: Complete Diablo 4 Season 11 Lunging Strike Barbarian guide. S-Tier mobile generator build with skills, gear, paragon, aspects, and tempering. Updated February 2026.
+styles:
+  - /assets/css/guide.css
+---
+
+    <a href="/build-guides" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Build Guides
+    </a>
+
+    <header class="guide-hero">
+        <span class="badge">Season 11 - Divine Intervention</span>
+        <h1>Lunging Strike Barbarian<span class="verified-badge">VERIFIED</span></h1>
+        <p class="subtitle">S-Tier Generator Build - One Button, Five Buffs, Maximum Carnage</p>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+        <button class="nav-tab" onclick="showTab('skills')">Skills</button>
+        <button class="nav-tab" onclick="showTab('gear')">Gear</button>
+        <button class="nav-tab" onclick="showTab('aspects')">Aspects & Tempering</button>
+        <button class="nav-tab" onclick="showTab('paragon')">Paragon</button>
+        <button class="nav-tab" onclick="showTab('gameplay')">Gameplay</button>
+    </div>
+
+    <div class="container">
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 1: OVERVIEW                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="overview" class="tab-content active">
+
+            <div class="section">
+                <h2>Build Summary</h2>
+                <p>The Lunging Strike Barbarian is a hyper-mobile generator build that dashes from target to target with a single active skill while maintaining five powerful buffs. With near 100% Wrath of the Berserker uptime, guaranteed Overpowers via runewords, and excellent survivability, this is one of the strongest all-around builds in Season 11.</p>
+
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Tier</div>
+                        <div class="build-info-value" style="color: var(--gold);">S-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Playstyle</div>
+                        <div class="build-info-value">Generator / Mobile Melee</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Best For</div>
+                        <div class="build-info-value">Speedfarm, Push, All-Around</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Difficulty</div>
+                        <div class="build-info-value">
+                            Easy
+                            <div class="difficulty-bar">
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Stat Targets</h2>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Cooldown Reduction</span><span>High Priority</span></div><div class="stat-progress-bar"><div class="stat-progress-fill cdr"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Attack Speed</span><span>Stack Aggressively</span></div><div class="stat-progress-bar"><div class="stat-progress-fill speed"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Fury per Second</span><span>Sustain Resource</span></div><div class="stat-progress-bar"><div class="stat-progress-fill str"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Movement Speed</span><span>160%+</span></div><div class="stat-progress-bar"><div class="stat-progress-fill speed"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Maximum Life</span><span>High</span></div><div class="stat-progress-bar"><div class="stat-progress-fill life"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Damage Reduction</span><span>Via Shouts + Aspects</span></div><div class="stat-progress-bar"><div class="stat-progress-fill armor"></div></div></div>
+            </div>
+
+            <div class="section">
+                <h2>Strengths & Weaknesses</h2>
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>Strengths</h4>
+                        <ul>
+                            <li>Extreme mobility — dash target to target</li>
+                            <li>Excellent AoE with wide cleaves</li>
+                            <li>Guaranteed Overpowers via runewords</li>
+                            <li>Very tanky with shout stacking</li>
+                            <li>Simple one-button gameplay</li>
+                            <li>Near 100% WotB uptime</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>Weaknesses</h4>
+                        <ul>
+                            <li>Push variant needs double Melted Heart (very rare)</li>
+                            <li>Squishy at zero Fury</li>
+                            <li>Relies on Walking Arsenal passive</li>
+                            <li>Damage drops significantly if WotB falls off</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 2: SKILLS                              -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="skills" class="tab-content">
+
+            <div class="section">
+                <h2>Active Skills</h2>
+
+                <div class="skill-card">
+                    <div class="skill-icon">1</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Lunging Strike <span class="skill-tag">5/5</span> <span class="skill-tag">PRIMARY</span></div>
+                        <p class="skill-desc">Enhanced &rarr; Combat Lunging Strike. Your main damage dealer and mobility tool. Dash to targets dealing massive damage. This is the only skill you actively spam.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">2</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Ground Stomp <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">Enhanced &rarr; Strategic Ground Stomp. The key to WotB uptime — Strategic resets Ultimate cooldown. Also generates Fury and stuns enemies.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">3</div>
+                    <div class="skill-info">
+                        <div class="skill-name">War Cry <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">Enhanced &rarr; Power War Cry. Damage multiplier and grants Berserking. A core buff that should always be active.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">4</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Challenging Shout <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">Enhanced &rarr; Tactical Challenging Shout. Massive damage reduction and Fury generation. Essential for both survivability and resource sustain.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">5</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Iron Skin <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">Enhanced &rarr; Tactical Iron Skin. Low-cooldown barrier that keeps you alive through burst damage. Use it reactively or weave it between shouts.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">6</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Wrath of the Berserker <span class="skill-tag">5/5</span> <span class="skill-tag">ULTIMATE</span></div>
+                        <p class="skill-desc">Prime &rarr; Supreme Wrath of the Berserker. Your ultimate — pulls enemies in, grants Unstoppable, massive damage boost, and Fury. Ground Stomp (Strategic) resets its cooldown for near 100% uptime.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Key Passives</h2>
+                <div class="tier tier-s">
+                    <h4>Key Passive</h4>
+                    <ul>
+                        <li><strong>Unbridled Rage</strong> — Core passive. Massive damage increase to all skills at the cost of extra Fury. Since Lunging Strike is a generator, the cost is offset.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>Offensive Passives</h4>
+                    <ul>
+                        <li><strong>Warpath</strong> — Bonus damage while moving (always active with Lunging Strike)</li>
+                        <li><strong>Pressure Point</strong> — Chance to make enemies Vulnerable</li>
+                        <li><strong>Pit Fighter</strong> — Damage to close enemies</li>
+                        <li><strong>No Mercy</strong> — Damage to CC'd and slowed enemies</li>
+                        <li><strong>Slaying Strike</strong> — Damage to injured enemies</li>
+                        <li><strong>Endless Fury</strong> — Maximum Fury increase</li>
+                    </ul>
+                </div>
+                <div class="tier tier-b">
+                    <h4>Defensive Passives</h4>
+                    <ul>
+                        <li><strong>Thick Skin</strong> — Fortify generation</li>
+                        <li><strong>Counteroffensive</strong> — Damage bonus while Fortified</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 3: GEAR                                -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gear" class="tab-content">
+
+            <div class="section">
+                <h2>Key Unique Items</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>AMULET - Battle Trance</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Gain Frenzy stacks via Lucky Hit. Drastically increases attack speed and Lunging Strike frequency. Core to the build's identity.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>BOOTS - Hooves of the Mountain God</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Drains Fury to deliver massively wide cleave attacks. Turns Lunging Strike into an AoE monster.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>GLOVES - Paingorger's Gauntlets</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Echoes of your attacks deal bonus damage. Each non-basic skill creates echoes that replay on enemies, stacking damage.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>RING - Shard of Verathiel</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Lucky Hits create a damage aura around you. Synergizes perfectly with the high Lucky Hit rate of Lunging Strike.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>2H MACE - Ramaladni's Magnum Opus</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Massive raw damage stats. Best-in-slot weapon for Lunging Strike due to sheer damage output and mace synergy.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--red);">
+                    <div class="gear-slot-header"><span>CHEST - Rage of Harrogath</span><span style="color: var(--red);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Lucky Hit reduces cooldowns of non-Ultimate skills. Keeps your shouts and Iron Skin permanently rolling with CDR.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Mythic Push Items</h2>
+                <p style="color: #a0a0a0; margin-bottom: 15px;">For pushing the highest Pit tiers, swap in these Mythic uniques when available.</p>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>AMULET - Melted Heart of Selig</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Damage taken drains Fury instead of Life. Paired with high Fury gen, this makes you nearly unkillable. Push variant uses double Melted Heart.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>HELM - Harlequin Crest</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> +All Skills, massive Damage Reduction, and Cooldown Reduction. Best-in-slot helm for any push build.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>2H WEAPON - The Grandfather</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Enormous raw damage and Critical Strike Damage. Alternative to Ramaladni's for pushing when you need ceiling damage.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>RING - Ring of Starless Skies</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Spending resources reduces the resource cost of your next skill. Stacks quickly with Lunging Strike spam for near-free casts.</div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 4: ASPECTS & TEMPERING                 -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="aspects" class="tab-content">
+
+            <div class="section">
+                <h2>Legendary Aspects</h2>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Amulet — Aspect of Adaptability</span></div>
+                    <div class="unique-effect">Basic Skills deal increased damage based on how many different enemies they hit. With Lunging Strike leaping between packs, this ramps fast.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Ring 1 — Aspect of Anger Management</span></div>
+                    <div class="unique-effect">Generates bonus Fury when hitting multiple enemies. Keeps your resource topped off during AoE pulls.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Ring 2 — Vehement Brawler's Aspect</span></div>
+                    <div class="unique-effect">Attack Speed bonus after swapping weapons. Synergizes with Walking Arsenal and Barbarian's natural weapon cycling.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Helm — Wildbolt Aspect</span></div>
+                    <div class="unique-effect">Lightning strikes nearby enemies periodically. Extra AoE damage that procs consistently while you dash through packs.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Chest — Aspect of Might</span></div>
+                    <div class="unique-effect">Basic Skills grant damage reduction. Since Lunging Strike is a Basic Skill, this is always active — massive survivability boost.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Boots — Hectic Aspect</span></div>
+                    <div class="unique-effect">Reduces cooldowns by a flat amount after spending a certain number of skill casts. Helps cycle your shouts and WotB faster.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Weapon — Aspect of the Moonrise</span></div>
+                    <div class="unique-effect">Attacking enemies grants stacking Attack Speed and damage. Ramps quickly during sustained Lunging Strike spam.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Weapon — Aspect of Earthquakes</span></div>
+                    <div class="unique-effect">Ground Stomp and Leap create Earthquakes that deal sustained AoE damage. Adds another layer of area damage to your kit.</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Tempering Priorities</h2>
+
+                <div class="tier tier-s">
+                    <h4>S-TIER: Must Have</h4>
+                    <ul>
+                        <li><strong>Lunging Strike Rank</strong> — Direct damage increase to your only active skill. Temper this on every piece that allows it.</li>
+                        <li><strong>Double Damage Chance</strong> — Massive burst potential on each hit. Scales multiplicatively with everything else.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>A-TIER: High Priority</h4>
+                    <ul>
+                        <li><strong>Cooldown Reduction</strong> — Keeps shouts and WotB cycling. Essential for buff uptime.</li>
+                        <li><strong>Attack Speed</strong> — More hits per second = more Lucky Hits = more procs = more damage.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-b">
+                    <h4>B-TIER: Fill</h4>
+                    <ul>
+                        <li><strong>Fury per Second</strong> — Sustain for Hooves of the Mountain God Fury drain.</li>
+                        <li><strong>Movement Speed</strong> — Quality of life for speedfarming and gap closing between packs.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 5: PARAGON                             -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="paragon" class="tab-content">
+
+            <div class="section">
+                <h2>Paragon Board Order</h2>
+                <p>Attach boards in this exact order. Each board's glyph is listed below — level glyphs to 15 first, then push to 21 for radius bonus.</p>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Starting Board</span>
+                        <span class="paragon-board-order">Board 1</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Exploit</span> — Increases damage to Vulnerable enemies. Pairs with Pressure Point passive for consistent Vuln application.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Warbringer</span>
+                        <span class="paragon-board-order">Board 2</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Might</span> — Grants damage bonus based on your Strength. This board also provides Fury generation and damage while Berserking.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Carnage</span>
+                        <span class="paragon-board-order">Board 3</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Challenger</span> — Damage bonus while moving. You are always moving with Lunging Strike, so this is permanently active.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Blood Rage</span>
+                        <span class="paragon-board-order">Board 4</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Wrath</span> — Critical Strike Damage bonus. Scales your already-high crit chance into massive damage spikes.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Decimator</span>
+                        <span class="paragon-board-order">Board 5</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Imbiber</span> — Bonus damage while you have a Barrier (from Iron Skin) or are Healthy. Synergizes with the defensive loop.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Bone Breaker</span>
+                        <span class="paragon-board-order">Board 6</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Ire</span> — Damage reduction per nearby enemy. Keeps you alive in dense packs where you deal the most damage.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 6: GAMEPLAY                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gameplay" class="tab-content">
+
+            <div class="section">
+                <h2>Rotation</h2>
+                <ol class="rotation-steps">
+                    <li class="rotation-step">
+                        <p><strong>Wrath of the Berserker</strong> — Open every fight with your Ultimate. Pulls enemies in, grants Unstoppable, and generates a burst of Fury.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Buff Up: War Cry &rarr; Challenging Shout &rarr; Iron Skin</strong> — Activate all three shouts for damage, DR, Fury gen, and a barrier. Order doesn't matter, just get them all up.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Ground Stomp</strong> — Use Strategic Ground Stomp to stun enemies and reset your WotB cooldown. This is the key to near 100% Ultimate uptime.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Spam Lunging Strike</strong> — Dash from target to target. Lunging Strike is your only active damage skill. Hold the button and let the auto-targeting do the work.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Walking Arsenal</strong> — Maintained automatically through Barbarian weapon swaps during Lunging Strike. Provides all three weapon mastery bonuses at once.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Repeat Shouts</strong> — When buffs expire, cycle through War Cry, Challenging Shout, and Iron Skin again. With CDR, they should be back up quickly.</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>Gameplay Tips</h2>
+
+                <div class="tip-card">
+                    <strong>Ground Stomp is your most important cooldown.</strong>
+                    <p>Strategic Ground Stomp resets WotB. If your Ultimate drops off, your damage and survivability crater. Always have Ground Stomp ready.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Never let Fury hit zero.</strong>
+                    <p>Hooves of the Mountain God drains your Fury for the wide cleaves. When Fury reaches zero, you lose the AoE and become squishy (no Fury = no Melted Heart DR). Keep shouts up for Fury gen.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Walking Arsenal is free damage.</strong>
+                    <p>The Barbarian's weapon swap mechanic activates Walking Arsenal passively. You don't need to do anything special — Lunging Strike naturally cycles your weapons.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>For pushing: prioritize density.</strong>
+                    <p>This build excels in dense packs where Lunging Strike cleaves hit multiple targets. In the Pit, group enemies with WotB pull before unloading.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Overpower timing matters in push content.</strong>
+                    <p>Runewords guarantee Overpowers on a cycle. Pay attention to your Overpower proc and try to line it up with large packs for maximum effect.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Speedfarm vs Push swaps.</strong>
+                    <p>For speedfarming, use Battle Trance + Ramaladni's. For pushing high Pits, swap to Melted Heart of Selig (amulet), Harlequin Crest (helm), The Grandfather (weapon), and Ring of Starless Skies.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="/assets/js/guide.js"></script>

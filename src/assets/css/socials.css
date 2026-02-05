@@ -1,0 +1,650 @@
+/* Socials Page Styles - Enhanced Version */
+
+.socials-page {
+    position: relative;
+    min-height: 100vh;
+    padding-top: 20px;
+}
+
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 20px 60px 20px;
+}
+
+/* ===== FLOATING PARTICLES ===== */
+.particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.6), transparent);
+    border-radius: 50%;
+    animation: float-particle 20s infinite ease-in-out;
+}
+
+.particle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; animation-duration: 25s; }
+.particle:nth-child(2) { left: 30%; top: 60%; animation-delay: -5s; animation-duration: 20s; }
+.particle:nth-child(3) { left: 70%; top: 30%; animation-delay: -10s; animation-duration: 22s; }
+.particle:nth-child(4) { left: 85%; top: 70%; animation-delay: -15s; animation-duration: 28s; }
+.particle:nth-child(5) { left: 50%; top: 80%; animation-delay: -8s; animation-duration: 24s; }
+
+@keyframes float-particle {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+    25% { transform: translate(50px, -100px) scale(1.5); opacity: 0.6; }
+    50% { transform: translate(-30px, -200px) scale(1); opacity: 0.4; }
+    75% { transform: translate(80px, -100px) scale(1.2); opacity: 0.5; }
+}
+
+/* ===== PROFILE HEADER ===== */
+.profile-header {
+    text-align: center;
+    padding: 80px 20px 30px;
+    position: relative;
+    z-index: 1;
+    animation: fadeInDown 0.8s ease-out;
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.profile-avatar {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    position: relative;
+    z-index: 2;
+    border: 3px solid rgba(212, 175, 55, 0.5);
+}
+
+.avatar-ring {
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    right: -6px;
+    bottom: -6px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    background: linear-gradient(135deg, #d4af37, #f97316, #d4af37) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: rotate-ring 8s linear infinite;
+}
+
+@keyframes rotate-ring {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.avatar-glow {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.3), transparent 70%);
+    animation: pulse-glow 3s ease-in-out infinite;
+    z-index: 0;
+}
+
+@keyframes pulse-glow {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+.profile-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #d4af37, #f97316);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+.profile-bio {
+    color: #a0a0a0;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profile-tags {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.tag {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tag.gaming {
+    background: rgba(255, 0, 0, 0.15);
+    color: #ff6b6b;
+    border: 1px solid rgba(255, 0, 0, 0.3);
+}
+
+.tag.music {
+    background: rgba(88, 101, 242, 0.15);
+    color: #7c8aff;
+    border: 1px solid rgba(88, 101, 242, 0.3);
+}
+
+.tag.community {
+    background: rgba(212, 175, 55, 0.15);
+    color: #d4af37;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+/* ===== SHARE SECTION ===== */
+.share-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 1;
+    animation: fadeIn 0.8s ease-out 0.2s both;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.share-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    color: #a0a0a0;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.share-btn:hover {
+    background: rgba(212, 175, 55, 0.1);
+    border-color: rgba(212, 175, 55, 0.3);
+    color: #d4af37;
+    transform: scale(1.05);
+}
+
+.share-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.copy-toast {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: #d4af37;
+    color: #000;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.copy-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ===== SOCIALS GRID ===== */
+.socials-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== SOCIAL CARD ===== */
+.social-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 20px 24px;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideInUp 0.6s ease-out forwards;
+    animation-delay: calc(var(--delay) * 0.1s);
+}
+
+@keyframes slideInUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.card-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.social-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.social-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.social-card:hover::before {
+    opacity: 1;
+}
+
+.social-card:hover .card-glow {
+    opacity: 1;
+}
+
+.social-card:hover .social-icon {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+.social-card:hover .social-icon svg {
+    animation: icon-pulse 0.6s ease;
+}
+
+@keyframes icon-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+/* Featured Badge */
+.featured-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: rgba(212, 175, 55, 0.2);
+    color: #d4af37;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+/* Platform-specific colors */
+.social-card.youtube::before { background: #FF0000; }
+.social-card.youtube .card-glow { background: radial-gradient(ellipse at center, rgba(255, 0, 0, 0.15), transparent 70%); }
+.social-card.youtube:hover { border-color: rgba(255, 0, 0, 0.4); box-shadow: 0 20px 50px rgba(255, 0, 0, 0.2), 0 0 30px rgba(255, 0, 0, 0.1); }
+.social-card.youtube .social-icon { background: linear-gradient(135deg, rgba(255, 0, 0, 0.2), rgba(255, 0, 0, 0.1)); border-color: rgba(255, 0, 0, 0.3); }
+.social-card.youtube .social-icon svg { fill: #FF0000; }
+.social-card.youtube .social-action { color: #FF0000; }
+
+.social-card.discord::before { background: #5865F2; }
+.social-card.discord .card-glow { background: radial-gradient(ellipse at center, rgba(88, 101, 242, 0.15), transparent 70%); }
+.social-card.discord:hover { border-color: rgba(88, 101, 242, 0.4); box-shadow: 0 20px 50px rgba(88, 101, 242, 0.2), 0 0 30px rgba(88, 101, 242, 0.1); }
+.social-card.discord .social-icon { background: linear-gradient(135deg, rgba(88, 101, 242, 0.2), rgba(88, 101, 242, 0.1)); border-color: rgba(88, 101, 242, 0.3); }
+.social-card.discord .social-icon svg { fill: #5865F2; }
+.social-card.discord .social-action { color: #5865F2; }
+.social-card.discord .featured-badge { background: rgba(88, 101, 242, 0.2); color: #5865F2; border-color: rgba(88, 101, 242, 0.3); }
+
+.social-card.twitter::before { background: #e8e8e8; }
+.social-card.twitter .card-glow { background: radial-gradient(ellipse at center, rgba(232, 232, 232, 0.1), transparent 70%); }
+.social-card.twitter:hover { border-color: rgba(232, 232, 232, 0.4); box-shadow: 0 20px 50px rgba(232, 232, 232, 0.1), 0 0 30px rgba(232, 232, 232, 0.05); }
+.social-card.twitter .social-icon { background: linear-gradient(135deg, rgba(232, 232, 232, 0.15), rgba(232, 232, 232, 0.05)); border-color: rgba(232, 232, 232, 0.3); }
+.social-card.twitter .social-icon svg { fill: #e8e8e8; }
+.social-card.twitter .social-action { color: #e8e8e8; }
+
+.social-card.tiktok::before { background: linear-gradient(180deg, #25F4EE, #FE2C55); }
+.social-card.tiktok .card-glow { background: radial-gradient(ellipse at center, rgba(254, 44, 85, 0.15), transparent 70%); }
+.social-card.tiktok:hover { border-color: rgba(254, 44, 85, 0.4); box-shadow: 0 20px 50px rgba(254, 44, 85, 0.2), 0 0 30px rgba(37, 244, 238, 0.1); }
+.social-card.tiktok .social-icon { background: linear-gradient(135deg, rgba(254, 44, 85, 0.2), rgba(37, 244, 238, 0.1)); border-color: rgba(254, 44, 85, 0.3); }
+.social-card.tiktok .social-icon svg { fill: #FE2C55; }
+.social-card.tiktok .social-action { color: #FE2C55; }
+
+.social-card.instagram::before { background: linear-gradient(180deg, #833AB4, #FD1D1D, #F77737); }
+.social-card.instagram .card-glow { background: radial-gradient(ellipse at center, rgba(225, 48, 108, 0.15), transparent 70%); }
+.social-card.instagram:hover { border-color: rgba(225, 48, 108, 0.4); box-shadow: 0 20px 50px rgba(225, 48, 108, 0.2), 0 0 30px rgba(131, 58, 180, 0.1); }
+.social-card.instagram .social-icon { background: linear-gradient(135deg, rgba(131, 58, 180, 0.2), rgba(253, 29, 29, 0.1)); border-color: rgba(225, 48, 108, 0.3); }
+.social-card.instagram .social-icon svg { fill: #E1306C; }
+.social-card.instagram .social-action { background: linear-gradient(90deg, #833AB4, #FD1D1D, #F77737); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+/* Social Icon */
+.social-icon {
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.social-icon svg {
+    width: 28px;
+    height: 28px;
+    transition: transform 0.3s ease;
+}
+
+/* Social Info */
+.social-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.social-info h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    color: #e8e8e8;
+    margin-bottom: 2px;
+}
+
+.social-info p {
+    color: #808080;
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+}
+
+.social-action {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Social Arrow */
+.social-arrow {
+    opacity: 0;
+    transform: translateX(-15px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.social-arrow svg {
+    width: 22px;
+    height: 22px;
+    stroke: #d4af37;
+}
+
+.social-card:hover .social-arrow {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ===== STATS SECTION ===== */
+.stats-section {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 40px;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    animation: fadeIn 0.8s ease-out 0.6s both;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.stat-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: #d4af37;
+}
+
+.stat-value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #e8e8e8;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: #808080;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ===== CTA SECTION ===== */
+.cta-section {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(249, 115, 22, 0.08));
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    animation: fadeIn 0.8s ease-out 0.8s both;
+}
+
+.cta-section h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    color: #e8e8e8;
+    margin-bottom: 12px;
+}
+
+.cta-section p {
+    color: #a0a0a0;
+    font-size: 0.95rem;
+    max-width: 400px;
+    margin: 0 auto 25px;
+    line-height: 1.6;
+}
+
+.cta-icons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.cta-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.cta-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.cta-icon.youtube svg { fill: #FF0000; }
+.cta-icon.discord svg { fill: #5865F2; }
+.cta-icon.twitter svg { fill: #e8e8e8; }
+.cta-icon.tiktok svg { fill: #FE2C55; }
+.cta-icon.instagram svg { fill: #E1306C; }
+
+.cta-icon:hover {
+    transform: translateY(-3px) scale(1.1);
+}
+
+.cta-icon.youtube:hover { background: rgba(255, 0, 0, 0.2); box-shadow: 0 5px 20px rgba(255, 0, 0, 0.3); }
+.cta-icon.discord:hover { background: rgba(88, 101, 242, 0.2); box-shadow: 0 5px 20px rgba(88, 101, 242, 0.3); }
+.cta-icon.twitter:hover { background: rgba(232, 232, 232, 0.1); box-shadow: 0 5px 20px rgba(232, 232, 232, 0.2); }
+.cta-icon.tiktok:hover { background: rgba(254, 44, 85, 0.2); box-shadow: 0 5px 20px rgba(254, 44, 85, 0.3); }
+.cta-icon.instagram:hover { background: rgba(225, 48, 108, 0.2); box-shadow: 0 5px 20px rgba(225, 48, 108, 0.3); }
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .profile-header {
+        padding: 30px 15px 20px;
+    }
+
+    .profile-avatar {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-name {
+        font-size: 1.6rem;
+    }
+
+    .profile-bio {
+        font-size: 0.9rem;
+    }
+
+    .social-card {
+        padding: 16px 18px;
+    }
+
+    .social-icon {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+    }
+
+    .social-icon svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .social-info h3 {
+        font-size: 1rem;
+    }
+
+    .social-info p {
+        font-size: 0.8rem;
+    }
+
+    .social-arrow {
+        display: none;
+    }
+
+    .featured-badge {
+        font-size: 0.6rem;
+        padding: 3px 8px;
+    }
+
+    .stats-section {
+        gap: 20px;
+        padding: 20px 15px;
+    }
+
+    .stat-value {
+        font-size: 1rem;
+    }
+
+    .cta-section {
+        padding: 30px 20px;
+    }
+
+    .cta-section h3 {
+        font-size: 1.3rem;
+    }
+
+    .cta-section p {
+        font-size: 0.9rem;
+    }
+
+    .cta-icons {
+        gap: 12px;
+    }
+
+    .cta-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .cta-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+    .particle,
+    .avatar-ring,
+    .avatar-glow,
+    .social-card,
+    .profile-header,
+    .share-section,
+    .stats-section,
+    .cta-section {
+        animation: none;
+    }
+
+    .social-card {
+        opacity: 1;
+        transform: none;
+    }
+}

@@ -1,0 +1,245 @@
+/* Discord Page Styles */
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px 60px 20px;
+}
+
+/* Discord Banner */
+.discord-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    background: linear-gradient(135deg, rgba(88, 101, 242, 0.2), rgba(88, 101, 242, 0.05));
+    border: 1px solid rgba(88, 101, 242, 0.4);
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 50px;
+}
+
+.discord-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.discord-icon {
+    width: 70px;
+    height: 70px;
+    background: #5865F2;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.discord-icon svg {
+    width: 40px;
+    height: 40px;
+    fill: white;
+}
+
+.discord-details h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.4rem;
+    color: #e8e8e8;
+    margin-bottom: 5px;
+}
+
+.discord-details p {
+    color: #a0a0a0;
+    font-size: 0.95rem;
+}
+
+.join-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    background: #5865F2;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.join-btn:hover {
+    background: #4752C4;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(88, 101, 242, 0.4);
+}
+
+.join-btn svg {
+    width: 22px;
+    height: 22px;
+}
+
+/* Section Titles */
+.section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    color: #e8e8e8;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.section-title::before {
+    content: '';
+    width: 4px;
+    height: 24px;
+    background: linear-gradient(180deg, #d4af37, #f97316);
+    border-radius: 2px;
+}
+
+/* Features Grid */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 50px;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 30px;
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    border-color: #5865F2;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(88, 101, 242, 0.2);
+}
+
+.feature-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, rgba(88, 101, 242, 0.2), rgba(88, 101, 242, 0.1));
+    border: 1px solid rgba(88, 101, 242, 0.3);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.feature-icon svg {
+    width: 26px;
+    height: 26px;
+    stroke: #5865F2;
+}
+
+.feature-card h4 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    color: #e8e8e8;
+    margin-bottom: 12px;
+}
+
+.feature-card p {
+    color: #a0a0a0;
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+/* Widget Section */
+.widget-section {
+    margin-bottom: 50px;
+}
+
+.widget-container {
+    display: flex;
+    justify-content: center;
+}
+
+.widget-container iframe {
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* CTA Section */
+.cta-section {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(249, 115, 22, 0.1));
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 20px;
+    padding: 50px;
+    text-align: center;
+}
+
+.cta-section h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem;
+    color: #e8e8e8;
+    margin-bottom: 15px;
+}
+
+.cta-section p {
+    color: #a0a0a0;
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 36px;
+    background: #5865F2;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+    background: #4752C4;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(88, 101, 242, 0.4);
+}
+
+.cta-button svg {
+    width: 24px;
+    height: 24px;
+}
+
+@media (max-width: 768px) {
+    .discord-banner {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .discord-info {
+        flex-direction: column;
+    }
+
+    .join-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-section {
+        padding: 30px 20px;
+    }
+
+    .cta-button {
+        width: 100%;
+        justify-content: center;
+    }
+}

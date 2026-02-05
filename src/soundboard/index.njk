@@ -1,0 +1,811 @@
+---
+layout: base.njk
+title: Soundboard | Scarmonit
+description: Play popular TikTok and meme sound effects instantly. 95+ viral sounds with volume control, favorites, and more!
+styles:
+  - /assets/css/soundboard.css?v=7
+scripts:
+  - /assets/js/soundboard.js?v=6
+---
+
+<!-- Floating Particles Background -->
+<div class="soundboard-particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+</div>
+
+<!-- Hero Section -->
+<header class="soundboard-hero">
+    <div class="hero-badge">Instant Sound Effects</div>
+    <h1>Soundboard</h1>
+    <p>80+ viral TikTok & meme sounds. Click to play instantly!</p>
+
+    <!-- Stats Bar -->
+    <div class="soundboard-stats">
+        <div class="stat-card">
+            <span class="stat-icon">🔊</span>
+            <div>
+                <div class="stat-value" id="total-sounds">80+</div>
+                <div class="stat-label">Sounds</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <span class="stat-icon">❤️</span>
+            <div>
+                <div class="stat-value" id="favorites-count">0</div>
+                <div class="stat-label">Favorites</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <span class="stat-icon">🎵</span>
+            <div>
+                <div class="stat-value" id="plays-today">0</div>
+                <div class="stat-label">Plays</div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <!-- Control Panel -->
+    <div class="soundboard-controls">
+        <button class="control-btn stop-btn" id="stop-all" onclick="stopAllSounds()">
+            <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+            Stop
+        </button>
+
+        <button class="control-btn random-btn" onclick="playRandomSound()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>
+            </svg>
+            Random
+        </button>
+
+        <button class="control-btn loop-btn" id="loop-btn" onclick="toggleLoop()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 2l4 4-4 4M3 11V9a4 4 0 014-4h14M7 22l-4-4 4-4M21 13v2a4 4 0 01-4 4H3"/>
+            </svg>
+            Loop
+        </button>
+
+        <div class="volume-control">
+            <span class="volume-icon">🔉</span>
+            <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="80" oninput="setVolume(this.value)">
+            <span class="volume-value" id="volume-value">80%</span>
+        </div>
+
+        <div class="speed-control">
+            <span class="speed-label">Speed:</span>
+            <div class="speed-buttons">
+                <button class="speed-btn" data-speed="0.25" onclick="setPlaybackSpeed(0.25)">0.25x</button>
+                <button class="speed-btn" data-speed="0.5" onclick="setPlaybackSpeed(0.5)">0.5x</button>
+                <button class="speed-btn" data-speed="0.75" onclick="setPlaybackSpeed(0.75)">0.75x</button>
+                <button class="speed-btn active" data-speed="1" onclick="setPlaybackSpeed(1)">1x</button>
+                <button class="speed-btn" data-speed="1.25" onclick="setPlaybackSpeed(1.25)">1.25x</button>
+                <button class="speed-btn" data-speed="1.5" onclick="setPlaybackSpeed(1.5)">1.5x</button>
+                <button class="speed-btn" data-speed="1.75" onclick="setPlaybackSpeed(1.75)">1.75x</button>
+                <button class="speed-btn" data-speed="2" onclick="setPlaybackSpeed(2)">2x</button>
+                <button class="speed-btn" data-speed="2.5" onclick="setPlaybackSpeed(2.5)">2.5x</button>
+                <button class="speed-btn" data-speed="3" onclick="setPlaybackSpeed(3)">3x</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Now Playing Indicator -->
+    <div class="now-playing" id="now-playing">
+        <div class="audio-visualizer">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <div class="now-playing-content">
+            <span class="now-playing-text">Now Playing:</span>
+            <span class="now-playing-name" id="now-playing-name">-</span>
+        </div>
+    </div>
+
+    <!-- Recently Played Section -->
+    <div class="recently-played" id="recently-played">
+        <div class="recently-played-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v6l4 2"/>
+            </svg>
+            Recently Played
+        </div>
+        <div class="recently-played-list" id="recently-played-list">
+            <div class="recently-played-empty">Play some sounds to see them here!</div>
+        </div>
+    </div>
+
+    <!-- Most Played Section -->
+    <div class="most-played" id="most-played">
+        <div class="most-played-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+            </svg>
+            Top 5 Most Played
+        </div>
+        <div class="most-played-list" id="most-played-list">
+            <div class="recently-played-empty">Play sounds to see your favorites here!</div>
+        </div>
+    </div>
+
+    <!-- Search and Filter Section -->
+    <div class="soundboard-filters">
+        <div class="search-container">
+            <input type="text" id="sound-search" class="search-input" placeholder="Search 80+ sounds..." oninput="searchSounds(this.value)">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="M21 21l-4.35-4.35"></path>
+            </svg>
+        </div>
+
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all" onclick="filterByCategory('all')">
+                All <span class="count-badge" id="count-all">80</span>
+            </button>
+            <button class="filter-btn" data-filter="classic" onclick="filterByCategory('classic')">
+                🎬 Classic <span class="count-badge" id="count-classic">0</span>
+            </button>
+            <button class="filter-btn" data-filter="tiktok" onclick="filterByCategory('tiktok')">
+                📱 TikTok <span class="count-badge" id="count-tiktok">0</span>
+            </button>
+            <button class="filter-btn" data-filter="gaming" onclick="filterByCategory('gaming')">
+                🎮 Gaming <span class="count-badge" id="count-gaming">0</span>
+            </button>
+            <button class="filter-btn" data-filter="spongebob" onclick="filterByCategory('spongebob')">
+                🧽 SpongeBob <span class="count-badge" id="count-spongebob">0</span>
+            </button>
+            <button class="filter-btn" data-filter="anime" onclick="filterByCategory('anime')">
+                ⛩️ Anime <span class="count-badge" id="count-anime">0</span>
+            </button>
+            <button class="filter-btn" data-filter="reaction" onclick="filterByCategory('reaction')">
+                😂 Reaction <span class="count-badge" id="count-reaction">0</span>
+            </button>
+            <button class="filter-btn favorite-filter" data-filter="favorites" onclick="filterByCategory('favorites')">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+                Favorites <span class="count-badge" id="count-favorites">0</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Sort Options -->
+    <div class="sort-container">
+        <span class="sort-label">Sort by:</span>
+        <select class="sort-select" id="sort-select" onchange="sortSounds(this.value)">
+            <option value="default">Default</option>
+            <option value="name-asc">Name (A-Z)</option>
+            <option value="name-desc">Name (Z-A)</option>
+            <option value="most-played">Most Played</option>
+            <option value="category">Category</option>
+        </select>
+    </div>
+
+    <div class="soundboard-grid" id="soundboard-grid">
+        <!-- Classic Meme Sounds -->
+        <button class="sound-btn" data-category="classic" data-sound="vine-boom" onclick="playSound('vine-boom')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('vine-boom')">&#9825;</span>
+            <span class="sound-icon">💥</span>
+            <span class="sound-name">Vine Boom</span>
+        </button>
+
+        <button class="sound-btn" data-category="classic" data-sound="bruh" onclick="playSound('bruh')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('bruh')">&#9825;</span>
+            <span class="sound-icon">😐</span>
+            <span class="sound-name">Bruh</span>
+        </button>
+
+        <button class="sound-btn" data-category="classic" data-sound="airhorn" onclick="playSound('airhorn')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('airhorn')">&#9825;</span>
+            <span class="sound-icon">📢</span>
+            <span class="sound-name">Airhorn</span>
+        </button>
+
+        <button class="sound-btn" data-category="classic" data-sound="mlg-airhorn" onclick="playSound('mlg-airhorn')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('mlg-airhorn')">&#9825;</span>
+            <span class="sound-icon">🎺</span>
+            <span class="sound-name">MLG Airhorn</span>
+        </button>
+
+        <!-- Reaction Sounds -->
+        <button class="sound-btn" data-category="reaction" data-sound="sad-trombone" onclick="playSound('sad-trombone')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('sad-trombone')">&#9825;</span>
+            <span class="sound-icon">😢</span>
+            <span class="sound-name">Sad Trombone</span>
+        </button>
+
+        <button class="sound-btn" data-category="reaction" data-sound="applause" onclick="playSound('applause')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('applause')">&#9825;</span>
+            <span class="sound-icon">👏</span>
+            <span class="sound-name">Applause</span>
+        </button>
+
+        <button class="sound-btn" data-category="reaction" data-sound="ding" onclick="playSound('ding')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('ding')">&#9825;</span>
+            <span class="sound-icon">🔔</span>
+            <span class="sound-name">Ding Dong</span>
+        </button>
+
+        <button class="sound-btn" data-category="gaming" data-sound="game-over" onclick="playSound('game-over')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('game-over')">&#9825;</span>
+            <span class="sound-icon">☠️</span>
+            <span class="sound-name">Game Over</span>
+        </button>
+
+        <!-- Gaming Sounds -->
+        <button class="sound-btn" data-category="gaming" data-sound="among-us" onclick="playSound('among-us')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('among-us')">&#9825;</span>
+            <span class="sound-icon">🚀</span>
+            <span class="sound-name">Among Us Eject</span>
+        </button>
+
+        <button class="sound-btn" data-category="gaming" data-sound="metal-gear" onclick="playSound('metal-gear')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('metal-gear')">&#9825;</span>
+            <span class="sound-icon">❗</span>
+            <span class="sound-name">MGS Alert</span>
+        </button>
+
+        <button class="sound-btn" data-category="gaming" data-sound="mario-jump" onclick="playSound('mario-jump')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('mario-jump')">&#9825;</span>
+            <span class="sound-icon">🍄</span>
+            <span class="sound-name">Mario Jump</span>
+        </button>
+
+        <button class="sound-btn" data-category="gaming" data-sound="windows-xp" onclick="playSound('windows-xp')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('windows-xp')">&#9825;</span>
+            <span class="sound-icon">💻</span>
+            <span class="sound-name">Windows XP</span>
+        </button>
+
+        <!-- Dramatic Sounds -->
+        <button class="sound-btn" data-category="classic" data-sound="xfiles" onclick="playSound('xfiles')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('xfiles')">&#9825;</span>
+            <span class="sound-icon">👽</span>
+            <span class="sound-name">X-Files Theme</span>
+        </button>
+
+        <button class="sound-btn" data-category="classic" data-sound="beethoven" onclick="playSound('beethoven')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('beethoven')">&#9825;</span>
+            <span class="sound-icon">🎵</span>
+            <span class="sound-name">Beethoven 5th</span>
+        </button>
+
+        <button class="sound-btn" data-category="classic" data-sound="gong" onclick="playSound('gong')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('gong')">&#9825;</span>
+            <span class="sound-icon">🔊</span>
+            <span class="sound-name">Asian Gong</span>
+        </button>
+
+        <button class="sound-btn" data-category="classic" data-sound="fbi" onclick="playSound('fbi')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('fbi')">&#9825;</span>
+            <span class="sound-icon">🚔</span>
+            <span class="sound-name">FBI Open Up</span>
+        </button>
+
+        <!-- Action Sounds -->
+        <button class="sound-btn" data-category="reaction" data-sound="camera" onclick="playSound('camera')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('camera')">&#9825;</span>
+            <span class="sound-icon">📸</span>
+            <span class="sound-name">Camera Click</span>
+        </button>
+
+        <button class="sound-btn" data-category="classic" data-sound="cartoon-run" onclick="playSound('cartoon-run')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('cartoon-run')">&#9825;</span>
+            <span class="sound-icon">🏃</span>
+            <span class="sound-name">Cartoon Run</span>
+        </button>
+
+        <button class="sound-btn" data-category="reaction" data-sound="countdown" onclick="playSound('countdown')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('countdown')">&#9825;</span>
+            <span class="sound-icon">⏱️</span>
+            <span class="sound-name">Countdown</span>
+        </button>
+
+        <button class="sound-btn" data-category="tiktok" data-sound="siren" onclick="playSound('siren')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('siren')">&#9825;</span>
+            <span class="sound-icon">🚨</span>
+            <span class="sound-name">Social Credit</span>
+        </button>
+
+        <!-- TikTok Viral -->
+        <button class="sound-btn" data-category="tiktok" data-sound="huh" onclick="playSound('huh')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('huh')">&#9825;</span>
+            <span class="sound-icon">🤔</span>
+            <span class="sound-name">Huh?</span>
+        </button>
+
+        <button class="sound-btn" data-category="gaming" data-sound="oof" onclick="playSound('oof')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('oof')">&#9825;</span>
+            <span class="sound-icon">💀</span>
+            <span class="sound-name">Oof (Roblox)</span>
+        </button>
+
+        <button class="sound-btn" data-category="tiktok" data-sound="emotional-damage" onclick="playSound('emotional-damage')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('emotional-damage')">&#9825;</span>
+            <span class="sound-icon">💔</span>
+            <span class="sound-name">Emotional Damage</span>
+        </button>
+
+        <button class="sound-btn" data-category="classic" data-sound="bababooey" onclick="playSound('bababooey')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('bababooey')">&#9825;</span>
+            <span class="sound-icon">🗣️</span>
+            <span class="sound-name">Bababooey</span>
+        </button>
+
+        <button class="sound-btn" data-category="tiktok" data-sound="bonk" onclick="playSound('bonk')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('bonk')">&#9825;</span>
+            <span class="sound-icon">🔨</span>
+            <span class="sound-name">Bonk</span>
+        </button>
+
+        <button class="sound-btn" data-category="reaction" data-sound="nope" onclick="playSound('nope')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('nope')">&#9825;</span>
+            <span class="sound-icon">🙅</span>
+            <span class="sound-name">Nope</span>
+        </button>
+
+        <button class="sound-btn" data-category="tiktok" data-sound="yeet" onclick="playSound('yeet')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('yeet')">&#9825;</span>
+            <span class="sound-icon">🏈</span>
+            <span class="sound-name">Yeet</span>
+        </button>
+
+        <button class="sound-btn" data-category="reaction" data-sound="suspense" onclick="playSound('suspense')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('suspense')">&#9825;</span>
+            <span class="sound-icon">😰</span>
+            <span class="sound-name">Suspense</span>
+        </button>
+
+        <!-- Gen Z / TikTok -->
+        <button class="sound-btn" data-category="tiktok" data-sound="sheesh" onclick="playSound('sheesh')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('sheesh')">&#9825;</span>
+            <span class="sound-icon">🥶</span>
+            <span class="sound-name">Sheesh</span>
+        </button>
+
+        <button class="sound-btn" data-category="tiktok" data-sound="rizz" onclick="playSound('rizz')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('rizz')">&#9825;</span>
+            <span class="sound-icon">😏</span>
+            <span class="sound-name">Rizz</span>
+        </button>
+
+        <button class="sound-btn" data-category="tiktok" data-sound="sigma" onclick="playSound('sigma')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('sigma')">&#9825;</span>
+            <span class="sound-icon">🐺</span>
+            <span class="sound-name">Sigma</span>
+        </button>
+
+        <button class="sound-btn" data-category="tiktok" data-sound="gyatt" onclick="playSound('gyatt')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('gyatt')">&#9825;</span>
+            <span class="sound-icon">👀</span>
+            <span class="sound-name">Gyatt</span>
+        </button>
+
+        <button class="sound-btn" data-category="classic" data-sound="boom" onclick="playSound('boom')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('boom')">&#9825;</span>
+            <span class="sound-icon">💣</span>
+            <span class="sound-name">Boom</span>
+        </button>
+
+        <button class="sound-btn" data-category="reaction" data-sound="hello" onclick="playSound('hello')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('hello')">&#9825;</span>
+            <span class="sound-icon">👋</span>
+            <span class="sound-name">Hello</span>
+        </button>
+
+        <button class="sound-btn" data-category="tiktok" data-sound="mrbeast" onclick="playSound('mrbeast')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('mrbeast')">&#9825;</span>
+            <span class="sound-icon">🎬</span>
+            <span class="sound-name">MrBeast</span>
+        </button>
+
+        <button class="sound-btn" data-category="gaming" data-sound="discord" onclick="playSound('discord')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('discord')">&#9825;</span>
+            <span class="sound-icon">🔔</span>
+            <span class="sound-name">Discord Ping</span>
+        </button>
+
+        <!-- 2025-2026 Viral -->
+        <button class="sound-btn" data-category="tiktok" data-sound="hawk-tuah" onclick="playSound('hawk-tuah')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('hawk-tuah')">&#9825;</span>
+            <span class="sound-icon">🦅</span>
+            <span class="sound-name">Hawk Tuah</span>
+        </button>
+
+        <button class="sound-btn" data-category="tiktok" data-sound="skibidi" onclick="playSound('skibidi')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('skibidi')">&#9825;</span>
+            <span class="sound-icon">🚽</span>
+            <span class="sound-name">Skibidi</span>
+        </button>
+
+        <button class="sound-btn" data-category="classic" data-sound="right-back" onclick="playSound('right-back')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('right-back')">&#9825;</span>
+            <span class="sound-icon">📺</span>
+            <span class="sound-name">We'll Be Right Back</span>
+        </button>
+
+        <button class="sound-btn" data-category="tiktok" data-sound="ayo" onclick="playSound('ayo')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('ayo')">&#9825;</span>
+            <span class="sound-icon">😳</span>
+            <span class="sound-name">Ayo</span>
+        </button>
+
+        <button class="sound-btn" data-category="tiktok" data-sound="goofy-ahh" onclick="playSound('goofy-ahh')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('goofy-ahh')">&#9825;</span>
+            <span class="sound-icon">🤡</span>
+            <span class="sound-name">Goofy Ahh</span>
+        </button>
+
+        <button class="sound-btn" data-category="tiktok" data-sound="bing-chilling" onclick="playSound('bing-chilling')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('bing-chilling')">&#9825;</span>
+            <span class="sound-icon">🍦</span>
+            <span class="sound-name">Bing Chilling</span>
+        </button>
+
+        <button class="sound-btn" data-category="tiktok" data-sound="its-corn" onclick="playSound('its-corn')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('its-corn')">&#9825;</span>
+            <span class="sound-icon">🌽</span>
+            <span class="sound-name">It's Corn</span>
+        </button>
+
+        <button class="sound-btn" data-category="tiktok" data-sound="quandale" onclick="playSound('quandale')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('quandale')">&#9825;</span>
+            <span class="sound-icon">😈</span>
+            <span class="sound-name">Quandale Dingle</span>
+        </button>
+
+        <button class="sound-btn" data-category="tiktok" data-sound="whopper" onclick="playSound('whopper')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('whopper')">&#9825;</span>
+            <span class="sound-icon">🍔</span>
+            <span class="sound-name">Whopper Whopper</span>
+        </button>
+
+        <button class="sound-btn" data-category="classic" data-sound="this-dude" onclick="playSound('this-dude')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('this-dude')">&#9825;</span>
+            <span class="sound-icon">😂</span>
+            <span class="sound-name">Look At This Dude</span>
+        </button>
+
+        <button class="sound-btn" data-category="tiktok" data-sound="what-da-dog" onclick="playSound('what-da-dog')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('what-da-dog')">&#9825;</span>
+            <span class="sound-icon">🐕</span>
+            <span class="sound-name">What Da Dog Doin</span>
+        </button>
+
+        <button class="sound-btn" data-category="reaction" data-sound="run" onclick="playSound('run')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('run')">&#9825;</span>
+            <span class="sound-icon">🏃‍♂️</span>
+            <span class="sound-name">Run</span>
+        </button>
+
+        <button class="sound-btn" data-category="classic" data-sound="john-cena" onclick="playSound('john-cena')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('john-cena')">&#9825;</span>
+            <span class="sound-icon">💪</span>
+            <span class="sound-name">John Cena</span>
+        </button>
+
+        <button class="sound-btn" data-category="gaming" data-sound="amogus" onclick="playSound('amogus')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('amogus')">&#9825;</span>
+            <span class="sound-icon">📮</span>
+            <span class="sound-name">Amogus</span>
+        </button>
+
+        <button class="sound-btn" data-category="reaction" data-sound="oh-hell-nah" onclick="playSound('oh-hell-nah')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('oh-hell-nah')">&#9825;</span>
+            <span class="sound-icon">🙅‍♂️</span>
+            <span class="sound-name">Oh Hell Nah</span>
+        </button>
+
+        <button class="sound-btn" data-category="reaction" data-sound="hey-hey" onclick="playSound('hey-hey')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('hey-hey')">&#9825;</span>
+            <span class="sound-icon">👋</span>
+            <span class="sound-name">Hey Hey Hey</span>
+        </button>
+
+        <button class="sound-btn" data-category="reaction" data-sound="perfect" onclick="playSound('perfect')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('perfect')">&#9825;</span>
+            <span class="sound-icon">👌</span>
+            <span class="sound-name">Perfect</span>
+        </button>
+
+        <!-- Classic & Movie -->
+        <button class="sound-btn" data-category="gaming" data-sound="gta-wasted" onclick="playSound('gta-wasted')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('gta-wasted')">&#9825;</span>
+            <span class="sound-icon">💀</span>
+            <span class="sound-name">GTA Wasted</span>
+        </button>
+
+        <button class="sound-btn" data-category="classic" data-sound="coffin-dance" onclick="playSound('coffin-dance')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('coffin-dance')">&#9825;</span>
+            <span class="sound-icon">⚰️</span>
+            <span class="sound-name">Coffin Dance</span>
+        </button>
+
+        <button class="sound-btn" data-category="classic" data-sound="law-order" onclick="playSound('law-order')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('law-order')">&#9825;</span>
+            <span class="sound-icon">⚖️</span>
+            <span class="sound-name">Law & Order</span>
+        </button>
+
+        <button class="sound-btn" data-category="anime" data-sound="nani" onclick="playSound('nani')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('nani')">&#9825;</span>
+            <span class="sound-icon">😱</span>
+            <span class="sound-name">Nani?!</span>
+        </button>
+
+        <button class="sound-btn" data-category="classic" data-sound="wilhelm" onclick="playSound('wilhelm')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('wilhelm')">&#9825;</span>
+            <span class="sound-icon">😫</span>
+            <span class="sound-name">Wilhelm Scream</span>
+        </button>
+
+        <button class="sound-btn" data-category="classic" data-sound="taco-bell" onclick="playSound('taco-bell')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('taco-bell')">&#9825;</span>
+            <span class="sound-icon">🔔</span>
+            <span class="sound-name">Taco Bell</span>
+        </button>
+
+        <button class="sound-btn" data-category="tiktok" data-sound="oh-no-tiktok" onclick="playSound('oh-no-tiktok')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('oh-no-tiktok')">&#9825;</span>
+            <span class="sound-icon">😬</span>
+            <span class="sound-name">Oh No TikTok</span>
+        </button>
+
+        <button class="sound-btn" data-category="reaction" data-sound="noice" onclick="playSound('noice')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('noice')">&#9825;</span>
+            <span class="sound-icon">👍</span>
+            <span class="sound-name">Noice</span>
+        </button>
+
+        <!-- Anime -->
+        <button class="sound-btn" data-category="reaction" data-sound="nice" onclick="playSound('nice')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('nice')">&#9825;</span>
+            <span class="sound-icon">😎</span>
+            <span class="sound-name">Nice</span>
+        </button>
+
+        <button class="sound-btn" data-category="anime" data-sound="ara-ara" onclick="playSound('ara-ara')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('ara-ara')">&#9825;</span>
+            <span class="sound-icon">💋</span>
+            <span class="sound-name">Ara Ara</span>
+        </button>
+
+        <button class="sound-btn" data-category="anime" data-sound="omae" onclick="playSound('omae')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('omae')">&#9825;</span>
+            <span class="sound-icon">⚔️</span>
+            <span class="sound-name">Omae Wa Mou</span>
+        </button>
+
+        <button class="sound-btn" data-category="tiktok" data-sound="thats-cap" onclick="playSound('thats-cap')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('thats-cap')">&#9825;</span>
+            <span class="sound-icon">🧢</span>
+            <span class="sound-name">That's Cap</span>
+        </button>
+
+        <button class="sound-btn" data-category="classic" data-sound="do-it" onclick="playSound('do-it')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('do-it')">&#9825;</span>
+            <span class="sound-icon">💪</span>
+            <span class="sound-name">Just Do It</span>
+        </button>
+
+        <button class="sound-btn" data-category="classic" data-sound="hello-there" onclick="playSound('hello-there')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('hello-there')">&#9825;</span>
+            <span class="sound-icon">👋</span>
+            <span class="sound-name">Hello There</span>
+        </button>
+
+        <button class="sound-btn" data-category="classic" data-sound="why-running" onclick="playSound('why-running')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('why-running')">&#9825;</span>
+            <span class="sound-icon">🏃</span>
+            <span class="sound-name">Why Are You Running</span>
+        </button>
+
+        <button class="sound-btn" data-category="classic" data-sound="bazinga" onclick="playSound('bazinga')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('bazinga')">&#9825;</span>
+            <span class="sound-icon">🎯</span>
+            <span class="sound-name">Bazinga</span>
+        </button>
+
+        <!-- More Reactions -->
+        <button class="sound-btn" data-category="reaction" data-sound="sad-violin" onclick="playSound('sad-violin')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('sad-violin')">&#9825;</span>
+            <span class="sound-icon">🎻</span>
+            <span class="sound-name">Sad Violin</span>
+        </button>
+
+        <button class="sound-btn" data-category="reaction" data-sound="triggered" onclick="playSound('triggered')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('triggered')">&#9825;</span>
+            <span class="sound-icon">😤</span>
+            <span class="sound-name">Triggered</span>
+        </button>
+
+        <button class="sound-btn" data-category="classic" data-sound="surprise" onclick="playSound('surprise')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('surprise')">&#9825;</span>
+            <span class="sound-icon">😲</span>
+            <span class="sound-name">Surprise MF</span>
+        </button>
+
+        <button class="sound-btn" data-category="reaction" data-sound="crickets" onclick="playSound('crickets')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('crickets')">&#9825;</span>
+            <span class="sound-icon">🦗</span>
+            <span class="sound-name">Crickets</span>
+        </button>
+
+        <button class="sound-btn" data-category="reaction" data-sound="record-scratch" onclick="playSound('record-scratch')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('record-scratch')">&#9825;</span>
+            <span class="sound-icon">💿</span>
+            <span class="sound-name">Record Scratch</span>
+        </button>
+
+        <button class="sound-btn" data-category="reaction" data-sound="yay" onclick="playSound('yay')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('yay')">&#9825;</span>
+            <span class="sound-icon">🎉</span>
+            <span class="sound-name">Yay!</span>
+        </button>
+
+        <button class="sound-btn" data-category="reaction" data-sound="womp-womp" onclick="playSound('womp-womp')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('womp-womp')">&#9825;</span>
+            <span class="sound-icon">📯</span>
+            <span class="sound-name">Womp Womp</span>
+        </button>
+
+        <button class="sound-btn" data-category="reaction" data-sound="uh-oh" onclick="playSound('uh-oh')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('uh-oh')">&#9825;</span>
+            <span class="sound-icon">😧</span>
+            <span class="sound-name">Uh Oh</span>
+        </button>
+
+        <button class="sound-btn" data-category="reaction" data-sound="evil-laugh" onclick="playSound('evil-laugh')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('evil-laugh')">&#9825;</span>
+            <span class="sound-icon">😈</span>
+            <span class="sound-name">Evil Laugh</span>
+        </button>
+
+        <button class="sound-btn" data-category="reaction" data-sound="ooh" onclick="playSound('ooh')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('ooh')">&#9825;</span>
+            <span class="sound-icon">😮</span>
+            <span class="sound-name">Ooh</span>
+        </button>
+
+        <button class="sound-btn" data-category="anime" data-sound="anime-wow" onclick="playSound('anime-wow')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('anime-wow')">&#9825;</span>
+            <span class="sound-icon">✨</span>
+            <span class="sound-name">Anime Wow</span>
+        </button>
+
+        <button class="sound-btn" data-category="classic" data-sound="thug-life" onclick="playSound('thug-life')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('thug-life')">&#9825;</span>
+            <span class="sound-icon">🕶️</span>
+            <span class="sound-name">Thug Life</span>
+        </button>
+
+        <button class="sound-btn" data-category="classic" data-sound="damn" onclick="playSound('damn')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('damn')">&#9825;</span>
+            <span class="sound-icon">🔥</span>
+            <span class="sound-name">Damn Son</span>
+        </button>
+
+        <button class="sound-btn" data-category="classic" data-sound="fart" onclick="playSound('fart')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('fart')">&#9825;</span>
+            <span class="sound-icon">💨</span>
+            <span class="sound-name">Fart</span>
+        </button>
+
+        <button class="sound-btn" data-category="gaming" data-sound="minecraft-oof" onclick="playSound('minecraft-oof')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('minecraft-oof')">&#9825;</span>
+            <span class="sound-icon">⛏️</span>
+            <span class="sound-name">Minecraft Death</span>
+        </button>
+
+        <button class="sound-btn" data-category="gaming" data-sound="mission-passed" onclick="playSound('mission-passed')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('mission-passed')">&#9825;</span>
+            <span class="sound-icon">✅</span>
+            <span class="sound-name">Mission Passed</span>
+        </button>
+
+        <!-- SpongeBob -->
+        <button class="sound-btn" data-category="spongebob" data-sound="spongebob-fail" onclick="playSound('spongebob-fail')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('spongebob-fail')">&#9825;</span>
+            <span class="sound-icon">🧽</span>
+            <span class="sound-name">SpongeBob Fail</span>
+        </button>
+
+        <button class="sound-btn" data-category="spongebob" data-sound="few-moments-later" onclick="playSound('few-moments-later')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('few-moments-later')">&#9825;</span>
+            <span class="sound-icon">⏰</span>
+            <span class="sound-name">Few Moments Later</span>
+        </button>
+
+        <button class="sound-btn" data-category="spongebob" data-sound="boowomp" onclick="playSound('boowomp')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('boowomp')">&#9825;</span>
+            <span class="sound-icon">📉</span>
+            <span class="sound-name">Boowomp</span>
+        </button>
+
+        <button class="sound-btn" data-category="spongebob" data-sound="spongebob-sad" onclick="playSound('spongebob-sad')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('spongebob-sad')">&#9825;</span>
+            <span class="sound-icon">😭</span>
+            <span class="sound-name">SpongeBob Sad</span>
+        </button>
+
+        <button class="sound-btn" data-category="spongebob" data-sound="spongebob-walk" onclick="playSound('spongebob-walk')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('spongebob-walk')">&#9825;</span>
+            <span class="sound-icon">👟</span>
+            <span class="sound-name">SpongeBob Walk</span>
+        </button>
+
+        <button class="sound-btn" data-category="spongebob" data-sound="my-leg" onclick="playSound('my-leg')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('my-leg')">&#9825;</span>
+            <span class="sound-icon">🦵</span>
+            <span class="sound-name">My Leg!</span>
+        </button>
+
+        <button class="sound-btn" data-category="spongebob" data-sound="one-eternity-later" onclick="playSound('one-eternity-later')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('one-eternity-later')">&#9825;</span>
+            <span class="sound-icon">♾️</span>
+            <span class="sound-name">One Eternity Later</span>
+        </button>
+
+        <button class="sound-btn" data-category="spongebob" data-sound="im-ready" onclick="playSound('im-ready')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('im-ready')">&#9825;</span>
+            <span class="sound-icon">🎯</span>
+            <span class="sound-name">I'm Ready!</span>
+        </button>
+
+        <button class="sound-btn" data-category="tiktok" data-sound="fahhh" onclick="playSound('fahhh')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('fahhh')">&#9825;</span>
+            <span class="sound-icon">😱</span>
+            <span class="sound-name">FAHHH</span>
+        </button>
+
+        <button class="sound-btn" data-category="tiktok" data-sound="huh-cat" onclick="playSound('huh-cat')">
+            <span class="favorite-icon" onclick="event.stopPropagation(); toggleFavorite('huh-cat')">&#9825;</span>
+            <span class="sound-icon">🐱</span>
+            <span class="sound-name">Huh Cat</span>
+        </button>
+    </div>
+
+    <div class="soundboard-info">
+        <p>All sounds are from public domain / royalty-free sources. Click any button to play!</p>
+        <div class="keyboard-hint">
+            <span>Press</span>
+            <kbd>ESC</kbd>
+            <span>to stop •</span>
+            <kbd>SPACE</kbd>
+            <span>for random</span>
+        </div>
+        <button class="shortcuts-toggle" onclick="toggleShortcuts()">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M8 12h.01M12 12h.01M16 12h.01M8 16h8"/>
+            </svg>
+            Keyboard Shortcuts
+        </button>
+        <div class="shortcuts-panel" id="shortcuts-panel">
+            <div class="shortcuts-grid">
+                <div class="shortcut-item"><kbd>ESC</kbd><span>Stop all sounds</span></div>
+                <div class="shortcut-item"><kbd>SPACE</kbd><span>Play random sound</span></div>
+                <div class="shortcut-item"><kbd>L</kbd><span>Toggle loop</span></div>
+                <div class="shortcut-item"><kbd>1-4</kbd><span>Set speed (0.5x, 1x, 1.5x, 2x)</span></div>
+                <div class="shortcut-item"><kbd>↑ / ↓</kbd><span>Volume up/down</span></div>
+                <div class="shortcut-item"><kbd>M</kbd><span>Mute/unmute</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toast-container"></div>

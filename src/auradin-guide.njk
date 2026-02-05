@@ -1,0 +1,186 @@
+---
+layout: base.njk
+title: Auradin Complete Build Guide | D4 Season 11
+description: Complete Diablo 4 Auradin guide - tempering, aspects, sanctification, exact stats to reach 100% crit & block. Updated February 2026.
+styles:
+  - /assets/css/auradin-guide.css
+---
+
+    <header class="guide-hero">
+        <span class="badge">Season 11 - Divine Intervention</span>
+        <h1>Auradin Complete Guide<span class="verified-badge">VERIFIED</span></h1>
+        <p class="subtitle">Gear, Tempering, Aspects, Stats - Everything You Need</p>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('overview')">⚡ Quick Answer</button>
+        <button class="nav-tab" onclick="showTab('gear')">🛡️ Gear & Stats</button>
+        <button class="nav-tab" onclick="showTab('temper')">🔨 Tempering</button>
+        <button class="nav-tab" onclick="showTab('aspects')">✨ Aspects</button>
+        <button class="nav-tab" onclick="showTab('setup')">⚙️ Setup</button>
+        <button class="nav-tab" onclick="showTab('math')">📊 Math</button>
+    </div>
+
+    <div class="container">
+        <!-- TAB 1: Overview -->
+        <div id="overview" class="tab-content active">
+            <div class="section" style="text-align: center;">
+                <h2>The Simple Answer</h2>
+                <p style="font-size: 1.2rem;">
+                    <span style="color: var(--fire); font-weight: 800;">Crit Chance</span> is better <strong>UNTIL</strong> you reach 100%.<br>
+                    After that, <span style="color: var(--blue); font-weight: 800;">All Stats</span> becomes more valuable.
+                </p>
+                <div class="decision-grid">
+                    <div class="decision-card no">
+                        <h4>Below 100% Crit?</h4>
+                        <p style="color: var(--red);">GET MORE CRIT CHANCE</p>
+                    </div>
+                    <div class="decision-card yes">
+                        <h4>At 100% Crit?</h4>
+                        <p style="color: var(--green);">GET ALL STATS INSTEAD</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Stat Targets</h2>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Block Chance</span><span>100%</span></div><div class="stat-progress-bar"><div class="stat-progress-fill block"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Critical Strike Chance</span><span>100%</span></div><div class="stat-progress-bar"><div class="stat-progress-fill crit"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Cooldown Reduction</span><span>55%+</span></div><div class="stat-progress-bar"><div class="stat-progress-fill cdr"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Maximum Life</span><span>8,000+</span></div><div class="stat-progress-bar"><div class="stat-progress-fill life"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Strength</span><span>1,500+</span></div><div class="stat-progress-bar"><div class="stat-progress-fill str"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Movement Speed</span><span>160%+</span></div><div class="stat-progress-bar"><div class="stat-progress-fill speed"></div></div></div>
+            </div>
+
+            <div class="section">
+                <h2>Stat Priority</h2>
+                <div class="tier tier-s"><h4>S-TIER: Cap First</h4><ol><li>Block Chance (100%)</li><li>Critical Strike Chance (100%)</li></ol></div>
+                <div class="tier tier-a"><h4>A-TIER: Stack After Caps</h4><ol><li>Armor (Castle Scaling)</li><li>Attack Speed (Cap 100%)</li><li>Cooldown Reduction</li><li>Strength</li></ol></div>
+                <div class="tier tier-b"><h4>B-TIER: Fill</h4><ol><li>All Stats</li><li>Maximum Life</li><li>Resistances</li></ol></div>
+            </div>
+        </div>
+
+        <!-- TAB 2: Gear -->
+        <div id="gear" class="tab-content">
+            <div class="section">
+                <h2>Required Unique Items</h2>
+                
+                <!-- DAWNFIRE -->
+                <div class="gear-slot-card" style="border-left-color: var(--red);">
+                    <div class="gear-slot-header"><span>GLOVES - Dawnfire</span><span style="color:var(--red);">REQUIRED</span></div>
+                    <div class="stat-row"><span>+Righteousness Ranks</span><span class="stat-value-calc">[2-3]</span></div>
+                    <div class="stat-row"><span>Holy Light Double Dmg</span><span class="stat-value-calc">[26-35%]</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Holy Light deals Fire Damage/sec. Each kill grants +50% DMG (Max 500%).</div>
+                </div>
+
+                <!-- HEIR OF PERDITION -->
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>HELM - Heir of Perdition</span><span style="color:var(--purple);">MYTHIC</span></div>
+                    <div class="stat-row"><span>Crit Chance</span><span class="stat-value-calc">+20%</span></div>
+                    <div class="stat-row"><span>Damage to Angels/Demons</span><span class="stat-value-calc">+200%</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> +60%[x] Damage. Steal Lilith's Favor.</div>
+                </div>
+
+                <!-- SHROUD -->
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>CHEST - Shroud of False Death</span><span style="color:var(--purple);">MYTHIC</span></div>
+                    <div class="stat-row"><span>+All Passives</span><span class="stat-value-calc">+1</span></div>
+                    <div class="stat-row"><span>All Stats</span><span class="stat-value-calc">+160</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Gain Stealth and 40% Movespeed if not attacking.</div>
+                </div>
+
+                <!-- HERALD -->
+                <div class="gear-slot-card" style="border-left-color: var(--blue);">
+                    <div class="gear-slot-header"><span>SHIELD - Herald of Zakarum</span><span style="color:var(--blue);">UNIQUE</span></div>
+                    <div class="stat-row"><span>Block Chance</span><span class="stat-value-calc">40%</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Gain Strength, Resistance, Armor, and Retribution Chance.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: Tempering -->
+        <div id="temper" class="tab-content">
+            <div class="section">
+                <h2>Tempering Manuals</h2>
+                <div class="tier tier-s">
+                    <h4>Offensive</h4>
+                    <ul>
+                        <li><strong>Finesse:</strong> Attack Speed, Crit Damage</li>
+                        <li><strong>Natural Finesse:</strong> Damage to Close</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>Defensive</h4>
+                    <ul>
+                        <li><strong>Paladin Guard:</strong> Block Chance, Aegis CDR</li>
+                        <li><strong>Worldly Endurance:</strong> Max Life</li>
+                    </ul>
+                </div>
+                <div class="tier tier-b">
+                    <h4>Utility</h4>
+                    <ul>
+                        <li><strong>Aura Innovation:</strong> Aura CDR, Holy Light Potency</li>
+                        <li><strong>Judicator Finesse:</strong> Holy Damage, Justice Dmg</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: Aspects -->
+        <div id="aspects" class="tab-content">
+            <div class="section">
+                <h2>Legendary Aspects</h2>
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Celestial Strife</span></div>
+                    <div class="unique-effect">Vuln DMG per kill up to [75-125%]. Put on Amulet for 50% boost!</div>
+                </div>
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Ascension</span></div>
+                    <div class="unique-effect">DMG per Arbiter cast.</div>
+                </div>
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of the Indomitable</span></div>
+                    <div class="unique-effect">Armor based on Block Chance. At 100% block = massive armor!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 5: Setup -->
+        <div id="setup" class="tab-content">
+            <div class="section">
+                <h2>Skills</h2>
+                <p><strong>Holy Light Aura</strong> - Main damage source.</p>
+                <p><strong>Fanaticism Aura</strong> - Attack Speed + Crit.</p>
+                <p><strong>Falling Star</strong> - Mobility + Trigger.</p>
+                <p><strong>Defiance Aura</strong> - Healing.</p>
+            </div>
+            <div class="section">
+                <h2>Runewords</h2>
+                <p><strong>Neo + Cir</strong> - Summons Holy Light Aura.</p>
+                <p><strong>Cir + Gar</strong> - +5% Crit per stack (25% total).</p>
+            </div>
+        </div>
+
+        <!-- TAB 6: Math -->
+        <div id="math" class="tab-content">
+            <div class="section">
+                <h2>100% Critical Strike Chance</h2>
+                <p>Sheet Stats: 67%</p>
+                <p>Fanaticism Aura: +8%</p>
+                <p>Cir+Gar Runes: +25%</p>
+                <p style="color: var(--green); font-weight: 700; font-size: 1.2rem; margin-top: 10px;">TOTAL: 100% (CAPPED)</p>
+            </div>
+            <div class="section">
+                <h2>100% Block Chance</h2>
+                <p>Herald of Zakarum: 40%</p>
+                <p>Shield Bearer Board: 25%</p>
+                <p>Beacon Board: 10%</p>
+                <p>Castle Board: 14%</p>
+                <p>En Garde Temper: 5%+</p>
+                <p style="color: var(--green); font-weight: 700; font-size: 1.2rem; margin-top: 10px;">TOTAL: 100%+ (CAPPED)</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="/assets/js/guide.js"></script>

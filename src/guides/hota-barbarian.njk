@@ -1,0 +1,491 @@
+---
+layout: base.njk
+title: Hammer of the Ancients Barbarian Guide | D4 Season 11
+description: Complete Diablo 4 HotA Barbarian guide for Season 11. Skills, gear, paragon, aspects, tempering. S-Tier push and bossing build.
+styles:
+  - /assets/css/guide.css
+---
+
+    <a href="/build-guides" class="back-link">&larr; Back to All Guides</a>
+
+    <header class="guide-hero">
+        <span class="badge">Season 11 - Barbarian</span>
+        <h1>HotA Barbarian Guide<span class="verified-badge">S-TIER</span></h1>
+        <p class="subtitle">Fury-Fueled Slam Build - Push, Bossing, Pit Domination</p>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+        <button class="nav-tab" onclick="showTab('skills')">Skills</button>
+        <button class="nav-tab" onclick="showTab('gear')">Gear</button>
+        <button class="nav-tab" onclick="showTab('aspects')">Aspects & Tempering</button>
+        <button class="nav-tab" onclick="showTab('paragon')">Paragon</button>
+        <button class="nav-tab" onclick="showTab('gameplay')">Gameplay</button>
+    </div>
+
+    <div class="container">
+
+        <!-- ============ TAB 1: OVERVIEW ============ -->
+        <div id="overview" class="tab-content active">
+
+            <div class="section">
+                <h2>Build Overview</h2>
+                <p>Hammer of the Ancients is the premier Barbarian slam build in Season 11. It converts massive Fury reserves into devastating Overpower hits via <strong>Banished Lord's Talisman</strong>, while <strong>Mantle of Mountain's Fury</strong> and <strong>100,000 Steps</strong> blanket the battlefield with Earthquakes. Every point of Fury you hold amplifies HotA's damage, making resource management the key to astronomical burst.</p>
+
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Tier</div>
+                        <div class="build-info-value" style="color: #fbbf24;">S-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Playstyle</div>
+                        <div class="build-info-value">Slam / Burst</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Primary Resource</div>
+                        <div class="build-info-value">Fury</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Difficulty</div>
+                        <div class="build-info-value">
+                            <div class="difficulty-bar">
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Best Content</div>
+                        <div class="build-info-value">Pit / Bosses</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Key Mechanic</div>
+                        <div class="build-info-value">Fury &rarr; Overpower</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Strengths & Weaknesses</h2>
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>Strengths</h4>
+                        <ul>
+                            <li>Massive boss damage via guaranteed Overpower</li>
+                            <li>Very tanky with Shout stacking and DR</li>
+                            <li>Excellent scaling into high Pit tiers</li>
+                            <li>Multiple viable variants (speed, push, boss)</li>
+                            <li>Easy core gameplay loop</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>Weaknesses</h4>
+                        <ul>
+                            <li>Naturally small AoE without tempering investment</li>
+                            <li>Needs specific uniques to function (Mantle, Steps)</li>
+                            <li>Push variant needs double Melted Heart</li>
+                            <li>Fury management punishing if misplayed</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>How It Works</h2>
+                <p>The build revolves around a simple but powerful loop:</p>
+                <p><strong>1. Generate Fury</strong> via Shouts (Rallying Cry, War Cry, Challenging Shout) and passive generation from Tempered Fury and Prolific Fury.</p>
+                <p><strong>2. Slam with HotA</strong> which deals damage that scales with your current Fury thanks to Unbridled Rage. Each hit consumes Fury for massive damage.</p>
+                <p><strong>3. Guaranteed Overpower</strong> from Banished Lord's Talisman triggers after spending enough Fury, creating huge burst windows.</p>
+                <p><strong>4. Earthquake Chain</strong> - 100,000 Steps auto-casts Ground Stomp while attacking, which spawns Earthquakes. Mantle of Mountain's Fury detonates those Earthquakes on every HotA impact, creating an AoE damage cascade.</p>
+            </div>
+
+        </div>
+
+        <!-- ============ TAB 2: SKILLS ============ -->
+        <div id="skills" class="tab-content">
+
+            <div class="section">
+                <h2>Active Skills</h2>
+
+                <div class="skill-card">
+                    <div class="skill-icon">🔨</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Hammer of the Ancients <span class="skill-tag">5/5</span></div>
+                        <p class="skill-desc"><strong>Enhanced &rarr; Furious.</strong> Your primary slam. Damage scales with current Fury, making each hit a potential nuke. Furious upgrade guarantees extra Fury generation on Overpower, keeping the loop running.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">🦶</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Ground Stomp <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc"><strong>Enhanced &rarr; Strategic.</strong> Creates Earthquakes, applies Vulnerable, and generates Fury. Strategic upgrade provides additional Fury per enemy hit, feeding your slam cycle.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">📢</div>
+                    <div class="skill-info">
+                        <div class="skill-name">War Cry <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc"><strong>Enhanced &rarr; Power.</strong> Grants flat damage increase and Berserking. Power upgrade amplifies damage further based on nearby enemies.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">📯</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Rallying Cry <span class="skill-tag">5/5</span></div>
+                        <p class="skill-desc"><strong>Enhanced &rarr; Tactical.</strong> Your primary Fury generator and defensive buff. Tactical upgrade provides massive Fury generation over duration. Also grants Unstoppable, preventing CC from interrupting your slams.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">🛡️</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Challenging Shout <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc"><strong>Enhanced &rarr; Tactical.</strong> Huge damage reduction and Fury generation. Tactical upgrade provides a percentage of max Fury, helping you reach full resource before slamming.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">💀</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Wrath of the Berserker <span class="skill-tag">5/5</span></div>
+                        <p class="skill-desc"><strong>Supreme.</strong> Your ultimate ability. Grants Berserking and Unstoppable with massive damage amplification. Supreme upgrade makes all damage during WotB deal bonus damage per Fury spent. Use on cooldown for burst windows.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Passive Skills</h2>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(239, 68, 68, 0.2);">🔑</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Unbridled Rage <span class="skill-tag" style="background: rgba(239, 68, 68, 0.2); color: var(--red);">KEY PASSIVE</span></div>
+                        <p class="skill-desc">Core Skills deal 135% increased damage but cost 100% more Fury. This is the heart of the build -- doubling the Fury cost doubles the Overpower triggers from Banished Lord's and makes each slam hit harder.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">⚡</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Tempered Fury</div>
+                        <p class="skill-desc">Increases Maximum Fury. More max Fury means higher damage ceiling on each HotA cast and more stored damage for Overpower bursts.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">⚡</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Prolific Fury</div>
+                        <p class="skill-desc">Increases Fury generation while Berserking. Pairs with War Cry and WotB to keep your Fury pool topped off during damage windows.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">💪</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Heavy Handed</div>
+                        <p class="skill-desc">Increases Critical Strike Damage with Two-Handed weapons. HotA uses a Two-Handed Mace, so this is a direct multiplier on your primary damage.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">💪</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Brute Force</div>
+                        <p class="skill-desc">Overpower damage increased. Since the build guarantees Overpowers frequently, this passive provides massive value.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">💪</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Wallop</div>
+                        <p class="skill-desc">Increases damage with Bludgeoning weapons. HotA is a bludgeoning skill, making this a consistent damage increase.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">⚔️</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Counteroffensive</div>
+                        <p class="skill-desc">Damage increased while Fortified. You maintain Fortify through shouts and Aspect of Bul-Kathos, keeping this bonus active most of the time.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">⚔️</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Pit Fighter</div>
+                        <p class="skill-desc">Increased damage to Close enemies and reduced damage from Distant enemies. HotA is a melee skill, so you always benefit from the damage portion.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ============ TAB 3: GEAR ============ -->
+        <div id="gear" class="tab-content">
+
+            <div class="section">
+                <h2>Required Uniques</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--red);">
+                    <div class="gear-slot-header"><span>CHEST - Mantle of Mountain's Fury</span><span style="color: var(--red); font-weight: 700;">REQUIRED</span></div>
+                    <div class="stat-row"><span>Earthquake Damage</span><span class="stat-value-calc">Increased</span></div>
+                    <div class="stat-row"><span>Fury on Kill</span><span class="stat-value-calc">+Fury</span></div>
+                    <div class="stat-row"><span>Damage Reduction</span><span class="stat-value-calc">While Fortified</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Hammer of the Ancients hits release shockwaves that detonate active Earthquakes. This is the key interaction that turns HotA from single-target to AoE powerhouse. Every slam creates chain explosions across the entire screen.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--red);">
+                    <div class="gear-slot-header"><span>BOOTS - 100,000 Steps</span><span style="color: var(--red); font-weight: 700;">REQUIRED</span></div>
+                    <div class="stat-row"><span>Ground Stomp Ranks</span><span class="stat-value-calc">+Ranks</span></div>
+                    <div class="stat-row"><span>Movement Speed</span><span class="stat-value-calc">Increased</span></div>
+                    <div class="stat-row"><span>Fury Generation</span><span class="stat-value-calc">On Stomp</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> After walking 100 steps, your next attack automatically casts Ground Stomp, creating Earthquakes passively. This keeps Earthquake uptime at 100% without ever manually casting Ground Stomp during combat. The Earthquakes are then detonated by Mantle of Mountain's Fury.</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Key Unique Items</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>AMULET - Banished Lord's Talisman</span><span style="color: var(--gold); font-weight: 700;">UNIQUE</span></div>
+                    <div class="stat-row"><span>Overpower Damage</span><span class="stat-value-calc">Increased</span></div>
+                    <div class="stat-row"><span>Fury Cost Reduction</span><span class="stat-value-calc">Reduced</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> After spending a certain amount of Fury, your next attack is guaranteed to Overpower. Since Unbridled Rage doubles Fury costs, you trigger this extremely frequently. Each Overpower hit with HotA is a massive damage spike.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>RING - Ring of Red Furor</span><span style="color: var(--gold); font-weight: 700;">UNIQUE</span></div>
+                    <div class="stat-row"><span>Critical Strike Chance</span><span class="stat-value-calc">Increased</span></div>
+                    <div class="stat-row"><span>Critical Strike Damage</span><span class="stat-value-calc">Increased</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> After spending Fury, your next attack is guaranteed to Critically Strike. Pairs with Banished Lord's to create Overpowering Crits -- the strongest hit type in the game.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>WEAPON - Ramaladni's Magnum Opus</span><span style="color: var(--gold); font-weight: 700;">UNIQUE</span></div>
+                    <div class="stat-row"><span>Physical Damage</span><span class="stat-value-calc">Massive</span></div>
+                    <div class="stat-row"><span>All Stats</span><span class="stat-value-calc">Increased</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Deals massive flat damage. The highest raw weapon damage available to Barbarian, making every HotA hit count. Essential for pushing high Pit tiers.</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Flex Slot</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--blue);">
+                    <div class="gear-slot-header"><span>HELM - Tuskhelm of Joritz the Mighty</span><span style="color: var(--blue); font-weight: 700;">RECOMMENDED</span></div>
+                    <div class="stat-row"><span>Maximum Fury</span><span class="stat-value-calc">Increased</span></div>
+                    <div class="stat-row"><span>Cooldown Reduction</span><span class="stat-value-calc">Increased</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Gain Unstoppable for a duration after using a Shout. Since the build uses 3 Shouts, you achieve near-permanent Unstoppable, preventing all CC during Pit pushes.</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ============ TAB 4: ASPECTS & TEMPERING ============ -->
+        <div id="aspects" class="tab-content">
+
+            <div class="section">
+                <h2>Legendary Aspects</h2>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Ancestral Force</span></div>
+                    <div class="unique-effect">Hammer of the Ancients quakes outward, dealing a percentage of its damage to enemies. Massively increases HotA's effective AoE, solving the build's natural weakness.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Earthquakes</span></div>
+                    <div class="unique-effect">Ground Stomp creates Earthquakes that deal damage over time. More Earthquake sources mean more detonations from Mantle of Mountain's Fury.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Edgemaster's Aspect</span></div>
+                    <div class="unique-effect">Skills deal increased damage based on your remaining primary resource. Since you maintain high Fury before slamming, this provides a consistent damage multiplier on every HotA cast.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Bold Chieftain's Aspect</span></div>
+                    <div class="unique-effect">Shout cooldowns are reduced per nearby enemy when cast. With 3 Shouts in the build, this dramatically increases buff uptime and Fury generation frequency.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Anger Management</span></div>
+                    <div class="unique-effect">Provides additional Fury management and generation, keeping your resource pool healthy between slam chains.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Bul-Kathos</span></div>
+                    <div class="unique-effect">Grants Fortify while using Shouts. Maintains your Fortify uptime to keep Counteroffensive active and enables Damage Reduction while Fortified on gear.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Relentless Berserker's Aspect</span></div>
+                    <div class="unique-effect">Extends Berserking duration based on damage dealt. Since HotA hits for enormous numbers, this keeps Berserking active indefinitely during combat.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Ghostwalker Aspect</span></div>
+                    <div class="unique-effect">Gain increased Movement Speed while Unstoppable. With Tuskhelm providing near-permanent Unstoppable from Shouts, this is a massive quality-of-life and speed boost.</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Tempering Priorities</h2>
+
+                <div class="tier tier-s">
+                    <h4>S-TIER: Max First</h4>
+                    <ul>
+                        <li><strong>HotA Size:</strong> Increases Hammer of the Ancients AoE. The single most impactful temper -- transforms slam from single-target to massive AoE.</li>
+                        <li><strong>Earthquake Size:</strong> Bigger Earthquakes mean more enemies hit and more damage from Mantle detonations.</li>
+                        <li><strong>Overpower Damage:</strong> Direct multiplier on your guaranteed Overpower hits from Banished Lord's Talisman.</li>
+                    </ul>
+                </div>
+
+                <div class="tier tier-a">
+                    <h4>A-TIER: High Value</h4>
+                    <ul>
+                        <li><strong>Cooldown Reduction:</strong> Faster Shout cycles mean more Fury generation and buff uptime.</li>
+                        <li><strong>Attack Speed:</strong> More slams per second, more Earthquake detonations, more Overpower procs.</li>
+                        <li><strong>Double Damage Chance:</strong> Straight multiplier that can apply to Overpowering Crits for astronomical numbers.</li>
+                    </ul>
+                </div>
+
+                <div class="tier tier-b">
+                    <h4>B-TIER: Supportive</h4>
+                    <ul>
+                        <li><strong>Maximum Fury:</strong> Higher Fury cap means higher HotA damage per swing. Quality-of-life improvement for Fury management.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ============ TAB 5: PARAGON ============ -->
+        <div id="paragon" class="tab-content">
+
+            <div class="section">
+                <h2>Paragon Board Order</h2>
+                <p>Boards are listed in attachment order. Prioritize leveling Glyphs to 15 for their bonus radius, then push to 21 for the secondary bonus.</p>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Starting Board</span>
+                        <span class="paragon-board-order">Board 1</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Exploit</span></p>
+                    <p style="color: #a0a0a0; font-size: 0.9rem;">Increases damage to Vulnerable targets. Since Ground Stomp applies Vulnerable, this glyph amplifies every subsequent HotA hit. Your starter board sets the foundation for the entire Fury-to-damage pipeline.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Carnage</span>
+                        <span class="paragon-board-order">Board 2</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Crusher</span></p>
+                    <p style="color: #a0a0a0; font-size: 0.9rem;">Amplifies Overpower damage and provides bonus damage to stunned/knocked-down enemies. Since Ground Stomp stuns and HotA can knock down, Crusher synergizes perfectly with the build's control loop.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Blood Rage</span>
+                        <span class="paragon-board-order">Board 3</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Challenger</span></p>
+                    <p style="color: #a0a0a0; font-size: 0.9rem;">Provides CDR and damage while Berserking. Since War Cry and WotB both grant Berserking, this board stays active throughout combat. The CDR compounds with Bold Chieftain's for rapid Shout cycling.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Bone Breaker</span>
+                        <span class="paragon-board-order">Board 4</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Dominate</span></p>
+                    <p style="color: #a0a0a0; font-size: 0.9rem;">Increases damage to stunned, immobilized, and crowd-controlled enemies. Ground Stomp stuns everything it hits, making this a consistent damage multiplier on your slam follow-ups.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Decimator</span>
+                        <span class="paragon-board-order">Board 5</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Wrath</span></p>
+                    <p style="color: #a0a0a0; font-size: 0.9rem;">Increases Core Skill damage and Critical Strike Damage. Since HotA is a Core Skill, Wrath amplifies every single slam. The Crit Damage bonus stacks with Ring of Red Furor's guaranteed Crits for massive numbers.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ============ TAB 6: GAMEPLAY ============ -->
+        <div id="gameplay" class="tab-content">
+
+            <div class="section">
+                <h2>Rotation</h2>
+                <ol class="rotation-steps">
+                    <li class="rotation-step">
+                        <p><strong>Buff Up:</strong> Cast Rallying Cry &rarr; War Cry &rarr; Challenging Shout. This grants Berserking, Unstoppable, damage reduction, and fills your Fury pool. With Tuskhelm, each Shout also grants Unstoppable.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Apply Vulnerable:</strong> Cast Ground Stomp to stun enemies, apply Vulnerable, generate Fury, and create your first wave of Earthquakes.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Slam with HotA:</strong> Spam Hammer of the Ancients. Each hit scales with your current Fury via Unbridled Rage. Banished Lord's Talisman guarantees Overpower after enough Fury is spent. Ring of Red Furor guarantees Crits.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Auto Ground Stomp:</strong> 100,000 Steps automatically casts Ground Stomp while you walk and attack, maintaining constant Earthquake coverage without interrupting your slam chain.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Earthquake Detonation:</strong> Every HotA impact triggers Mantle of Mountain's Fury, sending shockwaves that detonate all active Earthquakes on screen. This chain reaction is your primary AoE damage source.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Ultimate Window:</strong> Use Wrath of the Berserker on cooldown. It provides the biggest damage amplification in the build. Line it up with dense packs or boss burn phases for maximum value.</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>Tips & Tricks</h2>
+
+                <div class="tip-card">
+                    <strong>Fury Management</strong>
+                    <p>Never spam HotA when your Fury is low. The damage per hit scales directly with current Fury. Wait for Shouts to refill you, then unload. Quality over quantity.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Earthquake Uptime</strong>
+                    <p>Keep moving between slam chains to trigger 100,000 Steps. The boots only proc after walking a set number of steps, so standing still kills your Earthquake generation.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Shout Order Matters</strong>
+                    <p>Always lead with Rallying Cry for Unstoppable, then War Cry for Berserking, then Challenging Shout for DR. This order ensures you cannot be interrupted while buffing.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Boss Strategy</strong>
+                    <p>On bosses, stack all Shouts + WotB before your first HotA. The guaranteed Overpower Crit from Banished Lord's + Ring of Red Furor on a fully buffed, max-Fury HotA is the single hardest hit in the game.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Push Variant</strong>
+                    <p>For high Pit pushing, consider double Melted Heart of Selig. This converts Life into extra Fury capacity, massively increasing your HotA damage ceiling at the cost of effective HP. Only viable when you have enough DR from Shouts and Paragon.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Glyph Leveling Priority</strong>
+                    <p>Level Exploit and Crusher to 15 first for their radius bonuses. These two glyphs provide the most damage per Paragon point early on. Then push Wrath and Dominate to 15 before going back to level all glyphs to 21.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="/assets/js/guide.js"></script>

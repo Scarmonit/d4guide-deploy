@@ -1,0 +1,379 @@
+---
+layout: base.njk
+title: AI Assistant | Scarmonit
+description: Local AI-powered assistant with GPU acceleration. Diablo 4 builds, coding help, and more - all running privately on your machine.
+styles:
+  - /ai/ai.css?v=6.1
+scripts:
+  - /ai/ai.js?v=6.1
+---
+
+<section class="ai-hero">
+    <div class="container">
+        <h1 class="section-title">
+            <span class="title-wrapper">
+                <img src="/assets/images/ai-icon.png" alt="AI" class="title-icon-img">
+                <span class="title-text">AI Assistant</span>
+            </span>
+        </h1>
+        <p class="section-subtitle">GPU Accelerated • 100% Private • Streaming Responses</p>
+
+        <div class="ai-status" id="ai-status">
+            <span class="status-dot"></span>
+            <span class="status-text">Checking connection...</span>
+        </div>
+
+        <div class="ai-controls">
+            <div class="model-selector">
+                <label for="model-select">Model:</label>
+                <select id="model-select" class="model-select">
+                    <option value="llama3">Loading...</option>
+                </select>
+            </div>
+            <div class="ai-stats" id="ai-stats"></div>
+        </div>
+    </div>
+</section>
+
+<section class="ai-tabs-section">
+    <div class="container">
+        <div class="ai-tabs">
+            <button class="ai-tab active" data-tab="d4-advisor">
+                <span class="tab-icon">⚔️</span>
+                <span class="tab-text">D4 Builds</span>
+            </button>
+            <button class="ai-tab" data-tab="code-help">
+                <span class="tab-icon">💻</span>
+                <span class="tab-text">Code Helper</span>
+            </button>
+            <button class="ai-tab" data-tab="general">
+                <span class="tab-icon">🤖</span>
+                <span class="tab-text">General AI</span>
+            </button>
+            <button class="ai-tab" data-tab="vision">
+                <span class="tab-icon">👁️</span>
+                <span class="tab-text">Vision AI</span>
+            </button>
+            <button class="ai-tab" data-tab="agent">
+                <span class="tab-icon">🤖</span>
+                <span class="tab-text">AI Agent</span>
+            </button>
+            <button class="ai-tab" data-tab="tool-finder">
+                <span class="tab-icon">🔧</span>
+                <span class="tab-text">Tool Finder</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- D4 Build Advisor Tab -->
+<section class="ai-panel active" id="d4-advisor-panel">
+    <div class="container">
+        <div class="chat-container">
+            <div class="chat-header">
+                <h3>🔥 Diablo 4 Build Advisor</h3>
+                <button class="clear-chat-btn" data-chat="d4" title="Clear chat">🗑️ Clear</button>
+            </div>
+            <div class="chat-messages" id="d4-messages">
+                <div class="message assistant">
+                    <div class="message-avatar">🔥</div>
+                    <div class="message-content">
+                        <strong>Welcome, Nephalem!</strong><br><br>
+                        I'm your Diablo 4 Build Advisor running on local GPU with streaming responses. I can help with:
+                        <ul>
+                            <li>Build recommendations for any class</li>
+                            <li>Gear and stat priorities</li>
+                            <li>Skill rotations and playstyle tips</li>
+                            <li>Season 11 meta builds</li>
+                            <li>Boss strategies and endgame content</li>
+                        </ul>
+                        <br>What would you like to know?
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-questions">
+                <button class="quick-btn" onclick="askD4('What is the best Spiritborn build for Season 11?')">Best Spiritborn</button>
+                <button class="quick-btn" onclick="askD4('Give me a Necromancer minion build')">Necro Minions</button>
+                <button class="quick-btn" onclick="askD4('What stats should I prioritize for Rogue?')">Rogue Stats</button>
+                <button class="quick-btn" onclick="askD4('Best build for speed farming?')">Speed Farm</button>
+                <button class="quick-btn" onclick="askD4('How do I beat Uber Lilith?')">Uber Lilith</button>
+            </div>
+
+            <div class="chat-input-container">
+                <textarea id="d4-input" class="chat-input" placeholder="Ask about builds, gear, stats, or strategies..." onkeypress="handleD4KeyPress(event)" rows="1"></textarea>
+                <button class="send-btn" onclick="sendD4Message()" id="d4-send">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Code Helper Tab -->
+<section class="ai-panel" id="code-help-panel">
+    <div class="container">
+        <div class="chat-container">
+            <div class="chat-header">
+                <h3>💻 Code Helper</h3>
+                <button class="clear-chat-btn" data-chat="code" title="Clear chat">🗑️ Clear</button>
+            </div>
+            <div class="chat-messages" id="code-messages">
+                <div class="message assistant">
+                    <div class="message-avatar">💻</div>
+                    <div class="message-content">
+                        <strong>Code Helper Ready!</strong><br><br>
+                        I can help you with any programming task:
+                        <ul>
+                            <li>Write and explain code in any language</li>
+                            <li>Debug errors and fix bugs</li>
+                            <li>Create regex patterns</li>
+                            <li>Write SQL queries</li>
+                            <li>Review and optimize code</li>
+                            <li>Explain algorithms and concepts</li>
+                        </ul>
+                        Paste your code or describe what you need!
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <textarea id="code-input" class="chat-input" placeholder="Ask a coding question or paste code..." onkeypress="handleCodeKeyPress(event)" rows="1"></textarea>
+                <button class="send-btn" onclick="sendCodeMessage()" id="code-send">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- General AI Tab -->
+<section class="ai-panel" id="general-panel">
+    <div class="container">
+        <div class="chat-container">
+            <div class="chat-header">
+                <h3>🤖 General Assistant</h3>
+                <button class="clear-chat-btn" data-chat="general" title="Clear chat">🗑️ Clear</button>
+            </div>
+            <div class="chat-messages" id="general-messages">
+                <div class="message assistant">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <strong>Hello! I'm your AI Assistant.</strong><br><br>
+                        I'm running locally on your GPU for fast, private responses. Ask me anything:
+                        <ul>
+                            <li>General knowledge questions</li>
+                            <li>Creative writing and brainstorming</li>
+                            <li>Research and explanations</li>
+                            <li>Problem solving</li>
+                            <li>And much more!</li>
+                        </ul>
+                        What can I help you with today?
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <textarea id="general-input" class="chat-input" placeholder="Ask me anything..." onkeypress="handleGeneralKeyPress(event)" rows="1"></textarea>
+                <button class="send-btn" onclick="sendGeneralMessage()" id="general-send">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Vision AI Tab -->
+<section class="ai-panel" id="vision-panel">
+    <div class="container">
+        <div class="chat-container">
+            <div class="chat-header">
+                <h3>👁️ Vision AI</h3>
+                <button class="clear-chat-btn" data-chat="vision" title="Clear chat">🗑️ Clear</button>
+            </div>
+            <div class="chat-messages" id="vision-messages">
+                <div class="message assistant">
+                    <div class="message-avatar">👁️</div>
+                    <div class="message-content">
+                        <strong>Vision AI Ready!</strong><br><br>
+                        I can analyze images and answer questions about them. Powered by LLaVA multimodal model.
+                        <ul>
+                            <li>Upload an image below</li>
+                            <li>Ask questions about what you see</li>
+                            <li>Get detailed descriptions and analysis</li>
+                            <li>Identify objects, text, patterns</li>
+                        </ul>
+                        <em>Note: Requires <code>llava:7b</code> model to be pulled.</em>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vision-upload-area">
+                <input type="file" id="vision-upload" accept="image/*" onchange="handleImageUpload(event)" style="display:none;">
+                <label for="vision-upload" class="upload-label">
+                    <span class="upload-icon">📷</span>
+                    <span>Click to upload image</span>
+                </label>
+                <div id="vision-preview" class="vision-preview" style="display:none;">
+                    <img id="preview-image" src="" alt="Preview">
+                    <button class="remove-image-btn" onclick="clearVisionImage()">✕</button>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <textarea id="vision-input" class="chat-input" placeholder="Ask about the image..." onkeypress="handleVisionKeyPress(event)" rows="1"></textarea>
+                <button class="send-btn" onclick="sendVisionMessage()" id="vision-send">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- AI Agent Tab - Real Tool Execution -->
+<section class="ai-panel" id="agent-panel">
+    <div class="container">
+        <div class="chat-container agent-container">
+            <div class="chat-header">
+                <h3>🤖 AI Agent <span class="beta-badge">BETA</span></h3>
+                <button class="clear-chat-btn" data-chat="agent" title="Clear chat">🗑️ Clear</button>
+            </div>
+            <div class="chat-messages" id="agent-messages">
+                <div class="message assistant">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <strong>AI Agent with Real Tool Execution!</strong><br><br>
+                        I can actually execute tools to help you:
+                        <ul>
+                            <li>🔐 Generate secure passwords</li>
+                            <li>🔒 Create hashes (SHA-256, MD5, etc.)</li>
+                            <li>🔄 Encode/decode Base64 & URLs</li>
+                            <li>⏰ Convert timestamps</li>
+                            <li>🎨 Convert colors (HEX/RGB/HSL)</li>
+                            <li>📝 Format & validate JSON</li>
+                            <li>🔍 Test regex patterns</li>
+                            <li>🧮 Calculate math expressions</li>
+                            <li>🌐 Search the web</li>
+                            <li>⚔️ Look up D4 builds</li>
+                        </ul>
+                        <em>Powered by Qwen3 - the best model for tool calling!</em>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-questions agent-quick">
+                <button class="quick-btn" onclick="askAgent('Generate a 20-character secure password')">Password</button>
+                <button class="quick-btn" onclick="askAgent('Hash the text \"hello world\" with SHA-256')">Hash Text</button>
+                <button class="quick-btn" onclick="askAgent('What is the current Unix timestamp?')">Timestamp</button>
+                <button class="quick-btn" onclick="askAgent('Convert #FF5733 to RGB and HSL')">Color Convert</button>
+                <button class="quick-btn" onclick="askAgent('What is the best Spiritborn build for Season 11?')">D4 Build</button>
+            </div>
+
+            <div class="chat-input-container">
+                <textarea id="agent-input" class="chat-input" placeholder="Ask me to execute a tool..." onkeypress="handleAgentKeyPress(event)" rows="1"></textarea>
+                <button class="send-btn" onclick="sendAgentMessage()" id="agent-send">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tool Finder Tab -->
+<section class="ai-panel" id="tool-finder-panel">
+    <div class="container">
+        <div class="tool-finder-container">
+            <div class="search-box">
+                <h2>🔧 Find the Right Tool</h2>
+                <p class="search-hint">Describe what you need and AI will find the perfect tool</p>
+                <div class="search-input-container">
+                    <input type="text" id="tool-input" class="search-input" placeholder="e.g., I need to convert JSON to YAML format...">
+                    <button class="search-btn" onclick="findTool()" id="tool-send">Find Tool</button>
+                </div>
+                <div class="example-queries">
+                    <span>Try:</span>
+                    <button class="example-btn" onclick="setToolQuery('Generate a secure password')">Password</button>
+                    <button class="example-btn" onclick="setToolQuery('Convert colors between hex and rgb')">Colors</button>
+                    <button class="example-btn" onclick="setToolQuery('Test a regex pattern')">Regex</button>
+                    <button class="example-btn" onclick="setToolQuery('Compress an image')">Images</button>
+                    <button class="example-btn" onclick="setToolQuery('Create a QR code')">QR Code</button>
+                </div>
+            </div>
+
+            <div class="tool-results" id="tool-results">
+                <div class="tool-placeholder">
+                    <span class="placeholder-icon">🔍</span>
+                    <p>Describe what you need and I'll find the perfect tool</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Setup Instructions (shown when not connected) -->
+<section class="setup-section" id="setup-section" style="display: none;">
+    <div class="container">
+        <div class="setup-card">
+            <h2>🚀 Connect Your Local AI</h2>
+            <p>Run AI locally on your GPU for fast, private responses.</p>
+
+            <div class="setup-steps">
+                <div class="setup-step">
+                    <span class="step-number">1</span>
+                    <div class="step-content">
+                        <h3>Install Ollama</h3>
+                        <p>Download from <a href="https://ollama.com" target="_blank">ollama.com</a></p>
+                    </div>
+                </div>
+                <div class="setup-step">
+                    <span class="step-number">2</span>
+                    <div class="step-content">
+                        <h3>Pull a Model</h3>
+                        <code>ollama pull llama3</code>
+                    </div>
+                </div>
+                <div class="setup-step">
+                    <span class="step-number">3</span>
+                    <div class="step-content">
+                        <h3>Start with CORS (for browser access)</h3>
+                        <code>OLLAMA_ORIGINS=* ollama serve</code>
+                        <p class="step-note">Or run via Docker:</p>
+                        <code>docker run -d --gpus=all -v ollama-data:/root/.ollama -p 11435:11434 -e OLLAMA_ORIGINS=* --name ollama-gpu ollama/ollama</code>
+                    </div>
+                </div>
+                <div class="setup-step">
+                    <span class="step-number">4</span>
+                    <div class="step-content">
+                        <h3>Refresh This Page</h3>
+                        <p>The AI will connect automatically</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="setup-features">
+                <div class="feature-item">
+                    <span class="feature-icon">🔒</span>
+                    <span>100% Private - Data stays local</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">⚡</span>
+                    <span>GPU Accelerated - ~100+ tok/s</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">💰</span>
+                    <span>Free - No API costs</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

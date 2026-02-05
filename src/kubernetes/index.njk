@@ -1,0 +1,504 @@
+---
+layout: base.njk
+title: Kubernetes AI Stack | Scarmonit
+description: Local AI infrastructure with GPU-accelerated Ollama, Open WebUI, and RAG capabilities running on Kubernetes with RTX 4080.
+styles:
+  - /assets/css/kubernetes.css
+scripts:
+  - /assets/js/kubernetes.js
+---
+
+<div class="k8s-page">
+    <!-- Settings Modal -->
+    <div id="k8s-settings-overlay" class="k8s-settings-overlay">
+        <div class="k8s-settings-modal">
+            <div class="k8s-settings-header">
+                <h3>Dashboard Settings</h3>
+                <button id="k8s-settings-close" class="k8s-settings-close">&times;</button>
+            </div>
+            <div class="k8s-settings-body">
+                <label class="k8s-settings-label">
+                    Ollama API Endpoint
+                    <input type="text" id="k8s-settings-url" placeholder="https://ai-api.scarmonit.com">
+                </label>
+                <p class="k8s-settings-hint">Use Cloudflare Tunnel URL for remote access, or localhost:11435 for local</p>
+                <label class="k8s-settings-label" style="margin-top: 1rem;">
+                    K8s/Docker API Server
+                    <input type="text" id="k8s-settings-api-url" placeholder="http://localhost:3001">
+                </label>
+                <p class="k8s-settings-hint">Run <code>node k8s-api-server.js</code> to enable live Docker/K8s data</p>
+            </div>
+            <div class="k8s-settings-footer">
+                <button id="k8s-settings-save" class="k8s-btn-primary">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="k8s-toast-container"></div>
+
+    <!-- Hero Section -->
+    <header class="k8s-hero">
+        <div class="k8s-hero-content">
+            <div class="k8s-logo">
+                <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16 2L4 8.5V23.5L16 30L28 23.5V8.5L16 2Z" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="16" cy="16" r="4" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M16 12V6M16 20V26M20 14L25 11M12 18L7 21M20 18L25 21M12 14L7 11" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+            </div>
+            <div class="k8s-gpu-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                </svg>
+                GPU Acceleration Enabled
+            </div>
+            <h1>Kubernetes AI Stack</h1>
+            <p>Local AI infrastructure with Ollama, Open WebUI, and RAG on RTX 4080</p>
+        </div>
+    </header>
+
+    <!-- Connection Status Bar -->
+    <section class="k8s-status-bar">
+        <div class="k8s-container">
+            <div class="k8s-status-bar-inner">
+                <div id="k8s-connection-status" class="k8s-connection-status">
+                    <span id="k8s-status-dot" class="k8s-status-dot k8s-dot-red"></span>
+                    <span id="k8s-status-text">Connecting...</span>
+                </div>
+                <div id="k8s-model-count" class="k8s-model-count">Loading models...</div>
+                <div class="k8s-status-actions">
+                    <span id="k8s-last-refresh" class="k8s-last-refresh"></span>
+                    <label class="k8s-auto-refresh-label">
+                        <input type="checkbox" id="k8s-auto-refresh" checked>
+                        Auto-refresh
+                    </label>
+                    <button id="k8s-refresh-btn" class="k8s-btn-icon" title="Refresh">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/>
+                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                        </svg>
+                    </button>
+                    <button id="k8s-settings-btn" class="k8s-btn-icon" title="Settings">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Health Section -->
+    <section class="k8s-health-section">
+        <div class="k8s-container">
+            <h2 class="k8s-section-title">Service Health</h2>
+            <div class="k8s-health-grid">
+                <div class="k8s-health-card">
+                    <div class="k8s-health-header">
+                        <span id="k8s-health-ollama" class="k8s-health-indicator"></span>
+                        <span class="k8s-health-name">Ollama API</span>
+                    </div>
+                    <div class="k8s-health-details">
+                        <span class="k8s-health-url">/api/tags</span>
+                        <span id="k8s-latency-ollama" class="k8s-health-latency">--</span>
+                    </div>
+                </div>
+                <div class="k8s-health-card">
+                    <div class="k8s-health-header">
+                        <span id="k8s-health-webui" class="k8s-health-indicator"></span>
+                        <span class="k8s-health-name">Open WebUI</span>
+                    </div>
+                    <div class="k8s-health-details">
+                        <span class="k8s-health-url">localhost:3000</span>
+                        <span id="k8s-latency-webui" class="k8s-health-latency">--</span>
+                    </div>
+                </div>
+                <div class="k8s-health-card">
+                    <div class="k8s-health-header">
+                        <span id="k8s-health-openai" class="k8s-health-indicator"></span>
+                        <span class="k8s-health-name">OpenAI Compatible</span>
+                    </div>
+                    <div class="k8s-health-details">
+                        <span class="k8s-health-url">/v1/models</span>
+                        <span id="k8s-latency-openai" class="k8s-health-latency">--</span>
+                    </div>
+                </div>
+                <div class="k8s-health-card">
+                    <div class="k8s-health-header">
+                        <span id="k8s-api-status" class="k8s-health-indicator"></span>
+                        <span class="k8s-health-name">K8s/Docker API</span>
+                    </div>
+                    <div class="k8s-health-details">
+                        <span class="k8s-health-url">localhost:3001</span>
+                        <span id="k8s-api-latency" class="k8s-health-latency">--</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Docker Containers Section -->
+    <section class="k8s-containers-section">
+        <div class="k8s-container">
+            <h2 class="k8s-section-title">Docker Containers</h2>
+            <div class="k8s-pods-table">
+                <div class="k8s-pod-row k8s-pod-header">
+                    <span>Name</span>
+                    <span>Image</span>
+                    <span>Status</span>
+                    <span>Ports</span>
+                </div>
+                <div id="k8s-containers-list">
+                    <div class="k8s-pods-loading">
+                        <div class="k8s-spinner"></div>
+                        <p>Loading containers... Run <code>node k8s-api-server.js</code></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kubernetes Pods Section -->
+    <section class="k8s-pods-section">
+        <div class="k8s-container">
+            <h2 class="k8s-section-title">Kubernetes Pods</h2>
+            <div class="k8s-pods-table">
+                <div class="k8s-pod-row k8s-pod-header">
+                    <span>Pod Name</span>
+                    <span>Namespace</span>
+                    <span>Status</span>
+                    <span>Age</span>
+                </div>
+                <div id="k8s-pods-list">
+                    <div class="k8s-pods-loading">
+                        <div class="k8s-spinner"></div>
+                        <p>Loading pods... Run <code>node k8s-api-server.js</code></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Models Library Section -->
+    <section class="k8s-models-section">
+        <div class="k8s-container">
+            <div class="k8s-models-header">
+                <h2 class="k8s-section-title">Models Library</h2>
+                <div class="k8s-pull-container">
+                    <input type="text" id="k8s-pull-input" placeholder="Pull model (e.g., llama3, mistral)" class="k8s-pull-input">
+                    <button id="k8s-pull-btn" class="k8s-btn-primary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                        Pull
+                    </button>
+                </div>
+            </div>
+            <div id="k8s-pull-progress" class="k8s-pull-progress" style="display: none;"></div>
+            <div id="k8s-models-grid" class="k8s-models-grid">
+                <div class="k8s-models-loading">
+                    <div class="k8s-spinner"></div>
+                    <p>Loading models...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Chat Section -->
+    <section id="k8s-chat-section" class="k8s-chat-section">
+        <div class="k8s-container">
+            <h2 class="k8s-section-title">Quick Chat</h2>
+            <div class="k8s-chat-container">
+                <div class="k8s-chat-header">
+                    <select id="k8s-chat-model" class="k8s-chat-model-select">
+                        <option value="">Select a model...</option>
+                    </select>
+                    <span id="k8s-chat-stats" class="k8s-chat-stats"></span>
+                </div>
+                <div id="k8s-chat-output" class="k8s-chat-output"></div>
+                <div class="k8s-chat-input-container">
+                    <textarea id="k8s-chat-input" class="k8s-chat-input" placeholder="Type a message..." rows="2"></textarea>
+                    <div class="k8s-chat-buttons">
+                        <button id="k8s-chat-clear" class="k8s-btn-secondary" title="Clear chat">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                        </button>
+                        <button id="k8s-chat-stop" class="k8s-btn-danger" style="display: none;" title="Stop generation">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg>
+                        </button>
+                        <button id="k8s-chat-send" class="k8s-btn-primary">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                            Send
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Access Points -->
+    <section class="k8s-access-section">
+        <div class="k8s-container">
+            <h2 class="k8s-section-title">Access Points</h2>
+            <div class="k8s-access-table">
+                <div class="k8s-access-row k8s-access-header">
+                    <span>Service</span>
+                    <span>URL</span>
+                    <span>Action</span>
+                </div>
+                <div class="k8s-access-row">
+                    <span class="k8s-access-service">
+                        <span class="k8s-access-indicator"></span>
+                        Open WebUI
+                    </span>
+                    <a href="http://localhost:3000" class="k8s-access-url" target="_blank">http://localhost:3000</a>
+                    <button class="k8s-health-check k8s-btn-small" data-url="http://localhost:3000">Test</button>
+                </div>
+                <div class="k8s-access-row">
+                    <span class="k8s-access-service">
+                        <span class="k8s-access-indicator"></span>
+                        Ollama API (Tunnel)
+                    </span>
+                    <a href="https://ai-api.scarmonit.com" class="k8s-access-url" target="_blank">https://ai-api.scarmonit.com</a>
+                    <button class="k8s-health-check k8s-btn-small" data-url="https://ai-api.scarmonit.com/api/tags">Test</button>
+                </div>
+                <div class="k8s-access-row">
+                    <span class="k8s-access-service">
+                        <span class="k8s-access-indicator"></span>
+                        OpenAI-compatible
+                    </span>
+                    <a href="https://ai-api.scarmonit.com/v1" class="k8s-access-url" target="_blank">https://ai-api.scarmonit.com/v1</a>
+                    <button class="k8s-health-check k8s-btn-small" data-url="https://ai-api.scarmonit.com/v1/models">Test</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Diagram -->
+    <section class="k8s-architecture-section">
+        <div class="k8s-container">
+            <h2 class="k8s-section-title">Architecture</h2>
+            <div class="k8s-architecture">
+                <div class="k8s-arch-layer k8s-arch-ingress">
+                    <div class="k8s-arch-label">User Interface</div>
+                    <div class="k8s-arch-box">
+                        <span class="k8s-arch-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="3" y1="9" x2="21" y2="9"/>
+                                <line x1="9" y1="21" x2="9" y2="9"/>
+                            </svg>
+                        </span>
+                        <span>Open WebUI</span>
+                        <small>Kubernetes Pod</small>
+                    </div>
+                </div>
+
+                <div class="k8s-arch-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"/>
+                        <polyline points="19 12 12 19 5 12"/>
+                    </svg>
+                </div>
+
+                <div class="k8s-arch-layer k8s-arch-services">
+                    <div class="k8s-arch-label">AI Services</div>
+                    <div class="k8s-arch-row">
+                        <div class="k8s-arch-box k8s-arch-ollama">
+                            <span class="k8s-arch-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="4" y="4" width="16" height="16" rx="2"/>
+                                    <rect x="9" y="9" width="6" height="6"/>
+                                </svg>
+                            </span>
+                            <span>Ollama</span>
+                            <small>GPU Docker</small>
+                        </div>
+                        <div class="k8s-arch-box k8s-arch-model">
+                            <span class="k8s-arch-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                    <path d="M2 17l10 5 10-5"/>
+                                    <path d="M2 12l10 5 10-5"/>
+                                </svg>
+                            </span>
+                            <span>LLM Models</span>
+                            <small>Local + Cloud</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="k8s-arch-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"/>
+                        <polyline points="19 12 12 19 5 12"/>
+                    </svg>
+                </div>
+
+                <div class="k8s-arch-layer k8s-arch-data">
+                    <div class="k8s-arch-label">Hardware</div>
+                    <div class="k8s-arch-box k8s-arch-gpu">
+                        <span class="k8s-arch-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                            </svg>
+                        </span>
+                        <span>NVIDIA RTX 4080</span>
+                        <small>CUDA Acceleration</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RAG Setup Section -->
+    <section class="k8s-rag-section">
+        <div class="k8s-container">
+            <h2 class="k8s-section-title">RAG Setup (Chat with Documents)</h2>
+            <div class="k8s-rag-steps">
+                <div class="k8s-rag-step">
+                    <div class="k8s-rag-number">1</div>
+                    <div class="k8s-rag-content">
+                        <h3>Open WebUI</h3>
+                        <p>Go to <a href="http://localhost:3000" target="_blank">http://localhost:3000</a></p>
+                    </div>
+                </div>
+                <div class="k8s-rag-step">
+                    <div class="k8s-rag-number">2</div>
+                    <div class="k8s-rag-content">
+                        <h3>Upload Documents</h3>
+                        <p>Click <strong>Documents</strong> in the sidebar</p>
+                    </div>
+                </div>
+                <div class="k8s-rag-step">
+                    <div class="k8s-rag-number">3</div>
+                    <div class="k8s-rag-content">
+                        <h3>Add Your Files</h3>
+                        <p>Upload PDFs, code, markdown, etc.</p>
+                    </div>
+                </div>
+                <div class="k8s-rag-step">
+                    <div class="k8s-rag-number">4</div>
+                    <div class="k8s-rag-content">
+                        <h3>Reference in Chat</h3>
+                        <p>Type <code>#</code> to reference a collection</p>
+                    </div>
+                </div>
+                <div class="k8s-rag-step">
+                    <div class="k8s-rag-number">5</div>
+                    <div class="k8s-rag-content">
+                        <h3>Ask Questions</h3>
+                        <p>All processing stays local</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agent Integration Section -->
+    <section class="k8s-code-section">
+        <div class="k8s-container">
+            <h2 class="k8s-section-title">Agent Integration</h2>
+            <p class="k8s-section-desc">Update your agents to use the local AI stack:</p>
+            <div class="k8s-code-content">
+                <pre class="k8s-code-block"><code># Remote access via Cloudflare Tunnel
+LLM_BASE_URL=https://ai-api.scarmonit.com
+LLM_MODEL=llama3
+EMBEDDING_MODEL=nomic-embed-text
+
+# Local access (when on same network)
+# LLM_BASE_URL=http://localhost:11435</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Commands Section -->
+    <section class="k8s-commands-section">
+        <div class="k8s-container">
+            <h2 class="k8s-section-title">Useful Commands</h2>
+            <div class="k8s-commands-grid">
+                <div class="k8s-command-card">
+                    <code>docker ps | grep ollama</code>
+                    <span>Check Ollama container</span>
+                    <button class="k8s-command-copy" title="Copy">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    </button>
+                </div>
+                <div class="k8s-command-card">
+                    <code>kubectl get pods -A</code>
+                    <span>List all namespace pods</span>
+                    <button class="k8s-command-copy" title="Copy">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    </button>
+                </div>
+                <div class="k8s-command-card">
+                    <code>curl https://ai-api.scarmonit.com/api/tags</code>
+                    <span>List installed models</span>
+                    <button class="k8s-command-copy" title="Copy">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    </button>
+                </div>
+                <div class="k8s-command-card">
+                    <code>ollama run llama3</code>
+                    <span>Interactive chat</span>
+                    <button class="k8s-command-copy" title="Copy">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    </button>
+                </div>
+                <div class="k8s-command-card">
+                    <code>nvidia-smi</code>
+                    <span>Check GPU utilization</span>
+                    <button class="k8s-command-copy" title="Copy">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    </button>
+                </div>
+                <div class="k8s-command-card">
+                    <code>kubectl logs -f deploy/open-webui</code>
+                    <span>Stream WebUI logs</span>
+                    <button class="k8s-command-copy" title="Copy">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sources Section -->
+    <section class="k8s-sources-section">
+        <div class="k8s-container">
+            <h2 class="k8s-section-title">Documentation</h2>
+            <div class="k8s-sources-grid">
+                <a href="https://ollama.com/library" class="k8s-source-card" target="_blank" rel="noopener">
+                    <span class="k8s-source-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                            <polyline points="15 3 21 3 21 9"/>
+                            <line x1="10" y1="14" x2="21" y2="3"/>
+                        </svg>
+                    </span>
+                    <span>Ollama Model Library</span>
+                </a>
+                <a href="https://docs.docker.com/desktop/features/gpu/" class="k8s-source-card" target="_blank" rel="noopener">
+                    <span class="k8s-source-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                            <polyline points="15 3 21 3 21 9"/>
+                            <line x1="10" y1="14" x2="21" y2="3"/>
+                        </svg>
+                    </span>
+                    <span>Docker GPU Support</span>
+                </a>
+                <a href="https://kind.sigs.k8s.io/docs/user/using-wsl2/" class="k8s-source-card" target="_blank" rel="noopener">
+                    <span class="k8s-source-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                            <polyline points="15 3 21 3 21 9"/>
+                            <line x1="10" y1="14" x2="21" y2="3"/>
+                        </svg>
+                    </span>
+                    <span>Kind with WSL2</span>
+                </a>
+            </div>
+        </div>
+    </section>
+</div>

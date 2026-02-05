@@ -1,0 +1,28 @@
+{
+  "name": "d4guide-deploy",
+  "version": "1.0.0",
+  "description": "Welcome to the **Scarmonit Gaming Hub**, a comprehensive platform for Diablo 4 build guides, gaming tools, file sharing, and community resources. This project is hosted on **Cloudflare Pages** and leverages **Cloudflare R2** for secure and scalable file storage.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "api": "node k8s-api-server.js",
+    "dev": "concurrently \"npm run api\" \"npx wrangler pages dev _site\"",
+    "build": "npx @11ty/eleventy",
+    "deploy": "npm run build && npx wrangler pages deploy _site --project-name=d4guide"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Scarmonit/d4guide-deploy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Scarmonit/d4guide-deploy/issues"
+  },
+  "homepage": "https://github.com/Scarmonit/d4guide-deploy#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.2",
+    "concurrently": "^9.2.1"
+  }
+}

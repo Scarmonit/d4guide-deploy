@@ -1,0 +1,677 @@
+---
+layout: base.njk
+title: Pulverize Druid Guide | D4 Season 11
+description: Complete Diablo 4 Pulverize Druid guide for Season 11. Werebear overpower build with skills, gear, paragon, aspects. S-Tier AoE and bossing.
+styles:
+  - /assets/css/guide.css
+---
+
+    <a href="/build-guides" class="back-link">&larr; Back to All Guides</a>
+
+    <header class="guide-hero">
+        <span class="badge">Season 11 - Divine Intervention</span>
+        <h1>Pulverize Druid Guide<span class="verified-badge">S-TIER</span></h1>
+        <p class="subtitle">Werebear Overpower Build &mdash; Crush Everything With Guaranteed Overpowers</p>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+        <button class="nav-tab" onclick="showTab('skills')">Skills</button>
+        <button class="nav-tab" onclick="showTab('gear')">Gear & Aspects</button>
+        <button class="nav-tab" onclick="showTab('paragon')">Paragon</button>
+        <button class="nav-tab" onclick="showTab('rotation')">Rotation</button>
+        <button class="nav-tab" onclick="showTab('tempering')">Tempering</button>
+    </div>
+
+    <div class="container">
+
+        <!-- ═══════════════════════════════════════ TAB 1: OVERVIEW ═══════════════════════════════════════ -->
+        <div id="overview" class="tab-content active">
+
+            <div class="section">
+                <h2>Build Overview</h2>
+                <p>
+                    The Pulverize Druid is a devastating Werebear build that leverages <strong>guaranteed Overpower</strong> hits through
+                    the Rotting Lightbringer unique mace. By slamming Pulverize on top of poison puddles, every hit becomes an Overpower,
+                    turning a simple one-button playstyle into one of the hardest-hitting builds in Season 11. Combined with Grizzly Rage uptime
+                    and massive Fortify stacking, this build excels at both AoE clearing and single-target bossing.
+                </p>
+
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Tier</div>
+                        <div class="build-info-value" style="color: var(--gold);">S-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Class</div>
+                        <div class="build-info-value">Druid</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Playstyle</div>
+                        <div class="build-info-value">Werebear Melee</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Difficulty</div>
+                        <div class="build-info-value">
+                            <div class="difficulty-bar">
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Key Mechanic</div>
+                        <div class="build-info-value" style="color: var(--red);">Overpower</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Strengths & Weaknesses</h2>
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>Strengths</h4>
+                        <ul>
+                            <li>Exceptional AoE damage from Pulverize slam</li>
+                            <li>Very tanky &mdash; Werebear form + Fortify + Barrier from Temerity</li>
+                            <li>Simple one-button core gameplay loop</li>
+                            <li>Excellent bossing via guaranteed Overpower hits</li>
+                            <li>Strong Pit pusher with high damage ceiling</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>Weaknesses</h4>
+                        <ul>
+                            <li>Limited mobility outside of Trample cooldown</li>
+                            <li>Rotting Lightbringer is mandatory &mdash; build doesn't function without it</li>
+                            <li>Grizzly Rage uptime is critical for damage</li>
+                            <li>Requires careful puddle positioning for Overpower guarantee</li>
+                            <li>Slower clear speed in open maps compared to ranged builds</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Spirit Boons</h2>
+                <p>Spirit Boons provide a significant layer of passive power. Bond with Eagle for double Eagle boons.</p>
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Eagle (Bonded)</div>
+                        <div class="build-info-value" style="font-size: 0.9rem;">Swooping Attacks + Avian Wrath</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Snake</div>
+                        <div class="build-info-value" style="font-size: 0.9rem;">Energize</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Deer</div>
+                        <div class="build-info-value" style="font-size: 0.9rem;">Gift of the Stag</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Wolf</div>
+                        <div class="build-info-value" style="font-size: 0.9rem;">Calm Before the Storm</div>
+                    </div>
+                </div>
+                <div class="tip-card" style="margin-top: 15px;">
+                    <strong>Why Bond Eagle?</strong>
+                    <p>Swooping Attacks gives Attack Speed (more Pulverize slams per second) and Avian Wrath grants Critical Strike Damage. Both boons active simultaneously via the Eagle bond is a massive DPS increase.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════ TAB 2: SKILLS ═══════════════════════════════════════ -->
+        <div id="skills" class="tab-content">
+
+            <div class="section">
+                <h2>Active Skills</h2>
+
+                <div class="skill-card">
+                    <div class="skill-icon">5</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Pulverize<span class="skill-tag">CORE</span></div>
+                        <p class="skill-desc">
+                            <strong>5/5 &mdash; Enhanced &rarr; Primal Pulverize</strong><br>
+                            Your primary damage skill. Slam the ground as a Werebear, dealing massive AoE damage.
+                            Primal Pulverize causes hits on Overpowered enemies to generate an earth fissure. Every hit on a
+                            Rotting Lightbringer poison puddle is a guaranteed Overpower, making this your entire damage engine.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">1</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Claw<span class="skill-tag">BASIC</span></div>
+                        <p class="skill-desc">
+                            <strong>1/5 &mdash; Enhanced &rarr; Wild Claw</strong><br>
+                            Spirit generator used to stack Quickshift between Pulverize slams. Wild Claw grants Attack Speed
+                            on crit, feeding into faster Pulverize cycles. Swap between Claw and Pulverize to activate Quickshift bonus damage.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">5</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Grizzly Rage<span class="skill-tag">ULTIMATE</span></div>
+                        <p class="skill-desc">
+                            <strong>5/5 &mdash; Prime &rarr; Supreme Grizzly Rage</strong><br>
+                            Transform into a Dire Werebear for massive damage and damage reduction. Supreme Grizzly Rage
+                            grants Unstoppable for the duration and extends with kills. This is your steroid &mdash; keep it active
+                            as much as possible. Calm Before the Storm Lucky Hits help reset the cooldown.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">1</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Debilitating Roar<span class="skill-tag">DEFENSIVE</span></div>
+                        <p class="skill-desc">
+                            <strong>1/5 &mdash; Enhanced &rarr; Preserving Debilitating Roar</strong><br>
+                            Reduces nearby enemy damage output significantly. Preserving variant generates Fortify
+                            based on your maximum Life. Use in dangerous situations &mdash; elite packs, boss burst phases, or when
+                            Fortify needs topping off.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">1</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Cyclone Armor<span class="skill-tag">DEFENSIVE</span></div>
+                        <p class="skill-desc">
+                            <strong>1/5 &mdash; Enhanced &rarr; Innate Cyclone Armor</strong><br>
+                            Persistent damage reduction against ranged and close enemies. Innate variant also grants
+                            Non-Physical Damage Reduction. A set-and-forget defensive layer that significantly improves
+                            survivability across all content.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">1</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Trample<span class="skill-tag">MOBILITY</span></div>
+                        <p class="skill-desc">
+                            <strong>1/5 &mdash; Enhanced &rarr; Savage Trample</strong><br>
+                            Charge forward, becoming Unstoppable. Savage Trample deals bonus damage based on your
+                            remaining Fortify. Your only mobility skill &mdash; use for repositioning onto puddles, escaping crowd
+                            control, and gap closing to new packs.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Key Passives</h2>
+
+                <div class="tier tier-s">
+                    <h4>Key Passive: Ursine Strength</h4>
+                    <ul>
+                        <li><strong>Ursine Strength</strong> &mdash; Gain bonus maximum Life while in Werebear form and for 3 seconds after leaving it. While Healthy (above 80% Life), your next Overpower deals bonus damage. This is the entire foundation of the build &mdash; it synergizes perfectly with Rotting Lightbringer's guaranteed Overpowers.</li>
+                    </ul>
+                </div>
+
+                <div class="tier tier-a">
+                    <h4>Core Passives (Max These)</h4>
+                    <ul>
+                        <li><strong>Quickshift (3/3)</strong> &mdash; After shapeshifting, your next skill deals increased damage. Alternating Claw and Pulverize keeps this active.</li>
+                        <li><strong>Wild Impulses (3/3)</strong> &mdash; Core Skills cost more Spirit but deal increased damage. Straight damage multiplier for Pulverize.</li>
+                        <li><strong>Crushing Earth (3/3)</strong> &mdash; Earth Skills deal increased damage to Slowed, Stunned, Immobilized, or Knocked Back enemies.</li>
+                        <li><strong>Envenom (3/3)</strong> &mdash; Poison damage applies to your Critical Strikes for a percentage bonus. Works with Rotting Lightbringer's poison synergy.</li>
+                    </ul>
+                </div>
+
+                <div class="tier tier-b">
+                    <h4>Supporting Passives</h4>
+                    <ul>
+                        <li><strong>Iron Fur (3/3)</strong> &mdash; Damage Reduction while in Werebear form. More tankiness.</li>
+                        <li><strong>Defiance (3/3)</strong> &mdash; Nature Magic skills deal increased damage to Elites.</li>
+                        <li><strong>Safeguard (3/3)</strong> &mdash; Critical Strikes with Earth Skills grant Fortify.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════ TAB 3: GEAR & ASPECTS ═══════════════════════════════════════ -->
+        <div id="gear" class="tab-content">
+
+            <div class="section">
+                <h2>Unique Items</h2>
+
+                <!-- ROTTING LIGHTBRINGER -->
+                <div class="gear-slot-card" style="border-left-color: var(--red);">
+                    <div class="gear-slot-header">
+                        <span>2H MACE - Rotting Lightbringer</span>
+                        <span style="color: var(--red); font-weight: 700;">BUILD-DEFINING</span>
+                    </div>
+                    <div class="stat-row"><span>+Ranks to Pulverize</span><span class="stat-value-calc">[2-3]</span></div>
+                    <div class="stat-row"><span>Overpower Damage</span><span class="stat-value-calc">[40-60%]</span></div>
+                    <div class="stat-row"><span>Damage to Poisoned Enemies</span><span class="stat-value-calc">[20-35%]</span></div>
+                    <div class="stat-row"><span>Willpower</span><span class="stat-value-calc">[100-200]</span></div>
+                    <div class="unique-effect">
+                        <strong>Unique Effect:</strong> Your attacks create poison puddles on the ground. Hitting enemies standing in
+                        poison puddles with Werebear skills guarantees an Overpower. This single item enables the entire build &mdash;
+                        without it, there is no consistent Overpower engine.
+                    </div>
+                </div>
+
+                <!-- TEMERITY -->
+                <div class="gear-slot-card" style="border-left-color: var(--blue);">
+                    <div class="gear-slot-header">
+                        <span>PANTS - Temerity</span>
+                        <span style="color: var(--blue);">UNIQUE</span>
+                    </div>
+                    <div class="stat-row"><span>Maximum Life</span><span class="stat-value-calc">[500-800]</span></div>
+                    <div class="stat-row"><span>Healing Received</span><span class="stat-value-calc">[15-25%]</span></div>
+                    <div class="unique-effect">
+                        <strong>Unique Effect:</strong> Healing beyond 100% Life grants a Barrier up to 50% of your Maximum Life.
+                        With the massive Fortify generation and life recovery from Werebear form, you maintain near-permanent Barrier uptime.
+                        This fuels Conceited Aspect for bonus damage.
+                    </div>
+                </div>
+
+                <!-- INSATIABLE FURY -->
+                <div class="gear-slot-card" style="border-left-color: var(--blue);">
+                    <div class="gear-slot-header">
+                        <span>CHEST - Insatiable Fury</span>
+                        <span style="color: var(--blue);">UNIQUE</span>
+                    </div>
+                    <div class="stat-row"><span>+Ranks to Werebear Skills</span><span class="stat-value-calc">[2-4]</span></div>
+                    <div class="stat-row"><span>Overpower Damage</span><span class="stat-value-calc">[30-50%]</span></div>
+                    <div class="stat-row"><span>Damage Reduction</span><span class="stat-value-calc">[10-15%]</span></div>
+                    <div class="unique-effect">
+                        <strong>Unique Effect:</strong> Werebear form is now your true form, granting additional bonuses to Werebear skills
+                        and increased ranks to Pulverize. You remain in Werebear form permanently, stacking all Werebear-specific bonuses at all times.
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Mythic Uniques (Best in Slot)</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header">
+                        <span>HELM - Heir of Perdition</span>
+                        <span style="color: var(--purple);">MYTHIC</span>
+                    </div>
+                    <div class="stat-row"><span>Critical Strike Chance</span><span class="stat-value-calc">+20%</span></div>
+                    <div class="stat-row"><span>Damage to Angels/Demons</span><span class="stat-value-calc">+200%</span></div>
+                    <div class="unique-effect">
+                        <strong>Mythic Effect:</strong> +60%[x] Damage. Steal Lilith's Favor. Universal damage multiplier that
+                        is best-in-slot for every build in Season 11.
+                    </div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header">
+                        <span>CHEST (ALT) - Shroud of False Death</span>
+                        <span style="color: var(--purple);">MYTHIC</span>
+                    </div>
+                    <div class="stat-row"><span>+All Passives</span><span class="stat-value-calc">+1</span></div>
+                    <div class="stat-row"><span>All Stats</span><span class="stat-value-calc">+160</span></div>
+                    <div class="unique-effect">
+                        <strong>Mythic Effect:</strong> Gain Stealth and 40% Movement Speed when not attacking. Alternative to
+                        Insatiable Fury if you have enough Werebear ranks from other sources. The +1 All Passives is extremely valuable.
+                    </div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header">
+                        <span>RING - Ring of Starless Skies</span>
+                        <span style="color: var(--purple);">MYTHIC</span>
+                    </div>
+                    <div class="stat-row"><span>Core Skill Damage</span><span class="stat-value-calc">[15-25%]</span></div>
+                    <div class="stat-row"><span>Resource Cost Reduction</span><span class="stat-value-calc">[10-20%]</span></div>
+                    <div class="unique-effect">
+                        <strong>Mythic Effect:</strong> Each consecutive Core Skill cast reduces Spirit cost and increases damage.
+                        Perfect for Pulverize spam &mdash; after several casts you are dealing heavily amplified damage at reduced cost.
+                    </div>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Mythic Priority:</strong>
+                    <p>Heir of Perdition (Helm) > Ring of Starless Skies > Shroud of False Death. Use Insatiable Fury in the chest
+                    slot until you find Shroud. If you get Shroud first, use it and compensate Werebear ranks via Paragon and gear affixes.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Legendary Aspects</h2>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>GLOVES &mdash; Shockwave Aspect</span></div>
+                    <div class="unique-effect">
+                        Pulverize creates a shockwave that travels forward, dealing a percentage of Pulverize's damage.
+                        Massively increases your effective AoE range. Put on Gloves for maximum Offensive Aspect value.
+                    </div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>BOOTS &mdash; Aspect of the Ursine Horror</span></div>
+                    <div class="unique-effect">
+                        Pulverize is now also an Earth Skill and tectonic spikes erupt from the ground.
+                        Enables Crushing Earth passive and Safeguard Fortify generation. Critical for the build's defensive loop.
+                    </div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>AMULET &mdash; Aspect of the Rampaging Werebeast</span></div>
+                    <div class="unique-effect">
+                        Grizzly Rage duration is extended and grants additional Critical Strike Damage while active.
+                        50% bonus on Amulet. Keeps your steroid running longer and hits harder during uptime.
+                    </div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>RING &mdash; Aspect of the Rabid Bear</span></div>
+                    <div class="unique-effect">
+                        Pulverize deals additional Poisoning damage over time. Synergizes with Envenom passive and
+                        Rotting Lightbringer's Damage to Poisoned Enemies stat.
+                    </div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>RING &mdash; Aspect of the Changeling's Debt</span></div>
+                    <div class="unique-effect">
+                        Dealing damage while shapeshifted grants bonus damage to a different Shapeshifting form.
+                        Swapping between Claw (Werewolf) and Pulverize (Werebear) keeps the bonus permanently active.
+                    </div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>HELM &mdash; Conceited Aspect</span></div>
+                    <div class="unique-effect">
+                        Deal increased damage while you have a Barrier. With Temerity providing near-permanent Barrier,
+                        this is a massive sustained damage multiplier. Use on Helm if not running Heir of Perdition,
+                        otherwise move to an open slot.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════ TAB 4: PARAGON ═══════════════════════════════════════ -->
+        <div id="paragon" class="tab-content">
+
+            <div class="section">
+                <h2>Paragon Board Order</h2>
+                <p>Attach boards in this order. Prioritize Rare and Legendary nodes within radius of each Glyph.</p>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Starting Board</span>
+                        <span class="paragon-board-order">Board 1</span>
+                    </div>
+                    <p style="color: #c0c0c0; margin: 0;">
+                        Glyph: <span class="glyph-name">Exploit</span><br>
+                        Focus on Willpower and Damage nodes. Exploit amplifies damage to Vulnerable targets,
+                        which pairs well with your crowd control application. Rush the Rare nodes in glyph radius first.
+                    </p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Inner Beast</span>
+                        <span class="paragon-board-order">Board 2</span>
+                    </div>
+                    <p style="color: #c0c0c0; margin: 0;">
+                        Glyph: <span class="glyph-name">Tectonic</span><br>
+                        Core board for Earth Skill damage scaling. Tectonic increases Earth Skill damage per Willpower in radius.
+                        Grab all Willpower and Earth Damage rare nodes.
+                    </p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Survival Instincts</span>
+                        <span class="paragon-board-order">Board 3</span>
+                    </div>
+                    <p style="color: #c0c0c0; margin: 0;">
+                        Glyph: <span class="glyph-name">Fang and Claw</span><br>
+                        Defensive board that boosts Damage Reduction and Fortify generation. Fang and Claw grants bonus damage
+                        while Fortified. Pick up all Damage Reduction and Life nodes within glyph radius.
+                    </p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Ancestral Guidance</span>
+                        <span class="paragon-board-order">Board 4</span>
+                    </div>
+                    <p style="color: #c0c0c0; margin: 0;">
+                        Glyph: <span class="glyph-name">Dominate</span><br>
+                        Spirit spending grants damage bonuses. Dominate increases Overpower damage per Willpower in radius.
+                        This is your Overpower scaling board &mdash; essential for pushing big numbers.
+                    </p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Earthen Devastation</span>
+                        <span class="paragon-board-order">Board 5</span>
+                    </div>
+                    <p style="color: #c0c0c0; margin: 0;">
+                        Glyph: <span class="glyph-name">Outmatch</span><br>
+                        Capstone board for maximum Earth Skill scaling. Outmatch grants increased Overpower damage.
+                        Legendary node provides a huge damage multiplier for Earth Skills when you Overpower.
+                    </p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Stat Priority on Paragon</h2>
+                <div class="tier tier-s">
+                    <h4>S-TIER: Always Take</h4>
+                    <ol>
+                        <li>Willpower (scales Overpower damage directly)</li>
+                        <li>Overpower Damage nodes</li>
+                        <li>Earth Skill Damage nodes</li>
+                    </ol>
+                </div>
+                <div class="tier tier-a">
+                    <h4>A-TIER: High Value</h4>
+                    <ol>
+                        <li>Damage Reduction (survivability)</li>
+                        <li>Maximum Life (bigger Overpowers)</li>
+                        <li>Fortify Generation</li>
+                    </ol>
+                </div>
+                <div class="tier tier-b">
+                    <h4>B-TIER: Fill Remaining</h4>
+                    <ol>
+                        <li>Armor</li>
+                        <li>Resistances</li>
+                        <li>Non-Physical Damage</li>
+                    </ol>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════ TAB 5: ROTATION ═══════════════════════════════════════ -->
+        <div id="rotation" class="tab-content">
+
+            <div class="section">
+                <h2>Gameplay Rotation</h2>
+
+                <ol class="rotation-steps">
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong>Alternate Claw and Pulverize</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.9rem;">
+                                Weave Claw between Pulverize slams to activate Quickshift and Changeling's Debt.
+                                Each shapeshifting swap boosts your next skill's damage significantly. Generate Spirit with Claw, spend with Pulverize.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong>Activate Grizzly Rage when ready</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.9rem;">
+                                Pop your Ultimate whenever it comes off cooldown. The damage and damage reduction
+                                bonus is too significant to hold. Supreme Grizzly Rage extends its own duration with kills, so use it on pack pulls.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong>Spam Pulverize on poison puddles</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.9rem;">
+                                Rotting Lightbringer creates poison puddles from your attacks. Position yourself so enemies
+                                stand in puddles, then slam Pulverize &mdash; every hit is a guaranteed Overpower.
+                                This is where 90% of your damage comes from.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong>Position on puddles &mdash; this is critical</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.9rem;">
+                                Puddle positioning separates average Pulverize players from great ones. Drag enemies
+                                through puddles, kite bosses onto them, and overlap multiple puddles for guaranteed procs.
+                                Never Pulverize an enemy not standing in poison.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong>Debilitating Roar for danger moments</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.9rem;">
+                                When surrounded by dangerous elites or taking heavy damage, pop Debilitating Roar.
+                                It reduces enemy damage output and generates a large chunk of Fortify via Preserving upgrade.
+                                Also useful before boss burst windows for safety.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong>Trample to reposition + Unstoppable</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.9rem;">
+                                Use Trample to break crowd control, gap close to new packs, or reposition onto fresh
+                                puddles. Savage Trample also deals bonus damage based on remaining Fortify, so it's not
+                                just utility &mdash; it hits hard when you are fully Fortified.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong>Calm Before the Storm resets Grizzly Rage</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.9rem;">
+                                Your Wolf Spirit Boon (Calm Before the Storm) reduces Ultimate cooldown via Lucky Hit.
+                                With Pulverize hitting many enemies per slam, you generate Lucky Hit procs rapidly,
+                                often resetting Grizzly Rage before it even ends. Aim for near 100% uptime.
+                            </p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>Boss Strategy</h2>
+                <div class="tip-card">
+                    <strong>Single Target Bosses</strong>
+                    <p>The rotation stays the same but puddle management becomes even more critical.
+                    Attack the boss to lay down puddles, then position yourself to slam Pulverize while the boss stands in them.
+                    Overpowers on a single target with full Willpower stacking will one-shot most boss health gates.</p>
+                </div>
+                <div class="tip-card">
+                    <strong>Uber Bosses / Pit Bosses</strong>
+                    <p>Pre-cast Debilitating Roar for survivability. Open with Grizzly Rage, lay puddles with Claw,
+                    then chain Pulverize. Save Trample as an emergency escape. The guaranteed Overpower damage scales
+                    with your Maximum Life and Fortify &mdash; stack both as high as possible for Pit pushing.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════ TAB 6: TEMPERING ═══════════════════════════════════════ -->
+        <div id="tempering" class="tab-content">
+
+            <div class="section">
+                <h2>Tempering Priorities</h2>
+                <p>Temper your gear in this priority order. The right tempers can double your effective damage.</p>
+
+                <div class="tier tier-s">
+                    <h4>S-TIER: Must-Have Tempers</h4>
+                    <ul>
+                        <li><strong>Pulverize Size (Werebear Innovation):</strong> Increases Pulverize AoE radius. Bigger slam = more enemies hit = more Overpower procs = more Lucky Hit resets. This is the single most impactful temper.</li>
+                        <li><strong>Willpower % (Worldly Fortune):</strong> Willpower directly scales Overpower damage. Stack this on every piece you can.</li>
+                    </ul>
+                </div>
+
+                <div class="tier tier-a">
+                    <h4>A-TIER: High Priority</h4>
+                    <ul>
+                        <li><strong>Poison Damage (Natural Finesse):</strong> Amplifies Rotting Lightbringer puddle damage and Aspect of the Rabid Bear DoT. Also boosts Envenom synergy.</li>
+                        <li><strong>Grizzly Rage Duration (Werebear Innovation):</strong> More uptime on your Ultimate means more sustained damage and damage reduction. Aim for at least one roll of this.</li>
+                    </ul>
+                </div>
+
+                <div class="tier tier-b">
+                    <h4>B-TIER: Quality of Life</h4>
+                    <ul>
+                        <li><strong>Movement Speed (Worldly Endurance):</strong> Compensates for the build's limited mobility. Roll on Boots.</li>
+                        <li><strong>Maximum Life (Worldly Endurance):</strong> Bigger Life pool = bigger Overpowers and bigger Temerity Barriers.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Temper Slot Guide</h2>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Weapon (Rotting Lightbringer)</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Pulverize Size</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Willpower %</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Helm</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Grizzly Rage Duration</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Maximum Life</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Chest</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Willpower %</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Damage Reduction</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Gloves</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Pulverize Size</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Poison Damage</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Boots</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Movement Speed</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Willpower %</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Amulet</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Grizzly Rage Duration</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Poison Damage</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Rings</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Willpower %</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Poison Damage</span></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="/assets/js/guide.js"></script>

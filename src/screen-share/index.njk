@@ -1,0 +1,670 @@
+---
+layout: base.njk
+title: Screen Share | Scarmonit
+description: Share your screen with others in real-time. Start a broadcast or join someone's stream with a share code.
+---
+
+<header class="hero">
+    <div class="hero-badge">Live Sharing</div>
+    <h1>Screen Share</h1>
+    <p>Share your screen in real-time or watch someone else's stream. No downloads required!</p>
+</header>
+
+<div class="container">
+    <!-- Mode Selection -->
+    <div class="screen-share-modes">
+        <button class="mode-btn active" id="mode-broadcast" onclick="switchMode('broadcast')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+            <span>Share Your Screen</span>
+        </button>
+        <button class="mode-btn" id="mode-viewer" onclick="switchMode('viewer')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            <span>Watch a Stream</span>
+        </button>
+    </div>
+
+    <!-- Broadcast Mode -->
+    <div class="share-panel" id="broadcast-panel">
+        <div class="panel-content">
+            <!-- Not Sharing State -->
+            <div id="broadcast-start" class="broadcast-state">
+                <div class="start-info">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="64" height="64">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                        <polyline points="7 10 12 7 17 10"></polyline>
+                    </svg>
+                    <h3>Ready to Share</h3>
+                    <p>Click the button below to start sharing your screen, window, or browser tab.</p>
+                </div>
+                <button class="action-btn primary" id="start-share-btn" onclick="startSharing()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                    </svg>
+                    Start Sharing
+                </button>
+            </div>
+
+            <!-- Sharing Active State -->
+            <div id="broadcast-active" class="broadcast-state hidden">
+                <div class="share-code-container">
+                    <label>Share this code with viewers:</label>
+                    <div class="share-code-display">
+                        <span id="share-code">------</span>
+                        <button class="copy-btn" onclick="copyShareCode()" title="Copy code">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <span class="copy-feedback" id="copy-feedback">Copied!</span>
+                </div>
+
+                <div class="viewer-count">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    <span><strong id="viewer-count-num">0</strong> viewer(s) connected</span>
+                </div>
+
+                <div class="preview-container">
+                    <label>Preview:</label>
+                    <video id="local-preview" autoplay muted playsinline></video>
+                </div>
+
+                <button class="action-btn danger" id="stop-share-btn" onclick="stopSharing()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                        <rect x="6" y="6" width="12" height="12"></rect>
+                    </svg>
+                    Stop Sharing
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Viewer Mode -->
+    <div class="share-panel hidden" id="viewer-panel">
+        <div class="panel-content">
+            <!-- Not Connected State -->
+            <div id="viewer-connect" class="viewer-state">
+                <div class="connect-info">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="64" height="64">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    <h3>Join a Stream</h3>
+                    <p>Enter the share code provided by the broadcaster to watch their screen.</p>
+                </div>
+                <div class="code-input-container">
+                    <input type="text" id="join-code" class="code-input" placeholder="Enter 6-character code" maxlength="6" oninput="this.value = this.value.toUpperCase()">
+                    <button class="action-btn primary" id="connect-btn" onclick="connectToStream()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                            <polyline points="10 17 15 12 10 7"></polyline>
+                            <line x1="15" y1="12" x2="3" y2="12"></line>
+                        </svg>
+                        Connect
+                    </button>
+                </div>
+                <p class="status-text" id="connect-status"></p>
+            </div>
+
+            <!-- Connected/Watching State -->
+            <div id="viewer-watching" class="viewer-state hidden">
+                <div class="stream-header">
+                    <span class="live-indicator">
+                        <span class="live-dot"></span>
+                        LIVE
+                    </span>
+                    <span id="stream-code-display">Code: ------</span>
+                </div>
+                <div class="stream-container" id="stream-container" tabindex="0">
+                    <video id="remote-video" autoplay playsinline></video>
+                    <div class="video-controls" id="video-controls">
+                        <button class="control-btn" id="pip-btn" onclick="togglePictureInPicture()" title="Picture-in-Picture">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                <rect x="11" y="9" width="9" height="7" rx="1" ry="1" fill="currentColor" opacity="0.3"></rect>
+                            </svg>
+                        </button>
+                        <button class="control-btn" id="fullscreen-btn" onclick="toggleFullscreen()" title="Fullscreen (F)">
+                            <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <polyline points="9 21 3 21 3 15"></polyline>
+                                <line x1="21" y1="3" x2="14" y2="10"></line>
+                                <line x1="3" y1="21" x2="10" y2="14"></line>
+                            </svg>
+                            <svg class="icon-compress hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                                <polyline points="4 14 10 14 10 20"></polyline>
+                                <polyline points="20 10 14 10 14 4"></polyline>
+                                <line x1="14" y1="10" x2="21" y2="3"></line>
+                                <line x1="3" y1="21" x2="10" y2="14"></line>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="fullscreen-hint" id="fullscreen-hint">
+                        <span>Double-click or press F for fullscreen</span>
+                    </div>
+                </div>
+                <button class="action-btn danger" onclick="disconnectFromStream()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                    Disconnect
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info Section -->
+    <div class="screen-share-info">
+        <div class="info-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            <h4>Secure</h4>
+            <p>Peer-to-peer connection. Your stream goes directly to viewers.</p>
+        </div>
+        <div class="info-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <h4>Real-time</h4>
+            <p>Low latency streaming with WebRTC technology.</p>
+        </div>
+        <div class="info-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <h4>No Download</h4>
+            <p>Works directly in your browser. Nothing to install.</p>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Screen Share Page Styles */
+.screen-share-modes {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.mode-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: var(--text, #e0e0e0);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mode-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary, #d4af37);
+}
+
+.mode-btn.active {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: var(--primary, #d4af37);
+    color: var(--primary, #d4af37);
+}
+
+.mode-btn svg {
+    opacity: 0.8;
+}
+
+.mode-btn.active svg {
+    opacity: 1;
+    stroke: var(--primary, #d4af37);
+}
+
+.share-panel {
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+}
+
+.panel-content {
+    text-align: center;
+}
+
+.broadcast-state, .viewer-state {
+    transition: opacity 0.3s ease;
+}
+
+.start-info, .connect-info {
+    margin-bottom: 2rem;
+}
+
+.start-info svg, .connect-info svg {
+    opacity: 0.5;
+    margin-bottom: 1rem;
+}
+
+.start-info h3, .connect-info h3 {
+    font-size: 1.5rem;
+    color: var(--text, #e0e0e0);
+    margin-bottom: 0.5rem;
+}
+
+.start-info p, .connect-info p {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-btn.primary {
+    background: linear-gradient(135deg, var(--primary, #d4af37) 0%, #b8962e 100%);
+    color: #000;
+}
+
+.action-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+}
+
+.action-btn.danger {
+    background: rgba(255, 75, 75, 0.15);
+    color: #ff4b4b;
+    border: 1px solid rgba(255, 75, 75, 0.3);
+}
+
+.action-btn.danger:hover {
+    background: rgba(255, 75, 75, 0.25);
+}
+
+.share-code-container {
+    margin-bottom: 1.5rem;
+}
+
+.share-code-container label {
+    display: block;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.share-code-display {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid var(--primary, #d4af37);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+}
+
+.share-code-display span {
+    font-family: 'Orbitron', monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary, #d4af37);
+    letter-spacing: 0.25em;
+}
+
+.copy-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--primary, #d4af37);
+}
+
+.copy-feedback {
+    display: block;
+    color: #4ade80;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.copy-feedback.show {
+    opacity: 1;
+}
+
+.viewer-count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1.5rem;
+}
+
+.viewer-count svg {
+    opacity: 0.6;
+}
+
+.preview-container {
+    margin-bottom: 1.5rem;
+}
+
+.preview-container label {
+    display: block;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+}
+
+#local-preview {
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 16/9;
+    background: #000;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.code-input-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.code-input {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 0.2em;
+    padding: 1rem 1.5rem;
+    width: 200px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: var(--text, #e0e0e0);
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.code-input:focus {
+    border-color: var(--primary, #d4af37);
+}
+
+.code-input::placeholder {
+    font-size: 0.9rem;
+    letter-spacing: normal;
+    opacity: 0.5;
+}
+
+.status-text {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    min-height: 1.5em;
+}
+
+.status-text.error {
+    color: #ff4b4b;
+}
+
+.status-text.success {
+    color: #4ade80;
+}
+
+.stream-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.live-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 75, 75, 0.15);
+    color: #ff4b4b;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.live-dot {
+    width: 8px;
+    height: 8px;
+    background: #ff4b4b;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+#stream-code-display {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85rem;
+}
+
+.stream-container {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+#remote-video {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #000;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.video-controls {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.video-controls .control-btn {
+    background: rgba(0, 0, 0, 0.6);
+    border: none;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.video-controls .control-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.screen-share-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.info-card {
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+}
+
+.info-card svg {
+    margin-bottom: 0.75rem;
+    opacity: 0.6;
+    stroke: var(--primary, #d4af37);
+}
+
+.info-card h4 {
+    color: var(--text, #e0e0e0);
+    margin-bottom: 0.5rem;
+}
+
+.info-card p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Fullscreen hint */
+.fullscreen-hint {
+    position: absolute;
+    bottom: 3.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.stream-container:hover .fullscreen-hint {
+    opacity: 1;
+}
+
+.stream-container:focus {
+    outline: 2px solid var(--primary, #d4af37);
+    outline-offset: 2px;
+}
+
+/* Fullscreen styles */
+.stream-container:fullscreen,
+.stream-container:-webkit-full-screen {
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.stream-container:fullscreen #remote-video,
+.stream-container:-webkit-full-screen #remote-video {
+    width: auto;
+    height: auto;
+    max-width: 100vw;
+    max-height: 100vh;
+    aspect-ratio: auto;
+    border-radius: 0;
+    border: none;
+}
+
+.stream-container:fullscreen .video-controls,
+.stream-container:-webkit-full-screen .video-controls {
+    position: fixed;
+    bottom: 2rem;
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    gap: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.stream-container:fullscreen:hover .video-controls,
+.stream-container:-webkit-full-screen:hover .video-controls,
+.stream-container:fullscreen .video-controls:focus-within,
+.stream-container:-webkit-full-screen .video-controls:focus-within {
+    opacity: 1;
+}
+
+.stream-container:fullscreen .video-controls .control-btn,
+.stream-container:-webkit-full-screen .video-controls .control-btn {
+    padding: 0.75rem;
+}
+
+.stream-container:fullscreen .fullscreen-hint,
+.stream-container:-webkit-full-screen .fullscreen-hint {
+    display: none;
+}
+
+/* PiP active state */
+#pip-btn.active {
+    background: var(--primary, #d4af37);
+    color: #000;
+}
+
+@media (max-width: 600px) {
+    .screen-share-modes {
+        flex-direction: column;
+    }
+
+    .mode-btn {
+        justify-content: center;
+    }
+
+    .share-code-display span {
+        font-size: 1.5rem;
+    }
+
+    .code-input {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .code-input-container {
+        flex-direction: column;
+    }
+}
+</style>
+
+<script src="/assets/js/screen-share.js?v=2.2.0" defer></script>

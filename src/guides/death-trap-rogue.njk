@@ -1,0 +1,435 @@
+---
+layout: base.njk
+title: Death Trap Rogue Guide | D4 Season 11
+description: Complete Diablo 4 Death Trap Rogue guide for Season 11. Trap CDR build with skills, gear, paragon, aspects. S-Tier push build.
+styles:
+  - /assets/css/guide.css
+---
+
+    <a href="/build-guides" class="back-link">&larr; Back to Build Guides</a>
+
+    <header class="guide-hero">
+        <span class="badge">Season 11 - Divine Intervention</span>
+        <h1>Death Trap Rogue<span class="verified-badge">S-TIER</span></h1>
+        <p class="subtitle">CDR Loop Build - Infinite Death Trap Nuke Cycle</p>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+        <button class="nav-tab" onclick="showTab('skills')">Skills</button>
+        <button class="nav-tab" onclick="showTab('gear')">Gear</button>
+        <button class="nav-tab" onclick="showTab('aspects')">Aspects & Tempering</button>
+        <button class="nav-tab" onclick="showTab('paragon')">Paragon</button>
+        <button class="nav-tab" onclick="showTab('gameplay')">Gameplay</button>
+    </div>
+
+    <div class="container">
+
+        <!-- ===== TAB 1: OVERVIEW ===== -->
+        <div id="overview" class="tab-content active">
+
+            <div class="section">
+                <h2>Build Overview</h2>
+                <p>The Death Trap Rogue is an S-Tier push build that revolves around a single devastating loop: drop Death Trap, let <strong>Eyes in the Dark</strong> re-arm it, then use <strong>Preparation</strong> to reset your Ultimate and all cooldowns, enabling you to nuke indefinitely. <strong>Scoundrel's Leathers</strong> makes Death Trap count as a Core Skill, unlocking massive multiplicative scaling.</p>
+                <p>With enough CDR and Max Energy you achieve a self-sustaining cycle that dominates Pit 100+ content. Every cast pulls enemies in, obliterates them, and resets itself.</p>
+
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Tier</div>
+                        <div class="build-info-value" style="color: var(--gold);">S-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Playstyle</div>
+                        <div class="build-info-value">Trap Nuke / CDR Loop</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Best For</div>
+                        <div class="build-info-value">Push, Pit 100+</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Difficulty</div>
+                        <div class="build-info-value">
+                            <div class="difficulty-bar">
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Specialization</div>
+                        <div class="build-info-value">Preparation</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Key Passive</div>
+                        <div class="build-info-value">Exposure (Push)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Critical Thresholds</h2>
+                <p>The entire build lives or dies by hitting these two numbers. If you fall short, the CDR loop breaks and your damage collapses.</p>
+                <div class="build-info-grid">
+                    <div class="build-info-item" style="border: 1px solid var(--red);">
+                        <div class="build-info-label">Max Energy</div>
+                        <div class="build-info-value" style="color: var(--red);">150+</div>
+                    </div>
+                    <div class="build-info-item" style="border: 1px solid var(--red);">
+                        <div class="build-info-label">Death Trap Cooldown</div>
+                        <div class="build-info-value" style="color: var(--red);">10s or less</div>
+                    </div>
+                </div>
+                <div class="tip-card">
+                    <strong>Why 150 Energy?</strong>
+                    <p>Beastfall Boots grant a massive damage multiplier at the 150 Max Energy threshold. Every point below 150 is a significant DPS loss.</p>
+                </div>
+                <div class="tip-card">
+                    <strong>Why 10s Cooldown?</strong>
+                    <p>Preparation resets your Ultimate when you spend enough Energy. At 10s Death Trap CD, the loop becomes self-sustaining -- you always have Death Trap ready before or as Preparation triggers.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Strengths & Weaknesses</h2>
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>Strengths</h4>
+                        <ul>
+                            <li>Extremely high sustained AoE damage</li>
+                            <li>Natural CC from Death Trap pull effect</li>
+                            <li>Great survivability via Barriers + Dark Shroud + CC</li>
+                            <li>Dominates Pit 100+ endgame content</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>Weaknesses</h4>
+                        <ul>
+                            <li>Strict CDR/Energy thresholds or loop breaks</li>
+                            <li>Complex mechanics with many moving parts</li>
+                            <li>High gear requirements to function</li>
+                            <li>Resource-starved in early progression</li>
+                            <li>Can cause server lag in dense packs</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ===== TAB 2: SKILLS ===== -->
+        <div id="skills" class="tab-content">
+
+            <div class="section">
+                <h2>Active Skills</h2>
+
+                <div class="skill-card">
+                    <div class="skill-icon">5</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Death Trap<span class="skill-tag">ULTIMATE</span></div>
+                        <p class="skill-desc"><strong>Prime / Supreme</strong> -- Your entire damage source. Massive AoE nuke that pulls enemies to center. With Scoundrel's Leathers it counts as a Core Skill, enabling all Core Skill multipliers. Eyes in the Dark re-arms it for double damage per cast.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">1</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Concealment<span class="skill-tag">STEALTH</span></div>
+                        <p class="skill-desc"><strong>Enhanced / Countering</strong> -- Grants 100% Critical Strike Chance, applies Vulnerable to all nearby enemies, and provides Unstoppable. Your primary offensive buff window -- always cast before Death Trap.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">1</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Dash<span class="skill-tag">MOBILITY</span></div>
+                        <p class="skill-desc"><strong>Enhanced</strong> -- Primary movement skill. Dash through packs to trigger Momentum passive stacks. Provides repositioning during the nuke cycle.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">1</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Dark Shroud<span class="skill-tag">DEFENSE</span></div>
+                        <p class="skill-desc"><strong>Enhanced</strong> -- Shadow defense layer. Provides damage reduction stacks that absorb hits. Essential survivability for standing in melee range while traps detonate.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">1</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Smoke Grenade<span class="skill-tag">CC</span></div>
+                        <p class="skill-desc"><strong>Enhanced</strong> -- Crowd control via Stun. Provides breathing room in dangerous situations. Synergizes with Trickster's Aspect to add the stun grenade tag for additional procs.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">1</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Caltrops<span class="skill-tag">TRAP</span></div>
+                        <p class="skill-desc"><strong>Enhanced / Methodical</strong> -- Drops a damage buff zone on the ground. Enemies standing in Caltrops take increased damage. Temper for extended duration to maximize uptime across the nuke cycle.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Specialization & Key Passive</h2>
+
+                <div class="tier tier-s">
+                    <h4>Specialization: Preparation</h4>
+                    <p style="color: #c0c0c0; line-height: 1.6;">When you spend enough Energy, Preparation automatically resets your Ultimate (Death Trap) and all other cooldowns. This is the engine of the entire build -- it creates the infinite loop. Without Preparation, the build does not function.</p>
+                </div>
+
+                <div class="tier tier-a">
+                    <h4>Key Passive: Exposure (Push) / Momentum (Farm)</h4>
+                    <p style="color: #c0c0c0; line-height: 1.6;"><strong>Exposure</strong> provides Vulnerability uptime and damage amplification for high Pit pushing. Switch to <strong>Momentum</strong> for speed farming, as the stacking move-speed and damage from Dash usage greatly accelerates clear times.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ===== TAB 3: GEAR ===== -->
+        <div id="gear" class="tab-content">
+
+            <div class="section">
+                <h2>Required Uniques</h2>
+                <p>These items are non-negotiable. The build does not function without the first two.</p>
+
+                <div class="gear-slot-card" style="border-left-color: var(--red);">
+                    <div class="gear-slot-header"><span>CHEST - Scoundrel's Leathers</span><span style="color: var(--red);">REQUIRED</span></div>
+                    <div class="stat-row"><span>Death Trap counts as Core Skill</span><span class="stat-value-calc">KEY</span></div>
+                    <div class="stat-row"><span>+Ranks to Death Trap</span><span class="stat-value-calc">[2-3]</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Death Trap is now also considered a Core Skill. This unlocks every Core Skill damage multiplier in the game for your Ultimate, resulting in massive multiplicative scaling.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--red);">
+                    <div class="gear-slot-header"><span>PANTS - Eyes in the Dark</span><span style="color: var(--red);">REQUIRED</span></div>
+                    <div class="stat-row"><span>Death Trap Re-Arms</span><span class="stat-value-calc">YES</span></div>
+                    <div class="stat-row"><span>Effective Damage</span><span class="stat-value-calc">x2</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Death Trap re-arms itself after triggering, detonating a second time. This effectively doubles your Death Trap damage per cast and doubles the pull/CC effect.</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Best-in-Slot Uniques</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>BOOTS - Beastfall Boots</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="stat-row"><span>Max Energy Affix</span><span class="stat-value-calc">+Energy</span></div>
+                    <div class="stat-row"><span>Threshold Bonus</span><span class="stat-value-calc">150 Energy</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Grants a large damage multiplier when you reach the 150 Max Energy threshold. Essential for hitting the Energy breakpoint that powers the build's damage ceiling.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>HELM - Harlequin Crest</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="stat-row"><span>+All Skills</span><span class="stat-value-calc">+4</span></div>
+                    <div class="stat-row"><span>Cooldown Reduction</span><span class="stat-value-calc">HIGH</span></div>
+                    <div class="stat-row"><span>Damage Reduction</span><span class="stat-value-calc">20%</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> +4 to All Skills dramatically boosts every active and passive. The CDR helps reach the 10s Death Trap cooldown threshold. Damage reduction adds survivability. Best helm in the game for this build.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>RING - Ring of Starless Skies</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="stat-row"><span>Resource Cost Reduction</span><span class="stat-value-calc">Stacking</span></div>
+                    <div class="stat-row"><span>Core Skill Damage</span><span class="stat-value-calc">HIGH</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Each consecutive Core Skill cast reduces resource cost. Since Death Trap counts as a Core Skill via Scoundrel's Leathers, this provides incredible resource efficiency and stacking cost reduction across the loop.</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ===== TAB 4: ASPECTS & TEMPERING ===== -->
+        <div id="aspects" class="tab-content">
+
+            <div class="section">
+                <h2>Legendary Aspects</h2>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Apogeic Furor</span><span style="color: #a0a0a0;">WEAPON</span></div>
+                    <div class="unique-effect">Ultimate damage stacks multiplicatively with each cast. Since you spam Death Trap continuously, this ramps to enormous values. Place on weapon for maximum effect.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Trickster's Aspect</span><span style="color: #a0a0a0;">AMULET</span></div>
+                    <div class="unique-effect">Adds the stun grenade tag to Smoke Grenade, enabling additional procs and synergies with grenade-related passives and aspects. Amulet slot gives 50% bonus to aspect value.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Artful Initiative</span><span style="color: #a0a0a0;">RING</span></div>
+                    <div class="unique-effect">When you spend Energy, you launch grenades at nearby enemies. Pairs with Death Trap's high energy expenditure to create a cascade of free grenade damage around your trap zones.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Opportunist's Aspect</span><span style="color: #a0a0a0;">RING</span></div>
+                    <div class="unique-effect">Breaking Stealth (from Concealment) launches grenades at all nearby enemies. Since you Conceal before every Death Trap cycle, this adds a free burst of AoE damage to every rotation.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Frostbitten Aspect</span><span style="color: #a0a0a0;">GLOVES</span></div>
+                    <div class="unique-effect">Chilled/Frozen enemies take increased damage. Adds a multiplicative damage layer that synergizes with the build's CC-heavy kit.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Conceited Aspect</span><span style="color: #a0a0a0;">FLEX</span></div>
+                    <div class="unique-effect">Deal increased damage while you have a Barrier. Dark Shroud and other defensive procs maintain near-permanent Barrier uptime, making this a consistent damage multiplier.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Tempering Priorities</h2>
+
+                <div class="tier tier-s">
+                    <h4>S-TIER: Build-Defining Tempers</h4>
+                    <ul>
+                        <li><strong>Death Trap Double Damage</strong> (Trap Augments) -- Chance for Death Trap to deal double damage. Absolutely essential; this is your single largest DPS temper.</li>
+                        <li><strong>Death Trap CDR</strong> (Ultimate Efficiency) -- Reduces Death Trap cooldown. Critical for hitting the 10s threshold that sustains the infinite loop.</li>
+                    </ul>
+                </div>
+
+                <div class="tier tier-a">
+                    <h4>A-TIER: High Priority</h4>
+                    <ul>
+                        <li><strong>Lucky Hit: Daze</strong> -- Applies Daze on Lucky Hit, providing additional crowd control that stacks with Death Trap's pull.</li>
+                        <li><strong>Ultimate Resource Restore</strong> -- Restores Energy when using your Ultimate. Keeps the resource loop flowing so Preparation triggers consistently.</li>
+                    </ul>
+                </div>
+
+                <div class="tier tier-b">
+                    <h4>B-TIER: Quality of Life</h4>
+                    <ul>
+                        <li><strong>Caltrops Duration</strong> -- Extends the Caltrops buff zone so it lasts through the full Death Trap detonation window.</li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ===== TAB 5: PARAGON ===== -->
+        <div id="paragon" class="tab-content">
+
+            <div class="section">
+                <h2>Paragon Board Order</h2>
+                <p>Boards are listed in attachment order. Glyphs should be leveled to 15 for radius bonuses before pushing high Pit tiers.</p>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Starting Board</span>
+                        <span class="paragon-board-order">Board 1</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Versatility</span></p>
+                    <p style="color: #a0a0a0; font-size: 0.85rem;">Your foundation board. Versatility provides damage bonuses based on using different skill types, which this build naturally does every rotation (Trap, Subterfuge, Mobility, CC).</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Deadly Ambush</span>
+                        <span class="paragon-board-order">Board 2</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Ambush</span></p>
+                    <p style="color: #a0a0a0; font-size: 0.85rem;">Trap-specific board. Ambush glyph amplifies Trap Skill damage, which directly scales Death Trap. The board's rare/magic nodes add Trap Skill bonuses and Critical damage to Trapped enemies.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">No Witnesses</span>
+                        <span class="paragon-board-order">Board 3</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Devious</span></p>
+                    <p style="color: #a0a0a0; font-size: 0.85rem;">Ultimate damage board. Devious glyph increases damage dealt by Trap Skills to enemies affected by crowd control. Since Death Trap pulls (CC) and Caltrops/Smoke Grenade add layers of CC, this is always active.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Eldritch Bounty</span>
+                        <span class="paragon-board-order">Board 4</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Explosive</span></p>
+                    <p style="color: #a0a0a0; font-size: 0.85rem;">Scaling board with strong rare nodes. Explosive glyph adds AoE damage multipliers that further amplify Death Trap's already massive area coverage.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Leyrana's Instinct</span>
+                        <span class="paragon-board-order">Board 5</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Canny</span></p>
+                    <p style="color: #a0a0a0; font-size: 0.85rem;">Dexterity scaling board. Canny glyph provides damage bonuses based on Dexterity, which Rogue naturally stacks. The board's nodes offer additional Critical Strike and skill damage bonuses.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ===== TAB 6: GAMEPLAY ===== -->
+        <div id="gameplay" class="tab-content">
+
+            <div class="section">
+                <h2>Core Rotation</h2>
+                <p>The Death Trap Rogue follows a strict rotation. Once you hit the CDR and Energy thresholds, this loop sustains itself infinitely.</p>
+
+                <ol class="rotation-steps">
+                    <li class="rotation-step">
+                        <p><strong>Dash through packs</strong> -- Engage with Dash to build Momentum stacks and position yourself in the center of enemy density.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Drop Caltrops</strong> -- Place your buff zone on the ground where enemies are grouped. This increases damage dealt to enemies standing in the area.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Concealment</strong> -- Activate Stealth for guaranteed 100% Critical Strike Chance, apply Vulnerable to all nearby enemies, and gain Unstoppable. Opportunist's Aspect launches grenades on stealth break.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Death Trap</strong> -- Drop the nuke. Enemies are pulled to center and obliterated. Eyes in the Dark immediately re-arms the trap for a second detonation, effectively doubling the hit.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Preparation auto-triggers</strong> -- The Energy spent from Death Trap and your rotation fills the Preparation meter. It resets Death Trap's cooldown and all other cooldowns automatically.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Evade/Dash + Grenade procs</strong> -- Reposition with Evade or Dash. Aspect of Artful Initiative and Opportunist's Aspect proc grenade bursts passively from your Energy spending and Stealth usage.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Repeat infinitely</strong> -- With enough CDR (10s Death Trap) and Energy (150+), this loop never breaks. Every Death Trap reset feeds the next cycle.</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>Tips & Advanced Mechanics</h2>
+
+                <div class="tip-card">
+                    <strong>Always Conceal before Death Trap</strong>
+                    <p>The 100% Crit + Vulnerable window from Concealment is your single largest damage amplifier. Skipping it cuts your damage by more than half.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Caltrops placement matters</strong>
+                    <p>Drop Caltrops where enemies will be when Death Trap detonates, not where they currently are. Death Trap's pull effect moves enemies -- anticipate the final position.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Monitor your Energy bar</strong>
+                    <p>If you drop below the Preparation threshold, the loop breaks. Use Ultimate Resource Restore temper and Ring of Starless Skies to maintain Energy flow. If the loop breaks, use basic attacks or wait for natural regen before re-entering.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Swap Key Passive for farming</strong>
+                    <p>Use Exposure for Pit pushing (more damage amplification) and swap to Momentum for speed farming (stacking move-speed from Dash and Evade usage).</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Server lag in dense content</strong>
+                    <p>This build can cause noticeable server lag when Death Trap pulls and detonates in massive packs. In group play, warn your party. In solo, accept the brief hitches -- they mean you are dealing enormous damage.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="/assets/js/guide.js"></script>

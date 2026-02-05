@@ -1,0 +1,526 @@
+/* Shared Guide Page Styles — used by all build guide pages */
+
+:root {
+    --fire: #f97316;
+    --red: #ef4444;
+    --green: #4ade80;
+    --blue: #3b82f6;
+    --purple: #a855f7;
+    --gold: #d4af37;
+    --teal: #2dd4bf;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px 60px 20px;
+}
+
+/* Guide Hero */
+.guide-hero {
+    text-align: center;
+    padding: 80px 20px 60px;
+}
+
+.guide-hero .badge {
+    display: inline-block;
+    padding: 8px 20px;
+    background: rgba(212, 175, 55, 0.2);
+    border: 1px solid #d4af37;
+    border-radius: 25px;
+    color: #d4af37;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.guide-hero h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    color: #e8e8e8;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.verified-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    background: rgba(74, 222, 128, 0.2);
+    border: 1px solid #4ade80;
+    border-radius: 6px;
+    color: #4ade80;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.guide-hero .subtitle {
+    color: #a0a0a0;
+    font-size: 1.1rem;
+}
+
+/* Navigation Tabs */
+.nav-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 20px;
+    margin-bottom: 40px;
+}
+
+.nav-tab {
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    color: #a0a0a0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-tab:hover {
+    border-color: #d4af37;
+    color: #d4af37;
+}
+
+.nav-tab.active {
+    background: rgba(212, 175, 55, 0.2);
+    border-color: #d4af37;
+    color: #d4af37;
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Sections */
+.section {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 25px;
+}
+
+.section h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.4rem;
+    color: #d4af37;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.section h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    color: #e8e8e8;
+    margin: 20px 0 12px;
+}
+
+.section p {
+    color: #c0c0c0;
+    line-height: 1.7;
+    margin-bottom: 10px;
+}
+
+/* Build Info Grid */
+.build-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.build-info-item {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+}
+
+.build-info-label {
+    color: #808080;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.build-info-value {
+    color: #e8e8e8;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* Pros / Cons */
+.pros-cons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.pros, .cons {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.pros { border-left: 3px solid var(--green); }
+.cons { border-left: 3px solid var(--red); }
+
+.pros h4 { color: var(--green); margin-bottom: 10px; }
+.cons h4 { color: var(--red); margin-bottom: 10px; }
+
+.pros ul, .cons ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: #c0c0c0;
+}
+
+.pros li::before { content: '+ '; color: var(--green); font-weight: 700; }
+.cons li::before { content: '- '; color: var(--red); font-weight: 700; }
+.pros li, .cons li { margin-bottom: 6px; line-height: 1.5; }
+
+/* Difficulty Rating */
+.difficulty-bar {
+    display: flex;
+    gap: 4px;
+    margin-top: 5px;
+}
+
+.difficulty-pip {
+    width: 24px;
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.difficulty-pip.filled { background: var(--gold); }
+
+/* Decision Grid */
+.decision-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.decision-card {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+}
+
+.decision-card.no { border: 2px solid #ef4444; }
+.decision-card.yes { border: 2px solid #4ade80; }
+
+.decision-card h4 {
+    color: #e8e8e8;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.decision-card p {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* Stat Progress Bars */
+.stat-progress-item { margin-bottom: 20px; }
+
+.stat-progress-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    color: #e8e8e8;
+    font-size: 0.95rem;
+}
+
+.stat-progress-bar {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.stat-progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.stat-progress-fill.block { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+.stat-progress-fill.crit { background: linear-gradient(90deg, #ef4444, #f87171); }
+.stat-progress-fill.cdr { background: linear-gradient(90deg, #a855f7, #c084fc); }
+.stat-progress-fill.life { background: linear-gradient(90deg, #4ade80, #86efac); }
+.stat-progress-fill.str { background: linear-gradient(90deg, #f97316, #fb923c); }
+.stat-progress-fill.speed { background: linear-gradient(90deg, #d4af37, #fbbf24); }
+.stat-progress-fill.dmg { background: linear-gradient(90deg, #ef4444, #dc2626); }
+.stat-progress-fill.armor { background: linear-gradient(90deg, #6b7280, #9ca3af); }
+.stat-progress-fill.res { background: linear-gradient(90deg, #2dd4bf, #5eead4); }
+
+/* Tiers */
+.tier {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-left: 4px solid;
+}
+
+.tier-s { border-color: #fbbf24; }
+.tier-a { border-color: #a855f7; }
+.tier-b { border-color: #3b82f6; }
+
+.tier h4 {
+    color: #e8e8e8;
+    margin-bottom: 12px;
+    font-size: 1rem;
+}
+
+.tier ol, .tier ul {
+    margin: 0;
+    padding-left: 20px;
+    color: #c0c0c0;
+}
+
+.tier li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+/* Gear Slot Cards */
+.gear-slot-card {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 4px solid #d4af37;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+.gear-slot-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #e8e8e8;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: #a0a0a0;
+    font-size: 0.9rem;
+}
+
+.stat-value-calc {
+    color: #4ade80;
+    font-weight: 600;
+}
+
+.unique-effect {
+    margin-top: 15px;
+    padding: 12px;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    color: #d4af37;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+/* Skill Cards */
+.skill-card {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.skill-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: rgba(212, 175, 55, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.skill-info { flex: 1; }
+
+.skill-name {
+    color: #e8e8e8;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.skill-desc {
+    color: #a0a0a0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.skill-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    background: rgba(212, 175, 55, 0.15);
+    border-radius: 4px;
+    color: #d4af37;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-left: 8px;
+}
+
+/* Rotation Steps */
+.rotation-steps {
+    counter-reset: step;
+    list-style: none;
+    padding: 0;
+}
+
+.rotation-step {
+    counter-increment: step;
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.rotation-step::before {
+    content: counter(step);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.3);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+.rotation-step p { margin: 0; }
+
+/* Paragon Board Cards */
+.paragon-board {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+.paragon-board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.paragon-board-name {
+    font-weight: 600;
+    color: #e8e8e8;
+    font-size: 1rem;
+}
+
+.paragon-board-order {
+    padding: 4px 10px;
+    background: rgba(212, 175, 55, 0.2);
+    border: 1px solid var(--gold);
+    border-radius: 15px;
+    color: var(--gold);
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.glyph-name {
+    color: var(--purple);
+    font-weight: 600;
+}
+
+/* FAQ / Tips */
+.tip-card {
+    background: rgba(0, 0, 0, 0.2);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 10px 10px 0;
+    padding: 15px 20px;
+    margin-bottom: 12px;
+}
+
+.tip-card strong { color: #e8e8e8; }
+.tip-card p { margin: 5px 0 0; }
+
+/* Back to Guides Link */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin: 80px 20px 0;
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    color: #fbbf24;
+    transform: translateX(-5px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .guide-hero h1 {
+        font-size: 1.8rem;
+        flex-direction: column;
+    }
+
+    .nav-tabs { gap: 8px; }
+
+    .nav-tab {
+        padding: 10px 15px;
+        font-size: 0.8rem;
+    }
+
+    .section { padding: 20px; }
+    .decision-grid { grid-template-columns: 1fr; }
+    .pros-cons { grid-template-columns: 1fr; }
+    .build-info-grid { grid-template-columns: 1fr 1fr; }
+}

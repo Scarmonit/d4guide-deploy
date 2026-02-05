@@ -1,0 +1,423 @@
+---
+layout: base.njk
+title: Crackling Energy Sorcerer Guide | D4 Season 11
+description: Complete Diablo 4 Crackling Energy Sorcerer guide for Season 11. Lightning chain build with skills, gear, paragon, aspects. S-Tier speed and AoE.
+styles:
+  - /assets/css/guide.css
+---
+
+    <a href="/build-guides" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Build Guides
+    </a>
+
+    <header class="guide-hero">
+        <span class="badge">Season 11 - Divine Intervention</span>
+        <h1>Crackling Energy Sorcerer<span class="verified-badge">VERIFIED</span></h1>
+        <p class="subtitle">S-Tier Lightning Chain Build - Auto-Targeting AoE Destruction</p>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+        <button class="nav-tab" onclick="showTab('skills')">Skills</button>
+        <button class="nav-tab" onclick="showTab('gear')">Gear</button>
+        <button class="nav-tab" onclick="showTab('aspects')">Aspects & Tempering</button>
+        <button class="nav-tab" onclick="showTab('paragon')">Paragon</button>
+        <button class="nav-tab" onclick="showTab('gameplay')">Gameplay</button>
+    </div>
+
+    <div class="container">
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 1: OVERVIEW                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="overview" class="tab-content active">
+
+            <div class="section">
+                <h2>Build Summary</h2>
+                <p>The Crackling Energy Sorcerer is an S-Tier lightning chain build that leverages automatic Crackling Energy mechanics for devastating AoE clear. Cast Ball Lightning to generate Crackling Energy orbs, then let Esadora's Overflowing Cameo trigger massive Rapid Discharge explosions that chain through entire packs. With the new Season 11 Orsivane mace providing a huge damage boost, this build shreds through speed content and pushes Pit 120+ with ease.</p>
+
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Tier</div>
+                        <div class="build-info-value" style="color: var(--gold);">S-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Playstyle</div>
+                        <div class="build-info-value">Lightning / Chain AoE</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Best For</div>
+                        <div class="build-info-value">Speedfarm, AoE</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Difficulty</div>
+                        <div class="build-info-value">
+                            Easy
+                            <div class="difficulty-bar">
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Stat Targets</h2>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Crackling Energy Damage</span><span>Stack Aggressively</span></div><div class="stat-progress-bar"><div class="stat-progress-fill dmg"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Shock Crit Chance</span><span>High Priority</span></div><div class="stat-progress-bar"><div class="stat-progress-fill crit"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Cooldown Reduction</span><span>For Teleport + Ult</span></div><div class="stat-progress-bar"><div class="stat-progress-fill cdr"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Movement Speed</span><span>160%+</span></div><div class="stat-progress-bar"><div class="stat-progress-fill speed"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Maximum Life</span><span>High</span></div><div class="stat-progress-bar"><div class="stat-progress-fill life"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Armor</span><span>Via Disobedience + Ice Armor</span></div><div class="stat-progress-bar"><div class="stat-progress-fill armor"></div></div></div>
+            </div>
+
+            <div class="section">
+                <h2>Strengths & Weaknesses</h2>
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>Strengths</h4>
+                        <ul>
+                            <li>Amazing single-target damage</li>
+                            <li>Easy 3-button playstyle</li>
+                            <li>Very high mobility via Teleport</li>
+                            <li>Orsivane provides huge damage boost</li>
+                            <li>Pit 120+ capable</li>
+                            <li>Auto-targeting Crackling Energy</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>Weaknesses</h4>
+                        <ul>
+                            <li>Limited targeting (single-target focused)</li>
+                            <li>Esadora's Overflowing Cameo mandatory</li>
+                            <li>Relatively fragile without barriers</li>
+                            <li>Needs constant mobility to survive</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 2: SKILLS                              -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="skills" class="tab-content">
+
+            <div class="section">
+                <h2>Active Skills</h2>
+
+                <div class="skill-card">
+                    <div class="skill-icon">1</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Ball Lightning <span class="skill-tag">5/5</span> <span class="skill-tag">PRIMARY</span></div>
+                        <p class="skill-desc">Your primary damage source and Crackling Energy generator. Cast continuously to spawn CE orbs that auto-target enemies. Each ball passes through enemies multiple times, generating stacks rapidly.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">2</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Lightning Spear <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">Applies Vulnerable and Stun to priority targets. Use on elites and bosses to amplify all incoming damage. The stun provides a brief window of safety.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">3</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Teleport <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">Mobility, Unstoppable, and Crackling Energy generation. Use every 5 seconds for Bounding Conduit procs. Essential for repositioning and staying alive.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">4</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Unstable Currents <span class="skill-tag">5/5</span> <span class="skill-tag">ULTIMATE</span></div>
+                        <p class="skill-desc">Your Ultimate ability. Grants a massive Attack Speed boost and summons a Familiar that casts additional Shock skills. Dramatically increases CE generation during its duration.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">5</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Ice Armor <span class="skill-tag">ENCHANTMENT</span></div>
+                        <p class="skill-desc">Applied via Potion Enchantment. Grants a protective barrier when you use a potion. Provides the build's primary defensive layer without costing a skill slot.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">6</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Frost Nova <span class="skill-tag">ENCHANTMENT</span></div>
+                        <p class="skill-desc">Applied via Orsivane Enchantment. Provides bonus damage to frozen and chilled enemies. Synergizes with Aspect of Control for crowd-controlled damage amplification.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Key Passives</h2>
+                <div class="tier tier-s">
+                    <h4>Core Passives</h4>
+                    <ul>
+                        <li><strong>Convulsions</strong> &mdash; Shock skills have a chance to Stun enemies. Provides consistent crowd control that synergizes with Aspect of Control.</li>
+                        <li><strong>Invigorating Conduit</strong> &mdash; Gain Mana when Crackling Energy is collected. Sustains your resource pool during heavy Ball Lightning spam.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>Scaling Passives</h4>
+                    <ul>
+                        <li><strong>Overflowing Energy</strong> &mdash; Crackling Energy hits additional enemies. Expands your chain coverage for better AoE clear.</li>
+                        <li><strong>Elemental Synergies</strong> &mdash; Using a Shock skill boosts the damage of your next skill. Keeps multiplicative buffs rolling between casts.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 3: GEAR                                -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gear" class="tab-content">
+
+            <div class="section">
+                <h2>Required Unique Items</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--red);">
+                    <div class="gear-slot-header"><span>AMULET - Esadora's Overflowing Cameo</span><span style="color: var(--red);">REQUIRED</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> When Crackling Energy reaches max charges, it triggers Rapid Discharge dealing massive AoE lightning damage. Damage scales per Shock Skill rank. This is the core mechanic of the entire build &mdash; without it, nothing works.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--red);">
+                    <div class="gear-slot-header"><span>WEAPON - Orsivane (Mace)</span><span style="color: var(--red);">REQUIRED</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> New Season 11 unique mace. Provides a massive damage multiplier to Shock skills and grants the Frost Nova Enchantment effect. This single item elevates the build from A-Tier to S-Tier.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Best-in-Slot Gear</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>HELM - Harlequin Crest (Speed) / Heir of Perdition (Push)</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Harlequin Crest:</strong> +All Skills, Damage Reduction, CDR. Best for speedfarming and general use.<br><strong>Heir of Perdition:</strong> +60%[x] Damage, Crit Chance. Swap in for pushing the highest Pit tiers.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>PANTS - Tibault's Will</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Gain a 20%[x] damage bonus after becoming Unstoppable. Teleport grants Unstoppable, making this a consistent damage multiplier every 5 seconds.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>RING - Ring of Starless Skies</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Each resource spent reduces the cost of your next skill. Stacks quickly with Ball Lightning spam, dramatically reducing Mana consumption during sustained casts.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>RING - Galvanic Azurite</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Cooldown Reduction and bonus damage that scales with Shock skill ranks. Synergizes with Esadora's rank-based scaling for compounding returns.</div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 4: ASPECTS & TEMPERING                 -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="aspects" class="tab-content">
+
+            <div class="section">
+                <h2>Legendary Aspects</h2>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Charged Flash</span></div>
+                    <div class="unique-effect">Increases Crackling Energy damage. The primary scaling aspect for this build &mdash; amplifies every single CE hit and Rapid Discharge proc.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Shredding Blades</span></div>
+                    <div class="unique-effect">Increases damage to Vulnerable enemies. Lightning Spear applies Vulnerable, so this is a consistent multiplicative layer during boss fights and elite encounters.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Bounding Conduit</span></div>
+                    <div class="unique-effect">Teleport cooldown reduction and bonus movement speed after Teleporting. Enables the 5-second Teleport cycle that keeps Tibault's Will damage bonus active.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Disobedience</span></div>
+                    <div class="unique-effect">Gain stacking Armor when dealing damage. With constant CE hits and Ball Lightning ticks, this ramps to max stacks almost instantly for massive damage reduction.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Abundant Energy</span></div>
+                    <div class="unique-effect">Crackling Energy chains to additional enemies. Expands the AoE coverage of every CE proc, turning single-target hits into screen-wide chain lightning.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Control</span></div>
+                    <div class="unique-effect">Bonus damage to crowd-controlled enemies. With Convulsions passive and Frost Nova enchantment constantly applying CC, this is a near-permanent damage multiplier.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Tempering Priorities</h2>
+
+                <div class="tier tier-s">
+                    <h4>S-TIER: Must Have</h4>
+                    <ul>
+                        <li><strong>CE Hit Additional Targets (Prismatic Augments)</strong> &mdash; The single most important temper. Each additional target hit is a direct multiplier on your AoE clear speed.</li>
+                        <li><strong>Crackling Energy Damage</strong> &mdash; Direct scaling on your primary damage source. Temper this on every piece that allows it.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>A-TIER: High Priority</h4>
+                    <ul>
+                        <li><strong>Shock Crit Chance</strong> &mdash; More crits mean more damage and more procs. Essential for consistent output.</li>
+                        <li><strong>Barrier Generation</strong> &mdash; Survivability temper. Keeps barriers up from Ice Armor and other sources for sustained damage reduction.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-b">
+                    <h4>B-TIER: Fill</h4>
+                    <ul>
+                        <li><strong>Movement Speed</strong> &mdash; Quality of life for speedfarming and positioning. Helps maintain distance from dangerous enemies.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 5: PARAGON                             -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="paragon" class="tab-content">
+
+            <div class="section">
+                <h2>Paragon Board Order</h2>
+                <p>Attach boards in this exact order. Each board's glyph is listed below &mdash; level glyphs to 15 first, then push to 21 for radius bonus.</p>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Starting Board</span>
+                        <span class="paragon-board-order">Board 1</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Charged</span> &mdash; Increases Crackling Energy damage and generation. The foundation glyph that amplifies the build's core mechanic from the very start.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Ceaseless Conduit</span>
+                        <span class="paragon-board-order">Board 2</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Destruction</span> &mdash; Critical Strike Damage bonus to Shock skills. This board provides massive Crackling Energy scaling and pairs perfectly with high Shock Crit Chance tempering.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Static Surge</span>
+                        <span class="paragon-board-order">Board 3</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Eliminator</span> &mdash; Damage bonus to Vulnerable and crowd-controlled enemies. Synergizes with Lightning Spear Vulnerable application and Convulsions stuns.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Enchantment Master</span>
+                        <span class="paragon-board-order">Board 4</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Tactician</span> &mdash; Cooldown Reduction and defensive scaling. Reduces Teleport and Unstable Currents cooldowns for better uptime on your key abilities.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Burning Instinct</span>
+                        <span class="paragon-board-order">Board 5</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Unleash</span> &mdash; Bonus damage after using an Ultimate. With Unstable Currents active frequently, this provides a consistent damage multiplier during your highest-damage windows.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 6: GAMEPLAY                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gameplay" class="tab-content">
+
+            <div class="section">
+                <h2>Rotation</h2>
+                <ol class="rotation-steps">
+                    <li class="rotation-step">
+                        <p><strong>Cast Ball Lightning continuously</strong> &mdash; Your primary action. Spam Ball Lightning into packs to generate maximum Crackling Energy stacks as fast as possible.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Esadora's auto-triggers Rapid Discharge</strong> &mdash; When CE reaches max charges, the amulet automatically unleashes a devastating AoE lightning explosion. No button press needed.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Stay close to priority targets</strong> &mdash; Rapid Discharge and Crackling Energy chain from your position. Being near elites and bosses ensures they take full damage from every proc.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Lightning Spear for Vulnerable + Stun</strong> &mdash; Use on elites and bosses to apply Vulnerable. The stun also triggers Aspect of Control for a multiplicative damage window.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Unstable Currents when available</strong> &mdash; Pop your Ultimate for a massive Attack Speed boost and Familiar summon. This dramatically increases CE generation for burst windows.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Teleport every 5 seconds</strong> &mdash; Use Teleport on cooldown for mobility, Unstoppable (triggers Tibault's Will), and Bounding Conduit procs. Also generates Crackling Energy.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Potion for Ice Armor defense</strong> &mdash; When taking heavy damage, use your potion to trigger the Ice Armor enchantment for a protective barrier. Time it for dangerous moments.</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>Gameplay Tips</h2>
+
+                <div class="tip-card">
+                    <strong>Esadora's is the entire build.</strong>
+                    <p>Without Esadora's Overflowing Cameo, Crackling Energy does not trigger Rapid Discharge. This amulet is absolutely mandatory &mdash; do not attempt this build without it.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Teleport is your lifeline, not just mobility.</strong>
+                    <p>Teleport grants Unstoppable, triggers Tibault's Will damage bonus, procs Bounding Conduit, and generates CE. Use it on cooldown even if you don't need to move.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Stack Shock Skill ranks for Esadora's scaling.</strong>
+                    <p>Esadora's damage scales per Shock Skill rank. Every +rank on gear directly increases your Rapid Discharge damage. Prioritize +Shock Skill Ranks on all gear that offers it.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Position aggressively but be ready to Teleport out.</strong>
+                    <p>CE chains and Rapid Discharge need you close to enemies. Play at melee range for maximum damage, but always keep Teleport available as an escape when burst damage threatens you.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Orsivane makes or breaks your push ceiling.</strong>
+                    <p>The Season 11 Orsivane mace provides an enormous damage multiplier. A well-rolled Orsivane is the difference between Pit 100 and Pit 120+. Prioritize farming a good roll.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Swap helms based on content.</strong>
+                    <p>Use Harlequin Crest for speedfarming (CDR + survivability) and swap to Heir of Perdition when pushing high Pits (raw damage + crit). The difference is significant at the top end.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="/assets/js/guide.js"></script>

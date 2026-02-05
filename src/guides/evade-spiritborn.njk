@@ -1,0 +1,441 @@
+---
+layout: base.njk
+title: Evade Eagle Spiritborn Guide | D4 Season 11
+description: Complete Diablo 4 Evade Eagle Spiritborn guide for Season 11. Fastest build in the game. Skills, gear, paragon, aspects. S-Tier speedfarm.
+styles:
+  - /assets/css/guide.css
+---
+
+    <a href="/build-guides" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Build Guides
+    </a>
+
+    <header class="guide-hero">
+        <span class="badge">Season 11 - Divine Intervention</span>
+        <h1>Evade Eagle Spiritborn<span class="verified-badge">VERIFIED</span></h1>
+        <p class="subtitle">S-Tier Speedfarm Build - Spam Evade, Storm Feathers Kill Everything</p>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+        <button class="nav-tab" onclick="showTab('skills')">Skills</button>
+        <button class="nav-tab" onclick="showTab('gear')">Gear</button>
+        <button class="nav-tab" onclick="showTab('aspects')">Aspects & Tempering</button>
+        <button class="nav-tab" onclick="showTab('paragon')">Paragon</button>
+        <button class="nav-tab" onclick="showTab('gameplay')">Gameplay</button>
+    </div>
+
+    <div class="container">
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 1: OVERVIEW                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="overview" class="tab-content active">
+
+            <div class="section">
+                <h2>Build Summary</h2>
+                <p>The Evade Eagle Spiritborn is the fastest build in Diablo 4 Season 11. The entire playstyle revolves around spamming Evade, which automatically fires Storm Feathers that seek out and obliterate everything on screen. With 66.6% CDR, you achieve permanent 3-charge Evade uptime, turning you into an unstoppable lightning-speed killing machine. Accelerated Thunderspike resets your Evade cooldown every 3rd attack, creating a seamless loop of dashing and destruction.</p>
+
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Tier</div>
+                        <div class="build-info-value" style="color: var(--gold);">S-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Playstyle</div>
+                        <div class="build-info-value">Evade Spam / Lightning</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Best For</div>
+                        <div class="build-info-value">Speedfarm, All Content</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Difficulty</div>
+                        <div class="build-info-value">
+                            Easiest
+                            <div class="difficulty-bar">
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Stat Targets</h2>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Cooldown Reduction</span><span>66.6% REQUIRED</span></div><div class="stat-progress-bar"><div class="stat-progress-fill cdr"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Movement Speed</span><span>Stack Maximum</span></div><div class="stat-progress-bar"><div class="stat-progress-fill speed"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Lightning Damage</span><span>Storm Feathers Scaling</span></div><div class="stat-progress-bar"><div class="stat-progress-fill dmg"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Critical Strike Chance</span><span>Eagle Spirit Hall Crits</span></div><div class="stat-progress-bar"><div class="stat-progress-fill crit"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Vulnerable Damage</span><span>20% from Secondary Eagle</span></div><div class="stat-progress-bar"><div class="stat-progress-fill str"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Barrier Generation</span><span>Armored Hide + Temerity</span></div><div class="stat-progress-bar"><div class="stat-progress-fill armor"></div></div></div>
+            </div>
+
+            <div class="section">
+                <h2>Critical Threshold</h2>
+                <div class="tip-card">
+                    <strong>66.6% Cooldown Reduction is non-negotiable.</strong>
+                    <p>Below this threshold the Evade loop breaks. Your Evade charges will not regenerate fast enough to maintain permanent uptime, and the build falls apart. Prioritize CDR on every slot that can roll it. Evade CDR from Natural Motion tempering is essential.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Strengths & Weaknesses</h2>
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>Strengths</h4>
+                        <ul>
+                            <li>Fastest build in the entire game</li>
+                            <li>Simplest gameplay — just spam Evade</li>
+                            <li>Extreme tankiness via permanent Barrier</li>
+                            <li>100% Dodge Chance from Counterattack</li>
+                            <li>Storm Feathers auto-target enemies</li>
+                            <li>Strong from leveling through endgame</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>Weaknesses</h4>
+                        <ul>
+                            <li>Does not function without Sepazontec unique</li>
+                            <li>Needs 2+ Evade charges to feel good</li>
+                            <li>Falls off at Pit 120+ pushing</li>
+                            <li>Requires 66.6% CDR threshold or loop breaks</li>
+                            <li>Loyalty's Mantle + Wushe Nak Pa required for endgame</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 2: SKILLS                              -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="skills" class="tab-content">
+
+            <div class="section">
+                <h2>Active Skills</h2>
+
+                <div class="skill-card">
+                    <div class="skill-icon">1</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Thunderspike <span class="skill-tag">5/5</span> <span class="skill-tag">PRIMARY</span></div>
+                        <p class="skill-desc">Enhanced &rarr; Accelerated Thunderspike. The engine of the build. Every 3rd attack resets your Evade cooldown by 5 seconds. Fires automatically 3 times per Evade, keeping the Evade loop permanently active without any manual input.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">2</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Armored Hide <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">Enhanced Armored Hide. Your primary defensive skill. Generates a massive Barrier on use. Hold this between Evade cycles to maintain permanent Barrier uptime and stay unkillable.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">3</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Concussive Stomp <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">Enhanced Concussive Stomp. Emergency defensive cooldown. Use when you get caught in a dangerous situation or need to stun a pack for repositioning.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">4</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Counterattack <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">Enhanced Counterattack. Grants 100% Dodge Chance, making you completely immune to incoming attacks for the duration. A huge defensive layer that synergizes with the aggressive playstyle.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">5</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Soar <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">Mobility skill. Use for traversing large gaps, crossing terrain, or repositioning to the next pack. Supplements your already-extreme movement speed from Evade spam.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">6</div>
+                    <div class="skill-info">
+                        <div class="skill-name">The Seeker <span class="skill-tag">1/5</span> <span class="skill-tag">ULTIMATE</span></div>
+                        <p class="skill-desc">Harmonious &rarr; Exalted The Seeker. Your Ultimate ability that activates the Intricacy passive loop. Use on cooldown — Flickerstep boots reduce its cooldown every time you Evade, giving you near-permanent uptime.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Spirit Hall</h2>
+                <div class="tier tier-s">
+                    <h4>Primary: Eagle Main</h4>
+                    <ul>
+                        <li><strong>6 Storm Feathers</strong> — Each Evade fires 6 Storm Feathers that deal 140% Lightning damage. These auto-target nearby enemies and are the primary damage source of the entire build.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>Secondary: Eagle</h4>
+                    <ul>
+                        <li><strong>20% Vulnerable Damage</strong> — Applies Vulnerable to enemies, boosting all incoming damage by 20%.</li>
+                        <li><strong>Guaranteed Critical Strikes</strong> — Every other cast is a guaranteed Critical Strike, providing massive consistent burst damage.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Key Passives</h2>
+                <div class="tier tier-s">
+                    <h4>Core Passives</h4>
+                    <ul>
+                        <li><strong>Acceleration</strong> — Attack Speed scaling that feeds into the Thunderspike loop. More attacks = faster Evade resets.</li>
+                        <li><strong>Intricacy</strong> — Triggered by The Seeker. Creates a feedback loop that amplifies your damage output as you cycle through abilities.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>Offensive Passives</h4>
+                    <ul>
+                        <li><strong>Apex</strong> — Multiplicative damage bonus that scales with your Spirit Hall synergies. Massive DPS increase.</li>
+                        <li><strong>Vital Strikes</strong> — Critical Strike enhancement that synergizes with the guaranteed crits from your Secondary Eagle Spirit Hall.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 3: GEAR                                -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gear" class="tab-content">
+
+            <div class="section">
+                <h2>Required Unique Items</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--red);">
+                    <div class="gear-slot-header"><span>WEAPON - Wushe Nak Pa (Glaive)</span><span style="color: var(--red);">BUILD-DEFINING</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Amplifies all Spirit Hall bonuses. This glaive is the reason the build exists — it supercharges your Storm Feathers damage and makes every Eagle bonus exponentially stronger. Without it, the build does not function at endgame.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--red);">
+                    <div class="gear-slot-header"><span>HELM - Loyalty's Mantle</span><span style="color: var(--red);">REQUIRED</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Reduces Vigor Cost and provides Cooldown Reduction specifically for Eagle skills. Essential for maintaining the Evade loop and keeping your resource economy sustainable.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Mythic Item</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>CHEST - Shroud of False Death</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Grants Stealth and 40% Movement Speed bonus. Combines offense and defense in one slot — you move faster and enemies lose track of you, creating windows for safe repositioning while maintaining kill speed.</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Key Unique Items</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>PANTS - Temerity</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Overhealing is converted into a Barrier. Combined with Armored Hide's constant Barrier generation, you maintain a permanent defensive shield that lets you facetank anything while spamming Evade.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>BOOTS - Flickerstep</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Each Evade reduces your Ultimate cooldown. Since you are constantly Evading, The Seeker comes back incredibly fast, maintaining the Intricacy loop and providing near-permanent Ultimate uptime.</div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 4: ASPECTS & TEMPERING                 -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="aspects" class="tab-content">
+
+            <div class="section">
+                <h2>Legendary Aspects</h2>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Amulet &mdash; Aspect of Redirected Force</span></div>
+                    <div class="unique-effect">Redirects a portion of incoming damage back at enemies. While you are constantly Evading into packs, this reflects damage passively, adding a free layer of offense on top of your Storm Feathers.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Gloves &mdash; Conceited Aspect</span></div>
+                    <div class="unique-effect">Deal increased damage while you have a Barrier. Since Armored Hide and Temerity keep your Barrier up permanently, this is a massive unconditional damage multiplier.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Ring 1 &mdash; Vehement Brawler's Aspect</span></div>
+                    <div class="unique-effect">Bonus Attack Speed after using skills. Feeds directly into the Thunderspike loop, generating faster Evade resets and more Storm Feather casts per second.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Ring 2 &mdash; Aspect of Unyielding Hits</span></div>
+                    <div class="unique-effect">Provides guaranteed hit effects and damage consistency. Ensures your Storm Feathers always connect and deal their full damage potential.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Defense Slot &mdash; Aspect of Might</span></div>
+                    <div class="unique-effect">Basic Skills grant damage reduction. Thunderspike triggers this consistently, providing a permanent damage reduction layer on top of your Barrier and Dodge defenses.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Defense Slot &mdash; Aspect of Disobedience</span></div>
+                    <div class="unique-effect">Gain stacking Armor for each enemy you damage. With Storm Feathers hitting everything on screen every Evade, you reach maximum Armor stacks almost instantly.</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Tempering Priorities</h2>
+
+                <div class="tier tier-s">
+                    <h4>S-TIER: Must Have</h4>
+                    <ul>
+                        <li><strong>Storm Feathers Potency (Eagle Finesse)</strong> &mdash; Direct damage increase to your primary damage source. Temper this on every piece that allows it. This is the single highest DPS temper.</li>
+                        <li><strong>Evade CDR (Natural Motion)</strong> &mdash; Reduces Evade cooldown directly. Critical for reaching the 66.6% CDR threshold. Without this, the Evade loop will not sustain.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>A-TIER: High Priority</h4>
+                    <ul>
+                        <li><strong>Movement Speed</strong> &mdash; More speed = faster clears. Stacks with Shroud of False Death's 40% MS for absurd traversal speed.</li>
+                        <li><strong>+Seeker Charges</strong> &mdash; Additional charges for The Seeker, extending the Intricacy loop duration and providing more burst windows.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 5: PARAGON                             -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="paragon" class="tab-content">
+
+            <div class="section">
+                <h2>Paragon Board Order</h2>
+                <p>Attach boards in this exact order. Each board's glyph is listed below — level glyphs to 15 first, then push to 21 for radius bonus.</p>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Starting Board</span>
+                        <span class="paragon-board-order">Board 1</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Spirit</span> &mdash; Increases damage based on your Spirit resource generation. Pairs with the Eagle Spirit Hall for a solid baseline damage increase from the start.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Viscous Shield</span>
+                        <span class="paragon-board-order">Board 2</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Jagged Plume</span> &mdash; Increases Storm Feather damage and adds bonus Lightning damage scaling. This board amplifies your Barrier strength and feather output simultaneously.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Drive</span>
+                        <span class="paragon-board-order">Board 3</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Talon</span> &mdash; Enhances Eagle skill damage and provides Critical Strike bonuses. Synergizes with the guaranteed crits from Secondary Eagle Spirit Hall.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Convergence</span>
+                        <span class="paragon-board-order">Board 4</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Fulminate</span> &mdash; Lightning damage amplification. Scales all Storm Feather damage multiplicatively, providing the biggest single-glyph DPS increase at this stage.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Spiney Skin</span>
+                        <span class="paragon-board-order">Board 5</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Canny</span> &mdash; Defensive scaling glyph that provides damage reduction and Barrier bonuses. Rounds out your survivability for higher tier content.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 6: GAMEPLAY                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gameplay" class="tab-content">
+
+            <div class="section">
+                <h2>Rotation</h2>
+                <ol class="rotation-steps">
+                    <li class="rotation-step">
+                        <p><strong>Armored Hide for Barrier</strong> &mdash; Start every engagement by activating Armored Hide. This generates your Barrier, which powers Conceited Aspect and keeps you alive. Maintain this at all times.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>The Seeker for Intricacy Loop</strong> &mdash; Cast your Ultimate to begin the Intricacy passive feedback loop. This amplifies all subsequent damage and should be used as early as possible in each cycle.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>SPAM EVADE</strong> &mdash; This is the core of the build. Every Evade fires 6 Storm Feathers that automatically seek and destroy nearby enemies. Hold the Evade button and watch everything die around you.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Accelerated Thunderspike (Auto)</strong> &mdash; Fires automatically 3 times per Evade. Every 3rd attack resets your Evade cooldown by 5 seconds, creating the infinite Evade loop. No manual input required.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Hold Armored Hide Between Cycles</strong> &mdash; In the brief moments between Evade charge refreshes, hold Armored Hide to refresh your Barrier and maintain Conceited Aspect uptime.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>The Seeker Whenever Available</strong> &mdash; Flickerstep reduces The Seeker's cooldown every time you Evade. Recast it the moment it comes back to maintain the Intricacy loop permanently.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Permanent 3-Charge Evade at 66.6% CDR</strong> &mdash; With the CDR threshold met, your Evade charges regenerate faster than you spend them. The loop is self-sustaining — just keep spamming Evade and everything dies.</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>Gameplay Tips</h2>
+
+                <div class="tip-card">
+                    <strong>66.6% CDR is the make-or-break stat.</strong>
+                    <p>Check your character sheet. If you are below 66.6% Cooldown Reduction, your Evade charges will deplete faster than they regenerate and the build stops working. This is the single most important stat — prioritize it above everything else.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Counterattack gives you 100% Dodge.</strong>
+                    <p>When you activate Counterattack, you become immune to all incoming attacks for the duration. Use this when entering dense packs or facing dangerous boss mechanics. It is your panic button.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Storm Feathers auto-target — you do not aim.</strong>
+                    <p>The 6 Storm Feathers from each Evade automatically seek the nearest enemies. You never need to aim or position carefully. Just Evade in the general direction of enemies and the feathers handle targeting.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Flickerstep is what makes The Seeker permanent.</strong>
+                    <p>Every Evade reduces your Ultimate cooldown via Flickerstep boots. Since you Evade dozens of times per minute, The Seeker comes back almost instantly. Keep recasting it to maintain the Intricacy loop.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Shroud of False Death gives stealth + 40% MS.</strong>
+                    <p>This Mythic chest provides both offensive speed and defensive stealth. When you enter stealth, enemies stop targeting you, giving you free time to reposition or skip dangerous affixes.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>The build falls off past Pit 120+.</strong>
+                    <p>This is a speedfarm build first and foremost. While it can handle most content comfortably, ultra-high Pit pushing beyond 120 will require swapping to a dedicated push variant. For everything else, this is the fastest and most efficient build in the game.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="/assets/js/guide.js"></script>

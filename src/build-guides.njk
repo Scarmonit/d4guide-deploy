@@ -1,0 +1,435 @@
+---
+layout: base.njk
+title: Build Guides | Scarmonit - Diablo 4 Season 11 Tier List
+description: Premium Diablo 4 Season 11 build guides for every class. S-Tier meta builds with skills, gear, paragon, aspects, and tempering. Updated February 2026.
+styles:
+  - /assets/css/build-guides.css
+---
+
+    <header class="hero">
+        <div class="hero-badge">Season 11 — Divine Intervention</div>
+        <h1>D4 Build Guides</h1>
+        <p class="hero-subtitle">S-Tier meta builds for every class. Skills, gear, paragon, aspects, and tempering — everything you need to dominate.</p>
+        <a href="#guides" class="cta-button">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+            Browse Guides
+        </a>
+    </header>
+
+    <div class="container" id="guides">
+
+        <!-- Class Filter Buttons -->
+        <div class="class-filters">
+            <button class="class-filter-btn active" data-filter="all">All Classes</button>
+            <button class="class-filter-btn" data-filter="barbarian">Barbarian</button>
+            <button class="class-filter-btn" data-filter="druid">Druid</button>
+            <button class="class-filter-btn" data-filter="necromancer">Necromancer</button>
+            <button class="class-filter-btn" data-filter="rogue">Rogue</button>
+            <button class="class-filter-btn" data-filter="sorcerer">Sorcerer</button>
+            <button class="class-filter-btn" data-filter="spiritborn">Spiritborn</button>
+            <button class="class-filter-btn" data-filter="paladin">Paladin</button>
+        </div>
+
+        <p class="guide-count">
+            <strong>9</strong> detailed guides &middot; <strong>12</strong> more coming soon
+            <span id="api-status" class="api-indicator">Loading...</span>
+        </p>
+        <p id="api-stats" class="guide-count" style="display:none; font-size:0.8rem; margin-top:-20px;"></p>
+        <p id="data-timestamp" class="guide-count" style="font-size:0.8rem; margin-top:-15px; color:#808080;"></p>
+        <div id="live-tier-data"></div>
+
+        <!-- S-TIER BUILDS -->
+        <div class="tier-section">
+            <div class="tier-heading">
+                <span class="tier-rank s-tier">S</span>
+                <h3>S-Tier Builds</h3>
+                <span class="tier-desc">Meta-defining. Best in slot for their role.</span>
+            </div>
+
+            <div class="guides-grid">
+
+                <!-- Evade Spiritborn -->
+                <a href="/guides/evade-spiritborn" class="guide-card" data-class="spiritborn">
+                    <div class="card-header">
+                        <h2>Evade Eagle</h2>
+                        <div class="card-badges">
+                            <span class="tier-badge s-tier">S</span>
+                            <span class="class-badge spiritborn">Spiritborn</span>
+                        </div>
+                    </div>
+                    <p class="build-style">Eagle Spirit | Evade Spam | Storm Feathers</p>
+                    <p>Fastest build in the game. Spam Evade to trigger devastating Storm Feathers that auto-target and destroy everything. Eagle Spirit Hall transforms mobility into pure damage.</p>
+                    <div class="playstyle-tags">
+                        <span class="playstyle-tag speed">Speedfarm</span>
+                        <span class="playstyle-tag easy">Easy</span>
+                        <span class="playstyle-tag">All Content</span>
+                    </div>
+                    <div class="meta">
+                        <span>Season 11</span>
+                        <span>Updated: Feb 2026</span>
+                        <span>Speedfarm / Push</span>
+                    </div>
+                </a>
+
+                <!-- Lunging Strike Barbarian -->
+                <a href="/guides/lunging-strike-barbarian" class="guide-card" data-class="barbarian">
+                    <div class="card-header">
+                        <h2>Lunging Strike</h2>
+                        <div class="card-badges">
+                            <span class="tier-badge s-tier">S</span>
+                            <span class="class-badge barbarian">Barbarian</span>
+                        </div>
+                    </div>
+                    <p class="build-style">Generator Build | Mobile Melee | Wrath of the Berserker</p>
+                    <p>Hyper-mobile generator build that zips through packs with Lunging Strike. One active skill, five buffs, near 100% Wrath of the Berserker uptime.</p>
+                    <div class="playstyle-tags">
+                        <span class="playstyle-tag speed">Speedfarm</span>
+                        <span class="playstyle-tag push">Push</span>
+                        <span class="playstyle-tag easy">Easy</span>
+                    </div>
+                    <div class="meta">
+                        <span>Season 11</span>
+                        <span>Updated: Feb 2026</span>
+                        <span>All-Around</span>
+                    </div>
+                </a>
+
+                <!-- HotA Barbarian -->
+                <a href="/guides/hota-barbarian" class="guide-card" data-class="barbarian">
+                    <div class="card-header">
+                        <h2>Hammer of the Ancients</h2>
+                        <div class="card-badges">
+                            <span class="tier-badge s-tier">S</span>
+                            <span class="class-badge barbarian">Barbarian</span>
+                        </div>
+                    </div>
+                    <p class="build-style">Fury Spender | Burst Damage | Overpower</p>
+                    <p>Massive burst damage with each slam. Scales with stored Fury for huge overpower hits. The classic Barbarian fantasy — smash everything with a giant hammer.</p>
+                    <div class="playstyle-tags">
+                        <span class="playstyle-tag push">Push</span>
+                        <span class="playstyle-tag boss">Bossing</span>
+                        <span class="playstyle-tag">AoE</span>
+                    </div>
+                    <div class="meta">
+                        <span>Season 11</span>
+                        <span>Updated: Feb 2026</span>
+                        <span>Push / Bossing</span>
+                    </div>
+                </a>
+
+                <!-- Pulverize Druid -->
+                <a href="/guides/pulverize-druid" class="guide-card" data-class="druid">
+                    <div class="card-header">
+                        <h2>Pulverize</h2>
+                        <div class="card-badges">
+                            <span class="tier-badge s-tier">S</span>
+                            <span class="class-badge druid">Druid</span>
+                        </div>
+                    </div>
+                    <p class="build-style">Werebear | Earth Skills | Overpower</p>
+                    <p>Dominate as a Werebear with massive AoE slams. Guaranteed overpower hits through Earth conversion and Fortify synergy clear entire screens.</p>
+                    <div class="playstyle-tags">
+                        <span class="playstyle-tag push">Push</span>
+                        <span class="playstyle-tag boss">Bossing</span>
+                        <span class="playstyle-tag">AoE</span>
+                    </div>
+                    <div class="meta">
+                        <span>Season 11</span>
+                        <span>Updated: Feb 2026</span>
+                        <span>AoE / Bossing</span>
+                    </div>
+                </a>
+
+                <!-- Shadowblight Necromancer -->
+                <a href="/guides/shadowblight-necromancer" class="guide-card" data-class="necromancer">
+                    <div class="card-header">
+                        <h2>Shadowblight</h2>
+                        <div class="card-badges">
+                            <span class="tier-badge s-tier">S</span>
+                            <span class="class-badge necromancer">Necromancer</span>
+                        </div>
+                    </div>
+                    <p class="build-style">Shadow DoT | Minion Pressure | Corpse Explosion</p>
+                    <p>Explosive shadow damage build. Minions apply pressure while shadow stacks build into devastating explosions that clear screens.</p>
+                    <div class="playstyle-tags">
+                        <span class="playstyle-tag speed">Speedfarm</span>
+                        <span class="playstyle-tag">AoE</span>
+                        <span class="playstyle-tag easy">Easy</span>
+                    </div>
+                    <div class="meta">
+                        <span>Season 11</span>
+                        <span>Updated: Feb 2026</span>
+                        <span>Speed / AoE</span>
+                    </div>
+                </a>
+
+                <!-- Death Trap Rogue -->
+                <a href="/guides/death-trap-rogue" class="guide-card" data-class="rogue">
+                    <div class="card-header">
+                        <h2>Death Trap</h2>
+                        <div class="card-badges">
+                            <span class="tier-badge s-tier">S</span>
+                            <span class="class-badge rogue">Rogue</span>
+                        </div>
+                    </div>
+                    <p class="build-style">Trap Build | CDR Scaling | Burst AoE</p>
+                    <p>Deploy devastating traps with massive CDR scaling. Consistent burst damage with the best pushing potential of any Rogue build this season.</p>
+                    <div class="playstyle-tags">
+                        <span class="playstyle-tag push">Push</span>
+                        <span class="playstyle-tag">Burst</span>
+                        <span class="playstyle-tag">Consistent</span>
+                    </div>
+                    <div class="meta">
+                        <span>Season 11</span>
+                        <span>Updated: Feb 2026</span>
+                        <span>Push / Consistent</span>
+                    </div>
+                </a>
+
+                <!-- Crackling Energy Sorcerer -->
+                <a href="/guides/crackling-energy-sorcerer" class="guide-card" data-class="sorcerer">
+                    <div class="card-header">
+                        <h2>Crackling Energy</h2>
+                        <div class="card-badges">
+                            <span class="tier-badge s-tier">S</span>
+                            <span class="class-badge sorcerer">Sorcerer</span>
+                        </div>
+                    </div>
+                    <p class="build-style">Lightning | Chain AoE | Auto-Targeting</p>
+                    <p>Chain-lightning focused build leveraging automatic Crackling Energy mechanics for massive AoE clear. Lightning chains destroy packs instantly.</p>
+                    <div class="playstyle-tags">
+                        <span class="playstyle-tag speed">Speedfarm</span>
+                        <span class="playstyle-tag">AoE</span>
+                        <span class="playstyle-tag easy">Easy</span>
+                    </div>
+                    <div class="meta">
+                        <span>Season 11</span>
+                        <span>Updated: Feb 2026</span>
+                        <span>Speed / AoE</span>
+                    </div>
+                </a>
+
+                <!-- Spear of the Heavens Paladin -->
+                <a href="/guides/spear-of-heavens-paladin" class="guide-card" data-class="paladin">
+                    <div class="card-header">
+                        <h2>Spear of the Heavens</h2>
+                        <div class="card-badges">
+                            <span class="tier-badge s-tier">S</span>
+                            <span class="class-badge paladin">Paladin</span>
+                        </div>
+                    </div>
+                    <p class="build-style">Holy Damage | Heavy Hitter | Divine Power</p>
+                    <p>The strongest pushing build for Paladins. Rain down holy spears for devastating single-target and AoE damage in endgame content.</p>
+                    <div class="playstyle-tags">
+                        <span class="playstyle-tag push">Push</span>
+                        <span class="playstyle-tag boss">Bossing</span>
+                    </div>
+                    <div class="meta">
+                        <span>Season 11</span>
+                        <span>Updated: Feb 2026</span>
+                        <span>Push / Bossing</span>
+                    </div>
+                </a>
+
+                <!-- Auradin Paladin (existing) -->
+                <a href="/auradin-guide" class="guide-card" data-class="paladin">
+                    <div class="card-header">
+                        <h2>Auradin</h2>
+                        <div class="card-badges">
+                            <span class="tier-badge s-tier">S</span>
+                            <span class="class-badge paladin">Paladin</span>
+                        </div>
+                    </div>
+                    <p class="build-style">Holy Fire Aura | Crit-Based | Castle Armor</p>
+                    <p>Complete stat priority guide with exact gear affixes. 100% Crit, 100% Block, Castle's Armor scaling. Detailed math breakdowns included.</p>
+                    <div class="playstyle-tags">
+                        <span class="playstyle-tag speed">Speedfarm</span>
+                        <span class="playstyle-tag push">Push</span>
+                    </div>
+                    <div class="stats">
+                        <span class="stat-badge">100% Crit</span>
+                        <span class="stat-badge">100% Block</span>
+                        <span class="stat-badge">55%+ CDR</span>
+                    </div>
+                    <div class="meta">
+                        <span>Season 11</span>
+                        <span>Updated: Feb 2026</span>
+                        <span>Speedfarm / Push</span>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+
+        <!-- A-TIER BUILDS (Coming Soon) -->
+        <div class="tier-section">
+            <div class="tier-heading">
+                <span class="tier-rank a-tier">A</span>
+                <h3>A-Tier Builds</h3>
+                <span class="tier-desc">Strong and viable. Coming soon.</span>
+            </div>
+
+            <div class="guides-grid">
+
+                <div class="guide-card coming-soon" data-class="barbarian">
+                    <span class="coming-soon-label">Coming Soon</span>
+                    <div class="card-header">
+                        <h2>Whirlwind</h2>
+                        <div class="card-badges"><span class="tier-badge a-tier">A</span><span class="class-badge barbarian">Barbarian</span></div>
+                    </div>
+                    <p class="build-style">Spin to Win | Sustained AoE | Mobile</p>
+                    <p>The iconic spin-to-win playstyle. Constant AoE damage while moving through packs.</p>
+                    <div class="meta"><span>Season 11</span></div>
+                </div>
+
+                <div class="guide-card coming-soon" data-class="barbarian">
+                    <span class="coming-soon-label">Coming Soon</span>
+                    <div class="card-header">
+                        <h2>Bash</h2>
+                        <div class="card-badges"><span class="tier-badge a-tier">A</span><span class="class-badge barbarian">Barbarian</span></div>
+                    </div>
+                    <p class="build-style">Generator | Single Target | Stun Lock</p>
+                    <p>Hard-hitting generator with strong crowd control via stuns.</p>
+                    <div class="meta"><span>Season 11</span></div>
+                </div>
+
+                <div class="guide-card coming-soon" data-class="rogue">
+                    <span class="coming-soon-label">Coming Soon</span>
+                    <div class="card-header">
+                        <h2>Heartseeker</h2>
+                        <div class="card-badges"><span class="tier-badge a-tier">A</span><span class="class-badge rogue">Rogue</span></div>
+                    </div>
+                    <p class="build-style">Ranged | Crit-Based | Rapid Fire</p>
+                    <p>Ranged Rogue with rapid crit-based projectiles and safe positioning.</p>
+                    <div class="meta"><span>Season 11</span></div>
+                </div>
+
+                <div class="guide-card coming-soon" data-class="rogue">
+                    <span class="coming-soon-label">Coming Soon</span>
+                    <div class="card-header">
+                        <h2>Rain of Arrows</h2>
+                        <div class="card-badges"><span class="tier-badge a-tier">A</span><span class="class-badge rogue">Rogue</span></div>
+                    </div>
+                    <p class="build-style">Ultimate | AoE Coverage | Speed</p>
+                    <p>Screen-wide AoE coverage for speedfarming open world content.</p>
+                    <div class="meta"><span>Season 11</span></div>
+                </div>
+
+                <div class="guide-card coming-soon" data-class="sorcerer">
+                    <span class="coming-soon-label">Coming Soon</span>
+                    <div class="card-header">
+                        <h2>Frozen Orb</h2>
+                        <div class="card-badges"><span class="tier-badge a-tier">A</span><span class="class-badge sorcerer">Sorcerer</span></div>
+                    </div>
+                    <p class="build-style">Cold | Projectile | Crowd Control</p>
+                    <p>Classic cold build with Frozen Orbs and freeze synergies.</p>
+                    <div class="meta"><span>Season 11</span></div>
+                </div>
+
+                <div class="guide-card coming-soon" data-class="sorcerer">
+                    <span class="coming-soon-label">Coming Soon</span>
+                    <div class="card-header">
+                        <h2>Hydra</h2>
+                        <div class="card-badges"><span class="tier-badge a-tier">A</span><span class="class-badge sorcerer">Sorcerer</span></div>
+                    </div>
+                    <p class="build-style">Summon | Fire | Persistent Damage</p>
+                    <p>Summon hydra heads for consistent fire damage while positioning.</p>
+                    <div class="meta"><span>Season 11</span></div>
+                </div>
+
+                <div class="guide-card coming-soon" data-class="necromancer">
+                    <span class="coming-soon-label">Coming Soon</span>
+                    <div class="card-header">
+                        <h2>Triple Golem</h2>
+                        <div class="card-badges"><span class="tier-badge a-tier">A</span><span class="class-badge necromancer">Necromancer</span></div>
+                    </div>
+                    <p class="build-style">Minion | Burst Windows | Golem Army</p>
+                    <p>Three golems with heavy burst damage via Gravebloom Maze unique.</p>
+                    <div class="meta"><span>Season 11</span></div>
+                </div>
+
+                <div class="guide-card coming-soon" data-class="necromancer">
+                    <span class="coming-soon-label">Coming Soon</span>
+                    <div class="card-header">
+                        <h2>Bone Prison</h2>
+                        <div class="card-badges"><span class="tier-badge a-tier">A</span><span class="class-badge necromancer">Necromancer</span></div>
+                    </div>
+                    <p class="build-style">Bone | CC | Burst Combos</p>
+                    <p>Trap enemies in Bone Prison for devastating burst combos.</p>
+                    <div class="meta"><span>Season 11</span></div>
+                </div>
+
+                <div class="guide-card coming-soon" data-class="spiritborn">
+                    <span class="coming-soon-label">Coming Soon</span>
+                    <div class="card-header">
+                        <h2>Quill Volley</h2>
+                        <div class="card-badges"><span class="tier-badge a-tier">A</span><span class="class-badge spiritborn">Spiritborn</span></div>
+                    </div>
+                    <p class="build-style">Ranged | Kepleke | Projectiles</p>
+                    <p>Ranged projectile build with strong pushing and bossing potential.</p>
+                    <div class="meta"><span>Season 11</span></div>
+                </div>
+
+                <div class="guide-card coming-soon" data-class="spiritborn">
+                    <span class="coming-soon-label">Coming Soon</span>
+                    <div class="card-header">
+                        <h2>Payback</h2>
+                        <div class="card-badges"><span class="tier-badge a-tier">A</span><span class="class-badge spiritborn">Spiritborn</span></div>
+                    </div>
+                    <p class="build-style">Melee | Counter | Burst</p>
+                    <p>Counter-attack playstyle that punishes with devastating strikes.</p>
+                    <div class="meta"><span>Season 11</span></div>
+                </div>
+
+                <div class="guide-card coming-soon" data-class="paladin">
+                    <span class="coming-soon-label">Coming Soon</span>
+                    <div class="card-header">
+                        <h2>Blessed Hammer</h2>
+                        <div class="card-badges"><span class="tier-badge a-tier">A</span><span class="class-badge paladin">Paladin</span></div>
+                    </div>
+                    <p class="build-style">Holy | Spinning Hammers | AoE</p>
+                    <p>Classic Hammerdin with spinning blessed hammers dealing massive AoE.</p>
+                    <div class="meta"><span>Season 11</span></div>
+                </div>
+
+                <div class="guide-card coming-soon" data-class="paladin">
+                    <span class="coming-soon-label">Coming Soon</span>
+                    <div class="card-header">
+                        <h2>Judgment</h2>
+                        <div class="card-badges"><span class="tier-badge a-tier">A</span><span class="class-badge paladin">Paladin</span></div>
+                    </div>
+                    <p class="build-style">Holy | Burst | Crowd Control</p>
+                    <p>Holy judgment with massive burst damage and crowd control.</p>
+                    <div class="meta"><span>Season 11</span></div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const filterBtns = document.querySelectorAll('.class-filter-btn');
+        const guideCards = document.querySelectorAll('.guide-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.dataset.filter;
+                guideCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.class === filter) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    });
+    </script>
+    <script src="/assets/js/d4-api.js"></script>

@@ -1,0 +1,83 @@
+---
+layout: base.njk
+title: Change Password - Scarmonit
+description: Update your password for protected areas of Scarmonit.
+styles:
+  - /changepassword/css/changepassword.css
+scripts:
+  - /changepassword/scripts/changepassword.js
+---
+
+<!-- Password Protection Overlay -->
+<div id="authOverlay" class="auth-overlay">
+    <div class="auth-container">
+        <div class="lock-icon">&#128274;</div>
+        <div class="auth-title">Authentication Required</div>
+        <div class="auth-subtitle">Protected Area</div>
+
+        <div class="auth-form">
+            <input type="password" id="authPassword" placeholder="Enter password" autocomplete="off">
+            <button type="button" id="unlockBtn" class="unlock-btn">UNLOCK ACCESS</button>
+        </div>
+
+        <div id="authError" class="auth-error"></div>
+    </div>
+</div>
+
+<!-- Main Application (hidden initially) -->
+<div id="mainApp" class="main-app" style="display: none;">
+    <div class="container">
+        <div class="header">
+            <div class="lock-icon">&#128272;</div>
+            <h1>Change Password</h1>
+            <div class="subtitle">Update your protection password for Scarmonit tools</div>
+        </div>
+
+        <div id="message"></div>
+
+        <div class="info">
+            <strong>&#128203; Password Change Process:</strong><br>
+            Enter your current password, then set a new one. You'll be logged out after changing.
+        </div>
+
+        <div class="requirements">
+            <strong>&#128274; Password Requirements:</strong><br>
+            - Minimum 8 characters<br>
+            - Choose something secure and memorable<br>
+            - Password is stored locally in your browser
+        </div>
+
+        <form id="changeForm">
+            <div class="form-group">
+                <label for="currentPassword">Current Password</label>
+                <input type="password" id="currentPassword" required
+                       placeholder="Enter your current password">
+            </div>
+
+            <div class="form-group">
+                <label for="newPassword">New Password</label>
+                <input type="password" id="newPassword" required minlength="8"
+                       placeholder="Enter your new password (min 8 characters)">
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirm New Password</label>
+                <input type="password" id="confirmPassword" required minlength="8"
+                       placeholder="Confirm your new password">
+            </div>
+
+            <div class="form-group">
+                <label for="passwordHint">Password Hint (Optional)</label>
+                <input type="text" id="passwordHint" class="hint-input" maxlength="254"
+                       placeholder="Optional hint to help remember your password">
+            </div>
+
+            <button type="submit" id="changeBtn" class="btn">Change Password</button>
+            <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
+        </form>
+
+        <div class="nav-links">
+            <a href="/kpass">&#8592; Back to KPass</a>
+        </div>
+    </div>
+</div>

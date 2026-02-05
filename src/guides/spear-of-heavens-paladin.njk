@@ -1,0 +1,473 @@
+---
+layout: base.njk
+title: Spear of the Heavens Paladin Guide | D4 Season 11
+description: Complete Diablo 4 Spear of the Heavens Paladin guide for Season 11. Holy Judgement chain explosions. S-Tier push and bossing build.
+styles:
+  - /assets/css/guide.css
+---
+
+    <a href="/build-guides" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Build Guides
+    </a>
+
+    <header class="guide-hero">
+        <span class="badge">Season 11 - Divine Intervention</span>
+        <h1>Spear of the Heavens Paladin<span class="verified-badge">VERIFIED</span></h1>
+        <p class="subtitle">S-Tier Push Build - Holy Judgement Chain Explosions via Judicator Oath</p>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+        <button class="nav-tab" onclick="showTab('skills')">Skills</button>
+        <button class="nav-tab" onclick="showTab('gear')">Gear</button>
+        <button class="nav-tab" onclick="showTab('aspects')">Aspects & Tempering</button>
+        <button class="nav-tab" onclick="showTab('paragon')">Paragon</button>
+        <button class="nav-tab" onclick="showTab('gameplay')">Gameplay</button>
+    </div>
+
+    <div class="container">
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 1: OVERVIEW                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="overview" class="tab-content active">
+
+            <div class="section">
+                <h2>Build Summary</h2>
+                <p>The Spear of the Heavens Paladin is an S-Tier push and bossing build that weaponizes Judgement marks through the Judicator Oath. Spear of the Heavens applies Judgement to everything it hits, Blessed Hammer detonates those marks early for amplified damage, and the Seal of the Second Trumpet ring chains detonations across the screen. Once you reach critical mass with CDR and density, the explosions become self-perpetuating -- an unstoppable cascade of holy damage.</p>
+
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Tier</div>
+                        <div class="build-info-value" style="color: var(--gold);">S-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Playstyle</div>
+                        <div class="build-info-value">Judgement Chain / Holy Caster</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Best For</div>
+                        <div class="build-info-value">Push, Bossing</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Difficulty</div>
+                        <div class="build-info-value">
+                            Moderate
+                            <div class="difficulty-bar">
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Stat Targets</h2>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Cooldown Reduction</span><span>Critical Threshold</span></div><div class="stat-progress-bar"><div class="stat-progress-fill cdr"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Critical Strike Chance</span><span>Via Fanaticism Aura</span></div><div class="stat-progress-bar"><div class="stat-progress-fill crit"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Holy Damage</span><span>Stack Aggressively</span></div><div class="stat-progress-bar"><div class="stat-progress-fill dmg"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Attack Speed</span><span>Fanaticism Stacks</span></div><div class="stat-progress-bar"><div class="stat-progress-fill speed"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Maximum Life</span><span>High</span></div><div class="stat-progress-bar"><div class="stat-progress-fill life"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Armor &amp; Resistances</span><span>Via Defiance Aura</span></div><div class="stat-progress-bar"><div class="stat-progress-fill armor"></div></div></div>
+            </div>
+
+            <div class="section">
+                <h2>Strengths & Weaknesses</h2>
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>Strengths</h4>
+                        <ul>
+                            <li>Massive screen-clearing chain explosions</li>
+                            <li>Excellent AoE that scales with target density</li>
+                            <li>Minimal resource management</li>
+                            <li>Deeply satisfying chain-reaction gameplay</li>
+                            <li>Strong baseline with just Judicator Oath alone</li>
+                            <li>Seal of the Second Trumpet elevates damage ceiling dramatically</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>Weaknesses</h4>
+                        <ul>
+                            <li>Cooldown dependent -- must hit CDR thresholds</li>
+                            <li>Slower pace than Rogue or Spiritborn builds</li>
+                            <li>Middling baseline defenses</li>
+                            <li>Weaker single-target (fewer chain targets)</li>
+                            <li>SotH resets limited against bosses with no adds</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 2: SKILLS                              -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="skills" class="tab-content">
+
+            <div class="section">
+                <h2>Active Skills</h2>
+
+                <div class="skill-card">
+                    <div class="skill-icon">1</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Spear of the Heavens <span class="skill-tag">5/5</span> <span class="skill-tag">PRIMARY</span></div>
+                        <p class="skill-desc">Main damage dealer. Applies Judgement marks to all enemies hit. Enhanced SotH reduces its own cooldown on Judgement detonations, creating a feedback loop of faster recasts at high density.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">2</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Blessed Hammer <span class="skill-tag">1/5</span> <span class="skill-tag">JUDICATOR</span></div>
+                        <p class="skill-desc">Detonates Judgement marks early via Judicator Oath, dealing amplified damage. Cast while running between packs to trigger chain explosions without waiting for natural Judgement expiration.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">3</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Arbiter of Justice <span class="skill-tag">1/5</span> <span class="skill-tag">TRANSFORMATION</span></div>
+                        <p class="skill-desc">Transformation skill -- keep active permanently. Wing Strikes apply Judgement to nearby enemies passively, providing a constant stream of marks even when SotH is on cooldown.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">4</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Fanaticism Aura <span class="skill-tag">AURA</span></div>
+                        <p class="skill-desc">Grants stacking Crit Chance and Attack Speed per stack. A core offensive buff that should always be active. More attacks mean more Judgement applications and faster detonation cycles.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">5</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Defiance Aura <span class="skill-tag">AURA</span></div>
+                        <p class="skill-desc">Grants Armor, Resistances, Unstoppable, and Resolve. Your primary defensive layer. Keep active alongside Fanaticism at all times to maintain tankiness through dense packs.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">6</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Falling Star / Aegis <span class="skill-tag">FLEX</span></div>
+                        <p class="skill-desc">Falling Star provides mobility and repositioning. Aegis offers an extra Judgement application source and defensive utility. Choose based on content -- Falling Star for speed, Aegis for push.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Oath Selection</h2>
+                <div class="tier tier-s">
+                    <h4>Judicator Oath (Required)</h4>
+                    <ul>
+                        <li><strong>Judicator Oath</strong> -- The foundation of this entire build. Basic Skills apply Judgement to enemies. Judicator Skills (Blessed Hammer) detonate Judgement marks early, dealing significantly more damage than natural expiration. Every mechanic in the build revolves around applying and detonating Judgement as fast as possible.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Key Passives</h2>
+                <div class="tier tier-s">
+                    <h4>Core Passives</h4>
+                    <ul>
+                        <li><strong>Pronouncement of Heaven</strong> -- Increases Judgement damage and enhances holy skill interactions. Direct scaling for the build's primary mechanic.</li>
+                        <li><strong>Judgement Day</strong> -- When Judgement detonates, it spreads to nearby unmarked enemies. This is what enables the cascading chain reactions that define the build.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>Offensive Passives</h4>
+                    <ul>
+                        <li><strong>Master Craftwork</strong> -- Bonus damage scaling with skill ranks and gear quality</li>
+                        <li><strong>Heavyweight</strong> -- Increased damage to stunned and crowd-controlled enemies</li>
+                    </ul>
+                </div>
+                <div class="tier tier-b">
+                    <h4>Defensive Passives</h4>
+                    <ul>
+                        <li><strong>En Guarde</strong> -- Block chance and defensive scaling. Synergizes with shield and Paladin Guard tempering.</li>
+                        <li><strong>Shining Armor</strong> -- Armor bonus and damage reduction. Stacks with Defiance Aura for layered defense.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 3: GEAR                                -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gear" class="tab-content">
+
+            <div class="section">
+                <h2>Key Unique Items</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--red);">
+                    <div class="gear-slot-header"><span>RING - Seal of the Second Trumpet</span><span style="color: var(--red);">REQUIRED</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> The core unique of this build. Massively increases Judgement and Spear of the Heavens damage. When a Judgement mark detonates, it chains to additional enemies, creating cascading explosions across the entire screen. Without this ring, the build functions but lacks its defining chain mechanic.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>HELM - Judicant's Glaivehelm</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Enhances Judgement mechanics -- increases the damage, duration, and application rate of Judgement marks. Provides a substantial boost to the build's core loop by making every Judgement hit harder.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>WEAPON - Griswold's Opus</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Massive damage scaling that applies to all holy skills. The raw weapon damage and unique multiplier elevate Spear of the Heavens and Judgement detonation damage to push-viable levels.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--blue);">
+                    <div class="gear-slot-header"><span>SHIELD - Herald of Zakarum</span><span style="color: var(--blue);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Powerful shield bonuses including Block Chance, damage reduction, and Paladin-specific enhancements. Synergizes with En Guarde passive and Paladin Guard tempering for a layered defensive package.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Mythic Items</h2>
+                <p style="color: #a0a0a0; margin-bottom: 15px;">For pushing the highest Pit tiers, these Mythic uniques provide massive power spikes.</p>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>CHEST - Shroud of False Death</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Grants Stealth and Movement Speed. The defensive utility of Stealth lets you reposition safely in dangerous packs, while the Movement Speed keeps you mobile between Judgement chains. A strong survivability layer for push content.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>GLOVES - Heir of Perdition</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Grants massive Crit Chance and damage bonuses. Stacks multiplicatively with Fanaticism Aura crit stacks, pushing your critical hit rate toward cap and amplifying every Judgement detonation.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Runewords & Gems</h2>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Runewords</span></div>
+                    <div class="unique-effect">
+                        <strong>Helm:</strong> Ahu + Qax -- Defensive synergy for survivability in push content.<br>
+                        <strong>Chest:</strong> Yul + Ohm -- Offensive amplification that scales Judgement and SotH damage.
+                    </div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Gem Setup</span></div>
+                    <div class="unique-effect">
+                        <strong>Weapon:</strong> Grand Emerald -- Critical Strike Damage to Vulnerable enemies. Pairs with Judgement application for consistent Vuln uptime.<br>
+                        <strong>Armor:</strong> Grand Ruby -- Maximum Life for survivability. Essential for push content where one-shots are common.<br>
+                        <strong>Jewelry:</strong> Grand Diamond -- All Resistances for balanced elemental defense. Supplements Defiance Aura.
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 4: ASPECTS & TEMPERING                 -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="aspects" class="tab-content">
+
+            <div class="section">
+                <h2>Legendary Aspects</h2>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Amulet -- Aspect of the Golden Hour</span></div>
+                    <div class="unique-effect">When Judgement chains detonate, they trigger additional Judgement marks on nearby enemies. This creates a feedback loop where each chain spawns more chains, amplifying your AoE exponentially in dense packs.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Gloves -- Aspect of the Judicator</span></div>
+                    <div class="unique-effect">Enhances Judicator Oath interactions. Judicator Skills deal increased damage when detonating Judgement marks, directly scaling Blessed Hammer's detonation hits.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Chest -- Aspect of the Indomitable</span></div>
+                    <div class="unique-effect">Defensive aspect providing damage reduction and Fortify generation. Shores up the build's middling baseline defense for push content where survivability matters.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Ring -- Aspect of Holy Punishment</span></div>
+                    <div class="unique-effect">Increases Holy damage dealt to all enemies. A straightforward multiplicative damage increase that scales every Judgement detonation and Spear of the Heavens hit.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Weapon -- Aspect of Celestial Strife</span></div>
+                    <div class="unique-effect">Offensive aspect that boosts damage output during combat. Ramps quickly with the rapid hit rate of Judgement chains and SotH casts.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Helm -- Edgemaster's Aspect</span></div>
+                    <div class="unique-effect">Skills deal increased damage based on your available resources. Since this build has minimal resource spending, you stay near full resource for maximum benefit.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Boots -- Aspect of Ascension</span></div>
+                    <div class="unique-effect">Grants bonus Movement Speed and damage after using mobility skills. Pairs with Falling Star for repositioning between packs with a damage bonus on arrival.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Tempering Priorities</h2>
+
+                <div class="tier tier-s">
+                    <h4>S-TIER: Must Have</h4>
+                    <ul>
+                        <li><strong>Judgement Double Damage</strong> (Judgement Augments) -- Chance for Judgement detonations to deal double damage. The single highest-impact temper for this build since every chain can proc it independently.</li>
+                        <li><strong>Spear of the Heavens Size</strong> -- Increases the AoE of SotH, hitting more enemies per cast and applying more Judgement marks. More marks = more chains = more damage.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>A-TIER: High Priority</h4>
+                    <ul>
+                        <li><strong>Block Chance</strong> (En Garde / Paladin Guard) -- Defensive scaling that synergizes with Herald of Zakarum and En Guarde passive. Essential for push survivability.</li>
+                        <li><strong>Life on Hit</strong> -- Sustain healing that triggers on every Judgement detonation in the chain. With dozens of hits per second at critical mass, this becomes substantial recovery.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-b">
+                    <h4>B-TIER: Fill</h4>
+                    <ul>
+                        <li><strong>Condemn Size</strong> -- Increases the area of Condemn effects for broader Judgement application and detonation range.</li>
+                        <li><strong>Cooldown Reduction</strong> -- Helps hit CDR thresholds for SotH reset loops. Less critical once you reach critical mass but still valuable.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 5: PARAGON                             -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="paragon" class="tab-content">
+
+            <div class="section">
+                <h2>Paragon Board Order</h2>
+                <p>Attach boards in this exact order. Each board's glyph is listed below -- level glyphs to 15 first, then push to 21 for radius bonus.</p>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Starting Board</span>
+                        <span class="paragon-board-order">Board 1</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Law</span> -- Foundational glyph that scales Paladin law and aura effectiveness. Boosts both Fanaticism and Defiance Aura output from the start.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Castle</span>
+                        <span class="paragon-board-order">Board 2</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Spirit</span> -- Increases holy and spirit damage. Direct scaling for Spear of the Heavens and all Judgement detonation damage in the chain.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Relentless</span>
+                        <span class="paragon-board-order">Board 3</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Judicator</span> -- The build-defining glyph. Massively amplifies Judicator Skill damage and Judgement detonation effects. Priority level to 21.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Preacher</span>
+                        <span class="paragon-board-order">Board 4</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Honed</span> -- Critical Strike Damage bonus that scales with surrounding nodes. Amplifies the burst potential of every Judgement chain crit.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Beacon / Shield Bearer</span>
+                        <span class="paragon-board-order">Board 5</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Resplendence / Challenger</span> -- Choose Beacon with Resplendence for holy damage amplification in push, or Shield Bearer with Challenger for defensive scaling and Block synergies.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 6: GAMEPLAY                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gameplay" class="tab-content">
+
+            <div class="section">
+                <h2>Rotation</h2>
+                <ol class="rotation-steps">
+                    <li class="rotation-step">
+                        <p><strong>Activate Arbiter of Justice</strong> -- Transform immediately and keep this active permanently. Wing Strikes passively apply Judgement to nearby enemies, seeding marks even when your other skills are on cooldown.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Spear of the Heavens</strong> -- Cast when available. This is your primary damage skill and Judgement mark applicator. Each hit marks every enemy in its area, setting up the chain reaction.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Blessed Hammer while moving</strong> -- Cast between packs or during SotH cooldown. Judicator Oath causes Blessed Hammer to detonate all active Judgement marks early for amplified damage, triggering the chain.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Maintain Auras</strong> -- Keep both Fanaticism Aura (Crit + Attack Speed) and Defiance Aura (Armor + Resistances + Unstoppable) active at all times. These are your permanent offensive and defensive buffers.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Judgement Day spreads marks</strong> -- The Judgement Day passive causes detonating marks to spread to nearby unmarked enemies. Combined with Seal of the Second Trumpet chains, this creates screen-wide cascading explosions.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Golden Hour feedback loop</strong> -- Aspect of the Golden Hour triggers additional Judgement marks from chain detonations. Each wave of explosions seeds the next wave, creating exponential damage scaling in dense packs.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Enhanced SotH cooldown reset</strong> -- Each Judgement detonation reduces Spear of the Heavens' cooldown. In dense packs, the chain reactions reduce SotH cooldown to near-zero, allowing constant recasting.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Critical mass -- self-perpetuating chains</strong> -- At sufficient density and CDR, the loop becomes self-sustaining: SotH marks &rarr; Blessed Hammer detonates &rarr; chains spread &rarr; Golden Hour re-marks &rarr; SotH resets &rarr; repeat. Your job is just to keep moving into packs.</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>Gameplay Tips</h2>
+
+                <div class="tip-card">
+                    <strong>Arbiter of Justice is non-negotiable.</strong>
+                    <p>If the transformation drops off, you lose passive Judgement application from Wing Strikes. This creates gaps in your chain reactions. Reactivate immediately if it expires.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>CDR thresholds matter more than raw damage.</strong>
+                    <p>The build's power scales exponentially with Cooldown Reduction because faster SotH recasts mean more marks, more detonations, and more resets. Prioritize CDR on gear until the chain loop feels smooth.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Blessed Hammer is your detonator, not your damage skill.</strong>
+                    <p>Do not invest heavily in Blessed Hammer damage. Its role is purely to trigger Judicator Oath detonations. The damage comes from the Judgement explosions themselves, scaled by your holy damage and Judgement-specific bonuses.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Boss fights require patience.</strong>
+                    <p>Without add density, chain reactions are limited. Against solo bosses, focus on applying marks with SotH and Arbiter Wing Strikes, then detonate with Blessed Hammer. The damage is still strong but lacks the exponential AoE scaling of pack fights.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Seal of the Second Trumpet is the power spike.</strong>
+                    <p>The build works without it -- Judicator Oath alone provides a solid foundation. But the Seal of the Second Trumpet ring transforms the build from "good" to "S-Tier" by enabling the chain detonation mechanic that defines this playstyle.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Position for density.</strong>
+                    <p>In the Pit and Nightmare Dungeons, group enemies tightly before unloading SotH. The more targets marked, the more devastating the chain reaction. Use Falling Star to reposition into the center of packs for maximum mark coverage.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="/assets/js/guide.js"></script>

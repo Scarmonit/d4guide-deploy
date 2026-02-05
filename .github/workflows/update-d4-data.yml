@@ -1,0 +1,67 @@
+name: Update D4 API Data
+
+on:
+  schedule:
+    # Run every Monday at 9:00 AM UTC
+    - cron: "0 9 * * 1"
+  workflow_dispatch:
+    inputs:
+      scripts:
+        description: 'Which scripts to run (all, tierlist, d4data, maxroll, builds)'
+        required: false
+        default: 'all'
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Run data ingestion
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          D1_DATABASE_ID: ${{ secrets.D1_DATABASE_ID }}
+          CLOUDFLARE_D1_TOKEN: ${{ secrets.CLOUDFLARE_D1_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          SCRIPT="${{ github.event.inputs.scripts || 'all' }}"
+
+          if [ "$SCRIPT" = "all" ]; then
+            node scripts/ingest.js
+          elif [ "$SCRIPT" = "tierlist" ]; then
+            node scripts/ingest-tierlist.js
+          elif [ "$SCRIPT" = "d4data" ]; then
+            node scripts/ingest-d4data.js
+          elif [ "$SCRIPT" = "maxroll" ]; then
+            node scripts/ingest-maxroll.js
+          elif [ "$SCRIPT" = "builds" ]; then
+            node scripts/ingest-builds.js
+          else
+            echo "Unknown script: $SCRIPT"
+            exit 1
+          fi
+
+      - name: Verify data
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          D1_DATABASE_ID: ${{ secrets.D1_DATABASE_ID }}
+          CLOUDFLARE_D1_TOKEN: ${{ secrets.CLOUDFLARE_D1_TOKEN }}
+        run: |
+          node -e "
+            const { d1Execute } = require('./scripts/d1-client.js');
+            (async () => {
+              const tables = ['tier_list', 'builds', 'items', 'skills', 'aspects'];
+              for (const t of tables) {
+                const r = await d1Execute('SELECT COUNT(*) as count FROM ' + t);
+                console.log(t + ': ' + r[0].results[0].count + ' rows');
+              }
+            })().catch(e => { console.error(e); process.exit(1); });
+          "

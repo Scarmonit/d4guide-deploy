@@ -1,0 +1,11 @@
+node_modules/
+_site/
+.wrangler/
+.DS_Store
+dist/
+coverage/
+.env
+.context_engine_cache.json
+.context_engine_embedding_meta.json
+.context_engine_embeddings.npy
+nul

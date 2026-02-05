@@ -1,0 +1,15 @@
+name = "d4guide"
+pages_build_output_dir = "./_site"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+# R2 Bucket Binding for file uploads
+[[r2_buckets]]
+binding = "UPLOADS"
+bucket_name = "scarmonit-downloads"
+
+# D1 Database for D4 API
+[[d1_databases]]
+binding = "DB"
+database_name = "d4-api"
+database_id = "ed60ec22-51d3-42db-b212-2479e3cca245"

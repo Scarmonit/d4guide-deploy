@@ -1,0 +1,644 @@
+---
+layout: base.njk
+title: Shadowblight Necromancer Guide | D4 Season 11
+description: Complete Diablo 4 Shadowblight Necromancer guide for Season 11. Shadow DoT build with skills, gear, paragon, aspects. S-Tier speed and AoE.
+styles:
+  - /assets/css/guide.css
+---
+
+    <a href="/build-guides" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to All Guides
+    </a>
+
+    <header class="guide-hero">
+        <span class="badge">Season 11 - Divine Intervention</span>
+        <h1>Shadowblight Necromancer<span class="verified-badge">S-TIER</span></h1>
+        <p class="subtitle">Shadow DoT Build -- Stack Hits, Proc Shadowblight, Obliterate Everything</p>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+        <button class="nav-tab" onclick="showTab('skills')">Skills & Passives</button>
+        <button class="nav-tab" onclick="showTab('gear')">Gear & Aspects</button>
+        <button class="nav-tab" onclick="showTab('temper')">Tempering</button>
+        <button class="nav-tab" onclick="showTab('paragon')">Paragon</button>
+        <button class="nav-tab" onclick="showTab('gameplay')">Gameplay</button>
+    </div>
+
+    <div class="container">
+
+        <!-- ============================================================ -->
+        <!-- TAB 1: OVERVIEW                                              -->
+        <!-- ============================================================ -->
+        <div id="overview" class="tab-content active">
+
+            <div class="section">
+                <h2>Build Summary</h2>
+                <p>The Shadowblight Necromancer is an S-Tier Shadow damage-over-time build that excels at AoE clear and speedfarming. The core mechanic revolves around landing <strong>8 Shadow damage instances within 2 seconds</strong> to trigger the Shadowblight passive, dealing massive bonus damage based on your weapon damage and Shadow multipliers. You sacrifice all minions via Book of the Dead for the Stand Alone damage reduction bonus, making this a solo-caster playstyle that is deceptively tanky.</p>
+                <p>Blight pools, Blighted Corpse Explosions, Corpse Tendrils, and Soulrift all stack Shadow hits rapidly, triggering Shadowblight procs constantly in grouped content. The Blighted Aspect then amplifies each proc by 70%, creating exponential scaling as you add more Attack Speed and Shadow damage sources.</p>
+
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Tier</div>
+                        <div class="build-info-value" style="color: #fbbf24;">S-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Class</div>
+                        <div class="build-info-value">Necromancer</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Damage Type</div>
+                        <div class="build-info-value" style="color: #a855f7;">Shadow</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Playstyle</div>
+                        <div class="build-info-value">Speed / AoE</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Difficulty</div>
+                        <div class="build-info-value">
+                            <div class="difficulty-bar">
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Minions</div>
+                        <div class="build-info-value" style="color: var(--red);">All Sacrificed</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Core Mechanic: Shadowblight</h2>
+                <p>The Shadowblight passive triggers after <strong>8 Shadow damage instances</strong> hit an enemy within a 2-second window. When it procs, it deals a massive burst of Shadow damage based on your <strong>weapon damage multiplied by your total Shadow damage %</strong>.</p>
+                <p>The key insight is that Shadowblight counts <strong>hits per second</strong>, not big individual hits. Every Blight tick, every Corpse Explosion hit, every Soulrift pulse -- they all count as separate Shadow instances. This means Attack Speed, multi-hit skills, and overlapping AoE are far more valuable than raw per-hit damage.</p>
+                <p>The <strong>Blighted Aspect</strong> amplifies this further by granting a <strong>70% damage multiplier per Shadowblight proc</strong>, which stacks in dense packs where you are triggering procs on multiple enemies simultaneously.</p>
+
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Hits Required</div>
+                        <div class="build-info-value" style="color: var(--gold);">8 Shadow Hits</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Window</div>
+                        <div class="build-info-value">2 Seconds</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Scales With</div>
+                        <div class="build-info-value">Weapon Dmg x Shadow %</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Blighted Bonus</div>
+                        <div class="build-info-value" style="color: var(--green);">+70%[x] per Proc</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Stat Targets</h2>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Shadow Damage %</span><span>Max Priority</span></div><div class="stat-progress-bar"><div class="stat-progress-fill dmg"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Attack Speed</span><span>High Priority</span></div><div class="stat-progress-bar"><div class="stat-progress-fill speed"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Critical Strike Chance</span><span>60%+</span></div><div class="stat-progress-bar"><div class="stat-progress-fill crit" style="width:60%"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Cooldown Reduction</span><span>40%+</span></div><div class="stat-progress-bar"><div class="stat-progress-fill cdr" style="width:55%"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Maximum Life</span><span>10,000+</span></div><div class="stat-progress-bar"><div class="stat-progress-fill life" style="width:70%"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Armor / Resistances</span><span>DR from Stand Alone</span></div><div class="stat-progress-bar"><div class="stat-progress-fill armor" style="width:65%"></div></div></div>
+            </div>
+
+            <div class="section">
+                <h2>Strengths & Weaknesses</h2>
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>Strengths</h4>
+                        <ul>
+                            <li>No mandatory uniques for baseline function</li>
+                            <li>Excellent crowd control and survivability</li>
+                            <li>Scales exponentially with Shadow % and Attack Speed</li>
+                            <li>Outstanding AoE clear for speedfarming</li>
+                            <li>Very strong in grouped/dense content</li>
+                            <li>Stand Alone provides massive DR without minions</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>Weaknesses</h4>
+                        <ul>
+                            <li>Needs corpses to function -- struggles without initial kills</li>
+                            <li>Weaker vs highly mobile single-target bosses</li>
+                            <li>Ramp-up time for first Shadowblight proc (~2 sec)</li>
+                            <li>Essence management required during extended fights</li>
+                            <li>Corpse Tendrils downtime leaves gaps in CC</li>
+                            <li>Less effective in sparse open-world encounters</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- TAB 2: SKILLS & PASSIVES                                     -->
+        <!-- ============================================================ -->
+        <div id="skills" class="tab-content">
+
+            <div class="section">
+                <h2>Active Skills</h2>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(168, 85, 247, 0.2); color: #a855f7;">1</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Reap (1/5)<span class="skill-tag">Basic</span></div>
+                        <p class="skill-desc"><strong>Enhanced Reap</strong> &rarr; <strong>Acolyte's Reap</strong> -- Your corpse generator and utility skill. Enhanced Reap generates corpses on hit. Acolyte's Reap grants damage reduction for 2 seconds after hitting an enemy, plus a stacking attack speed buff. Use every 3-4 seconds to maintain the DR and attack speed bonuses. Only needs 1 point since you use it for utility, not damage.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(168, 85, 247, 0.3); color: #c084fc;">2</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Blight (5/5)<span class="skill-tag">Core</span></div>
+                        <p class="skill-desc"><strong>Enhanced Blight</strong> &rarr; <strong>Paranormal Blight</strong> -- Launches a Shadow projectile that leaves a damaging pool on the ground. Each tick of the pool counts as a separate Shadow hit for Shadowblight stacking. Enhanced Blight slows enemies standing in the pool. Paranormal Blight makes enemies in the pool take increased Shadow damage. Max rank for maximum tick damage and pool duration. This is your primary Shadowblight stacker alongside Corpse Explosion.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(239, 68, 68, 0.2); color: #ef4444;">3</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Corpse Explosion (1/5)<span class="skill-tag">Corpse</span></div>
+                        <p class="skill-desc"><strong>Enhanced Corpse Explosion</strong> &rarr; <strong>Blighted Corpse Explosion</strong> -- Your primary damage skill. Enhanced Corpse Explosion increases the explosion radius. Blighted Corpse Explosion converts the damage to Shadow and leaves a Blight-like pool, giving you even more Shadow ticks per corpse consumed. In dense packs, chaining explosions triggers multiple Shadowblight procs simultaneously. Only 1 point needed -- damage scales from Shadowblight procs and multipliers, not base skill rank.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(45, 212, 191, 0.2); color: #2dd4bf;">4</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Corpse Tendrils (1/5)<span class="skill-tag">Corpse</span></div>
+                        <p class="skill-desc"><strong>Enhanced Corpse Tendrils</strong> &rarr; <strong>Plagued Corpse Tendrils</strong> -- Your crowd control pull. Consumes a corpse to spawn tendrils that pull enemies together and stun them. Enhanced adds slow. Plagued Corpse Tendrils applies Vulnerable to pulled enemies. Grouping enemies is critical for maximizing Shadowblight procs -- the tighter the pack, the more Shadow ticks overlap, the faster you hit 8 stacks on every target. 1 point is sufficient for the CC utility.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(212, 175, 55, 0.25); color: #d4af37;">5</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Soulrift (5/5)<span class="skill-tag">Ultimate</span></div>
+                        <p class="skill-desc"><strong>Prime Soulrift</strong> &rarr; <strong>Supreme Soulrift</strong> -- Your Ultimate ability. Creates a massive Shadow vortex that damages enemies, regenerates Essence, and applies Vulnerable. Prime Soulrift grants you damage reduction while active. Supreme Soulrift extends the duration per kill. Use on cooldown -- it provides Essence sustain, Vulnerable application, additional Shadow ticks for Shadowblight, and survivability all in one skill. Max rank for maximum damage and duration.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(107, 114, 128, 0.2); color: #9ca3af;">6</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Decrepify (1/5)<span class="skill-tag">Curse</span></div>
+                        <p class="skill-desc"><strong>Enhanced Decrepify</strong> &rarr; <strong>Abhorrent Decrepify</strong> -- Your curse for slowing and debuffing enemies. Enhanced Decrepify reduces the damage cursed enemies deal. Abhorrent Decrepify grants cooldown reduction when cursed enemies die. With the Aspect of the Cursed Aura equipped, you do not need to manually cast this -- it auto-applies to nearby enemies, giving you a permanent slow and CDR engine. 1 point for the utility.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Key Passives</h2>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(168, 85, 247, 0.3); color: #c084fc;">P</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Shadowblight<span class="skill-tag">KEY PASSIVE</span></div>
+                        <p class="skill-desc">The build-defining passive. Shadow damage hits against enemies count toward a stack of 8. Upon reaching 8 stacks within 2 seconds, a massive Shadow damage proc occurs. This is where all your damage comes from -- everything else in the build exists to stack hits faster and amplify this proc.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(0, 0, 0, 0.3); color: #e8e8e8;">P</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Stand Alone<span class="skill-tag">DEFENSIVE</span></div>
+                        <p class="skill-desc">Gain up to 15% damage reduction for each sacrificed minion type. With all three minion types sacrificed (Skeletal Warriors, Skeletal Mages, Golem), you gain massive DR that replaces the need for minion-based defenses entirely. This is why we sacrifice all minions in Book of the Dead.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(0, 0, 0, 0.3); color: #e8e8e8;">P</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Supporting Passives</div>
+                        <p class="skill-desc">
+                            <strong>Hewed Flesh</strong> -- Chance to create a corpse on hit, ensuring you always have corpses for Corpse Explosion and Corpse Tendrils even without killing blows.<br>
+                            <strong>Memento Mori</strong> -- Bonus damage for each sacrificed minion type, stacking with Stand Alone for a full sacrifice synergy.<br>
+                            <strong>Gloom</strong> -- Shadow damage reduction to enemies, effectively a multiplicative debuff on all enemies you hit with Shadow skills.<br>
+                            <strong>Terror</strong> -- Enemies affected by your Darkness skills (Shadow) deal less damage and have reduced movement speed.<br>
+                            <strong>Fueled by Death</strong> -- After consuming a corpse, gain increased damage for a short duration. This is always active since you constantly use Corpse Explosion and Corpse Tendrils.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Book of the Dead -- Sacrifice All</h2>
+                <p>This build sacrifices all three minion types. No minions are active. Stand Alone and Memento Mori passives provide massive bonuses for each sacrificed type.</p>
+
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Skeletal Warriors</div>
+                        <div class="build-info-value" style="color: #a855f7;">Reapers -- Sacrifice</div>
+                        <p style="color: #a0a0a0; font-size: 0.8rem; margin-top: 5px;">Bonus Shadow damage dealt</p>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Skeletal Mages</div>
+                        <div class="build-info-value" style="color: #3b82f6;">Cold Mages -- Sacrifice</div>
+                        <p style="color: #a0a0a0; font-size: 0.8rem; margin-top: 5px;">Bonus Vulnerable damage</p>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Golem</div>
+                        <div class="build-info-value" style="color: #6b7280;">Iron Golem -- Sacrifice</div>
+                        <p style="color: #a0a0a0; font-size: 0.8rem; margin-top: 5px;">Bonus Critical Strike Chance</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- TAB 3: GEAR & ASPECTS                                        -->
+        <!-- ============================================================ -->
+        <div id="gear" class="tab-content">
+
+            <div class="section">
+                <h2>Unique Items</h2>
+
+                <!-- Blood Moon Breeches -->
+                <div class="gear-slot-card" style="border-left-color: var(--red);">
+                    <div class="gear-slot-header"><span>PANTS -- Blood Moon Breeches</span><span style="color:var(--red);">NEAR-MANDATORY</span></div>
+                    <div class="stat-row"><span>Damage to Crowd Controlled</span><span class="stat-value-calc">[18-25%]</span></div>
+                    <div class="stat-row"><span>Damage Reduction</span><span class="stat-value-calc">[5-12%]</span></div>
+                    <div class="stat-row"><span>Maximum Life</span><span class="stat-value-calc">[600-900]</span></div>
+                    <div class="unique-effect"><strong>Unique Effect:</strong> Your Minion and Curse Skills deal +50%[x] increased Critical Strike Damage. Since Corpse Explosion and Decrepify both benefit, this is a massive 50% Crit Damage multiplier for your two most-used damage sources. Essentially mandatory for pushing.</div>
+                </div>
+
+                <!-- Ebonpiercer -->
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>RING -- Ebonpiercer</span><span style="color:var(--gold);">UNIQUE</span></div>
+                    <div class="stat-row"><span>Shadow Damage</span><span class="stat-value-calc">[12-18%]</span></div>
+                    <div class="stat-row"><span>Critical Strike Chance</span><span class="stat-value-calc">[3-5%]</span></div>
+                    <div class="stat-row"><span>Vulnerable Damage</span><span class="stat-value-calc">[10-18%]</span></div>
+                    <div class="unique-effect"><strong>Unique Effect:</strong> Blight pierces through enemies and has a chance to trigger additional Shadowblight procs on pierced targets. This effectively doubles your Shadowblight proc rate in packs, since each pierced enemy accumulates stacks independently. Best-in-slot ring for this build.</div>
+                </div>
+
+                <h3>Mythic Uniques (Endgame / Best-in-Slot)</h3>
+
+                <!-- Heir of Perdition -->
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>HELM -- Heir of Perdition</span><span style="color:var(--purple);">MYTHIC</span></div>
+                    <div class="stat-row"><span>Critical Strike Chance</span><span class="stat-value-calc">+20%</span></div>
+                    <div class="stat-row"><span>Damage to Angels/Demons</span><span class="stat-value-calc">+200%</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> +60%[x] Damage. Steal Lilith's Favor. Best generic helm for any build -- the flat 60% damage multiplier and 20% Crit Chance are unmatched.</div>
+                </div>
+
+                <!-- Shroud of False Death -->
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>CHEST -- Shroud of False Death</span><span style="color:var(--purple);">MYTHIC</span></div>
+                    <div class="stat-row"><span>+All Passive Ranks</span><span class="stat-value-calc">+1</span></div>
+                    <div class="stat-row"><span>All Stats</span><span class="stat-value-calc">+160</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Gain Stealth and 40% Movement Speed when not attacking. Excellent for repositioning between packs. The +1 All Passives boosts Shadowblight, Stand Alone, and every other passive simultaneously.</div>
+                </div>
+
+                <!-- The Grandfather -->
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>WEAPON -- The Grandfather</span><span style="color:var(--purple);">MYTHIC</span></div>
+                    <div class="stat-row"><span>Weapon Damage</span><span class="stat-value-calc">Highest in Game</span></div>
+                    <div class="stat-row"><span>Critical Strike Damage</span><span class="stat-value-calc">[76-100%]</span></div>
+                    <div class="stat-row"><span>All Stats</span><span class="stat-value-calc">[60-100]</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> +100%[x] Damage. The single highest weapon damage value in the game. Since Shadowblight procs scale off weapon damage, The Grandfather is the ultimate endgame weapon for this build.</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Legendary Aspects</h2>
+                <p>These are the core aspects that make the build function. Slot placement matters -- amulets get 50% bonus to aspect values.</p>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>WEAPON -- Blighted Aspect</span><span style="color: var(--gold);">CORE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> You deal +70%[x] increased damage for 6 seconds after Shadowblight deals damage. This is the single most important aspect in the build. Every Shadowblight proc refreshes a 70% damage multiplier. In dense packs where procs are constant, this is always active.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>HELM -- Aspect of the Cursed Aura</span><span style="color: var(--gold);">UTILITY</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Decrepify automatically applies to enemies near you. Frees up an entire skill input -- you never need to manually cast Decrepify. Enemies are always slowed, always debuffed, and Abhorrent Decrepify CDR triggers automatically on kills.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>GLOVES -- Aspect of Grasping Veins</span><span style="color: var(--gold);">DAMAGE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Gain increased Critical Strike Chance for 6 seconds when enemies are affected by Corpse Tendrils. Also increases Crit Damage to enemies inside the tendrils. Since Corpse Tendrils groups everything before you Corpse Explode, this ensures your explosions crit on the pulled pack.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>AMULET -- Aspect of Decay</span><span style="color: var(--gold);">DAMAGE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Increases Shadow damage dealt. Place on amulet for the 50% aspect bonus. This is a direct Shadow damage multiplier that scales Shadowblight procs, Blight pools, Blighted Corpse Explosions, and Soulrift all at once. Core multiplier for the entire build.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>RING 1 -- Aspect of the Damned</span><span style="color: var(--gold);">DAMAGE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Cursed enemies (via Decrepify) take increased Shadow damage. Since Cursed Aura auto-applies Decrepify to everything, this is a permanent multiplicative Shadow damage buff against all enemies near you. Stacks with Aspect of Decay for double Shadow scaling.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>RING 2 -- Sacrificial Aspect</span><span style="color: var(--gold);">DAMAGE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Gain bonus damage for each type of minion you have sacrificed. With all three types sacrificed (Warriors, Mages, Golem), this provides a substantial flat damage increase that synergizes with Stand Alone and Memento Mori for the full sacrifice package.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>BOOTS -- Aspect of Metamorphosis</span><span style="color: var(--gold);">DEFENSIVE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> When you use Evade, you become Unstoppable for a short duration. Critical for escaping Crowd Control in Pit pushes and Nightmare Dungeons. Necromancer has limited Unstoppable access, making this aspect nearly mandatory for endgame content.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>CHEST -- Aspect of Hardened Bones</span><span style="color: var(--gold);">DEFENSIVE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> While you have no active minions, gain increased Damage Reduction. Stacks with Stand Alone for layered DR. Since all minions are sacrificed, this aspect is permanently active and provides a significant survivability boost.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- TAB 4: TEMPERING                                             -->
+        <!-- ============================================================ -->
+        <div id="temper" class="tab-content">
+
+            <div class="section">
+                <h2>Tempering Priority</h2>
+                <p>Tempering adds specific affixes to your gear that cannot roll naturally. These are critical for reaching stat breakpoints. Focus on Soulrift Duration first for ultimate uptime, then offensive multipliers.</p>
+
+                <div class="tier tier-s">
+                    <h4>S-TIER: Temper First</h4>
+                    <ul>
+                        <li><strong>Soulrift Duration (Decay Innovation):</strong> Extends your Ultimate uptime significantly. More Soulrift time = more Shadow ticks, more Essence regen, more Vulnerable. This is your highest-value temper.</li>
+                        <li><strong>Shadow Damage (Decay Innovation):</strong> Direct multiplier to all Shadow skills and Shadowblight procs. Scales everything in the build.</li>
+                        <li><strong>Vulnerable Damage:</strong> With Soulrift, Corpse Tendrils, and Cold Mage sacrifice all applying Vulnerable, this stat has near-100% uptime. Huge multiplier.</li>
+                    </ul>
+                </div>
+
+                <div class="tier tier-a">
+                    <h4>A-TIER: High Priority</h4>
+                    <ul>
+                        <li><strong>Maximum Life:</strong> Your primary defensive stat alongside Stand Alone DR. Target 10,000+ for comfortable Pit pushing.</li>
+                        <li><strong>Corpse Tendrils Size:</strong> Larger pull radius means tighter grouping, which means more overlapping Shadow ticks per target, faster Shadowblight procs.</li>
+                        <li><strong>Attack Speed:</strong> More hits per second = faster Shadowblight stacking. Affects Blight cast speed, Reap speed, and Corpse Explosion animation speed.</li>
+                    </ul>
+                </div>
+
+                <div class="tier tier-b">
+                    <h4>B-TIER: Fill Remaining Slots</h4>
+                    <ul>
+                        <li><strong>Critical Strike Chance:</strong> Important until you reach 60%+ with gear and Iron Golem sacrifice bonus. Aspect of Grasping Veins covers the rest.</li>
+                        <li><strong>Cooldown Reduction:</strong> Reduces Soulrift and Corpse Tendrils cooldowns. Abhorrent Decrepify CDR on kill covers a lot, but more CDR is always valuable.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Tempering by Slot</h2>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Weapon</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Shadow Damage (Decay Innovation)</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Vulnerable Damage</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Helm</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Cooldown Reduction</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Maximum Life</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Chest</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Maximum Life</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Corpse Tendrils Size</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Gloves</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Attack Speed</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Critical Strike Chance</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Pants</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Maximum Life</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Shadow Damage</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Boots</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Soulrift Duration (Decay Innovation)</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Movement Speed</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Amulet</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Cooldown Reduction</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Shadow Damage</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Rings</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Vulnerable Damage</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Critical Strike Chance</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- TAB 5: PARAGON                                               -->
+        <!-- ============================================================ -->
+        <div id="paragon" class="tab-content">
+
+            <div class="section">
+                <h2>Paragon Board Order</h2>
+                <p>Attach boards in this order. Route through nodes that give Intelligence, Shadow damage, and damage reduction. Socket the listed Glyph in each board's Glyph socket once it reaches level 15 for the bonus radius.</p>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">1. Starting Board</span>
+                        <span class="paragon-board-order">Board 1</span>
+                    </div>
+                    <p style="color: #c0c0c0; margin: 0;">Glyph: <span class="glyph-name">Eliminator</span></p>
+                    <p style="color: #a0a0a0; font-size: 0.85rem; margin-top: 8px;">Eliminator increases damage to injured and crowd-controlled enemies. Since Corpse Tendrils stuns everything and Decrepify slows, this glyph has near-100% uptime. Route toward the Rare nodes that grant damage to Vulnerable enemies.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">2. Scent of Death</span>
+                        <span class="paragon-board-order">Board 2</span>
+                    </div>
+                    <p style="color: #c0c0c0; margin: 0;">Glyph: <span class="glyph-name">Sacrificial</span></p>
+                    <p style="color: #a0a0a0; font-size: 0.85rem; margin-top: 8px;">Sacrificial grants bonus damage per sacrificed minion type. With all three types sacrificed, this is one of the strongest glyphs for this build. The Scent of Death board has nodes that boost damage after consuming corpses, synergizing with your constant Corpse Explosion usage.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">3. Blood Begets Blood</span>
+                        <span class="paragon-board-order">Board 3</span>
+                    </div>
+                    <p style="color: #c0c0c0; margin: 0;">Glyph: <span class="glyph-name">Essence</span></p>
+                    <p style="color: #a0a0a0; font-size: 0.85rem; margin-top: 8px;">Essence glyph increases damage based on your current Essence amount. With Soulrift regenerating Essence constantly, you maintain high Essence for the damage bonus. This board provides additional life and damage nodes that shore up survivability in the mid-game Paragon range.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">4. Wither</span>
+                        <span class="paragon-board-order">Board 4</span>
+                    </div>
+                    <p style="color: #c0c0c0; margin: 0;">Glyph: <span class="glyph-name">Gravekeeper</span></p>
+                    <p style="color: #a0a0a0; font-size: 0.85rem; margin-top: 8px;">Gravekeeper grants bonus damage after consuming a corpse. Since you consume corpses every few seconds (Corpse Explosion, Corpse Tendrils), this buff is permanently active. The Wither board has Legendary node bonuses to Shadow DoT damage that directly scale Blight pools and Shadowblight procs.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">5. Frailty</span>
+                        <span class="paragon-board-order">Board 5</span>
+                    </div>
+                    <p style="color: #c0c0c0; margin: 0;">Glyph: <span class="glyph-name">Abyssal</span></p>
+                    <p style="color: #a0a0a0; font-size: 0.85rem; margin-top: 8px;">Abyssal increases Shadow damage and provides damage reduction against Shadow-afflicted enemies. The Frailty board's Legendary node applies a damage debuff to cursed enemies, which stacks with Decrepify and Aspect of the Damned for triple-layered curse scaling.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Paragon Stat Priority</h2>
+                <div class="tier tier-s">
+                    <h4>Priority Nodes</h4>
+                    <ul>
+                        <li><strong>Shadow Damage %</strong> -- Direct scaling for all damage and Shadowblight procs</li>
+                        <li><strong>Damage to Vulnerable</strong> -- High uptime via Soulrift and Corpse Tendrils</li>
+                        <li><strong>Damage Reduction</strong> -- Layers with Stand Alone and Hardened Bones</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>Secondary Nodes</h4>
+                    <ul>
+                        <li><strong>Intelligence</strong> -- Necromancer primary stat, boosts skill damage and resistances</li>
+                        <li><strong>Maximum Life</strong> -- Survivability for Pit pushing</li>
+                        <li><strong>Non-Physical Damage</strong> -- Applies to Shadow damage</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- TAB 6: GAMEPLAY                                              -->
+        <!-- ============================================================ -->
+        <div id="gameplay" class="tab-content">
+
+            <div class="section">
+                <h2>Combat Rotation</h2>
+                <p>The rotation is straightforward once you internalize the corpse economy. Your goal is to generate corpses, group enemies, and saturate them with Shadow hits to trigger Shadowblight procs as fast as possible.</p>
+
+                <ol class="rotation-steps">
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong style="color: #d4af37;">Soulrift on Cooldown</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.85rem;">Cast Soulrift whenever it is available. It applies Vulnerable to all enemies in range, regenerates your Essence, provides DR, and generates Shadow ticks that count toward Shadowblight stacking. This is your opener for every pack and your sustain tool during extended fights.</p>
+                        </div>
+                    </li>
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong style="color: #d4af37;">Reap Once for Corpse</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.85rem;">Use Reap on any enemy to generate an initial corpse. Enhanced Reap guarantees a corpse on hit. This also activates Acolyte's Reap DR and attack speed buffs. One swing is enough -- do not spam Reap.</p>
+                        </div>
+                    </li>
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong style="color: #d4af37;">Corpse Tendrils to Pull + CC</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.85rem;">Consume a corpse with Corpse Tendrils to pull all nearby enemies into a tight group and stun them. Plagued Corpse Tendrils applies Vulnerable (stacking with Soulrift). Aspect of Grasping Veins grants Crit Chance against the pulled enemies. This is your setup step -- everything that follows hits harder because of it.</p>
+                        </div>
+                    </li>
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong style="color: #d4af37;">Spam Corpse Explosion</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.85rem;">With enemies grouped and Vulnerable, spam Corpse Explosion on every available corpse. Blighted Corpse Explosion converts all damage to Shadow and leaves Shadow pools. Each explosion counts as multiple Shadow hits across all enemies in range, rapidly stacking Shadowblight. In dense packs, 2-3 explosions trigger the first proc.</p>
+                        </div>
+                    </li>
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong style="color: #d4af37;">Weave Blight Between Explosions</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.85rem;">Cast Blight between Corpse Explosions to drop Shadow pools that tick continuously. Paranormal Blight makes enemies standing in pools take increased Shadow damage. The persistent ticks help maintain Shadowblight stacks on enemies that survive the initial burst and contribute to subsequent procs.</p>
+                        </div>
+                    </li>
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong style="color: #d4af37;">Reap Every 3-4 Seconds</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.85rem;">Refresh Acolyte's Reap DR and attack speed buff by swinging Reap every 3-4 seconds. This also generates additional corpses for sustaining Corpse Explosion chains. Do not let the buffs fall off -- the DR is significant for survivability.</p>
+                        </div>
+                    </li>
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong style="color: #d4af37;">Decrepify -- Auto-Applied</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.85rem;">With Aspect of the Cursed Aura, Decrepify automatically applies to all nearby enemies. You do not need to cast it manually. Enemies are constantly slowed, deal reduced damage, and trigger Abhorrent Decrepify CDR when they die. Aspect of the Damned ensures they take bonus Shadow damage.</p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>Tips & Advanced Play</h2>
+
+                <div class="tip-card">
+                    <strong>Corpse Economy is Everything</strong>
+                    <p>Your build does nothing without corpses. Hewed Flesh passive + Reap ensures you always have corpses, but in long boss fights you may run dry. Save at least 1 corpse for Corpse Tendrils CC at all times -- do not blow every corpse on Explosions.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Stack Hits, Not Big Hits</strong>
+                    <p>Shadowblight counts instances, not damage. Three weak Blight ticks + two Corpse Explosions + three Soulrift pulses = 8 stacks = proc. Prioritize overlapping AoE and Attack Speed over raw per-hit damage when gearing.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Positioning for Maximum Overlap</strong>
+                    <p>Stand near your Blight pools and Corpse Tendrils so that Cursed Aura (Decrepify auto-apply) hits the same enemies being damaged by your Shadow ticks. The more debuffs stacked on a target when Shadowblight procs, the higher the burst.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Boss Strategy</strong>
+                    <p>Against mobile bosses, use Corpse Tendrils to root them in your Blight pools. Cast Soulrift on top of the boss for guaranteed Vulnerable. Without grouped adds, Shadowblight procs are slower -- focus on maintaining Blight uptime and weaving Reap for corpse generation. Blood Moon Breeches Crit Damage helps make each proc count.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Essence Management</strong>
+                    <p>Blight costs Essence. Soulrift regenerates it. If Soulrift is on cooldown and you are low, fall back to Reap (free) and Corpse Explosion (free, uses corpses not Essence) until Soulrift comes back. Abhorrent Decrepify CDR helps get Soulrift back faster.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Evade = Unstoppable</strong>
+                    <p>With Aspect of Metamorphosis on boots, your Evade grants Unstoppable. Save it for Crowd Control emergencies, not for repositioning. In Pit content, getting frozen or stunned without Unstoppable available is often lethal.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Content Ratings</h2>
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Speedfarm</div>
+                        <div class="build-info-value" style="color: #fbbf24;">S-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Nightmare Dungeon</div>
+                        <div class="build-info-value" style="color: #fbbf24;">S-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Pit Pushing</div>
+                        <div class="build-info-value" style="color: #a855f7;">A-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Bossing</div>
+                        <div class="build-info-value" style="color: #3b82f6;">B-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Helltide</div>
+                        <div class="build-info-value" style="color: #fbbf24;">S-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Leveling</div>
+                        <div class="build-info-value" style="color: #a855f7;">A-Tier</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="/assets/js/guide.js"></script>

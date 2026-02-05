@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title | default("Scarmonit | Gaming Hub - Diablo 4 Guides, Tools & More") }}</title>
+    <meta name="description" content="{{ description | default("Your ultimate gaming hub for Diablo 4 build guides, gaming tools, file sharing, and more. Premium resources for serious gamers.") }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/enhanced.css">
+    {% if styles %}
+    {% for style in styles %}
+    <link rel="stylesheet" href="{{ style }}">
+    {% endfor %}
+    {% endif %}
+
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#d4af37">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="SCARMONIT">
+    <link rel="apple-touch-icon" href="/assets/images/icon-192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16.png">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://scarmonit.com{{ page.url }}">
+    <meta property="og:title" content="{{ title | default("Scarmonit | Gaming Hub - Diablo 4 Guides, Tools & More") }}">
+    <meta property="og:description" content="{{ description | default("Your ultimate gaming hub for Diablo 4 build guides, gaming tools, file sharing, and more. Premium resources for serious gamers.") }}">
+    <meta property="og:image" content="https://scarmonit.com/assets/images/icon-512.png">
+    <meta property="og:site_name" content="SCARMONIT">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ title | default("Scarmonit | Gaming Hub - Diablo 4 Guides, Tools & More") }}">
+    <meta name="twitter:description" content="{{ description | default("Your ultimate gaming hub for Diablo 4 build guides, gaming tools, file sharing, and more. Premium resources for serious gamers.") }}">
+    <meta name="twitter:image" content="https://scarmonit.com/assets/images/icon-512.png">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "SCARMONIT Gaming Hub",
+        "url": "https://scarmonit.com",
+        "description": "Diablo 4 build guides, gaming tools, soundboard, and community resources",
+        "publisher": {
+            "@type": "Organization",
+            "name": "SCARMONIT",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://scarmonit.com/assets/images/icon-512.png"
+            }
+        }
+    }
+    </script>
+</head>
+<body>
+    {% include "svg-defs.njk" %}
+
+    <div class="bg-wrapper">
+        <div class="bg-blob"></div>
+        <div class="bg-blob"></div>
+        <div class="bg-blob"></div>
+    </div>
+
+    <nav>
+        <div class="nav-left">
+            <a href="/" class="logo">SCARMONIT</a>
+            <a href="/ai" class="ai-nav-link {% if page.url | startsWith("/ai") %}active{% endif %}"><img src="/assets/images/ai-icon.png" alt="AI" class="ai-nav-icon"> AI Assistant</a>
+        </div>
+        <button class="menu-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-links" role="navigation" aria-label="Main navigation">
+            <a href="/" class="nav-home {% if page.url == "/" %}active{% endif %}" {% if page.url == "/" %}aria-current="page"{% endif %} aria-label="Home">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+            </a>
+
+            <!-- Content Dropdown -->
+            <div class="nav-dropdown">
+                <button class="nav-dropdown-trigger {% if page.url | startsWith("/build-guides") or page.url | startsWith("/videos") or page.url | startsWith("/socials") %}active{% endif %}" aria-haspopup="true" aria-expanded="false">
+                    Content <span class="dropdown-arrow">▾</span>
+                </button>
+                <div class="dropdown-menu">
+                    <a href="/build-guides" class="{% if page.url | startsWith("/build-guides") %}active{% endif %}">Build Guides</a>
+                    <a href="/videos" class="{% if page.url | startsWith("/videos") %}active{% endif %}">Videos</a>
+                    <a href="/socials" class="{% if page.url | startsWith("/socials") %}active{% endif %}">Socials</a>
+                </div>
+            </div>
+
+            <!-- Apps Dropdown -->
+            <div class="nav-dropdown">
+                <button class="nav-dropdown-trigger {% if page.url | startsWith("/tools") or page.url | startsWith("/kpass") or page.url | startsWith("/soundboard") or page.url | startsWith("/upload") or page.url | startsWith("/screen-share") %}active{% endif %}" aria-haspopup="true" aria-expanded="false">
+                    Apps <span class="dropdown-arrow">▾</span>
+                </button>
+                <div class="dropdown-menu">
+                    <a href="/tools" class="{% if page.url | startsWith("/tools") %}active{% endif %}">Tools</a>
+                    <a href="/kpass" class="{% if page.url | startsWith("/kpass") %}active{% endif %}">KPass</a>
+                    <a href="/soundboard" class="{% if page.url | startsWith("/soundboard") %}active{% endif %}">Soundboard</a>
+
+                    <a href="/upload" class="{% if page.url | startsWith("/upload") %}active{% endif %}">Upload</a>
+                    <a href="/screen-share" class="{% if page.url | startsWith("/screen-share") %}active{% endif %}">Screen Share</a>
+                </div>
+            </div>
+
+            <a href="/game" class="{% if page.url | startsWith("/game") %}active{% endif %}">Game</a>
+            <a href="/downloads" class="{% if page.url | startsWith("/downloads") %}active{% endif %}">Downloads</a>
+            <a href="/discord" class="{% if page.url | startsWith("/discord") %}active{% endif %}">Discord</a>
+        </div>
+    </nav>
+    <div class="nav-overlay"></div>
+
+    {% if showEventTracker %}
+    {% include "event-tracker.njk" %}
+    {% endif %}
+
+    <main id="main-content">
+        {{ content | safe }}
+    </main>
+
+    {% include "footer.njk" %}
+
+    {% if scripts %}
+    {% for script in scripts %}
+    <script src="{{ script }}" defer></script>
+    {% endfor %}
+    {% endif %}
+
+    <!-- Mobile Menu & Core Functionality -->
+    <script src="/assets/js/main.js" defer></script>
+
+    {% if page.url == "/" or showTimer %}
+    <script src="/assets/js/timer.js" defer></script>
+    {% endif %}
+</body>
+</html>

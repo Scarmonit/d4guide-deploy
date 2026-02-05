@@ -1,0 +1,31 @@
+{
+  "name": "SCARMONIT Gaming Hub",
+  "short_name": "Scarmonit",
+  "description": "Your ultimate gaming hub for Diablo 4 build guides, gaming tools, file sharing, and more.",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#d4af37",
+  "background_color": "#0a0a0a",
+  "icons": [
+    {
+      "src": "/assets/images/favicon-16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/images/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

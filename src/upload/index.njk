@@ -1,0 +1,189 @@
+---
+layout: base.njk
+title: Upload | Scarmonit
+description: Upload and share files with no size limits. Supports all file types including images, videos, documents, and archives.
+styles:
+  - /assets/css/upload.css?v=29
+scripts:
+  - /assets/js/upload.js?v=29
+---
+
+<!-- Ambient Gradient Orbs (Dark Glassmorphism) -->
+<div class="ambient-orbs">
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+    <div class="ambient-orb orb-3"></div>
+    <div class="ambient-orb orb-4"></div>
+</div>
+
+<!-- Floating Particles Background -->
+<div class="upload-particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+</div>
+
+<!-- Password Protection Modal -->
+<div class="password-overlay" id="password-overlay">
+    <div class="password-modal" id="password-modal">
+        <span class="modal-icon">🔐</span>
+        <div class="modal-logo">SCARMONIT</div>
+        <div class="modal-title">Protected Area</div>
+        <form id="password-form">
+            <div class="password-input-group">
+                <input type="password" class="password-input" id="password-input" placeholder="Enter password" autocomplete="off" autofocus>
+            </div>
+            <button type="submit" class="password-submit">Unlock Access</button>
+        </form>
+        <p class="password-error" id="password-error">Incorrect password. Try again.</p>
+    </div>
+</div>
+
+<!-- Main Content (hidden until authenticated) -->
+<div class="main-content" id="upload-content">
+
+<header class="hero">
+    <div class="hero-badge">Unlimited Storage</div>
+    <h1>File Upload</h1>
+    <p>Upload ANY file type with NO size limit. Images, videos, code, executables, archives - everything is supported and securely stored.</p>
+
+    <!-- Storage Statistics Dashboard -->
+    <div class="storage-dashboard" id="storage-dashboard">
+        <div class="dashboard-card">
+            <div class="dashboard-icon">📊</div>
+            <div class="dashboard-value" id="stat-total-files">0</div>
+            <div class="dashboard-label">Total Files</div>
+        </div>
+        <div class="dashboard-card">
+            <div class="dashboard-icon">💾</div>
+            <div class="dashboard-value" id="stat-total-size">0 B</div>
+            <div class="dashboard-label">Storage Used</div>
+        </div>
+        <div class="dashboard-card">
+            <div class="dashboard-icon">🖼️</div>
+            <div class="dashboard-value" id="stat-images">0</div>
+            <div class="dashboard-label">Images</div>
+        </div>
+        <div class="dashboard-card">
+            <div class="dashboard-icon">🎬</div>
+            <div class="dashboard-value" id="stat-videos">0</div>
+            <div class="dashboard-label">Videos</div>
+        </div>
+        <div class="dashboard-card recent-activity">
+            <div class="dashboard-icon">⏱️</div>
+            <div class="dashboard-value" id="stat-recent">--</div>
+            <div class="dashboard-label">Last Upload</div>
+        </div>
+    </div>
+
+    <div class="upload-stats">
+        <div class="stat-item">
+            <span class="stat-icon">🚀</span>
+            <span class="stat-text"><strong>No Size</strong> Limits</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-icon">📁</span>
+            <span class="stat-text"><strong>All File</strong> Types</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-icon">🔒</span>
+            <span class="stat-text"><strong>Secure</strong> Storage</span>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <!-- Upload Zone -->
+    <div class="upload-zone" id="upload-zone">
+        <span class="upload-icon">📁</span>
+        <h3>Drag & Drop Files Here</h3>
+        <p>or click to browse your files</p>
+        <input type="file" id="file-input" multiple>
+        <button class="upload-btn" id="select-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            Select Files
+        </button>
+
+        <!-- URL Upload Section -->
+        <div class="url-upload-section">
+            <div class="url-divider">
+                <span>or upload from URL</span>
+            </div>
+            <div class="url-input-group">
+                <input type="url" class="url-input" id="url-input" placeholder="https://example.com/file.zip" autocomplete="off">
+                <button class="url-upload-btn" id="url-upload-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                    </svg>
+                    Upload
+                </button>
+            </div>
+        </div>
+
+        <!-- Upload Progress -->
+        <div class="upload-progress" id="upload-progress">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <p class="progress-text" id="progress-text">Preparing upload...</p>
+        </div>
+
+        <!-- Upload Queue -->
+        <div class="upload-queue" id="upload-queue"></div>
+    </div>
+
+    <!-- Files Section -->
+    <h2 class="section-title">Uploaded Files</h2>
+    <div id="files-container">
+        <div class="loading">
+            <div class="loading-spinner"></div>
+            <p>Loading files...</p>
+        </div>
+    </div>
+</div>
+
+</div><!-- End main-content -->
+
+<!-- Toast Notifications Container -->
+<div class="toast-container" id="toast-container"></div>
+
+<!-- Delete Confirmation Modal -->
+<div class="confirm-overlay" id="confirm-overlay">
+    <div class="confirm-modal">
+        <div class="confirm-icon">🗑️</div>
+        <h3 class="confirm-title">Delete File?</h3>
+        <p class="confirm-text">Are you sure you want to delete<br><span class="confirm-filename" id="confirm-filename"></span></p>
+        <div class="confirm-actions">
+            <button class="confirm-btn cancel" id="confirm-cancel">Cancel</button>
+            <button class="confirm-btn delete" id="confirm-delete">Delete</button>
+        </div>
+    </div>
+</div>
+
+<!-- Rename Modal -->
+<div class="confirm-overlay" id="rename-overlay">
+    <div class="confirm-modal rename-modal">
+        <div class="confirm-icon">✏️</div>
+        <h3 class="confirm-title">Rename File</h3>
+        <p class="confirm-text">Current: <span class="confirm-filename" id="rename-current-name"></span></p>
+        <div class="rename-input-wrapper">
+            <input type="text" class="rename-input" id="rename-input" placeholder="Enter new filename" autocomplete="off">
+        </div>
+        <div class="confirm-actions">
+            <button class="confirm-btn cancel" id="rename-cancel">Cancel</button>
+            <button class="confirm-btn rename" id="rename-confirm">Rename</button>
+        </div>
+    </div>
+</div>
