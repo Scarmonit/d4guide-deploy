@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
     inputs:
       scripts:
-        description: 'Which scripts to run (all, maxroll-builds, tierlist, d4data, maxroll, builds)'
+        description: 'Which scripts to run (maxroll-builds, all, tierlist, d4data, maxroll, builds)'
         required: false
-        default: 'all'
+        default: 'maxroll-builds'
 
 jobs:
   update-data:
@@ -31,7 +31,7 @@ jobs:
           INGEST_URL: "https://scarmonit.com"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          SCRIPT="${{ github.event.inputs.scripts || 'all' }}"
+          SCRIPT="${{ github.event.inputs.scripts || 'maxroll-builds' }}"
 
           if [ "$SCRIPT" = "all" ]; then
             node scripts/ingest.js

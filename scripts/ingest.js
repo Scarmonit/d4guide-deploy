@@ -29,13 +29,24 @@ const results = [];
 
 // Validate environment before starting
 function checkEnv() {
-  // When USE_WRANGLER=1, wrangler uses CLOUDFLARE_API_TOKEN for auth
-  // Otherwise, we need the D1-specific token
+  // Three modes:
+  // 1. Ingest API (CI) - INGEST_KEY set, POSTs to /api/ingest endpoint
+  // 2. Wrangler CLI (local) - USE_WRANGLER=1, uses OAuth
+  // 3. REST API - Direct D1 API calls with CLOUDFLARE_D1_TOKEN
+  const useIngestAPI = !!process.env.INGEST_KEY;
   const useWrangler = process.env.USE_WRANGLER === '1';
 
-  const required = useWrangler
-    ? ['CLOUDFLARE_ACCOUNT_ID'] // Wrangler uses CLOUDFLARE_API_TOKEN automatically
-    : ['CLOUDFLARE_ACCOUNT_ID', 'D1_DATABASE_ID', 'CLOUDFLARE_D1_TOKEN'];
+  // Ingest API mode needs INGEST_KEY (already checked) and optionally INGEST_URL
+  // Wrangler mode needs CLOUDFLARE_ACCOUNT_ID
+  // REST API mode needs all three D1 credentials
+  let required = [];
+  if (useIngestAPI) {
+    required = []; // INGEST_KEY already validated by check above
+  } else if (useWrangler) {
+    required = ['CLOUDFLARE_ACCOUNT_ID'];
+  } else {
+    required = ['CLOUDFLARE_ACCOUNT_ID', 'D1_DATABASE_ID', 'CLOUDFLARE_D1_TOKEN'];
+  }
 
   const missing = required.filter(v => !process.env[v]);
 
@@ -49,7 +60,10 @@ function checkEnv() {
   }
 
   console.log('Environment check passed.');
-  if (useWrangler) {
+  if (useIngestAPI) {
+    console.log('  Using Ingest API mode (INGEST_KEY)');
+    console.log(`  Endpoint: ${process.env.INGEST_URL || 'https://scarmonit.com'}/api/ingest`);
+  } else if (useWrangler) {
     console.log('  Using wrangler CLI mode (CLOUDFLARE_API_TOKEN)');
   }
   if (process.env.GITHUB_TOKEN) {
