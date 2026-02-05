@@ -18,10 +18,10 @@ const { execSync } = require('child_process');
 const path = require('path');
 
 const scripts = [
+  { name: 'ingest-maxroll-builds.js', desc: 'Maxroll Tier List & Build Guides (AUTO-UPDATE)' },
   { name: 'ingest-tierlist.js', desc: 'Icy Veins Tier List' },
   { name: 'ingest-d4data.js', desc: 'DiabloTools/d4data Game Data' },
   { name: 'ingest-maxroll.js', desc: 'Maxroll Compiled Game Data' },
-  { name: 'ingest-builds.js', desc: 'Local Build Guides' },
 ];
 
 const scriptsDir = __dirname;

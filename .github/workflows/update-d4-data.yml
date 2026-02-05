@@ -2,19 +2,19 @@ name: Update D4 API Data
 
 on:
   schedule:
-    # Run every Monday at 9:00 AM UTC
-    - cron: "0 9 * * 1"
+    # Run Monday and Thursday at 9:00 AM UTC to catch meta changes
+    - cron: "0 9 * * 1,4"
   workflow_dispatch:
     inputs:
       scripts:
-        description: 'Which scripts to run (all, tierlist, d4data, maxroll, builds)'
+        description: 'Which scripts to run (all, maxroll-builds, tierlist, d4data, maxroll, builds)'
         required: false
         default: 'all'
 
 jobs:
   update-data:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
 
     steps:
       - name: Checkout repository
@@ -36,6 +36,8 @@ jobs:
 
           if [ "$SCRIPT" = "all" ]; then
             node scripts/ingest.js
+          elif [ "$SCRIPT" = "maxroll-builds" ]; then
+            node scripts/ingest-maxroll-builds.js
           elif [ "$SCRIPT" = "tierlist" ]; then
             node scripts/ingest-tierlist.js
           elif [ "$SCRIPT" = "d4data" ]; then

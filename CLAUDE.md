@@ -41,8 +41,10 @@ node node_modules/@11ty/eleventy/cmd.cjs
 
 **Deploy:**
 ```bash
-node "C:\Users\scarm\AppData\Roaming\npm\node_modules\wrangler\bin\wrangler.js" pages deploy _site --project-name=d4guide
+node "C:\Users\scarm\AppData\Roaming\npm\node_modules\wrangler\bin\wrangler.js" pages deploy _site --project-name=d4guide --branch=master
 ```
+
+> **CRITICAL**: The `--branch=master` flag is required! This repo uses `master` (not `main`) as the default branch. Without this flag, deployments go to an orphan branch and won't be served on the production domain (scarmonit.com).
 
 ## Key Files
 - `wrangler.toml` - R2 bindings and Pages config

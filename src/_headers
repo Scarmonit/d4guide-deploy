@@ -1,0 +1,5 @@
+/build-guides/*
+  Cache-Control: no-cache, must-revalidate
+
+/guides/*
+  Cache-Control: no-cache, must-revalidate

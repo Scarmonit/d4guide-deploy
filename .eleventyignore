@@ -1,0 +1,2 @@
+# Ignore guide files - they are now served dynamically via Cloudflare Pages Functions
+src/guides/
