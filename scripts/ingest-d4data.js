@@ -14,13 +14,13 @@
 const { d1Execute, d1BatchWithProgress } = require('./d1-client');
 
 const GITHUB_API_BASE = 'https://api.github.com/repos/DiabloTools/d4data/contents';
-const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/DiabloTools/d4data/main';
+const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/DiabloTools/d4data/master';
 
 // Paths within the repo
 const PATHS = {
   aspects: 'json/base/meta/Aspect',
   items: 'json/base/meta/Item',
-  skills: 'json/base/meta/Skill',
+  skills: 'json/base/meta/SkillKit',
   stringLists: 'json/enUS_Text/meta/StringList',
 };
 
@@ -96,7 +96,7 @@ async function listDirectory(path) {
       return [];
     }
 
-    // Filter to .json files only
+    // Filter to .json files only (includes .skl.json, .asp.json, .itm.json etc.)
     return entries
       .filter(e => e.type === 'file' && e.name.endsWith('.json'))
       .map(e => ({
@@ -136,7 +136,8 @@ async function fetchFile(fileInfo) {
 /**
  * Extract SNO ID from a filename like "Aspect_12345.json"
  */
-function extractSnoId(filename) {
+function extractSnoId(data, filename) {
+  if (data && data.__snoID__) return data.__snoID__;
   const match = filename.match(/(\d+)/);
   return match ? parseInt(match[1]) : null;
 }
@@ -146,20 +147,20 @@ function extractSnoId(filename) {
  * The data uses various naming conventions depending on the file type.
  */
 function extractName(data, filename) {
-  // Try various name fields
-  if (data.__fileName__) return data.__fileName__;
+  // d4data uses __fileName__ as a path like "base/meta/Aspect/Asp_Legendary_Barb_001.asp"
+  if (data.__fileName__) {
+    const match = data.__fileName__.match(/([^/]+)\.\w+$/);
+    if (match) return match[1].replace(/_/g, ' ');
+  }
   if (data.szLabel) return data.szLabel;
   if (data.szName) return data.szName;
   if (data.dwName) return String(data.dwName);
   if (data.snoName) return data.snoName;
-
-  // Try nested name structures
   if (data.tHeader && data.tHeader.szName) return data.tHeader.szName;
 
   // Fall back to filename without extension and prefix
-  const base = filename.replace('.json', '');
-  // Remove common prefixes like "Aspect_", "Item_", "Skill_"
-  return base.replace(/^(Aspect|Item|Skill|Power)_?/i, '').replace(/_/g, ' ');
+  const base = filename.replace(/\.\w+\.json$/, '').replace('.json', '');
+  return base.replace(/^(Asp|Item|Power)_?/i, '').replace(/_/g, ' ');
 }
 
 /**
@@ -187,21 +188,28 @@ function extractDescription(data) {
  * Extract class restriction from a d4data JSON object.
  */
 function extractClassRestriction(data) {
+  const classMap = {
+    0: 'barbarian', 1: 'druid', 2: 'necromancer',
+    3: 'rogue', 4: 'sorcerer', 5: 'spiritborn', 6: 'paladin',
+  };
+  // d4data uses fUsableByClass array
+  if (data.fUsableByClass && Array.isArray(data.fUsableByClass)) {
+    const classes = data.fUsableByClass.map(idx => classMap[idx]).filter(Boolean);
+    return classes.length > 0 ? classes.join(', ') : null;
+  }
   if (data.eClassRestriction !== undefined) {
-    const classMap = {
-      0: null,   // No restriction
-      1: 'Barbarian',
-      2: 'Druid',
-      3: 'Necromancer',
-      4: 'Rogue',
-      5: 'Sorcerer',
-      6: 'Spiritborn',
-      7: 'Paladin',
-    };
     return classMap[data.eClassRestriction] || null;
+  }
+  if (data.snoClassRequirement && data.snoClassRequirement.name) {
+    return data.snoClassRequirement.name.toLowerCase();
   }
   if (data.arAllowedClasses && Array.isArray(data.arAllowedClasses)) {
     return data.arAllowedClasses.join(', ');
+  }
+  // Try to detect from filename
+  const nameStr = (data.__fileName__ || '').toLowerCase();
+  for (const [, cls] of Object.entries(classMap)) {
+    if (nameStr.includes(cls)) return cls;
   }
   return null;
 }
@@ -231,7 +239,7 @@ async function ingestAspects() {
     const data = await fetchFile(fileInfo);
     if (!data) continue;
 
-    const snoId = extractSnoId(fileInfo.name);
+    const snoId = extractSnoId(data, fileInfo.name);
     const name = extractName(data, fileInfo.name);
     const category = extractCategory(data);
     const description = extractDescription(data);
@@ -298,20 +306,20 @@ async function ingestItems() {
     const data = await fetchFile(fileInfo);
     if (!data) continue;
 
-    const snoId = extractSnoId(fileInfo.name);
+    const snoId = extractSnoId(data, fileInfo.name);
     const name = extractName(data, fileInfo.name);
     const itemType = data.eItemType !== undefined ? String(data.eItemType) : null;
     const description = extractDescription(data);
     const classRestriction = extractClassRestriction(data);
     const flavorText = data.szFlavorText || null;
 
-    // Determine quality from filename or data
+    // Determine quality from data or filename
     let quality = 'Normal';
-    if (/mythic/i.test(fileInfo.name) || data.eQuality === 6) quality = 'Mythic';
-    else if (/unique/i.test(fileInfo.name) || data.eQuality === 5) quality = 'Unique';
-    else if (/legendary/i.test(fileInfo.name) || data.eQuality === 4) quality = 'Legendary';
-    else if (/rare/i.test(fileInfo.name) || data.eQuality === 3) quality = 'Rare';
-    else if (/magic/i.test(fileInfo.name) || data.eQuality === 2) quality = 'Magic';
+    if (data.eMagicType === 6 || /mythic/i.test(fileInfo.name)) quality = 'Mythic';
+    else if (data.eMagicType === 2 || data.eMagicType === 5 || /unique/i.test(fileInfo.name)) quality = 'Unique';
+    else if (data.eMagicType === 4 || /legendary/i.test(fileInfo.name)) quality = 'Legendary';
+    else if (data.eMagicType === 3 || /rare/i.test(fileInfo.name)) quality = 'Rare';
+    else if (data.eMagicType === 1 || /magic/i.test(fileInfo.name)) quality = 'Magic';
 
     // Extract affixes as JSON string
     let affixes = null;
@@ -346,67 +354,51 @@ async function ingestItems() {
 // Skill Ingestion
 // ========================================================
 async function ingestSkills() {
-  console.log('\n--- Ingesting Skills ---');
+  console.log('\n--- Ingesting Skills (via SkillKit) ---');
 
+  // SkillKit directory has one file per class: Barbarian.skl.json, Druid.skl.json, etc.
   const files = await listDirectory(PATHS.skills);
-  console.log(`  Found ${files.length} skill files`);
+  console.log(`  Found ${files.length} SkillKit files`);
 
   if (files.length === 0) {
-    console.warn('  No skill files found. Skipping.');
+    console.warn('  No SkillKit files found. Skipping.');
     return 0;
   }
 
-  const subset = files.slice(0, MAX_SKILLS);
-  console.log(`  Processing ${subset.length} skills (limit: ${MAX_SKILLS})`);
-
   const statements = [];
 
-  for (let i = 0; i < subset.length; i++) {
-    const fileInfo = subset[i];
+  for (const fileInfo of files) {
     const data = await fetchFile(fileInfo);
     if (!data) continue;
 
-    const snoId = extractSnoId(fileInfo.name);
-    const name = extractName(data, fileInfo.name);
-    const category = extractCategory(data);
-    const description = extractDescription(data);
-    const classRestriction = extractClassRestriction(data);
-    const maxRank = data.nMaxRank || data.nMaxLevel || 5;
+    // Determine class name from filename (e.g., "Barbarian.skl.json" -> "barbarian")
+    const className = fileInfo.name.replace(/\.skl\.json$/, '').replace('_NEW', '').toLowerCase();
+    console.log(`  Processing ${className} skills...`);
 
-    // Extract tags as JSON
-    let tags = null;
-    if (data.arTags && Array.isArray(data.arTags)) {
-      tags = JSON.stringify(data.arTags);
-    } else if (data.eTag !== undefined) {
-      tags = JSON.stringify([String(data.eTag)]);
-    }
+    // Extract active skills from arActiveSkillEntries
+    const entries = data.arActiveSkillEntries || [];
 
-    // Map class name - skills often have class info in filename
-    let className = classRestriction || 'Unknown';
-    const classPatterns = {
-      'Barbarian': /barbarian|barb/i,
-      'Druid': /druid/i,
-      'Necromancer': /necromancer|necro/i,
-      'Rogue': /rogue/i,
-      'Sorcerer': /sorcerer|sorc/i,
-      'Spiritborn': /spiritborn/i,
-      'Paladin': /paladin/i,
-    };
-    for (const [cls, pattern] of Object.entries(classPatterns)) {
-      if (pattern.test(fileInfo.name) || pattern.test(name)) {
-        className = cls;
-        break;
+    for (const entry of entries) {
+      if (!entry.snoPower) continue;
+
+      const snoId = entry.snoPower.__raw__ || null;
+      const rawName = entry.snoPower.name || '';
+      // Clean name: "Barbarian_Bash" -> "Bash"
+      const name = rawName.replace(/^(Barbarian|Druid|Necromancer|Rogue|Sorcerer|Spiritborn|Paladin)_/i, '').replace(/_/g, ' ');
+      const category = entry.snoPower.tPrimaryTag || null;
+      const levelReq = entry.nLevelReq || 1;
+
+      // Extract tags from power reference if available
+      let tags = null;
+      if (entry.arPowerTags && Array.isArray(entry.arPowerTags)) {
+        tags = JSON.stringify(entry.arPowerTags.map(t => t.name || String(t)));
       }
-    }
 
-    statements.push({
-      sql: `INSERT OR REPLACE INTO skills (sno_id, name, class_name, category, description, tags, max_rank, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'))`,
-      params: [snoId, name, className, category, description, tags, maxRank],
-    });
-
-    if ((i + 1) % 20 === 0) {
-      console.log(`  Fetched ${i + 1}/${subset.length} skill files...`);
+      statements.push({
+        sql: `INSERT OR REPLACE INTO skills (sno_id, name, class_name, category, description, tags, max_rank, updated_at)
+              VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'))`,
+        params: [snoId, name, className, category, `Level ${levelReq} ${className} skill`, tags, 5],
+      });
     }
 
     await sleep(API_DELAY);
