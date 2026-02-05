@@ -25,12 +25,16 @@ jobs:
         with:
           node-version: '22'
 
+      - name: Install wrangler
+        run: npm install -g wrangler
+
       - name: Run data ingestion
         env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_D1_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           D1_DATABASE_ID: ${{ secrets.D1_DATABASE_ID }}
-          CLOUDFLARE_D1_TOKEN: ${{ secrets.CLOUDFLARE_D1_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USE_WRANGLER: "1"
         run: |
           SCRIPT="${{ github.event.inputs.scripts || 'all' }}"
 
@@ -53,17 +57,8 @@ jobs:
 
       - name: Verify data
         env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_D1_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          D1_DATABASE_ID: ${{ secrets.D1_DATABASE_ID }}
-          CLOUDFLARE_D1_TOKEN: ${{ secrets.CLOUDFLARE_D1_TOKEN }}
         run: |
-          node -e "
-            const { d1Execute } = require('./scripts/d1-client.js');
-            (async () => {
-              const tables = ['tier_list', 'builds', 'items', 'skills', 'aspects'];
-              for (const t of tables) {
-                const r = await d1Execute('SELECT COUNT(*) as count FROM ' + t);
-                console.log(t + ': ' + r[0].results[0].count + ' rows');
-              }
-            })().catch(e => { console.error(e); process.exit(1); });
-          "
+          echo "Verifying D1 database tables..."
+          wrangler d1 execute d4-api --remote --command "SELECT 'tier_list' as tbl, COUNT(*) as count FROM tier_list UNION ALL SELECT 'builds', COUNT(*) FROM builds;"
