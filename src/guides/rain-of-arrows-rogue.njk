@@ -1,0 +1,425 @@
+---
+layout: base.njk
+title: Rain of Arrows Rogue Guide | D4 Season 11
+description: Complete Diablo 4 Rain of Arrows Rogue guide for Season 11. Ultimate AoE build with skills, gear, paragon, aspects. A-Tier speedfarm and coverage.
+styles:
+  - /assets/css/guide.css
+---
+
+    <a href="/build-guides" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Build Guides
+    </a>
+
+    <header class="guide-hero">
+        <span class="badge">Season 11 - Divine Intervention</span>
+        <h1>Rain of Arrows Rogue</h1>
+        <p class="subtitle">A-Tier Ultimate / AoE Coverage / Speed</p>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+        <button class="nav-tab" onclick="showTab('skills')">Skills</button>
+        <button class="nav-tab" onclick="showTab('gear')">Gear</button>
+        <button class="nav-tab" onclick="showTab('aspects')">Aspects & Tempering</button>
+        <button class="nav-tab" onclick="showTab('paragon')">Paragon</button>
+        <button class="nav-tab" onclick="showTab('gameplay')">Gameplay</button>
+    </div>
+
+    <div class="container">
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 1: OVERVIEW                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="overview" class="tab-content active">
+
+            <div class="section">
+                <h2>Build Summary</h2>
+                <p>The Rain of Arrows Rogue is an A-Tier ultimate-focused build that delivers screen-wide AoE devastation through its signature Ultimate ability. By leveraging Scoundrel's Leathers to reduce Ultimate cooldown and maximize Inner Sight synergy, this build maintains near-constant uptime on Rain of Arrows for relentless arrow volleys. Enhanced by Branching Volleys and Trickshot aspects, each cast blankets entire zones in projectiles that pierce, split, and ricochet. Perfect for speedfarming, Nightmare Dungeons, and content where pack density matters more than single-target burst.</p>
+
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Tier</div>
+                        <div class="build-info-value" style="color: var(--gold);">A-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Playstyle</div>
+                        <div class="build-info-value">Ultimate / AoE Coverage</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Best For</div>
+                        <div class="build-info-value">Speedfarm, Density</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Difficulty</div>
+                        <div class="build-info-value">
+                            Moderate
+                            <div class="difficulty-bar">
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Stat Targets</h2>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Cooldown Reduction</span><span>Stack Aggressively</span></div><div class="stat-progress-bar"><div class="stat-progress-fill cdr"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Critical Strike Chance</span><span>60%+</span></div><div class="stat-progress-bar"><div class="stat-progress-fill crit"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Critical Strike Damage</span><span>High Priority</span></div><div class="stat-progress-bar"><div class="stat-progress-fill dmg"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Vulnerable Damage</span><span>For Elite/Boss Burst</span></div><div class="stat-progress-bar"><div class="stat-progress-fill dmg"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Movement Speed</span><span>160%+</span></div><div class="stat-progress-bar"><div class="stat-progress-fill speed"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Maximum Life</span><span>High</span></div><div class="stat-progress-bar"><div class="stat-progress-fill life"></div></div></div>
+            </div>
+
+            <div class="section">
+                <h2>Strengths & Weaknesses</h2>
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>Strengths</h4>
+                        <ul>
+                            <li>Screen-wide AoE coverage</li>
+                            <li>Incredible speedfarm potential</li>
+                            <li>Inner Sight synergy for resource</li>
+                            <li>Satisfying gameplay loop</li>
+                            <li>Strong Nightmare Dungeon clear</li>
+                            <li>High mobility with Dash and Shadow Step</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>Weaknesses</h4>
+                        <ul>
+                            <li>Ultimate-dependent damage</li>
+                            <li>Weaker single-target vs elites</li>
+                            <li>Needs CDR for uptime</li>
+                            <li>Relatively fragile without barriers</li>
+                            <li>Downtime between Ultimates</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 2: SKILLS                              -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="skills" class="tab-content">
+
+            <div class="section">
+                <h2>Active Skills</h2>
+
+                <div class="skill-card">
+                    <div class="skill-icon">1</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Rain of Arrows <span class="skill-tag">5/5</span> <span class="skill-tag">ULTIMATE</span></div>
+                        <p class="skill-desc">Your primary damage source. Unleashes waves of arrows that rain down on the entire screen, enhanced by Branching Volleys and Trickshot for maximum coverage. Aim for near-permanent uptime via Scoundrel's Leathers CDR.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">2</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Twisting Blades <span class="skill-tag">5/5</span></div>
+                        <p class="skill-desc">Filler damage between Ultimate casts. Throw blades that return to you, dealing damage on both passes. Builds Inner Sight and applies Vulnerable via Artful Initiative.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">3</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Dash <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">Primary mobility tool. Rush forward to reposition, evade danger, or close gaps. Low cooldown allows frequent use. Synergizes with Beastfall Boots for additional movement speed.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">4</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Shadow Step <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">Unstoppable teleport for emergency escapes. Use to break crowd control, dodge one-shot mechanics, or reset positioning. Grants brief invulnerability window.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">5</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Dark Shroud <span class="skill-tag">5/5</span></div>
+                        <p class="skill-desc">Defensive layer providing stacking damage reduction via shadow charges. Each charge absorbed reduces incoming damage. Keep active at all times for survivability.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">6</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Concealment <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">Invisibility and crowd control break. Use for repositioning during dangerous situations or to reset combat. Grants brief safety window to rebuild resources or wait for Ultimate cooldown.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Key Passives</h2>
+                <div class="tier tier-s">
+                    <h4>Core Passives</h4>
+                    <ul>
+                        <li><strong>Inner Sight</strong> &mdash; Attacking marked enemies fills Inner Sight meter. When full, unlimited Energy for a duration. Essential for sustaining Rain of Arrows spam and Twisting Blades filler.</li>
+                        <li><strong>Exploit</strong> &mdash; Bonus damage to Vulnerable enemies. Artful Initiative applies Vulnerable automatically, making this a consistent multiplier throughout combat.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>Scaling Passives</h4>
+                    <ul>
+                        <li><strong>Precision Imbuement</strong> &mdash; Imbuement Skills gain bonus Critical Strike Chance and Damage. Enhances Unstable Imbuements aspect procs for additional burst windows.</li>
+                        <li><strong>Adrenaline Rush</strong> &mdash; Gain bonus damage based on available Energy. Synergizes with Inner Sight's unlimited Energy phase for massive damage spikes during ultimate windows.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 3: GEAR                                -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gear" class="tab-content">
+
+            <div class="section">
+                <h2>Required Unique Items</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--red);">
+                    <div class="gear-slot-header"><span>CHEST - Scoundrel's Leathers</span><span style="color: var(--red);">REQUIRED</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Casting an Ultimate reduces the cooldown of your other Ultimate abilities. Each Inner Sight mark grants bonus CDR. This is the engine that enables near-permanent Rain of Arrows uptime &mdash; without it, the build lacks consistent damage.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>BOOTS - Beastfall Boots</span><span style="color: var(--gold);">RECOMMENDED</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Dash leaves a trail of caltrops. Gain bonus movement speed after using Dash. Enhances the already-strong mobility of the build while adding passive zone control.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>AMULET - Word of Hakan</span><span style="color: var(--gold);">RECOMMENDED</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Ultimate abilities deal increased damage and generate Hakan's Refuge, reducing incoming damage. Provides both offensive scaling and defensive layer during your primary damage window.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Best-in-Slot Gear</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>HELM - Harlequin Crest</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> +All Skills, Damage Reduction, CDR, +Maximum Life. The best-in-slot helm for virtually all builds. Provides both offensive and defensive scaling with CDR that directly benefits Ultimate uptime.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>RING - Ring of Starless Skies</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Each resource spent reduces the cost of your next skill. Stacks quickly during Rain of Arrows spam and Twisting Blades filler, dramatically reducing Energy consumption for sustained damage.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>RING - Rare Ring with Crit + CDR + Vulnerable</span><span style="color: var(--gold);">RARE</span></div>
+                    <div class="unique-effect"><strong>Stats:</strong> Critical Strike Chance, Critical Strike Damage, Cooldown Reduction, Vulnerable Damage. Stack offensive affixes that directly amplify Rain of Arrows damage and Ultimate uptime.</div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 4: ASPECTS & TEMPERING                 -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="aspects" class="tab-content">
+
+            <div class="section">
+                <h2>Legendary Aspects</h2>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Branching Volleys</span></div>
+                    <div class="unique-effect">Rain of Arrows fires additional volleys that branch off in multiple directions. The single most important aspect for this build &mdash; transforms Rain of Arrows into true screen-wide coverage.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Trickshot</span></div>
+                    <div class="unique-effect">Marksman Skills ricochet to additional nearby enemies. Causes Rain of Arrows projectiles to bounce between targets, exponentially increasing hit density in packed encounters.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Artful Initiative</span></div>
+                    <div class="unique-effect">Cutthroat Skills automatically apply Vulnerable. Twisting Blades becomes a Vulnerable applicator, enabling consistent Exploit passive damage and Edgemaster's scaling.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of the Frostbitten</span></div>
+                    <div class="unique-effect">Chilled enemies are more likely to be Frozen. Slowed enemies are more likely to be Chilled. When combined with Cold Imbuement or Frostburn, creates a crowd control chain that triggers Control aspect.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Unstable Imbuements</span></div>
+                    <div class="unique-effect">Imbuement Skills trigger explosions on kill. Adds passive AoE clear during Rain of Arrows spam, turning each kill into additional projectile bursts that chain through remaining enemies.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Edgemaster's Aspect</span></div>
+                    <div class="unique-effect">Bonus damage based on available primary resource. Synergizes with Inner Sight's unlimited Energy phase for massive damage spikes. Keep Energy high between Rain of Arrows casts.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Tempering Priorities</h2>
+
+                <div class="tier tier-s">
+                    <h4>S-TIER: Must Have</h4>
+                    <ul>
+                        <li><strong>Cooldown Reduction</strong> &mdash; The single most important stat. More CDR means more Rain of Arrows uptime, which is the entire damage profile of this build. Stack on every piece possible.</li>
+                        <li><strong>Critical Strike Chance</strong> &mdash; Rain of Arrows fires hundreds of projectiles per cast. Each crit is a damage multiplier. Aim for 60%+ total Crit Chance.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>A-TIER: High Priority</h4>
+                    <ul>
+                        <li><strong>Critical Strike Damage</strong> &mdash; Amplifies every crit from Rain of Arrows. With high Crit Chance, this becomes a massive overall damage increase.</li>
+                        <li><strong>Vulnerable Damage</strong> &mdash; Artful Initiative applies Vulnerable automatically. This multiplier is active constantly during both Ultimate and filler phases.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-b">
+                    <h4>B-TIER: Fill</h4>
+                    <ul>
+                        <li><strong>Movement Speed</strong> &mdash; Quality of life for speedfarming and repositioning between packs. Helps maintain momentum during dungeon clear.</li>
+                        <li><strong>Maximum Life</strong> &mdash; Survivability stat. Rogues are naturally fragile; additional Life pool provides cushion for mistakes.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 5: PARAGON                             -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="paragon" class="tab-content">
+
+            <div class="section">
+                <h2>Paragon Board Order</h2>
+                <p>Attach boards in this exact order. Each board's glyph is listed below &mdash; level glyphs to 15 first, then push to 21 for radius bonus.</p>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Starting Board</span>
+                        <span class="paragon-board-order">Board 1</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Combat</span> &mdash; Increases damage and provides defensive scaling. The foundation glyph that establishes baseline combat effectiveness while pathing toward Deadly Ambush.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Deadly Ambush</span>
+                        <span class="paragon-board-order">Board 2</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Exploit</span> &mdash; Massive damage bonus to Vulnerable enemies. With Artful Initiative auto-applying Vulnerable, this glyph is a permanent multiplier throughout all encounters.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Tricks of the Trade</span>
+                        <span class="paragon-board-order">Board 3</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Closer</span> &mdash; Bonus damage to nearby enemies and movement speed. Rain of Arrows requires close positioning for maximum arrow density, making this glyph highly effective.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">No Witnesses</span>
+                        <span class="paragon-board-order">Board 4</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Devious</span> &mdash; Critical Strike Chance and Critical Strike Damage scaling. Amplifies the high-frequency crits from Rain of Arrows' massive projectile count.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Eldritch Bounty</span>
+                        <span class="paragon-board-order">Board 5</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Tuning</span> &mdash; Cooldown Reduction and resource generation. Directly benefits Ultimate uptime, which is the cornerstone of this build's damage profile.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 6: GAMEPLAY                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gameplay" class="tab-content">
+
+            <div class="section">
+                <h2>Rotation</h2>
+                <ol class="rotation-steps">
+                    <li class="rotation-step">
+                        <p><strong>Activate Inner Sight</strong> &mdash; Attack marked enemies with Twisting Blades to fill the Inner Sight meter. Once full, you gain unlimited Energy for a duration.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Cast Rain of Arrows during Inner Sight</strong> &mdash; With unlimited Energy, spam Rain of Arrows continuously to blanket the screen in projectiles. This is your primary damage window.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Maintain Dark Shroud</strong> &mdash; Keep Dark Shroud active at all times for stacking damage reduction. Recast whenever shadow charges are consumed.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Use Dash for positioning</strong> &mdash; Dash into packs to maximize Rain of Arrows projectile hits. Beastfall Boots grant movement speed boost after each Dash.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Twisting Blades filler</strong> &mdash; Between Rain of Arrows cooldowns, use Twisting Blades to deal damage, build Inner Sight, and apply Vulnerable via Artful Initiative.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Shadow Step for emergencies</strong> &mdash; Use Shadow Step to break crowd control or dodge one-shot mechanics. The Unstoppable window can save your life.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Concealment for resets</strong> &mdash; When overwhelmed or waiting for Ultimate cooldown, pop Concealment for invisibility and safety. Use the downtime to rebuild resources.</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>Gameplay Tips</h2>
+
+                <div class="tip-card">
+                    <strong>Scoundrel's Leathers is mandatory.</strong>
+                    <p>Without Scoundrel's Leathers, Rain of Arrows has too much downtime. The chest piece's CDR synergy with Inner Sight is the only way to maintain consistent Ultimate uptime. Do not attempt this build without it.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Inner Sight is your damage window.</strong>
+                    <p>The unlimited Energy from Inner Sight allows you to spam Rain of Arrows without resource concerns. Plan your positioning and cooldowns around Inner Sight phases for maximum efficiency.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Stack CDR aggressively.</strong>
+                    <p>Every point of CDR translates directly to more Rain of Arrows uptime. Prioritize CDR on gear, tempering, and Paragon. More uptime means exponentially more damage.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Position in the middle of packs.</strong>
+                    <p>Rain of Arrows has a fixed radius. Standing in the center of enemy groups ensures every projectile finds a target. Use Dash to dive in, then rain death from the center.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Branching Volleys is non-negotiable.</strong>
+                    <p>Aspect of Branching Volleys is what transforms Rain of Arrows into a screen-wide delete button. Without it, the coverage is mediocre. This aspect is mandatory for the build to function.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Abuse Dash's low cooldown.</strong>
+                    <p>Dash has one of the shortest cooldowns in the game. Use it constantly for repositioning, evading, and triggering Beastfall Boots. The mobility is a major strength &mdash; exploit it.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="/assets/js/guide.js"></script>

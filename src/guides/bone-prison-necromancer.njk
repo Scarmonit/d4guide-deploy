@@ -1,0 +1,648 @@
+---
+layout: base.njk
+title: Bone Prison Necromancer Guide | D4 Season 11
+description: Complete Diablo 4 Bone Prison Necromancer guide for Season 11. Bone burst combo build with skills, gear, paragon, aspects. A-Tier high-skill playstyle.
+styles:
+  - /assets/css/guide.css
+---
+
+    <a href="/build-guides" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to All Guides
+    </a>
+
+    <header class="guide-hero">
+        <span class="badge">Season 11 - Divine Intervention</span>
+        <h1>Bone Prison Necromancer<span class="verified-badge" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">A-TIER</span></h1>
+        <p class="subtitle">A-Tier Bone Burst Build -- Bone Prison Combos, Massive Crits, High Skill Ceiling</p>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+        <button class="nav-tab" onclick="showTab('skills')">Skills & Passives</button>
+        <button class="nav-tab" onclick="showTab('gear')">Gear & Aspects</button>
+        <button class="nav-tab" onclick="showTab('temper')">Tempering</button>
+        <button class="nav-tab" onclick="showTab('paragon')">Paragon</button>
+        <button class="nav-tab" onclick="showTab('gameplay')">Gameplay</button>
+    </div>
+
+    <div class="container">
+
+        <!-- ============================================================ -->
+        <!-- TAB 1: OVERVIEW                                              -->
+        <!-- ============================================================ -->
+        <div id="overview" class="tab-content active">
+
+            <div class="section">
+                <h2>Build Summary</h2>
+                <p>The Bone Prison Necromancer is an A-Tier Bone damage burst build that excels at massive combo damage and crowd control. The core mechanic revolves around <strong>Bone Prison</strong>, a skill that traps enemies and amplifies all subsequent Bone damage dealt to them. You combo Bone Prison with Bone Spear for enormous critical strikes, then follow up with Corpse Explosion and Blood Wave for additional burst.</p>
+                <p>This is a high-skill build that rewards precise timing and positioning. Master the Bone Prison setup, land your crits, and chain your cooldowns for maximum damage. Deathless Visage, Ebonpiercer, and Blood Moon Breeches combine to create a burst rotation that melts elite packs and bosses alike.</p>
+
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Tier</div>
+                        <div class="build-info-value" style="color: #10b981;">A-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Class</div>
+                        <div class="build-info-value">Necromancer</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Damage Type</div>
+                        <div class="build-info-value" style="color: #e8e8e8;">Bone</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Playstyle</div>
+                        <div class="build-info-value">Burst Combos / CC</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Difficulty</div>
+                        <div class="build-info-value">
+                            <div class="difficulty-bar">
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Minions</div>
+                        <div class="build-info-value" style="color: var(--red);">All Sacrificed</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Core Mechanic: Bone Prison Combos</h2>
+                <p>The build revolves around <strong>Bone Prison</strong>, a skill that traps enemies inside a cage of bones and makes them take significantly increased Bone damage. You cast Bone Prison first, then unleash your entire burst rotation on the trapped enemies: Bone Spear for massive crits, Corpse Explosion for AoE damage, and Blood Wave for sustain.</p>
+                <p>The key insight is that <strong>Bone Prison amplifies all Bone damage</strong>, not just the initial hit. With Deathless Visage extending Bone Prison duration and Ebonpiercer providing guaranteed crits, you create a burst window where every Bone Spear hits for millions. This is a timing-dependent build -- master the combo sequence and cooldown management to maximize damage.</p>
+
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Setup Skill</div>
+                        <div class="build-info-value" style="color: var(--gold);">Bone Prison</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Burst Skill</div>
+                        <div class="build-info-value">Bone Spear</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">AoE Follow-Up</div>
+                        <div class="build-info-value">Corpse Explosion</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Key Unique</div>
+                        <div class="build-info-value" style="color: var(--red);">Deathless Visage</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Stat Targets</h2>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Bone Skill Damage %</span><span>Max Priority</span></div><div class="stat-progress-bar"><div class="stat-progress-fill dmg"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Critical Strike Damage</span><span>200%+</span></div><div class="stat-progress-bar"><div class="stat-progress-fill crit" style="width:75%"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Critical Strike Chance</span><span>60%+</span></div><div class="stat-progress-bar"><div class="stat-progress-fill crit" style="width:65%"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Cooldown Reduction</span><span>50%+</span></div><div class="stat-progress-bar"><div class="stat-progress-fill cdr" style="width:70%"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Vulnerable Damage</span><span>High Priority</span></div><div class="stat-progress-bar"><div class="stat-progress-fill dmg" style="width:75%"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Maximum Life</span><span>10,000+</span></div><div class="stat-progress-bar"><div class="stat-progress-fill life" style="width:70%"></div></div></div>
+            </div>
+
+            <div class="section">
+                <h2>Strengths & Weaknesses</h2>
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>Strengths</h4>
+                        <ul>
+                            <li>Massive burst damage during combo windows</li>
+                            <li>Excellent crowd control with Bone Prison</li>
+                            <li>High skill ceiling rewards mastery</li>
+                            <li>Strong single-target and elite damage</li>
+                            <li>Deathless Visage provides guaranteed crits</li>
+                            <li>Very effective in group play for CC support</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>Weaknesses</h4>
+                        <ul>
+                            <li>Complex rotation requires precise timing</li>
+                            <li>Weaker outside of burst windows</li>
+                            <li>High APM required for optimal play</li>
+                            <li>Cooldown-dependent -- vulnerable during downtime</li>
+                            <li>Essence management can be challenging</li>
+                            <li>Requires specific uniques to function at A-Tier level</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- TAB 2: SKILLS & PASSIVES                                     -->
+        <!-- ============================================================ -->
+        <div id="skills" class="tab-content">
+
+            <div class="section">
+                <h2>Active Skills</h2>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(232, 232, 232, 0.2); color: #e8e8e8;">1</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Bone Prison (5/5)<span class="skill-tag">Setup</span></div>
+                        <p class="skill-desc"><strong>Enhanced Bone Prison</strong> &rarr; <strong>Dreadful Bone Prison</strong> -- Your core setup skill. Traps enemies inside a bone cage and makes them take significantly increased Bone damage. Enhanced Bone Prison increases the damage amplification. Dreadful Bone Prison makes trapped enemies Vulnerable. Max rank for maximum damage amplification. This is your combo starter -- everything else follows after Bone Prison lands.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(232, 232, 232, 0.3); color: #e8e8e8;">2</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Bone Spear (5/5)<span class="skill-tag">Core</span></div>
+                        <p class="skill-desc"><strong>Enhanced Bone Spear</strong> &rarr; <strong>Paranormal Bone Spear</strong> -- Your primary burst damage skill. Launches a piercing bone spear that deals massive damage. Enhanced Bone Spear increases crit chance against Vulnerable enemies. Paranormal Bone Spear makes Bone Spear break apart into shards that pierce. Use inside Bone Prison for amplified damage. Max rank for maximum burst potential.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(239, 68, 68, 0.2); color: #ef4444;">3</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Corpse Explosion (5/5)<span class="skill-tag">Corpse</span></div>
+                        <p class="skill-desc"><strong>Enhanced Corpse Explosion</strong> &rarr; <strong>Plagued Corpse Explosion</strong> -- Your AoE follow-up after the Bone Spear burst. Enhanced increases explosion radius. Plagued leaves a damaging AoE field. Use after Bone Spear kills generate corpses inside Bone Prison. Max rank for maximum AoE damage.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(45, 212, 191, 0.2); color: #2dd4bf;">4</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Corpse Tendrils (1/5)<span class="skill-tag">Corpse</span></div>
+                        <p class="skill-desc"><strong>Enhanced Corpse Tendrils</strong> &rarr; <strong>Plagued Corpse Tendrils</strong> -- Your secondary CC and grouping tool. Pulls enemies together and applies Vulnerable. Use before Bone Prison to group enemies into the cage. Enhanced adds slow. Plagued Corpse Tendrils applies Vulnerable to pulled enemies. 1 point for utility.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(107, 114, 128, 0.2); color: #9ca3af;">5</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Decrepify (1/5)<span class="skill-tag">Curse</span></div>
+                        <p class="skill-desc"><strong>Enhanced Decrepify</strong> &rarr; <strong>Abhorrent Decrepify</strong> -- Your curse for slowing and debuffing enemies. Enhanced reduces enemy damage. Abhorrent grants cooldown reduction on cursed enemy kills. With Aspect of the Cursed Aura, this auto-applies. 1 point for utility and CDR engine.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(239, 68, 68, 0.3); color: #ef4444;">6</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Blood Wave (5/5)<span class="skill-tag">Ultimate</span></div>
+                        <p class="skill-desc"><strong>Prime Blood Wave</strong> &rarr; <strong>Supreme Blood Wave</strong> -- Your ultimate for sustain and additional burst. Creates a wave of blood that damages enemies and heals you based on damage dealt. Prime Blood Wave grants Overpower on next attack. Supreme Blood Wave reduces cooldown on kill. Use during Bone Prison windows for additional damage and sustain. Max rank for maximum healing and damage.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Key Passives</h2>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(232, 232, 232, 0.3); color: #e8e8e8;">P</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Ossified Essence<span class="skill-tag">KEY PASSIVE</span></div>
+                        <p class="skill-desc">The build-defining passive. Every 100 Essence spent grants a bone shield that absorbs damage. Critical for survivability -- constant Bone Spear casts generate shields that protect you during your burst rotation.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(0, 0, 0, 0.3); color: #e8e8e8;">P</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Stand Alone<span class="skill-tag">DEFENSIVE</span></div>
+                        <p class="skill-desc">Gain up to 15% damage reduction for each sacrificed minion type. With all three minion types sacrificed, you gain massive DR that replaces the need for minions. This is why we sacrifice all minions in Book of the Dead.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(0, 0, 0, 0.3); color: #e8e8e8;">P</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Supporting Passives</div>
+                        <p class="skill-desc">
+                            <strong>Hewed Flesh</strong> -- Chance to create a corpse on hit, ensuring corpses for Corpse Explosion even without killing blows.<br>
+                            <strong>Memento Mori</strong> -- Bonus damage for each sacrificed minion type, stacking with Stand Alone.<br>
+                            <strong>Imperfectly Balanced</strong> -- Core skills (Bone Spear) deal bonus damage based on your available Essence.<br>
+                            <strong>Compound Fracture</strong> -- Bone skills have a chance to make enemies Vulnerable, stacking with Dreadful Bone Prison.<br>
+                            <strong>Evulsion</strong> -- Bone skills deal bonus Critical Strike Damage to Vulnerable enemies. Synergizes perfectly with Bone Prison combos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Book of the Dead -- Sacrifice All</h2>
+                <p>This build sacrifices all three minion types. No minions are active. Stand Alone and Memento Mori passives provide massive bonuses for each sacrificed type.</p>
+
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Skeletal Warriors</div>
+                        <div class="build-info-value" style="color: #6b7280;">Defenders -- Sacrifice</div>
+                        <p style="color: #a0a0a0; font-size: 0.8rem; margin-top: 5px;">Bonus maximum Essence</p>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Skeletal Mages</div>
+                        <div class="build-info-value" style="color: #3b82f6;">Cold Mages -- Sacrifice</div>
+                        <p style="color: #a0a0a0; font-size: 0.8rem; margin-top: 5px;">Bonus Vulnerable damage</p>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Golem</div>
+                        <div class="build-info-value" style="color: #e8e8e8;">Bone Golem -- Sacrifice</div>
+                        <p style="color: #a0a0a0; font-size: 0.8rem; margin-top: 5px;">Bonus critical strike damage</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- TAB 3: GEAR & ASPECTS                                        -->
+        <!-- ============================================================ -->
+        <div id="gear" class="tab-content">
+
+            <div class="section">
+                <h2>Unique Items</h2>
+
+                <!-- Deathless Visage -->
+                <div class="gear-slot-card" style="border-left-color: var(--red);">
+                    <div class="gear-slot-header"><span>HELM -- Deathless Visage</span><span style="color:var(--red);">NEAR-MANDATORY</span></div>
+                    <div class="stat-row"><span>Bone Skill Damage</span><span class="stat-value-calc">[20-30%]</span></div>
+                    <div class="stat-row"><span>Critical Strike Chance</span><span class="stat-value-calc">[5-8%]</span></div>
+                    <div class="stat-row"><span>Maximum Life</span><span class="stat-value-calc">[700-1000]</span></div>
+                    <div class="unique-effect"><strong>Unique Effect:</strong> Bone Prison lasts 2 additional seconds and makes trapped enemies take guaranteed Critical Strikes from your Bone skills. This turns Bone Prison into a guaranteed crit window for your entire burst combo. Essentially mandatory for the build to function at A-Tier level.</div>
+                </div>
+
+                <!-- Ebonpiercer -->
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>RING -- Ebonpiercer</span><span style="color:var(--gold);">HIGH PRIORITY</span></div>
+                    <div class="stat-row"><span>Bone Skill Damage</span><span class="stat-value-calc">[15-22%]</span></div>
+                    <div class="stat-row"><span>Critical Strike Chance</span><span class="stat-value-calc">[3-5%]</span></div>
+                    <div class="stat-row"><span>Vulnerable Damage</span><span class="stat-value-calc">[10-18%]</span></div>
+                    <div class="unique-effect"><strong>Unique Effect:</strong> Bone Spear pierces through enemies and has a chance to spawn additional bone shards on pierce. This increases Bone Spear damage in packed groups and ensures you hit multiple targets inside Bone Prison. Best-in-slot ring for Bone builds.</div>
+                </div>
+
+                <!-- Blood Moon Breeches -->
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>PANTS -- Blood Moon Breeches</span><span style="color:var(--gold);">UNIQUE</span></div>
+                    <div class="stat-row"><span>Damage to Crowd Controlled</span><span class="stat-value-calc">[18-25%]</span></div>
+                    <div class="stat-row"><span>Damage Reduction</span><span class="stat-value-calc">[5-12%]</span></div>
+                    <div class="stat-row"><span>Maximum Life</span><span class="stat-value-calc">[600-900]</span></div>
+                    <div class="unique-effect"><strong>Unique Effect:</strong> Your Minion and Curse Skills deal +50%[x] increased Critical Strike Damage. Since Corpse Explosion benefits from this (corpse skill), this is a massive 50% Crit Damage multiplier for your AoE burst. Excellent for Bone Prison combo windows.</div>
+                </div>
+
+                <h3>Mythic Uniques (Endgame / Best-in-Slot)</h3>
+
+                <!-- Harlequin Crest -->
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>HELM -- Harlequin Crest</span><span style="color:var(--purple);">MYTHIC</span></div>
+                    <div class="stat-row"><span>+All Skills</span><span class="stat-value-calc">+4 Ranks</span></div>
+                    <div class="stat-row"><span>Cooldown Reduction</span><span class="stat-value-calc">+20%</span></div>
+                    <div class="stat-row"><span>Maximum Life</span><span class="stat-value-calc">+1000</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Gain +20% Damage Reduction and +20% Resource Generation. The +4 All Skills boosts Bone Prison, Bone Spear, and Blood Wave ranks significantly. Best-in-slot helm once you have endgame gear, but requires replacing Deathless Visage (tradeoff: more ranks vs guaranteed crits).</div>
+                </div>
+
+                <!-- The Grandfather -->
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>WEAPON -- The Grandfather</span><span style="color:var(--purple);">MYTHIC</span></div>
+                    <div class="stat-row"><span>Weapon Damage</span><span class="stat-value-calc">Highest in Game</span></div>
+                    <div class="stat-row"><span>Critical Strike Damage</span><span class="stat-value-calc">[76-100%]</span></div>
+                    <div class="stat-row"><span>All Stats</span><span class="stat-value-calc">[60-100]</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> +100%[x] Damage. The single highest weapon damage value in the game. Since Bone Spear scales off weapon damage, The Grandfather is the ultimate endgame weapon for massive burst crits.</div>
+                </div>
+
+                <!-- Shroud of False Death -->
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>CHEST -- Shroud of False Death</span><span style="color:var(--purple);">MYTHIC</span></div>
+                    <div class="stat-row"><span>+All Passive Ranks</span><span class="stat-value-calc">+1</span></div>
+                    <div class="stat-row"><span>All Stats</span><span class="stat-value-calc">+160</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Gain Stealth and 40% Movement Speed when not attacking. The +1 All Passives boosts Ossified Essence, Stand Alone, and every other passive simultaneously. Excellent for repositioning between burst windows.</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Legendary Aspects</h2>
+                <p>These are the core aspects that make the build function. Prioritize Bone damage multipliers and crit scaling aspects.</p>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>WEAPON -- Shattered Spirit Aspect</span><span style="color: var(--gold);">CORE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Bone Prison deals increased damage and explodes when it ends, dealing massive AoE damage. This turns Bone Prison into both a setup tool and a burst finisher. The explosion scales with your Bone damage multipliers.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>GLOVES -- Aspect of Grasping Veins</span><span style="color: var(--gold);">DAMAGE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Gain increased Critical Strike Chance for 6 seconds when enemies are affected by Corpse Tendrils. Use Corpse Tendrils before Bone Prison to guarantee crits during your combo window.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>AMULET -- Aspect of Exposed Flesh</span><span style="color: var(--gold);">DAMAGE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Bone skills deal bonus damage to Vulnerable enemies. Place on amulet for the 50% aspect bonus. Since Bone Prison applies Vulnerable, this is a permanent multiplier during burst windows.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>BOOTS -- Aspect of Decay</span><span style="color: var(--gold);">UTILITY</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Increases Shadow damage dealt. While this build focuses on Bone, some skills (Corpse Explosion variants) can benefit from Shadow scaling if using Blighted Corpse Explosion. Optional for hybrid scaling.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>CHEST -- Sacrificial Aspect</span><span style="color: var(--gold);">DAMAGE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Gain bonus damage for each type of minion you have sacrificed. With all three types sacrificed, this provides a substantial flat damage increase that synergizes with Stand Alone and Memento Mori.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>RING 1 -- Aspect of Torment</span><span style="color: var(--gold);">DAMAGE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Critical Strikes with Bone skills extend the duration of active Bone Prison effects. This allows you to extend your burst window by landing crits, creating a positive feedback loop.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>RING 2 -- Aspect of the Cursed Aura</span><span style="color: var(--gold);">UTILITY</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Decrepify automatically applies to enemies near you. Frees up an entire skill input and ensures Abhorrent Decrepify CDR triggers automatically on kills, reducing Blood Wave and Bone Prison cooldowns.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- TAB 4: TEMPERING                                             -->
+        <!-- ============================================================ -->
+        <div id="temper" class="tab-content">
+
+            <div class="section">
+                <h2>Tempering Priority</h2>
+                <p>Tempering adds specific affixes to your gear that cannot roll naturally. Focus on Bone damage first, then Critical Strike multipliers for maximum burst potential.</p>
+
+                <div class="tier tier-s">
+                    <h4>S-TIER: Temper First</h4>
+                    <ul>
+                        <li><strong>Bone Skill Damage:</strong> Direct multiplier to Bone Spear and Bone Prison. Your primary damage stat. Stack as much as possible.</li>
+                        <li><strong>Critical Strike Damage:</strong> Maximizes burst during guaranteed crit windows from Deathless Visage. Target 200%+ total Crit Damage.</li>
+                        <li><strong>Vulnerable Damage:</strong> With Bone Prison applying Vulnerable, this is a permanent multiplier during burst windows.</li>
+                    </ul>
+                </div>
+
+                <div class="tier tier-a">
+                    <h4>A-TIER: High Priority</h4>
+                    <ul>
+                        <li><strong>Cooldown Reduction:</strong> Reduces Bone Prison and Blood Wave cooldowns. Essential for burst window frequency.</li>
+                        <li><strong>Maximum Life:</strong> Your primary defensive stat alongside Ossified Essence shields. Target 10,000+ for Pit pushing.</li>
+                        <li><strong>Critical Strike Chance:</strong> Important until you reach 60%+ with gear. Grasping Veins covers some, but more is always better.</li>
+                    </ul>
+                </div>
+
+                <div class="tier tier-b">
+                    <h4>B-TIER: Fill Remaining Slots</h4>
+                    <ul>
+                        <li><strong>Bone Spear Attack Speed:</strong> Faster Bone Spear casts during burst windows. Good for maximizing damage during Bone Prison.</li>
+                        <li><strong>Essence Cost Reduction:</strong> Allows more Bone Spear casts per burst window. Less critical if managing Essence well.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Tempering by Slot</h2>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Weapon</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Bone Skill Damage</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Critical Strike Damage</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Helm</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Cooldown Reduction</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Maximum Life</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Chest</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Maximum Life</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Bone Skill Damage</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Gloves</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Critical Strike Chance</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Bone Spear Attack Speed</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Pants</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Maximum Life</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Vulnerable Damage</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Boots</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Bone Prison Duration</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Movement Speed</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Amulet</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Cooldown Reduction</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Bone Skill Damage</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Rings</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Critical Strike Damage</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Vulnerable Damage</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- TAB 5: PARAGON                                               -->
+        <!-- ============================================================ -->
+        <div id="paragon" class="tab-content">
+
+            <div class="section">
+                <h2>Paragon Board Order</h2>
+                <p>Attach boards in this order. Route through nodes that give Intelligence, Bone damage, and Critical Strike multipliers. Socket the listed Glyph in each board's Glyph socket once it reaches level 15.</p>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">1. Starting Board</span>
+                        <span class="paragon-board-order">Board 1</span>
+                    </div>
+                    <p style="color: #c0c0c0; margin: 0;">Glyph: <span class="glyph-name">Eliminator</span></p>
+                    <p style="color: #a0a0a0; font-size: 0.85rem; margin-top: 8px;">Eliminator increases damage to injured and crowd-controlled enemies. Since Bone Prison traps enemies and they are always crowd-controlled during your burst, this glyph has 100% uptime during combos. Route toward Rare nodes that grant damage to Vulnerable enemies.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">2. Scent of Death</span>
+                        <span class="paragon-board-order">Board 2</span>
+                    </div>
+                    <p style="color: #c0c0c0; margin: 0;">Glyph: <span class="glyph-name">Sacrificial</span></p>
+                    <p style="color: #a0a0a0; font-size: 0.85rem; margin-top: 8px;">Sacrificial grants bonus damage per sacrificed minion type. With all three types sacrificed, this is one of the strongest glyphs for this build. Scent of Death board has nodes that boost damage after consuming corpses, synergizing with Corpse Explosion usage.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">3. Blood Begets Blood</span>
+                        <span class="paragon-board-order">Board 3</span>
+                    </div>
+                    <p style="color: #c0c0c0; margin: 0;">Glyph: <span class="glyph-name">Essence</span></p>
+                    <p style="color: #a0a0a0; font-size: 0.85rem; margin-top: 8px;">Essence glyph increases damage based on your current Essence amount. Maintain high Essence for the damage bonus, then dump Essence during Bone Prison burst windows. This board provides additional life and damage nodes for survivability.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">4. Bone Graft</span>
+                        <span class="paragon-board-order">Board 4</span>
+                    </div>
+                    <p style="color: #c0c0c0; margin: 0;">Glyph: <span class="glyph-name">Exploit</span></p>
+                    <p style="color: #a0a0a0; font-size: 0.85rem; margin-top: 8px;">Exploit increases damage to Vulnerable enemies. Since Bone Prison applies Vulnerable, this glyph is always active during burst windows. Bone Graft board's Legendary node provides additional Bone skill damage scaling.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">5. Wither</span>
+                        <span class="paragon-board-order">Board 5</span>
+                    </div>
+                    <p style="color: #c0c0c0; margin: 0;">Glyph: <span class="glyph-name">Gravekeeper</span></p>
+                    <p style="color: #a0a0a0; font-size: 0.85rem; margin-top: 8px;">Gravekeeper grants bonus damage after consuming a corpse. Since you consume corpses with Corpse Explosion and Corpse Tendrils, this buff is frequently active. Wither board provides additional damage scaling for the late-game Paragon grind.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Paragon Stat Priority</h2>
+                <div class="tier tier-s">
+                    <h4>Priority Nodes</h4>
+                    <ul>
+                        <li><strong>Bone Skill Damage %</strong> -- Direct scaling for Bone Spear and Bone Prison</li>
+                        <li><strong>Critical Strike Damage</strong> -- Maximizes burst during guaranteed crit windows</li>
+                        <li><strong>Damage to Vulnerable</strong> -- High uptime via Bone Prison</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>Secondary Nodes</h4>
+                    <ul>
+                        <li><strong>Intelligence</strong> -- Necromancer primary stat, boosts skill damage and resistances</li>
+                        <li><strong>Maximum Life</strong> -- Survivability for Pit pushing</li>
+                        <li><strong>Critical Strike Chance</strong> -- Ensures consistent crits outside of Bone Prison windows</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- TAB 6: GAMEPLAY                                              -->
+        <!-- ============================================================ -->
+        <div id="gameplay" class="tab-content">
+
+            <div class="section">
+                <h2>Combat Rotation</h2>
+                <p>The rotation is all about setting up and executing your Bone Prison burst combo. Master the timing and sequence to maximize damage during the guaranteed crit window.</p>
+
+                <ol class="rotation-steps">
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong style="color: #d4af37;">Corpse Tendrils to Group</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.85rem;">Start by using Corpse Tendrils to pull all nearby enemies together and apply Vulnerable. This groups enemies tightly so your Bone Prison and Bone Spear hit maximum targets. Grasping Veins grants Crit Chance for 6 seconds, setting up your burst window.</p>
+                        </div>
+                    </li>
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong style="color: #d4af37;">Bone Prison on Grouped Pack</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.85rem;">Cast Bone Prison on the grouped enemies. With Deathless Visage, enemies inside the prison take guaranteed Critical Strikes from your Bone skills for the duration. Dreadful Bone Prison also applies Vulnerable, stacking with Corpse Tendrils. This is your burst window -- everything that follows must happen before Bone Prison expires.</p>
+                        </div>
+                    </li>
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong style="color: #d4af37;">Spam Bone Spear Inside Prison</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.85rem;">Dump all your Essence into Bone Spear during the Bone Prison window. Every Bone Spear is a guaranteed crit thanks to Deathless Visage. Paranormal Bone Spear breaks apart and pierces, hitting multiple enemies. This is your primary burst damage -- land as many Bone Spears as possible before the prison expires.</p>
+                        </div>
+                    </li>
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong style="color: #d4af37;">Blood Wave for Sustain</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.85rem;">During the Bone Prison window, cast Blood Wave for additional burst damage and massive healing. Prime Blood Wave grants Overpower on your next attack, which you use on a Bone Spear. Supreme Blood Wave reduces the cooldown on kills, allowing faster burst windows.</p>
+                        </div>
+                    </li>
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong style="color: #d4af37;">Corpse Explosion Follow-Up</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.85rem;">After Bone Spear kills generate corpses inside the prison, spam Corpse Explosion for additional AoE burst. Plagued Corpse Explosion leaves damaging fields that finish off stragglers. Blood Moon Breeches boosts Corpse Explosion Crit Damage for massive explosions.</p>
+                        </div>
+                    </li>
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong style="color: #d4af37;">Bone Prison Explosion Finisher</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.85rem;">With Shattered Spirit Aspect, Bone Prison explodes when it ends, dealing massive AoE damage. Let the prison expire naturally to trigger the explosion. This finishes off remaining enemies and clears the area.</p>
+                        </div>
+                    </li>
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong style="color: #d4af37;">Decrepify -- Auto-Applied</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.85rem;">With Aspect of the Cursed Aura, Decrepify automatically applies to all nearby enemies. Abhorrent Decrepify triggers CDR on cursed enemy kills, reducing your Bone Prison and Blood Wave cooldowns. The more enemies you kill during your burst, the faster your next combo comes back.</p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>Tips & Advanced Play</h2>
+
+                <div class="tip-card">
+                    <strong>Timing is Everything</strong>
+                    <p>Your burst window is dictated by Bone Prison duration. With Deathless Visage, you have extended time, but you must land all your Bone Spears before the prison expires. Practice the timing: Tendrils &rarr; Prison &rarr; 4-5 Bone Spears &rarr; Blood Wave &rarr; Explosions.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Essence Management</strong>
+                    <p>Bone Spear costs significant Essence. Maintain high Essence before casting Bone Prison so you can spam Bone Spear during the guaranteed crit window. If you run out of Essence mid-burst, your damage plummets. Essence glyph helps by granting bonus damage when at high Essence.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Cooldown Windows</strong>
+                    <p>This build is cooldown-dependent. Bone Prison and Blood Wave have long cooldowns. Between burst windows, focus on generating corpses, positioning, and waiting for cooldowns. Abhorrent Decrepify CDR helps -- the more enemies you kill during your burst, the faster your cooldowns return.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Boss Strategy</strong>
+                    <p>Against bosses, Bone Prison traps the boss in place. Use Corpse Tendrils first to apply Vulnerable and Grasping Veins Crit Chance, then cast Bone Prison and unload all your Bone Spears. Blood Wave during the window for massive single-target burst. Boss fights are where this build shines -- guaranteed crits on a stationary target.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Positioning for Maximum Hits</strong>
+                    <p>Bone Spear pierces with Ebonpiercer. Position yourself so that your Bone Spears travel through the entire Bone Prison, hitting every enemy inside. Aim from one edge of the prison to the other to maximize pierce hits.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Ossified Essence Shields</strong>
+                    <p>Every 100 Essence spent generates a bone shield. During your Bone Spear spam, you generate multiple shields that protect you. This is your primary survivability tool during burst windows when you are stationary and vulnerable.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Content Ratings</h2>
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Speedfarm</div>
+                        <div class="build-info-value" style="color: #3b82f6;">B-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Nightmare Dungeon</div>
+                        <div class="build-info-value" style="color: #10b981;">A-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Pit Pushing</div>
+                        <div class="build-info-value" style="color: #10b981;">A-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Bossing</div>
+                        <div class="build-info-value" style="color: #fbbf24;">S-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Helltide</div>
+                        <div class="build-info-value" style="color: #3b82f6;">B-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Leveling</div>
+                        <div class="build-info-value" style="color: #6b7280;">C-Tier</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="/assets/js/guide.js"></script>

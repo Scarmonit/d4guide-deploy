@@ -1,0 +1,433 @@
+---
+layout: base.njk
+title: Quill Volley Spiritborn Guide | D4 Season 11
+description: Complete Diablo 4 Quill Volley Spiritborn guide for Season 11. Ranged AoE build with skills, gear, paragon, aspects. A-Tier poison volley destruction.
+styles:
+  - /assets/css/guide.css
+---
+
+    <a href="/build-guides" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Build Guides
+    </a>
+
+    <header class="guide-hero">
+        <span class="badge">Season 11 - Divine Intervention</span>
+        <h1>Quill Volley Spiritborn</h1>
+        <p class="subtitle">A-Tier Ranged AoE Build - Poison Quill Barrage Destruction</p>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+        <button class="nav-tab" onclick="showTab('skills')">Skills</button>
+        <button class="nav-tab" onclick="showTab('gear')">Gear</button>
+        <button class="nav-tab" onclick="showTab('aspects')">Aspects & Tempering</button>
+        <button class="nav-tab" onclick="showTab('paragon')">Paragon</button>
+        <button class="nav-tab" onclick="showTab('gameplay')">Gameplay</button>
+    </div>
+
+    <div class="container">
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 1: OVERVIEW                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="overview" class="tab-content active">
+
+            <div class="section">
+                <h2>Build Summary</h2>
+                <p>The Quill Volley Spiritborn is an A-Tier ranged AoE build that fires volleys of poison-tipped quills in a wide cone, shredding packs from a safe distance. The Porcupine spirit guardian empowers your quills with stacking poison damage, while the centipede spirit provides additional DoT scaling. With Needleflare Aspect causing quills to ricochet between enemies, a single cast can clear entire screens. This is one of the safest Spiritborn builds since you never need to enter melee range, making it excellent for Nightmare Dungeons and Helltide farming. Stack attack speed and poison damage for maximum quill output.</p>
+
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Tier</div>
+                        <div class="build-info-value" style="color: var(--gold);">A-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Playstyle</div>
+                        <div class="build-info-value">Ranged / Poison AoE</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Best For</div>
+                        <div class="build-info-value">AoE Clear, Helltide</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Difficulty</div>
+                        <div class="build-info-value">
+                            Easy
+                            <div class="difficulty-bar">
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Stat Targets</h2>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Attack Speed</span><span>Stack Aggressively</span></div><div class="stat-progress-bar"><div class="stat-progress-fill speed"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Poison Damage</span><span>Primary Multiplier</span></div><div class="stat-progress-bar"><div class="stat-progress-fill dmg"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Critical Strike Chance</span><span>50%+ Target</span></div><div class="stat-progress-bar"><div class="stat-progress-fill crit"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Critical Strike Damage</span><span>High Priority</span></div><div class="stat-progress-bar"><div class="stat-progress-fill dmg"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Maximum Life</span><span>Moderate (Ranged Safety)</span></div><div class="stat-progress-bar"><div class="stat-progress-fill life"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Vigor Cost Reduction</span><span>Sustain Quill Spam</span></div><div class="stat-progress-bar"><div class="stat-progress-fill cdr"></div></div></div>
+            </div>
+
+            <div class="section">
+                <h2>Strengths & Weaknesses</h2>
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>Strengths</h4>
+                        <ul>
+                            <li>Massive AoE coverage from range</li>
+                            <li>Safe ranged playstyle</li>
+                            <li>Easy rotation, low skill floor</li>
+                            <li>Excellent pack clear and Helltide</li>
+                            <li>Poison DoT finishes stragglers</li>
+                            <li>Strong with basic gear</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>Weaknesses</h4>
+                        <ul>
+                            <li>Single-target boss damage is lower</li>
+                            <li>Slower than Evade Eagle for speedfarm</li>
+                            <li>Needs attack speed investment</li>
+                            <li>Poison DoT takes time to kill</li>
+                            <li>Less mobility than melee builds</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 2: SKILLS                              -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="skills" class="tab-content">
+
+            <div class="section">
+                <h2>Active Skills</h2>
+
+                <div class="skill-card">
+                    <div class="skill-icon">1</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Quill Volley <span class="skill-tag">5/5</span> <span class="skill-tag">PRIMARY</span></div>
+                        <p class="skill-desc">Your main damage skill. Fires a cone of poison quills that pierce enemies and apply stacking poison DoT. Enhanced Quill Volley fires additional quills and increases their damage based on number of enemies hit. Spam this constantly for maximum DPS.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">2</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Thunderspike <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">Basic melee attack used to proc certain passives and generate Vigor. Use only when low on Vigor or when you need to trigger on-basic-attack effects. Otherwise, stay at range and spam Quill Volley.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">3</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Armored Hide <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">Defensive skill granting a large barrier and Unstoppable. Use before diving into dangerous packs or when taking burst damage. The barrier absorbs hits while you continue firing quills safely from range.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">4</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Concussive Stomp <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">AoE crowd control that stuns nearby enemies. Use to interrupt dangerous enemy attacks or create breathing room when enemies close to melee range. Synergizes with damage bonuses to stunned targets.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">5</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Soar <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">Mobility skill that launches you forward. Use to reposition between packs, escape danger, or close gaps. Enhanced Soar grants damage buffs on landing, making it a combo opener.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">6</div>
+                    <div class="skill-info">
+                        <div class="skill-name">The Seeker <span class="skill-tag">5/5</span> <span class="skill-tag">ULTIMATE</span></div>
+                        <p class="skill-desc">Your Ultimate ability. Summons a seeking projectile that tracks enemies and deals massive damage on impact. Use during elite encounters and boss fights for burst windows. Pairs well with poison stacks for finishing power.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Key Passives</h2>
+                <div class="tier tier-s">
+                    <h4>Core Passives</h4>
+                    <ul>
+                        <li><strong>Noxious Resonance</strong> &mdash; Poison skills deal increased damage per poison stack on the target. Since Quill Volley applies multiple stacks per cast, this ramps your damage exponentially against packs.</li>
+                        <li><strong>Toxic Claws</strong> &mdash; All attacks have a chance to apply additional poison stacks. More stacks mean more Noxious Resonance damage scaling.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>Scaling Passives</h4>
+                    <ul>
+                        <li><strong>Apex Predator</strong> &mdash; Increased damage to enemies below 35% life. Finishes off poison-weakened enemies faster for smoother clear.</li>
+                        <li><strong>Vehement Brawler</strong> &mdash; Attack speed bonus after using a skill. Ramps your Quill Volley fire rate for sustained encounters.</li>
+                        <li><strong>Ferocity</strong> &mdash; Critical strike scaling that synergizes with poison crits. Each crit applies bonus poison stacks for exponential damage.</li>
+                        <li><strong>Spiritual Attunement</strong> &mdash; Vigor regeneration and cost reduction. Essential for sustained Quill Volley spam without running out of resource.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 3: GEAR                                -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gear" class="tab-content">
+
+            <div class="section">
+                <h2>Required Unique Items</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--red);">
+                    <div class="gear-slot-header"><span>GLOVES - Needleflare Gauntlets</span><span style="color: var(--red);">REQUIRED</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Quill Volley quills ricochet to additional enemies on hit. This transforms Quill Volley from a cone attack into a screen-clearing chain reaction. Without this unique, AoE coverage is significantly reduced. Mandatory for A-Tier performance.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>CHEST - Shroud of False Death</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> +1 Ranks to all Passives. +160 All Stats. Stealth + 40% Movement Speed when not attacking. Boosts all your poison passives simultaneously and provides excellent survivability with the stealth mechanic.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Best-in-Slot Gear</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>HELM - Harlequin Crest</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> +4 Ranks to all Skills. +20% Damage Reduction. CDR and Maximum Life. Boosts Quill Volley ranks significantly while providing defensive stats for push content.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>BOOTS - Flickerstep</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Evade grants Movement Speed and Damage Reduction. Provides mobility and survivability. Pairs with Soar for exceptional repositioning between packs.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>PANTS - Temerity</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Healing beyond max life creates a barrier. With Life on Hit and passive sustain, you maintain a permanent barrier while firing quills at range. Excellent defensive layer.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>AMULET - Ring of Starless Skies</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Each consecutive skill cast reduces resource cost. Stacks rapidly during Quill Volley spam for near-free casting. Solves all Vigor sustain issues.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>WEAPON - Rare Staff with Poison Damage + Attack Speed</span><span style="color: var(--gold);">RARE</span></div>
+                    <div class="unique-effect"><strong>Stats:</strong> Poison Damage, Attack Speed, Critical Strike Damage, Core Skill Damage. Stack offensive affixes that directly amplify Quill Volley damage and fire rate.</div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 4: ASPECTS & TEMPERING                 -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="aspects" class="tab-content">
+
+            <div class="section">
+                <h2>Legendary Aspects</h2>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Needleflare Aspect</span></div>
+                    <div class="unique-effect">Quill Volley quills chain to nearby enemies. If not using the unique gloves, this aspect provides similar (weaker) ricochet functionality. Place on amulet for 50% bonus if using Needleflare Gauntlets elsewhere.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Venom</span></div>
+                    <div class="unique-effect">Increases poison damage dealt and extends poison duration. Direct scaling for all Quill Volley DoTs. More duration means more Noxious Resonance stacks before expiry.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Disobedience</span></div>
+                    <div class="unique-effect">Gain stacking Armor when dealing damage. With constant Quill Volley hits, this ramps to max stacks instantly for massive damage reduction. Essential defensive layer.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Conceited Aspect</span></div>
+                    <div class="unique-effect">Gain bonus damage while you have a barrier. With Temerity providing constant barriers from healing, this is a near-permanent damage multiplier.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Might</span></div>
+                    <div class="unique-effect">Basic skills grant Damage Reduction for 4 seconds. Use Thunderspike periodically to maintain this buff. Provides survivability during extended encounters.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Edgemaster's Aspect</span></div>
+                    <div class="unique-effect">Skills deal increased damage based on available primary resource. With Ring of Starless Skies keeping Vigor high, this provides consistent damage amplification on every Quill Volley cast.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Tempering Priorities</h2>
+
+                <div class="tier tier-s">
+                    <h4>S-TIER: Must Have</h4>
+                    <ul>
+                        <li><strong>Poison Damage</strong> &mdash; Direct multiplier to all Quill Volley damage. Temper on every slot that allows it. The single most impactful stat for this build.</li>
+                        <li><strong>Attack Speed</strong> &mdash; More Quill Volleys per second means more poison stacks and more damage. Stack aggressively for smooth gameplay.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>A-TIER: High Priority</h4>
+                    <ul>
+                        <li><strong>Critical Strike Chance</strong> &mdash; Quill crits apply bonus poison stacks via Ferocity. Aim for 50%+ for consistent crit scaling.</li>
+                        <li><strong>Critical Strike Damage</strong> &mdash; Amplifies crit quill damage. High value with stacked crit chance for burst windows.</li>
+                        <li><strong>Vigor Cost Reduction</strong> &mdash; Sustains Quill Volley spam for extended encounters. Less critical with Ring of Starless Skies.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-b">
+                    <h4>B-TIER: Fill</h4>
+                    <ul>
+                        <li><strong>Maximum Life</strong> &mdash; Survivability stat. Sorcerers are naturally fragile; additional Life pool provides a safety net.</li>
+                        <li><strong>Movement Speed</strong> &mdash; Quality of life for repositioning between packs and kiting dangerous enemies.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 5: PARAGON                             -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="paragon" class="tab-content">
+
+            <div class="section">
+                <h2>Paragon Board Order</h2>
+                <p>Attach boards in this exact order. Each board's glyph is listed below &mdash; level glyphs to 15 first, then push to 21 for radius bonus.</p>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Starting Board</span>
+                        <span class="paragon-board-order">Board 1</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Spirit</span> &mdash; Increases spirit damage and provides foundational scaling. Boosts all Quill Volley hits and poison ticks from the start.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Viscous Shield</span>
+                        <span class="paragon-board-order">Board 2</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Jagged Plume</span> &mdash; Poison damage bonus and barrier scaling. Directly amplifies Quill Volley DoTs while providing defensive barrier generation.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Drive</span>
+                        <span class="paragon-board-order">Board 3</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Talon</span> &mdash; Attack speed and damage scaling. More attacks per second means more quills fired and more poison stacks applied.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Convergence</span>
+                        <span class="paragon-board-order">Board 4</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Fulminate</span> &mdash; Elemental damage amplification. Scales all poison damage and provides multiplicative bonuses to Quill Volley output.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Spiney Skin</span>
+                        <span class="paragon-board-order">Board 5</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Canny</span> &mdash; Defensive scaling and damage to crowd-controlled enemies. Pairs with Concussive Stomp stuns for burst windows against stunned packs.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 6: GAMEPLAY                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gameplay" class="tab-content">
+
+            <div class="section">
+                <h2>Rotation</h2>
+                <ol class="rotation-steps">
+                    <li class="rotation-step">
+                        <p><strong>Soar into pack range</strong> &mdash; Use Soar to close distance to a pack of enemies. The landing damage buff applies to your first Quill Volley for bonus initial burst.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Concussive Stomp for CC</strong> &mdash; If enemies are close, use Concussive Stomp to stun the pack. Stunned enemies take bonus damage from Canny glyph and cannot retaliate while you fire quills.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Spam Quill Volley</strong> &mdash; Your primary action. Fire cone after cone of poison quills into the pack. Each volley applies multiple poison stacks. With Needleflare, quills ricochet to hit everything on screen.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Maintain distance</strong> &mdash; Stay at mid-range. Quill Volley has excellent range so there is no need to be in melee. Reposition with Evade or Soar if enemies close the gap.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Armored Hide for survivability</strong> &mdash; When taking heavy damage, pop Armored Hide for a barrier and Unstoppable. Continue firing quills through the barrier protection.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>The Seeker for elites/bosses</strong> &mdash; Use your Ultimate on high-value targets. The seeking projectile deals massive burst damage. Combo with maximum poison stacks for amplified damage.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Thunderspike for Vigor regen</strong> &mdash; If Vigor runs low, use Thunderspike basic attacks briefly to regenerate. With Ring of Starless Skies, this is rarely needed.</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>Gameplay Tips</h2>
+
+                <div class="tip-card">
+                    <strong>Needleflare is the build-defining mechanic.</strong>
+                    <p>Without quill ricochet (from Needleflare Gauntlets or the Aspect), each Quill Volley only hits enemies in the cone. With ricochet, quills bounce between all nearby enemies, turning every pack into a chain reaction of poison.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Attack speed is your most important stat.</strong>
+                    <p>More Quill Volleys per second means more poison stacks, more ricochet hits, and exponentially more damage through Noxious Resonance scaling. Prioritize attack speed on every gear slot possible.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Let poison finish the job.</strong>
+                    <p>You don't need to kill enemies with direct quill hits. Apply heavy poison stacks and move to the next pack. The DoT will finish off weakened enemies while you're already clearing ahead.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Stay at mid-range for safety.</strong>
+                    <p>Quill Volley has excellent range. There is no reason to be in melee. Keep your distance and let the quills do the work. Use Soar and Evade to maintain safe positioning at all times.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Ring of Starless Skies solves Vigor issues.</strong>
+                    <p>Without this mythic ring, Quill Volley spam drains Vigor quickly. With it, each consecutive cast reduces cost until you're casting for nearly free. This is the single biggest quality-of-life upgrade for the build.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Pair with Conceited Aspect for constant damage bonus.</strong>
+                    <p>Temerity converts overhealing into barriers. With Life on Hit and passive sustain, you maintain constant barriers. Conceited Aspect then grants a permanent damage multiplier as long as the barrier exists.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="/assets/js/guide.js"></script>

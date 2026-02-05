@@ -1,0 +1,475 @@
+---
+layout: base.njk
+title: Payback Spiritborn Build Guide | D4 Season 11
+description: Complete Diablo 4 Payback Spiritborn guide for Season 11. Counter-attack burst melee build. A-Tier push build with massive retaliation damage.
+styles:
+  - /assets/css/guide.css
+---
+
+    <a href="/build-guides" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Build Guides
+    </a>
+
+    <header class="guide-hero">
+        <span class="badge">Season 11 - Divine Intervention</span>
+        <h1>Payback Spiritborn</h1>
+        <p class="subtitle">A-Tier Push Build - Counter-Attack Burst Damage</p>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+        <button class="nav-tab" onclick="showTab('skills')">Skills</button>
+        <button class="nav-tab" onclick="showTab('gear')">Gear</button>
+        <button class="nav-tab" onclick="showTab('aspects')">Aspects & Tempering</button>
+        <button class="nav-tab" onclick="showTab('paragon')">Paragon</button>
+        <button class="nav-tab" onclick="showTab('gameplay')">Gameplay</button>
+    </div>
+
+    <div class="container">
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 1: OVERVIEW                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="overview" class="tab-content active">
+
+            <div class="section">
+                <h2>Build Summary</h2>
+                <p>The Payback Spiritborn is an A-Tier push build that weaponizes damage reflection into devastating counter-attack bursts. By combining Payback's core mechanic with Armored Hide's thorns scaling, each incoming hit is transformed into explosive retaliation damage. The build thrives in chaotic melee range combat where enemies swarm around you -- the more they hit, the harder you hit back. With proper positioning and timing, a single counter-attack window can delete entire packs.</p>
+
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Tier</div>
+                        <div class="build-info-value" style="color: var(--gold);">A-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Playstyle</div>
+                        <div class="build-info-value">Counter-Attack / Melee Burst</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Best For</div>
+                        <div class="build-info-value">Push, Dense Packs</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Difficulty</div>
+                        <div class="build-info-value">
+                            Hard
+                            <div class="difficulty-bar">
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Stat Targets</h2>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Thorns Damage</span><span>Critical Threshold</span></div><div class="stat-progress-bar"><div class="stat-progress-fill dmg"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Maximum Life</span><span>Very High</span></div><div class="stat-progress-bar"><div class="stat-progress-fill life"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Block Chance</span><span>High</span></div><div class="stat-progress-bar"><div class="stat-progress-fill armor"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Damage Reduction</span><span>Mandatory</span></div><div class="stat-progress-bar"><div class="stat-progress-fill armor"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Critical Strike Chance</span><span>Moderate</span></div><div class="stat-progress-bar"><div class="stat-progress-fill crit"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Attack Speed</span><span>Via Concussive Stomp</span></div><div class="stat-progress-bar"><div class="stat-progress-fill speed"></div></div></div>
+            </div>
+
+            <div class="section">
+                <h2>Strengths & Weaknesses</h2>
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>Strengths</h4>
+                        <ul>
+                            <li>Massive counter-attack burst damage against dense packs</li>
+                            <li>Extremely tanky with multiple defensive layers</li>
+                            <li>Rewards aggressive positioning in melee range</li>
+                            <li>Satisfying high-impact retaliation hits</li>
+                            <li>Excellent scaling with incoming damage</li>
+                            <li>Strong synergy between thorns and Payback mechanics</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>Weaknesses</h4>
+                        <ul>
+                            <li>Requires intentionally taking damage (high risk gameplay)</li>
+                            <li>Timing-dependent on counter-attack windows</li>
+                            <li>Slower clear speed than Evade-based builds</li>
+                            <li>Needs specific positioning to maximize hits taken</li>
+                            <li>Weaker against ranged or spread-out enemies</li>
+                            <li>Vulnerable during counter-attack cooldown gaps</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 2: SKILLS                              -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="skills" class="tab-content">
+
+            <div class="section">
+                <h2>Active Skills</h2>
+
+                <div class="skill-card">
+                    <div class="skill-icon">1</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Payback <span class="skill-tag">5/5</span> <span class="skill-tag">PRIMARY</span></div>
+                        <p class="skill-desc">Core skill that reflects incoming damage back to attackers with massive amplification. Each hit you take during the Payback window charges up retaliation damage that explodes on your next attack. The longer you wait and the more hits you absorb, the bigger the burst.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">2</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Armored Hide <span class="skill-tag">5/5</span> <span class="skill-tag">DEFENSIVE</span></div>
+                        <p class="skill-desc">Grants massive thorns damage scaling and damage reduction. The thorns bonus feeds directly into Payback's retaliation multiplier, while the DR keeps you alive during counter-attack windows. Essential for the build's core loop.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">3</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Concussive Stomp <span class="skill-tag">3/5</span> <span class="skill-tag">UTILITY</span></div>
+                        <p class="skill-desc">Crowd control tool that stuns enemies and grants Attack Speed. Use to freeze packs in place while you absorb hits during Payback windows, then burst them down. The Attack Speed bonus amplifies your counter-attack hit rate.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">4</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Counterattack <span class="skill-tag">1/5</span> <span class="skill-tag">CORE</span></div>
+                        <p class="skill-desc">Automatic retaliation skill that triggers when you Block. Synergizes with high Block Chance and Ocelot's Eye unique. Each blocked hit becomes an instant counter-attack, layering additional damage on top of Payback bursts.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">5</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Soar <span class="skill-tag">1/5</span> <span class="skill-tag">MOBILITY</span></div>
+                        <p class="skill-desc">Mobility skill for repositioning into or out of packs. Use to dive into dense groups to start Payback windows, or escape when defensive cooldowns are down. The invulnerability frames during Soar provide emergency survivability.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">6</div>
+                    <div class="skill-info">
+                        <div class="skill-name">The Protector <span class="skill-tag">ULTIMATE</span></div>
+                        <p class="skill-desc">Ultimate skill that massively boosts defensive stats and grants Unstoppable. Pop during dangerous phases to absorb massive incoming damage safely, then unleash enormous Payback retaliation bursts when the window expires.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Spirit Hall Selection</h2>
+                <div class="tier tier-s">
+                    <h4>Gorilla (Primary) - Ferocity</h4>
+                    <ul>
+                        <li><strong>Gorilla Ferocity</strong> -- Grants Maximum Life, Thorns damage, and damage reduction. All three stats are core to the build's identity. Maximum Life scales your survivability and Thorns multiplier, while DR keeps you alive during counter-attack windows.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>Eagle (Secondary) - Resolve</h4>
+                    <ul>
+                        <li><strong>Eagle Resolve</strong> -- Provides Attack Speed and Movement Speed. The Attack Speed amplifies counter-attack hit rate, while Movement Speed improves positioning between packs. Solid secondary choice for offensive utility.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Key Passives</h2>
+                <div class="tier tier-s">
+                    <h4>Core Passives</h4>
+                    <ul>
+                        <li><strong>Tenacity</strong> -- Increases damage based on Maximum Life. Direct scaling for Payback bursts since high Life is mandatory for the build.</li>
+                        <li><strong>Unbreakable</strong> -- Grants damage reduction and Fortify generation. Layers additional defense on top of Armored Hide for safer counter-attack windows.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>Offensive Passives</h4>
+                    <ul>
+                        <li><strong>Ruthless</strong> -- Bonus damage to stunned and crowd-controlled enemies. Synergizes with Concussive Stomp stuns.</li>
+                        <li><strong>Vicious</strong> -- Critical Strike Chance and Critical Strike Damage scaling. Amplifies Payback burst crits.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-b">
+                    <h4>Defensive Passives</h4>
+                    <ul>
+                        <li><strong>Resilience</strong> -- Maximum Life and Armor bonuses. Feeds into Tenacity passive scaling and survivability.</li>
+                        <li><strong>Fortified Spirit</strong> -- Fortify generation and damage bonuses while Fortified. Keeps you alive during extended counter-attack phases.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 3: GEAR                                -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gear" class="tab-content">
+
+            <div class="section">
+                <h2>Key Unique Items</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--red);">
+                    <div class="gear-slot-header"><span>AMULET - Ocelot's Eye</span><span style="color: var(--red);">REQUIRED</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> The core unique for this build. Massively increases Block Chance and causes blocked attacks to trigger automatic counter-attacks. Transforms every blocked hit into instant retaliation damage, layering on top of Payback bursts. Without this, the build loses a critical damage and defensive layer.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>BOOTS - Flickerstep</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Grants bonus Movement Speed and Evade charges. Provides critical repositioning power for diving into packs to start Payback windows, or escaping when defensive cooldowns are down. The extra Evade charges offer emergency survivability.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>AMULET - Banished Lord's Talisman</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Increases Core Skill damage and provides resource cost reduction. Amplifies Payback burst damage and ensures you can cast Payback on cooldown without resource starvation. Solid alternative to Ocelot's Eye for offensive-focused variants.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Mythic Items</h2>
+                <p style="color: #a0a0a0; margin-bottom: 15px;">For pushing the highest Pit tiers, these Mythic uniques provide massive power spikes.</p>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>HELM - Harlequin Crest</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Grants Maximum Life, Cooldown Reduction, and damage reduction. All three stats are perfect for this build -- Life scales Tenacity passive, CDR enables more frequent Payback windows, and DR keeps you alive while absorbing hits.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>CHEST - Shroud of False Death</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Grants Stealth and Movement Speed when taking fatal damage. The Stealth state lets you reposition safely after a dangerous counter-attack window, while the Movement Speed helps you escape or dive into new packs. A critical survivability layer for push content.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>RING - Melted Heart of Selig</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Converts resource into additional effective life pool. Provides a massive buffer against burst damage during counter-attack windows. The resource-to-life conversion ensures you can survive extended hit absorption phases without dying.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Runewords & Gems</h2>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Runewords</span></div>
+                    <div class="unique-effect">
+                        <strong>Helm:</strong> Ahu + Qax -- Defensive synergy for survivability during counter-attack windows.<br>
+                        <strong>Chest:</strong> Yul + Ohm -- Offensive amplification that scales Payback and thorns damage.
+                    </div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Gem Setup</span></div>
+                    <div class="unique-effect">
+                        <strong>Weapon:</strong> Grand Emerald -- Critical Strike Damage to Vulnerable enemies. Amplifies Payback burst crits.<br>
+                        <strong>Armor:</strong> Grand Ruby -- Maximum Life for survivability and Tenacity passive scaling. Mandatory for push content.<br>
+                        <strong>Jewelry:</strong> Grand Diamond -- All Resistances for balanced elemental defense. Essential for surviving mixed damage packs.
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 4: ASPECTS & TEMPERING                 -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="aspects" class="tab-content">
+
+            <div class="section">
+                <h2>Legendary Aspects</h2>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Weapon -- Aspect of Retaliation</span></div>
+                    <div class="unique-effect">Massively increases thorns damage and Payback multipliers. The single highest-impact aspect for this build since it directly scales both your passive thorns and active counter-attack bursts.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Chest -- Aspect of Redirected Force</span></div>
+                    <div class="unique-effect">Converts a portion of incoming damage into resource generation and bonus damage. Ensures you always have resources for Payback while transforming absorbed hits into offensive power.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Gloves -- Vehement Brawlers Aspect</span></div>
+                    <div class="unique-effect">Increases damage dealt while you have active Fortify. Synergizes with Fortified Spirit passive and The Protector ultimate for sustained damage during defensive phases.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Ring -- Aspect of Might</span></div>
+                    <div class="unique-effect">Grants damage reduction stacks on Basic Skill hits. Layers additional DR on top of Armored Hide and Unbreakable passive for maximum survivability during counter-attack windows.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Pants -- Aspect of Disobedience</span></div>
+                    <div class="unique-effect">Increases Armor stacks when you deal damage. Ramps quickly with rapid counter-attack hits, providing escalating defensive scaling throughout combat.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Boots -- Aspect of Unyielding Hits</span></div>
+                    <div class="unique-effect">Grants bonus damage after taking multiple hits in a short window. Perfect synergy with Payback's counter-attack mechanic -- the more hits you absorb, the harder you hit back.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Tempering Priorities</h2>
+
+                <div class="tier tier-s">
+                    <h4>S-TIER: Must Have</h4>
+                    <ul>
+                        <li><strong>Thorns Damage</strong> (Weapon / Chest) -- Direct scaling for both Payback bursts and passive retaliation. The single highest-impact temper for this build.</li>
+                        <li><strong>Maximum Life</strong> (Helm / Chest / Pants) -- Scales survivability, Tenacity passive damage, and effective thorns multiplier. Mandatory for push content.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>A-TIER: High Priority</h4>
+                    <ul>
+                        <li><strong>Block Chance</strong> (Shield / Gloves) -- Synergizes with Ocelot's Eye and Counterattack skill. Each block is a free retaliation hit layered on top of Payback bursts.</li>
+                        <li><strong>Damage Reduction</strong> (All Armor Slots) -- Essential for surviving counter-attack windows. Stack aggressively across multiple gear slots.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-b">
+                    <h4>B-TIER: Fill</h4>
+                    <ul>
+                        <li><strong>Critical Strike Chance</strong> -- Amplifies Payback burst crits. Less critical than Thorns and Life but still valuable for offensive scaling.</li>
+                        <li><strong>Attack Speed</strong> -- Increases counter-attack hit rate during Payback windows. Synergizes with Concussive Stomp and Eagle Resolve bonuses.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 5: PARAGON                             -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="paragon" class="tab-content">
+
+            <div class="section">
+                <h2>Paragon Board Order</h2>
+                <p>Attach boards in this exact order. Each board's glyph is listed below -- level glyphs to 15 first, then push to 21 for radius bonus.</p>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Starting Board</span>
+                        <span class="paragon-board-order">Board 1</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Spirit</span> -- Foundational glyph that scales Spiritborn core damage and resource efficiency. Boosts Payback burst damage from the start.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Viscous Shield</span>
+                        <span class="paragon-board-order">Board 2</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Jagged Plume</span> -- Increases thorns damage and damage reduction. Direct scaling for the build's core mechanic -- thorns feed into Payback multipliers while DR keeps you alive.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Drive</span>
+                        <span class="paragon-board-order">Board 3</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Talon</span> -- Amplifies melee damage and attack speed. Perfect for counter-attack bursts since Payback hits count as melee for damage scaling purposes.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Convergence</span>
+                        <span class="paragon-board-order">Board 4</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Fulminate</span> -- Bonus damage that scales with Maximum Life. Synergizes with Tenacity passive and Maximum Life stacking strategy.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Thunderstruck</span>
+                        <span class="paragon-board-order">Board 5</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Canny</span> -- Critical Strike Chance and Critical Strike Damage bonuses. Amplifies Payback burst crits for massive single-hit damage spikes.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 6: GAMEPLAY                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gameplay" class="tab-content">
+
+            <div class="section">
+                <h2>Rotation</h2>
+                <ol class="rotation-steps">
+                    <li class="rotation-step">
+                        <p><strong>Activate Armored Hide</strong> -- Keep this active permanently. The thorns damage and DR it provides are essential for the build's core loop. Without Armored Hide, Payback bursts lose most of their damage amplification.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Soar into dense packs</strong> -- Use Soar to dive into the center of enemy groups. The invulnerability frames during Soar let you position safely. Aim to land surrounded by as many enemies as possible.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Cast Payback immediately</strong> -- Activate Payback the moment you land. This opens your counter-attack window. For the next few seconds, every hit you take charges up retaliation damage.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Cast Concussive Stomp</strong> -- Stun all nearby enemies while Payback is active. This freezes them in place so they keep hitting you during the counter-attack window. The Attack Speed bonus also amplifies your retaliation hit rate.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Absorb hits during Payback window</strong> -- Stand still and let enemies hit you. Each hit charges Payback and triggers thorns damage. With Ocelot's Eye, blocked hits also trigger automatic counter-attacks. The more hits you take, the bigger the burst.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Unleash Payback burst</strong> -- When Payback expires or you manually detonate, all absorbed damage explodes in a massive retaliation burst. This single hit can delete entire packs if you absorbed enough damage.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Use The Protector during dangerous phases</strong> -- Pop ultimate when facing high burst damage or elite packs. The Unstoppable and defensive bonuses let you safely absorb massive incoming damage, then unleash enormous Payback bursts.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Escape with Soar when cooldowns are down</strong> -- After bursting, your defensive cooldowns are down. Use Soar to reposition out of danger until Payback and Armored Hide are back up. Avoid lingering in packs without active defenses.</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>Gameplay Tips</h2>
+
+                <div class="tip-card">
+                    <strong>You must intentionally take damage.</strong>
+                    <p>This build's entire identity revolves around absorbing hits to charge Payback bursts. If you play too defensively and avoid damage, you deal no damage. Embrace the chaos -- dive into packs, absorb hits, then explode.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Timing is everything.</strong>
+                    <p>Payback windows are short. You need to absorb as many hits as possible before the window expires. Concussive Stomp's stun is critical -- it keeps enemies attacking you instead of scattering. Without CC, enemies may move away before you finish charging.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Positioning is life or death.</strong>
+                    <p>Always position in the center of packs before casting Payback. If you're on the edge, enemies hit you from one side only. In the center, they surround you and hit from all angles, maximizing hits absorbed and Payback damage.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Ocelot's Eye is your defensive and offensive MVP.</strong>
+                    <p>The Block Chance it provides triggers automatic counter-attacks via the Counterattack skill. Each blocked hit becomes instant retaliation damage layered on top of Payback bursts. The more Block Chance you stack, the more free damage you generate.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Manage cooldowns carefully.</strong>
+                    <p>Your survivability windows are tied to skill cooldowns. Payback and Armored Hide must be active before diving into packs. If they're on cooldown, wait or reposition. Fighting without active defenses is suicide in high-tier content.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>This build is slower than Evade builds.</strong>
+                    <p>Payback Spiritborn trades speed for power. You can't spam Evade infinitely like Quill Volley or The Seeker builds. Accept the slower pace -- your reward is massive burst damage that deletes entire screens when timed correctly.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="/assets/js/guide.js"></script>

@@ -1,0 +1,422 @@
+---
+layout: base.njk
+title: Frozen Orb Sorcerer Guide | D4 Season 11
+description: Complete Diablo 4 Frozen Orb Sorcerer guide for Season 11. Cold projectile build with skills, gear, paragon, aspects. A-Tier crowd control and AoE.
+styles:
+  - /assets/css/guide.css
+---
+
+    <a href="/build-guides" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Build Guides
+    </a>
+
+    <header class="guide-hero">
+        <span class="badge">Season 11 - Divine Intervention</span>
+        <h1>Frozen Orb Sorcerer</h1>
+        <p class="subtitle">A-Tier Cold / Projectile / Crowd Control</p>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+        <button class="nav-tab" onclick="showTab('skills')">Skills</button>
+        <button class="nav-tab" onclick="showTab('gear')">Gear</button>
+        <button class="nav-tab" onclick="showTab('aspects')">Aspects & Tempering</button>
+        <button class="nav-tab" onclick="showTab('paragon')">Paragon</button>
+        <button class="nav-tab" onclick="showTab('gameplay')">Gameplay</button>
+    </div>
+
+    <div class="container">
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 1: OVERVIEW                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="overview" class="tab-content active">
+
+            <div class="section">
+                <h2>Build Summary</h2>
+                <p>The Frozen Orb Sorcerer is an A-Tier cold projectile build that combines massive AoE explosions with permanent crowd control. Launch Frozen Orbs that pierce through enemies and detonate in icy explosions, freezing entire screens in place. Enhanced by Piercing Cold and Glacial aspects, each orb becomes a cascading freeze bomb. Esu's Heirloom boots provide cooldown reduction on Frozen Orb, enabling near-permanent uptime on your primary damage source. The build excels at safe, methodical clear through Nightmare Dungeons and offers excellent survivability via constant freeze and Aspect of Control scaling.</p>
+
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Tier</div>
+                        <div class="build-info-value" style="color: var(--gold);">A-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Playstyle</div>
+                        <div class="build-info-value">Cold / Projectile</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Best For</div>
+                        <div class="build-info-value">AoE, Crowd Control</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Difficulty</div>
+                        <div class="build-info-value">
+                            Moderate
+                            <div class="difficulty-bar">
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Stat Targets</h2>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Cold Damage</span><span>Stack Aggressively</span></div><div class="stat-progress-bar"><div class="stat-progress-fill dmg"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Critical Strike Chance</span><span>60%+</span></div><div class="stat-progress-bar"><div class="stat-progress-fill crit"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Cooldown Reduction</span><span>For Frost Nova + Orb</span></div><div class="stat-progress-bar"><div class="stat-progress-fill cdr"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Mana Regeneration</span><span>High Priority</span></div><div class="stat-progress-bar"><div class="stat-progress-fill speed"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Maximum Life</span><span>High</span></div><div class="stat-progress-bar"><div class="stat-progress-fill life"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Armor</span><span>Via Disobedience + Ice Armor</span></div><div class="stat-progress-bar"><div class="stat-progress-fill armor"></div></div></div>
+            </div>
+
+            <div class="section">
+                <h2>Strengths & Weaknesses</h2>
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>Strengths</h4>
+                        <ul>
+                            <li>Massive AoE orb explosions</li>
+                            <li>Permanent freeze for safety</li>
+                            <li>Safe playstyle via crowd control</li>
+                            <li>Scales well with CDR</li>
+                            <li>Strong Nightmare Dungeon clear</li>
+                            <li>Aspect of Control synergy</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>Weaknesses</h4>
+                        <ul>
+                            <li>Mana hungry without sustain</li>
+                            <li>Lower ceiling than CE Sorc</li>
+                            <li>Needs specific freeze synergies</li>
+                            <li>Orb targeting can be inconsistent</li>
+                            <li>Vulnerable to freeze-immune enemies</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 2: SKILLS                              -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="skills" class="tab-content">
+
+            <div class="section">
+                <h2>Active Skills</h2>
+
+                <div class="skill-card">
+                    <div class="skill-icon">1</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Frozen Orb <span class="skill-tag">5/5</span> <span class="skill-tag">PRIMARY</span></div>
+                        <p class="skill-desc">Your primary damage source. Launch orbs that pierce through enemies and explode, dealing massive cold damage. Enhanced by Piercing Cold and Glacial aspects for cascading freeze explosions.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">2</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Ice Blades <span class="skill-tag">5/5</span></div>
+                        <p class="skill-desc">Summons conjured blades that attack nearby enemies automatically. Provides passive damage and applies Vulnerable. Synergizes with Aspect of Control for crowd-controlled damage bonus.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">3</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Teleport <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">Mobility, Unstoppable, and repositioning tool. Use to escape danger, reposition for better Frozen Orb angles, or trigger Bounding Conduit for cooldown reduction.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">4</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Frost Nova <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">Freezes all nearby enemies instantly. Essential for emergency crowd control and triggering freeze-based aspects. Low cooldown allows frequent defensive resets.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">5</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Ice Armor <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">Grants a protective barrier and bonus mana regeneration. Provides the build's primary defensive layer. Enhanced by Aspect of Disobedience for stacking armor.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">6</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Deep Freeze <span class="skill-tag">5/5</span> <span class="skill-tag">ULTIMATE</span></div>
+                        <p class="skill-desc">Encase yourself in ice, becoming immune to damage while freezing and damaging all nearby enemies. Use as an emergency defensive button or to reset combat in dangerous situations.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Key Passives</h2>
+                <div class="tier tier-s">
+                    <h4>Core Passives</h4>
+                    <ul>
+                        <li><strong>Icy Touch</strong> &mdash; Cold skills have bonus chance to make enemies Vulnerable. Synergizes with Ice Blades and Frozen Orb for consistent Vulnerable application and Aspect of Control scaling.</li>
+                        <li><strong>Frigid Breeze</strong> &mdash; Frozen enemies have a chance to generate Mana when hit. Provides essential resource sustain during heavy Frozen Orb spam against frozen packs.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>Scaling Passives</h4>
+                    <ul>
+                        <li><strong>Avalanche</strong> &mdash; Cold skills deal bonus damage to Vulnerable enemies. With Icy Touch auto-applying Vulnerable, this is a consistent multiplicative layer throughout combat.</li>
+                        <li><strong>Permafrost</strong> &mdash; Frozen enemies have increased freeze duration. Extends crowd control windows for safer gameplay and more consistent Aspect of Control uptime.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 3: GEAR                                -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gear" class="tab-content">
+
+            <div class="section">
+                <h2>Required Unique Items</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--red);">
+                    <div class="gear-slot-header"><span>BOOTS - Esu's Heirloom</span><span style="color: var(--red);">REQUIRED</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Your Critical Strikes have a chance to reduce the cooldown of your Frozen Orb. The engine that enables near-permanent Frozen Orb uptime. With high Crit Chance, this dramatically increases cast frequency.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>GLOVES - Frostburn</span><span style="color: var(--gold);">RECOMMENDED</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Lucky Hit: Cold skills have up to a chance to freeze enemies for 2 seconds. Provides additional freeze application beyond Frozen Orb and Frost Nova for maximum crowd control uptime.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Best-in-Slot Gear</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>HELM - Harlequin Crest</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> +All Skills, Damage Reduction, CDR, +Maximum Life. The best-in-slot helm for virtually all builds. Provides both offensive and defensive scaling with CDR that benefits Frozen Orb uptime.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>RING - Ring of Starless Skies</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Each resource spent reduces the cost of your next skill. Stacks quickly during Frozen Orb spam, dramatically reducing Mana consumption for sustained damage output.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>CHEST - Shroud of False Death</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Gain a stacking damage bonus while you have an active barrier. With Ice Armor providing constant barrier uptime, this is a near-permanent damage multiplier. Alternative to rare chest if pushing survivability.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>RING - Rare Ring with Crit + Cold Damage + CDR</span><span style="color: var(--gold);">RARE</span></div>
+                    <div class="unique-effect"><strong>Stats:</strong> Critical Strike Chance, Cold Damage, Cooldown Reduction, Vulnerable Damage. Stack offensive affixes that directly amplify Frozen Orb damage and cast frequency.</div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 4: ASPECTS & TEMPERING                 -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="aspects" class="tab-content">
+
+            <div class="section">
+                <h2>Legendary Aspects</h2>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Piercing Cold</span></div>
+                    <div class="unique-effect">Frozen Orb pierces additional enemies and explodes twice. The single most important aspect for this build &mdash; transforms Frozen Orb into a true screen-clearing nuke.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Glacial Aspect</span></div>
+                    <div class="unique-effect">Casting Blizzard or Frozen Orb leaves behind icy ground that deals damage and chills. Adds persistent zone control and additional freeze application for constant crowd control.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Bounding Conduit</span></div>
+                    <div class="unique-effect">Teleport cooldown reduction and bonus movement speed after Teleporting. Enables frequent repositioning for better Frozen Orb angles and emergency escapes.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Disobedience</span></div>
+                    <div class="unique-effect">Gain stacking Armor when dealing damage. With constant Frozen Orb explosions and Ice Blades hits, this ramps to max stacks almost instantly for massive damage reduction.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Control</span></div>
+                    <div class="unique-effect">Bonus damage to crowd-controlled enemies. With permanent freeze from Frozen Orb and Frost Nova, this is a near-permanent damage multiplier against all enemies.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Frozen Memories</span></div>
+                    <div class="unique-effect">The Avalanche passive has bonus charges. Each charge provides separate damage scaling to Vulnerable enemies, creating multiplicative stacking that amplifies burst windows.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Tempering Priorities</h2>
+
+                <div class="tier tier-s">
+                    <h4>S-TIER: Must Have</h4>
+                    <ul>
+                        <li><strong>Cold Damage</strong> &mdash; Direct scaling on Frozen Orb and all cold skills. Temper this on every piece that allows it for maximum damage output.</li>
+                        <li><strong>Critical Strike Chance</strong> &mdash; More crits mean more Esu's Heirloom CDR procs. Essential for maintaining near-permanent Frozen Orb uptime.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>A-TIER: High Priority</h4>
+                    <ul>
+                        <li><strong>Cooldown Reduction</strong> &mdash; Reduces base cooldown on Frozen Orb, Frost Nova, and Teleport. Works synergistically with Esu's Heirloom for maximum cast frequency.</li>
+                        <li><strong>Mana Regeneration</strong> &mdash; Sustains your resource pool during heavy Frozen Orb spam. Prevents downtime waiting for mana to regenerate.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-b">
+                    <h4>B-TIER: Fill</h4>
+                    <ul>
+                        <li><strong>Barrier Generation</strong> &mdash; Increases Ice Armor barrier strength for better survivability. Synergizes with Shroud of False Death if using that chest piece.</li>
+                        <li><strong>Maximum Life</strong> &mdash; Survivability stat. Provides cushion for mistakes and increases effective health pool against burst damage.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 5: PARAGON                             -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="paragon" class="tab-content">
+
+            <div class="section">
+                <h2>Paragon Board Order</h2>
+                <p>Attach boards in this exact order. Each board's glyph is listed below &mdash; level glyphs to 15 first, then push to 21 for radius bonus.</p>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Starting Board</span>
+                        <span class="paragon-board-order">Board 1</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Frigid</span> &mdash; Increases Cold damage and provides freeze duration scaling. The foundation glyph that amplifies Frozen Orb's core mechanic from the very start.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Enchantment Master</span>
+                        <span class="paragon-board-order">Board 2</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Tactician</span> &mdash; Cooldown Reduction and defensive scaling. Reduces Frozen Orb, Frost Nova, and Deep Freeze cooldowns for better uptime on your key abilities.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Ceaseless Conduit</span>
+                        <span class="paragon-board-order">Board 3</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Destruction</span> &mdash; Critical Strike Damage bonus. With high Crit Chance feeding Esu's Heirloom procs, this glyph amplifies every crit for massive burst windows.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Burning Instinct</span>
+                        <span class="paragon-board-order">Board 4</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Unleash</span> &mdash; Bonus damage after using an Ultimate. With Deep Freeze available frequently for defensive resets, this provides consistent damage scaling during combat.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Static Surge</span>
+                        <span class="paragon-board-order">Board 5</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Eliminator</span> &mdash; Damage bonus to Vulnerable and crowd-controlled enemies. Synergizes with Icy Touch Vulnerable application and permanent freeze for multiplicative scaling.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 6: GAMEPLAY                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gameplay" class="tab-content">
+
+            <div class="section">
+                <h2>Rotation</h2>
+                <ol class="rotation-steps">
+                    <li class="rotation-step">
+                        <p><strong>Cast Frozen Orb continuously</strong> &mdash; Your primary action. Launch Frozen Orbs into packs to generate massive explosions that freeze everything. Esu's Heirloom reduces cooldown on crits.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Ice Blades for passive damage</strong> &mdash; Keep Ice Blades active for automated attacks that apply Vulnerable and trigger Aspect of Control. Recast whenever available.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Frost Nova for instant freeze</strong> &mdash; Use Frost Nova when enemies get too close or when you need immediate crowd control. Low cooldown allows frequent defensive resets.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Ice Armor for barriers</strong> &mdash; Maintain Ice Armor for constant barrier uptime. Provides both damage reduction and mana regeneration for sustained casting.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Teleport for repositioning</strong> &mdash; Use Teleport to escape danger, reposition for better Frozen Orb angles, or trigger Bounding Conduit for bonus movement speed.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Deep Freeze for emergencies</strong> &mdash; Pop Deep Freeze when overwhelmed or surrounded. The immunity window allows you to reset combat and wait for cooldowns to come back up.</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>Gameplay Tips</h2>
+
+                <div class="tip-card">
+                    <strong>Esu's Heirloom is the entire build.</strong>
+                    <p>Without Esu's Heirloom, Frozen Orb has too much downtime. The boots' CDR on crit is the only way to maintain consistent cast frequency. Do not attempt this build without them.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Stack Crit Chance aggressively.</strong>
+                    <p>More crits mean more Esu's Heirloom procs. Every point of Crit Chance directly translates to more Frozen Orb casts. Aim for 60%+ total Crit Chance.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Piercing Cold is non-negotiable.</strong>
+                    <p>Aspect of Piercing Cold is what transforms Frozen Orb into a screen-clearing nuke. Without it, the build lacks the coverage needed for high-tier content. This aspect is mandatory.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Abuse permanent freeze for safety.</strong>
+                    <p>Frozen enemies cannot attack. With constant Frozen Orb casts and Frost Nova, you can maintain near-permanent crowd control. Play aggressively knowing enemies are locked down.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Manage Mana carefully.</strong>
+                    <p>Frozen Orb is expensive. Stack Mana Regeneration and use Ring of Starless Skies to reduce costs. Frigid Breeze passive helps sustain, but heavy spam can still drain you dry.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Angle your orbs for maximum impact.</strong>
+                    <p>Frozen Orb travels in a line before exploding. Position and aim to maximize the explosion coverage across packs. Poor angles waste damage &mdash; good angles clear entire screens.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="/assets/js/guide.js"></script>

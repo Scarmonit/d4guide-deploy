@@ -1,0 +1,432 @@
+---
+layout: base.njk
+title: Bash Barbarian Guide | D4 Season 11
+description: Complete Diablo 4 Bash Barbarian guide for Season 11. Generator stun lock build with skills, gear, paragon, aspects. A-Tier single-target domination.
+styles:
+  - /assets/css/guide.css
+---
+
+    <a href="/build-guides" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Build Guides
+    </a>
+
+    <header class="guide-hero">
+        <span class="badge">Season 11 - Divine Intervention</span>
+        <h1>Bash Barbarian</h1>
+        <p class="subtitle">A-Tier Generator Build - Permanent Stun Lock & Boss Destroyer</p>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+        <button class="nav-tab" onclick="showTab('skills')">Skills</button>
+        <button class="nav-tab" onclick="showTab('gear')">Gear</button>
+        <button class="nav-tab" onclick="showTab('aspects')">Aspects & Tempering</button>
+        <button class="nav-tab" onclick="showTab('paragon')">Paragon</button>
+        <button class="nav-tab" onclick="showTab('gameplay')">Gameplay</button>
+    </div>
+
+    <div class="container">
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 1: OVERVIEW                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="overview" class="tab-content active">
+
+            <div class="section">
+                <h2>Build Summary</h2>
+                <p>The Bash Barbarian is an A-Tier generator build that focuses on single-target destruction and permanent stun lock. Unlike most builds that rely on resource-spending skills, Bash uses your Basic Skill as the primary damage source, dealing massive hits while generating Fury instead of spending it. With Battle Trance providing a huge damage multiplier when you have full Fury, this build excels at melting bosses and elites. Layer in Paingorger's Gauntlets for stun extension and you can keep dangerous enemies permanently stunlocked while dealing devastating damage. Simple, tanky, and brutally effective against priority targets.</p>
+
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Tier</div>
+                        <div class="build-info-value" style="color: var(--gold);">A-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Playstyle</div>
+                        <div class="build-info-value">Generator / Stun Lock</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Best For</div>
+                        <div class="build-info-value">Boss Killing, Elites</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Difficulty</div>
+                        <div class="build-info-value">
+                            Easy
+                            <div class="difficulty-bar">
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Stat Targets</h2>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Critical Strike Chance</span><span>Stack Aggressively</span></div><div class="stat-progress-bar"><div class="stat-progress-fill crit"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Critical Strike Damage</span><span>High Priority</span></div><div class="stat-progress-bar"><div class="stat-progress-fill dmg"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Vulnerable Damage</span><span>High Priority</span></div><div class="stat-progress-bar"><div class="stat-progress-fill dmg"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Attack Speed</span><span>More Hits = More Stuns</span></div><div class="stat-progress-bar"><div class="stat-progress-fill speed"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Maximum Life</span><span>High</span></div><div class="stat-progress-bar"><div class="stat-progress-fill life"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Armor</span><span>Via Disobedience + Iron Skin</span></div><div class="stat-progress-bar"><div class="stat-progress-fill armor"></div></div></div>
+            </div>
+
+            <div class="section">
+                <h2>Strengths & Weaknesses</h2>
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>Strengths</h4>
+                        <ul>
+                            <li>Permanent stun lock on elites and bosses</li>
+                            <li>Extremely high single-target damage</li>
+                            <li>Simple one-button playstyle</li>
+                            <li>Very tanky with shouts and DR</li>
+                            <li>No Fury management needed</li>
+                            <li>Pit 100+ capable with good gear</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>Weaknesses</h4>
+                        <ul>
+                            <li>Slower clear speed than AoE builds</li>
+                            <li>Limited AoE damage</li>
+                            <li>Generator playstyle is repetitive</li>
+                            <li>Weaker against spread-out packs</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 2: SKILLS                              -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="skills" class="tab-content">
+
+            <div class="section">
+                <h2>Active Skills</h2>
+
+                <div class="skill-card">
+                    <div class="skill-icon">1</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Bash <span class="skill-tag">5/5</span> <span class="skill-tag">PRIMARY</span></div>
+                        <p class="skill-desc">Your primary damage source. Bash deals massive damage with a chance to stun enemies. Enhanced Bash generates additional Fury, while Battle Trance multiplies damage when at full Fury. Spam this skill constantly.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">2</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Ground Stomp <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">AoE stun and Vulnerable application. Use to stun groups of enemies and amplify all incoming damage. Essential for both crowd control and damage amplification.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">3</div>
+                    <div class="skill-info">
+                        <div class="skill-name">War Cry <span class="skill-tag">5/5</span></div>
+                        <p class="skill-desc">Increases damage and provides Berserking. Use on cooldown for constant damage buff uptime. Enhanced War Cry grants Fury, helping maintain max Fury for Battle Trance.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">4</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Rallying Cry <span class="skill-tag">5/5</span></div>
+                        <p class="skill-desc">Increases movement speed, resource generation, and Unstoppable. Essential for mobility and breaking CC. Keep this up constantly for better positioning.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">5</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Challenging Shout <span class="skill-tag">5/5</span></div>
+                        <p class="skill-desc">Defensive shout that taunts enemies and grants damage reduction. Use when surrounded or taking heavy damage. The taunt groups enemies for easier Bash targeting.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">6</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Wrath of the Berserker <span class="skill-tag">5/5</span> <span class="skill-tag">ULTIMATE</span></div>
+                        <p class="skill-desc">Your Ultimate ability. Grants massive damage, Berserking, and Unstoppable. Pop this during dangerous elite encounters or boss fights for burst damage windows and survivability.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Key Passives</h2>
+                <div class="tier tier-s">
+                    <h4>Core Passives</h4>
+                    <ul>
+                        <li><strong>Concussion</strong> &mdash; Increases stun duration. Essential for maintaining permanent stun lock on elites and bosses. Synergizes with Paingorger's Gauntlets.</li>
+                        <li><strong>Hamstring</strong> &mdash; Basic skills have a chance to slow enemies. Provides additional crowd control when stuns aren't active.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>Scaling Passives</h4>
+                    <ul>
+                        <li><strong>Unconstrained</strong> &mdash; Increases Berserking duration. With War Cry and Wrath of the Berserker, this keeps your damage buff uptime high.</li>
+                        <li><strong>Booming Voice</strong> &mdash; Increases shout duration. More uptime on War Cry, Rallying Cry, and Challenging Shout means better offense and defense.</li>
+                        <li><strong>Pit Fighter</strong> &mdash; Damage and damage reduction when close to enemies. Perfect for Bash's melee-range playstyle.</li>
+                        <li><strong>No Mercy</strong> &mdash; Increases damage to stunned and immobilized enemies. With constant Bash stuns, this is a near-permanent damage multiplier.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 3: GEAR                                -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gear" class="tab-content">
+
+            <div class="section">
+                <h2>Required Unique Items</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--red);">
+                    <div class="gear-slot-header"><span>CHEST - Battle Trance</span><span style="color: var(--red);">REQUIRED</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Basic skills deal significantly more damage when you have maximum Fury. This is the core mechanic of the build &mdash; Bash generates Fury instead of spending it, so you maintain full Fury constantly for a massive damage multiplier.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Best-in-Slot Gear</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>HELM - Harlequin Crest (All-Around) / Andariel's Visage (Push)</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Harlequin Crest:</strong> +All Skills, Damage Reduction, CDR. Best for general content and speed farming.<br><strong>Andariel's Visage:</strong> Poison damage, Attack Speed, Life Steal. Swap in for pushing when you need more aggressive stats.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>GLOVES - Paingorger's Gauntlets</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Damaging enemies extends the duration of stuns you inflict. Enables permanent stun lock by refreshing Bash's stun duration with every hit. Absolutely critical for the stun lock playstyle.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>PANTS - Rage of Harrogath</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Reduces shout cooldowns and increases shout damage. Enables near-permanent uptime on War Cry, Rallying Cry, and Challenging Shout for constant offensive and defensive buffs.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>RING - Melted Heart of Selig</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Gain Maximum Resource as Maximum Life. When you take damage, drain resource before Life. Provides huge survivability by using Fury as a damage buffer. Since you generate Fury constantly, this is a massive defensive layer.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>RING - Ring of Red Furor</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> After spending a certain amount of Fury, your next Bash is a guaranteed Critical Strike. While Bash generates Fury, you'll still spend some on shouts, making this a consistent crit amplifier.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>AMULET - Ahavarion, Spear of Lycander</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Gain a random Shrine effect for a short duration. Provides bonus damage, resource generation, or defensive buffs that cycle throughout combat for consistent power spikes.</div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 4: ASPECTS & TEMPERING                 -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="aspects" class="tab-content">
+
+            <div class="section">
+                <h2>Legendary Aspects</h2>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Berserk Ripping</span></div>
+                    <div class="unique-effect">Increases damage while Berserking. With War Cry and Wrath of the Berserker providing constant Berserking uptime, this is a consistent multiplicative damage layer.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Ancestral Force</span></div>
+                    <div class="unique-effect">Ground Stomp creates an Ancients that deal damage to enemies. Amplifies your AoE clear and adds additional damage during Ground Stomp casts.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Limitless Rage</span></div>
+                    <div class="unique-effect">Core skills grant bonus Fury. While Bash is a Basic skill, this still helps maintain maximum Fury for Battle Trance when you use shouts or other skills.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Disobedience</span></div>
+                    <div class="unique-effect">Gain stacking Armor when dealing damage. With constant Bash hits, this ramps to max stacks almost instantly for massive damage reduction.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Might</span></div>
+                    <div class="unique-effect">Basic skills grant damage reduction. Since Bash is your primary damage skill and you spam it constantly, this provides near-permanent damage reduction.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Edgemaster's Aspect</span></div>
+                    <div class="unique-effect">Skills deal increased damage based on available primary resource. With full Fury from Battle Trance, this provides a massive consistent damage multiplier.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Tempering Priorities</h2>
+
+                <div class="tier tier-s">
+                    <h4>S-TIER: Must Have</h4>
+                    <ul>
+                        <li><strong>Critical Strike Chance</strong> &mdash; The single most important temper. Every Bash crit is a massive damage spike. Stack aggressively on all gear.</li>
+                        <li><strong>Critical Strike Damage</strong> &mdash; Amplifies every crit from Bash. Essential for high-end damage scaling.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>A-TIER: High Priority</h4>
+                    <ul>
+                        <li><strong>Vulnerable Damage</strong> &mdash; Ground Stomp applies Vulnerable. This is a significant damage boost during all elite and boss encounters.</li>
+                        <li><strong>Attack Speed</strong> &mdash; More Bash hits per second mean more damage and more stun procs. Stack for smoother gameplay and better stun lock uptime.</li>
+                        <li><strong>Damage to Close Enemies</strong> &mdash; Bash is a melee skill. This is a consistent multiplicative damage layer for all combat scenarios.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-b">
+                    <h4>B-TIER: Fill</h4>
+                    <ul>
+                        <li><strong>Movement Speed</strong> &mdash; Quality of life for positioning and chasing enemies. Helps maintain momentum between packs.</li>
+                        <li><strong>Maximum Life</strong> &mdash; Survivability temper. Stacks well with Melted Heart of Selig for a massive health pool.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 5: PARAGON                             -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="paragon" class="tab-content">
+
+            <div class="section">
+                <h2>Paragon Board Order</h2>
+                <p>Attach boards in this exact order. Each board's glyph is listed below &mdash; level glyphs to 15 first, then push to 21 for radius bonus.</p>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Starting Board</span>
+                        <span class="paragon-board-order">Board 1</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Exploit</span> &mdash; Increases damage to Vulnerable enemies. With Ground Stomp applying Vulnerable constantly, this provides consistent damage amplification.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Warbringer</span>
+                        <span class="paragon-board-order">Board 2</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Crusher</span> &mdash; Increases damage to stunned enemies. Perfect synergy with Bash's stun mechanic and permanent stun lock playstyle.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Carnage</span>
+                        <span class="paragon-board-order">Board 3</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Challenger</span> &mdash; Bonus damage to elites and increased damage when close to multiple enemies. Excellent for both pack clear and elite encounters.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Blood Rage</span>
+                        <span class="paragon-board-order">Board 4</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Wrath</span> &mdash; Increases damage based on Fury spent. While Bash generates Fury, you still spend it on shouts for consistent scaling.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Decimator</span>
+                        <span class="paragon-board-order">Board 5</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Imbiber</span> &mdash; Increases damage and grants defensive bonuses when you use a potion. Provides burst windows during dangerous moments.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 6: GAMEPLAY                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gameplay" class="tab-content">
+
+            <div class="section">
+                <h2>Rotation</h2>
+                <ol class="rotation-steps">
+                    <li class="rotation-step">
+                        <p><strong>Activate all shouts before combat</strong> &mdash; War Cry, Rallying Cry, and Challenging Shout. This gives you full offensive and defensive buffs before engaging packs.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Ground Stomp to stun and apply Vulnerable</strong> &mdash; Use Ground Stomp on packs and elites to apply a group-wide stun and Vulnerable. This sets up the window for massive Bash damage.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Spam Bash constantly</strong> &mdash; Your primary action. Bash generates Fury, deals massive damage, and has a chance to stun on every hit. Focus on elites and bosses for maximum effectiveness.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Paingorger's extends stun duration</strong> &mdash; Every Bash hit extends the duration of your stuns. Keep hitting stunned enemies to maintain permanent stun lock throughout the fight.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Recast shouts on cooldown</strong> &mdash; Keep War Cry, Rallying Cry, and Challenging Shout up at all times. Rage of Harrogath reduces their cooldowns for near-permanent uptime.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Pop Wrath of the Berserker for burst windows</strong> &mdash; Use your Ultimate during dangerous elite encounters or boss fights for a massive damage boost and Unstoppable to break CC.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Maintain full Fury for Battle Trance</strong> &mdash; Bash generates Fury constantly. Stay at maximum Fury to keep Battle Trance's damage multiplier active at all times.</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>Gameplay Tips</h2>
+
+                <div class="tip-card">
+                    <strong>Battle Trance is the entire build.</strong>
+                    <p>Without Battle Trance, Bash is just a basic generator. This chest piece is absolutely mandatory &mdash; it provides a massive damage multiplier when at full Fury, which you maintain constantly.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Paingorger's enables permanent stun lock.</strong>
+                    <p>These gloves extend stun duration when you damage stunned enemies. With high attack speed and constant Bash spam, you can keep elites and bosses permanently stunned for the entire fight.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Focus on single targets for maximum effectiveness.</strong>
+                    <p>Bash is a single-target skill. While you can clear packs, the build truly shines against elites and bosses where you can stun lock and deal sustained massive damage.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Stack Attack Speed for smoother stun lock.</strong>
+                    <p>Higher attack speed means more Bash hits per second, which translates to better stun lock uptime and higher damage output. Temper and roll Attack Speed aggressively.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Ground Stomp is your setup skill.</strong>
+                    <p>Always open with Ground Stomp to apply Vulnerable and group-wide stun. This amplifies all your Bash damage and sets up the stun lock chain against priority targets.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Melted Heart makes you unkillable.</strong>
+                    <p>Since Bash generates Fury constantly, Melted Heart of Selig provides a massive Fury buffer that absorbs damage before touching your Life. Combined with shout damage reduction, you're extremely tanky.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="/assets/js/guide.js"></script>

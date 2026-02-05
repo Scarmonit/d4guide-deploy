@@ -1,0 +1,433 @@
+---
+layout: base.njk
+title: Heartseeker Rogue Guide | D4 Season 11
+description: Complete Diablo 4 Heartseeker Rogue guide for Season 11. Ranged crit-based build with skills, gear, paragon, aspects. A-Tier rapid fire destruction.
+styles:
+  - /assets/css/guide.css
+---
+
+    <a href="/build-guides" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Build Guides
+    </a>
+
+    <header class="guide-hero">
+        <span class="badge">Season 11 - Divine Intervention</span>
+        <h1>Heartseeker Rogue</h1>
+        <p class="subtitle">A-Tier Ranged Build - Crit-Based Rapid Fire Destruction</p>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+        <button class="nav-tab" onclick="showTab('skills')">Skills</button>
+        <button class="nav-tab" onclick="showTab('gear')">Gear</button>
+        <button class="nav-tab" onclick="showTab('aspects')">Aspects & Tempering</button>
+        <button class="nav-tab" onclick="showTab('paragon')">Paragon</button>
+        <button class="nav-tab" onclick="showTab('gameplay')">Gameplay</button>
+    </div>
+
+    <div class="container">
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 1: OVERVIEW                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="overview" class="tab-content active">
+
+            <div class="section">
+                <h2>Build Summary</h2>
+                <p>The Heartseeker Rogue is an A-Tier ranged crit-based build that excels at dealing massive single-target damage from a safe distance. Fire Heartseeker arrows that seek enemies and scale with Critical Strike Chance and Damage, amplified by the mandatory Skyhunter bow and Eyes in the Dark helmet. Build Combo Points with basic attacks, spend them on Heartseeker for devastating crits, and use mobility skills like Dash and Shadow Step to maintain distance and survive. With Ring of Starless Skies reducing resource costs and Condemnation dagger providing bonus damage, this build melts bosses and elites while staying safe at range. Layer in Shadow Clone for doubled damage output and you have a build that's both powerful and satisfying to play.</p>
+
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Tier</div>
+                        <div class="build-info-value" style="color: var(--gold);">A-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Playstyle</div>
+                        <div class="build-info-value">Ranged / Crit-Based</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Best For</div>
+                        <div class="build-info-value">Boss Killing, Ranged Safety</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Difficulty</div>
+                        <div class="build-info-value">
+                            Moderate
+                            <div class="difficulty-bar">
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Stat Targets</h2>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Critical Strike Chance</span><span>Stack Aggressively (50%+)</span></div><div class="stat-progress-bar"><div class="stat-progress-fill crit"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Critical Strike Damage</span><span>Very High Priority (200%+)</span></div><div class="stat-progress-bar"><div class="stat-progress-fill dmg"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Vulnerable Damage</span><span>High Priority</span></div><div class="stat-progress-bar"><div class="stat-progress-fill dmg"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Attack Speed</span><span>For Faster Arrow Spam</span></div><div class="stat-progress-bar"><div class="stat-progress-fill speed"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Energy Cost Reduction</span><span>Sustain Heartseeker Spam</span></div><div class="stat-progress-bar"><div class="stat-progress-fill cdr"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Maximum Life</span><span>Moderate (Ranged Safety)</span></div><div class="stat-progress-bar"><div class="stat-progress-fill life"></div></div></div>
+            </div>
+
+            <div class="section">
+                <h2>Strengths & Weaknesses</h2>
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>Strengths</h4>
+                        <ul>
+                            <li>Ranged safety from dangerous mechanics</li>
+                            <li>Extremely high single-target damage</li>
+                            <li>Excellent crit scaling potential</li>
+                            <li>Great mobility with Dash and Shadow Step</li>
+                            <li>Strong against bosses and elites</li>
+                            <li>Pit 100+ capable with good gear</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>Weaknesses</h4>
+                        <ul>
+                            <li>Fragile if caught in melee</li>
+                            <li>Needs high crit gear to function</li>
+                            <li>Combo Points management required</li>
+                            <li>Weaker AoE than Death Trap builds</li>
+                            <li>Energy management in extended fights</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 2: SKILLS                              -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="skills" class="tab-content">
+
+            <div class="section">
+                <h2>Active Skills</h2>
+
+                <div class="skill-card">
+                    <div class="skill-icon">1</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Heartseeker <span class="skill-tag">5/5</span> <span class="skill-tag">PRIMARY</span></div>
+                        <p class="skill-desc">Your primary damage source. Fire seeking arrows that automatically track enemies and scale with Critical Strike Chance and Damage. Spends Combo Points for increased damage. Enhanced Heartseeker makes arrows pierce multiple enemies, improving AoE coverage.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">2</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Dash <span class="skill-tag">5/5</span></div>
+                        <p class="skill-desc">Primary mobility skill. Dash forward and gain increased movement speed. Use to reposition, dodge dangerous attacks, and maintain safe distance from enemies. Enhanced Dash grants energy on use for better sustain.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">3</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Shadow Step <span class="skill-tag">5/5</span></div>
+                        <p class="skill-desc">Teleport behind an enemy and gain Unstoppable. Essential for breaking CC and repositioning during dangerous moments. Grants a brief damage buff after use.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">4</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Dark Shroud <span class="skill-tag">5/5</span></div>
+                        <p class="skill-desc">Defensive skill that grants shadow charges. Each charge absorbs damage and reduces incoming damage. Use before engaging dangerous packs or when taking heavy damage.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">5</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Concealment <span class="skill-tag">5/5</span></div>
+                        <p class="skill-desc">Grants invisibility and breaks targeting. Use as an emergency defensive cooldown when overwhelmed. Enhanced Concealment grants a damage buff when breaking stealth.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">6</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Shadow Clone <span class="skill-tag">5/5</span> <span class="skill-tag">ULTIMATE</span></div>
+                        <p class="skill-desc">Your Ultimate ability. Create a shadow clone that mimics your skills. Effectively doubles your damage output during its duration. Use during boss fights and high-density packs for burst windows.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Key Passives</h2>
+                <div class="tier tier-s">
+                    <h4>Core Passives</h4>
+                    <ul>
+                        <li><strong>Precision Imbuement</strong> &mdash; Increases Critical Strike Damage to imbued skills. Essential for maximizing Heartseeker's crit scaling.</li>
+                        <li><strong>Malice</strong> &mdash; Increases damage to Vulnerable enemies. Core scaling passive for consistent damage amplification.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>Scaling Passives</h4>
+                    <ul>
+                        <li><strong>Weapon Mastery (Bow)</strong> &mdash; Increases damage with bow skills. Direct scaling for Heartseeker since you're using Skyhunter bow.</li>
+                        <li><strong>Combo Points</strong> &mdash; Increases maximum Combo Points. More Combo Points mean more damage per Heartseeker cast.</li>
+                        <li><strong>Agile</strong> &mdash; Increases Critical Strike Damage and grants energy on crit. Perfect synergy with Heartseeker's crit-focused playstyle.</li>
+                        <li><strong>Exploit</strong> &mdash; Increases damage to Vulnerable enemies and grants energy when hitting Vulnerable targets. Core resource sustain passive.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 3: GEAR                                -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gear" class="tab-content">
+
+            <div class="section">
+                <h2>Required Unique Items</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--red);">
+                    <div class="gear-slot-header"><span>WEAPON - Skyhunter (Bow)</span><span style="color: var(--red);">REQUIRED</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Heartseeker has increased Critical Strike Chance and fires additional seeking arrows. This bow is absolutely mandatory &mdash; it transforms Heartseeker from a basic skill into a devastating rapid-fire crit machine.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--red);">
+                    <div class="gear-slot-header"><span>HELM - Eyes in the Dark</span><span style="color: var(--red);">REQUIRED</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Grants Death Trap skill and increases its damage significantly. While not directly buffing Heartseeker, this provides essential AoE and damage amplification that complements the build's single-target focus.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Best-in-Slot Gear</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>OFF-HAND - Condemnation (Dagger)</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Your Core Skills deal increased damage when you have full Energy. With Ring of Starless Skies reducing costs, you maintain near-full Energy constantly for a massive damage multiplier.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>RING - Harlequin Crest (All-Around) / Shroud of False Death (Push)</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Harlequin Crest:</strong> +All Skills, Damage Reduction, CDR. Best for general content and speed farming.<br><strong>Shroud of False Death:</strong> Grants a cheat-death mechanic and bonus damage. Swap in for pushing when you need extra survivability.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>RING - Ring of Starless Skies</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Each resource spent reduces the cost of your next skill. Stacks quickly with Heartseeker spam, dramatically reducing Energy consumption for sustained rapid fire.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>RING #2 - Melted Heart of Selig</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Gain Maximum Resource as Maximum Life. When you take damage, drain resource before Life. Provides huge survivability by using Energy as a damage buffer, giving you time to reposition.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>CHEST - Harlequin Crest Alternative Stats</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> If not using Harlequin Crest as helm, slot it here for +All Skills and defensive stats. Otherwise, use a rare chest with max crit and defensive rolls.</div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 4: ASPECTS & TEMPERING                 -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="aspects" class="tab-content">
+
+            <div class="section">
+                <h2>Legendary Aspects</h2>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Rapid Aspect</span></div>
+                    <div class="unique-effect">Increases attack speed with bow skills. More Heartseeker arrows per second mean more crits and higher damage output. Essential for smooth gameplay.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Trickshot</span></div>
+                    <div class="unique-effect">Heartseeker fires additional arrows that ricochet to other enemies. Improves AoE coverage and helps clear packs faster while maintaining single-target focus.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Frostbitten</span></div>
+                    <div class="unique-effect">Chilled and frozen enemies have increased Critical Strike Chance taken. If using cold imbuement, this is a massive crit amplifier for consistent damage.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Vengeful</span></div>
+                    <div class="unique-effect">Increases Critical Strike Chance when you make an enemy Vulnerable. Provides bonus crit scaling during Vulnerable windows.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Retribution</span></div>
+                    <div class="unique-effect">Distant enemies have increased Critical Strike Chance taken. Perfect for a ranged build &mdash; stay at max range for constant crit amplification.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Edgemaster's Aspect</span></div>
+                    <div class="unique-effect">Skills deal increased damage based on available primary resource. With Condemnation keeping you near-full Energy, this provides a massive consistent damage multiplier.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Tempering Priorities</h2>
+
+                <div class="tier tier-s">
+                    <h4>S-TIER: Must Have</h4>
+                    <ul>
+                        <li><strong>Critical Strike Chance</strong> &mdash; The single most important stat. Heartseeker scales entirely off crits. Stack to 50%+ minimum on all gear.</li>
+                        <li><strong>Critical Strike Damage</strong> &mdash; Amplifies every crit from Heartseeker. Essential for high-end damage scaling. Aim for 200%+ total.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>A-TIER: High Priority</h4>
+                    <ul>
+                        <li><strong>Vulnerable Damage</strong> &mdash; Consistent damage amplifier against priority targets. Synergizes with Malice passive and Vulnerable application.</li>
+                        <li><strong>Energy Cost Reduction</strong> &mdash; Reduces Heartseeker's Energy drain for sustained rapid fire. Helps maintain Condemnation's full-Energy damage bonus.</li>
+                        <li><strong>Attack Speed</strong> &mdash; More Heartseeker arrows per second mean more damage. Stack for smoother gameplay and higher DPS.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-b">
+                    <h4>B-TIER: Fill</h4>
+                    <ul>
+                        <li><strong>Movement Speed</strong> &mdash; Quality of life for kiting and maintaining safe distance. Essential for ranged survival.</li>
+                        <li><strong>Maximum Life</strong> &mdash; Survivability temper. While you stay at range, some defense is necessary for when you get caught.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 5: PARAGON                             -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="paragon" class="tab-content">
+
+            <div class="section">
+                <h2>Paragon Board Order</h2>
+                <p>Attach boards in this exact order. Each board's glyph is listed below &mdash; level glyphs to 15 first, then push to 21 for radius bonus.</p>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Starting Board</span>
+                        <span class="paragon-board-order">Board 1</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Combat</span> &mdash; Increases damage and provides defensive bonuses when near enemies. Provides baseline scaling for all combat scenarios.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Deadly Ambush</span>
+                        <span class="paragon-board-order">Board 2</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Exploit</span> &mdash; Increases damage to Vulnerable enemies. Core damage amplification that synergizes with your Vulnerable application and Malice passive.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Tricks of the Trade</span>
+                        <span class="paragon-board-order">Board 3</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Closer</span> &mdash; Increases Critical Strike Chance and damage. Essential for Heartseeker's crit-focused playstyle.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">No Witnesses</span>
+                        <span class="paragon-board-order">Board 4</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Devious</span> &mdash; Increases damage from Core Skills and provides Critical Strike Damage. Perfect scaling for Heartseeker spam.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Eldritch Bounty</span>
+                        <span class="paragon-board-order">Board 5</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Tuning</span> &mdash; Increases resource generation and bonus damage when at high resource. Synergizes with Condemnation's full-Energy damage bonus.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 6: GAMEPLAY                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gameplay" class="tab-content">
+
+            <div class="section">
+                <h2>Rotation</h2>
+                <ol class="rotation-steps">
+                    <li class="rotation-step">
+                        <p><strong>Activate Dark Shroud before combat</strong> &mdash; Gain shadow charges for damage reduction. This provides your primary defensive layer before engaging enemies.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Build Combo Points with basic attacks</strong> &mdash; Use your basic attack a few times to generate 3 Combo Points. This sets up maximum damage on your next Heartseeker cast.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Spam Heartseeker at max range</strong> &mdash; Your primary action. Fire seeking arrows that automatically track enemies. Stay at maximum range for Aspect of Retribution bonus crit.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Use Dash to maintain distance</strong> &mdash; Reposition constantly to avoid melee enemies. Dash away when enemies get close, maintaining safe firing distance.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Shadow Step for emergency escapes</strong> &mdash; If caught in melee or CCed, use Shadow Step to teleport behind an enemy and gain Unstoppable. This breaks CC and repositions you safely.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Pop Shadow Clone during boss fights</strong> &mdash; Use your Ultimate during high-value targets to double your damage output. The clone mimics all your Heartseeker casts for massive burst.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Concealment as last resort</strong> &mdash; If overwhelmed, use Concealment to go invisible and break targeting. Reposition to a safe distance before re-engaging.</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>Gameplay Tips</h2>
+
+                <div class="tip-card">
+                    <strong>Skyhunter bow is absolutely mandatory.</strong>
+                    <p>Without Skyhunter, Heartseeker lacks the crit scaling and seeking arrows that make the build function. This weapon is non-negotiable &mdash; do not attempt this build without it.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Stack Critical Strike Chance aggressively.</strong>
+                    <p>Heartseeker's damage scales entirely off crits. Aim for 50%+ crit chance minimum, preferably 60%+. Every piece of gear should have crit chance or crit damage.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Stay at maximum range for Aspect of Retribution.</strong>
+                    <p>Distant enemies take bonus crit chance. Stay at the edge of your attack range to maintain this buff constantly for maximum damage output.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Maintain full Energy for Condemnation bonus.</strong>
+                    <p>Condemnation dagger grants massive damage when at full Energy. With Ring of Starless Skies reducing costs, you maintain near-full Energy constantly for the damage multiplier.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Use mobility skills liberally.</strong>
+                    <p>Dash and Shadow Step are your survival tools. Don't save them &mdash; use them constantly to maintain safe distance and avoid dangerous melee hits.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Shadow Clone doubles your damage output.</strong>
+                    <p>During Shadow Clone, every Heartseeker you fire is mirrored by your clone. This effectively doubles your damage for the duration &mdash; use it on bosses and elites for massive burst.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="/assets/js/guide.js"></script>

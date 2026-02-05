@@ -1,0 +1,474 @@
+---
+layout: base.njk
+title: Blessed Hammer Paladin Build Guide | D4 Season 11
+description: Complete Diablo 4 Blessed Hammer Paladin guide for Season 11. Classic Hammerdin with spinning hammers. A-Tier AoE build with excellent clear speed.
+styles:
+  - /assets/css/guide.css
+---
+
+    <a href="/build-guides" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Build Guides
+    </a>
+
+    <header class="guide-hero">
+        <span class="badge">Season 11 - Divine Intervention</span>
+        <h1>Blessed Hammer Paladin</h1>
+        <p class="subtitle">A-Tier AoE Build - Classic Hammerdin Spinning Hammers</p>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+        <button class="nav-tab" onclick="showTab('skills')">Skills</button>
+        <button class="nav-tab" onclick="showTab('gear')">Gear</button>
+        <button class="nav-tab" onclick="showTab('aspects')">Aspects & Tempering</button>
+        <button class="nav-tab" onclick="showTab('paragon')">Paragon</button>
+        <button class="nav-tab" onclick="showTab('gameplay')">Gameplay</button>
+    </div>
+
+    <div class="container">
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 1: OVERVIEW                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="overview" class="tab-content active">
+
+            <div class="section">
+                <h2>Build Summary</h2>
+                <p>The Blessed Hammer Paladin is an A-Tier AoE build that delivers the classic Hammerdin fantasy -- spinning holy hammers that spiral outward to obliterate everything in their path. Blessed Hammer is your primary damage skill, casting multiple hammers that orbit around you in a wide spiral pattern. Fanaticism Aura provides stacking Crit and Attack Speed, Defiance Aura keeps you tanky, and Consecration offers additional AoE and defensive utility. The build excels at clearing dense packs with its excellent AoE coverage, though it trades single-target damage for that broad clear power.</p>
+
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Tier</div>
+                        <div class="build-info-value" style="color: var(--gold);">A-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Playstyle</div>
+                        <div class="build-info-value">Holy Caster / Spinning Hammers</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Best For</div>
+                        <div class="build-info-value">AoE Farming, Dense Packs</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Difficulty</div>
+                        <div class="build-info-value">
+                            Easy
+                            <div class="difficulty-bar">
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Stat Targets</h2>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Holy Damage</span><span>Critical Threshold</span></div><div class="stat-progress-bar"><div class="stat-progress-fill dmg"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Critical Strike Chance</span><span>Via Fanaticism Aura</span></div><div class="stat-progress-bar"><div class="stat-progress-fill crit"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Attack Speed</span><span>Fanaticism Stacks</span></div><div class="stat-progress-bar"><div class="stat-progress-fill speed"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Cooldown Reduction</span><span>Moderate</span></div><div class="stat-progress-bar"><div class="stat-progress-fill cdr"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Maximum Life</span><span>High</span></div><div class="stat-progress-bar"><div class="stat-progress-fill life"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Armor &amp; Resistances</span><span>Via Defiance Aura</span></div><div class="stat-progress-bar"><div class="stat-progress-fill armor"></div></div></div>
+            </div>
+
+            <div class="section">
+                <h2>Strengths & Weaknesses</h2>
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>Strengths</h4>
+                        <ul>
+                            <li>Classic Hammerdin fantasy with satisfying spinning hammers</li>
+                            <li>Excellent AoE coverage that hits off-screen</li>
+                            <li>Simple rotation with minimal button presses</li>
+                            <li>Strong defensive auras provide baseline tankiness</li>
+                            <li>Scales well with gear quality</li>
+                            <li>Minimal resource management required</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>Weaknesses</h4>
+                        <ul>
+                            <li>Lower single-target damage than Spear of the Heavens</li>
+                            <li>Hammers can miss fast-moving or spread-out targets</li>
+                            <li>Requires understanding hammer pathing mechanics</li>
+                            <li>Cooldown-dependent for full burst potential</li>
+                            <li>Weaker defensively than Judgment or Aegis variants</li>
+                            <li>Vulnerable during hammer cast animations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 2: SKILLS                              -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="skills" class="tab-content">
+
+            <div class="section">
+                <h2>Active Skills</h2>
+
+                <div class="skill-card">
+                    <div class="skill-icon">1</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Blessed Hammer <span class="skill-tag">5/5</span> <span class="skill-tag">PRIMARY</span></div>
+                        <p class="skill-desc">Main damage dealer. Casts holy hammers that spiral outward in a wide pattern, hitting all enemies in their path. Enhanced Blessed Hammer increases hammer count and damage. More hammers = more coverage = more damage. Spam this while moving through packs.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">2</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Punish <span class="skill-tag">1/5</span> <span class="skill-tag">BASIC</span></div>
+                        <p class="skill-desc">Basic attack for building Fanaticism stacks and generating resource. Use as filler between Blessed Hammer casts when waiting on cooldowns or resource. Also applies Block Chance buffs via Herald of Zakarum synergy.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">3</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Fanaticism Aura <span class="skill-tag">AURA</span></div>
+                        <p class="skill-desc">Core offensive aura granting stacking Crit Chance and Attack Speed per stack. Keep this active permanently. More stacks = faster hammer casts + higher crit rate = exponential damage scaling. Ramps quickly with rapid Blessed Hammer spam.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">4</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Defiance Aura <span class="skill-tag">AURA</span></div>
+                        <p class="skill-desc">Core defensive aura granting Armor, Resistances, Unstoppable, and Resolve. Your primary survivability layer. Keep active alongside Fanaticism at all times. Without Defiance, you're too squishy for push content.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">5</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Consecration <span class="skill-tag">3/5</span> <span class="skill-tag">UTILITY</span></div>
+                        <p class="skill-desc">Creates a holy zone that deals damage over time and provides healing. Cast under your feet during dense pack fights to layer additional AoE damage on top of Blessed Hammer spirals. The healing provides sustain during extended engagements.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">6</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Falling Star <span class="skill-tag">1/5</span> <span class="skill-tag">MOBILITY</span></div>
+                        <p class="skill-desc">Mobility skill for repositioning and gap closing. Use to dive into packs, escape dangerous situations, or reposition for better hammer coverage. Provides invulnerability frames during the dash for emergency survivability.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Oath Selection</h2>
+                <div class="tier tier-s">
+                    <h4>No Specific Oath Required</h4>
+                    <ul>
+                        <li><strong>Flexible Oath Choice</strong> -- Unlike Spear of the Heavens (which requires Judicator Oath), Blessed Hammer builds are flexible. You can run Judicator Oath for Judgement synergies if desired, or run other oaths based on playstyle preference. The build's core mechanic is self-contained in Blessed Hammer itself.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Key Passives</h2>
+                <div class="tier tier-s">
+                    <h4>Core Passives</h4>
+                    <ul>
+                        <li><strong>Pronouncement of Heaven</strong> -- Increases holy damage and enhances holy skill interactions. Direct scaling for Blessed Hammer and all holy damage effects.</li>
+                        <li><strong>Divine Wrath</strong> -- Bonus damage to enemies standing in Consecration zones. Synergizes with your Consecration skill for layered damage amplification.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>Offensive Passives</h4>
+                    <ul>
+                        <li><strong>Master Craftwork</strong> -- Bonus damage scaling with skill ranks and gear quality. More invested skill points = more damage per hammer hit.</li>
+                        <li><strong>Heavyweight</strong> -- Increased damage to stunned and crowd-controlled enemies. Synergizes with any CC you apply or allies provide.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-b">
+                    <h4>Defensive Passives</h4>
+                    <ul>
+                        <li><strong>En Guarde</strong> -- Block chance and defensive scaling. Synergizes with Herald of Zakarum shield and Paladin Guard tempering.</li>
+                        <li><strong>Shining Armor</strong> -- Armor bonus and damage reduction. Stacks with Defiance Aura for layered defense during pack fights.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 3: GEAR                                -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gear" class="tab-content">
+
+            <div class="section">
+                <h2>Key Unique Items</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--red);">
+                    <div class="gear-slot-header"><span>WEAPON - Griswold's Opus</span><span style="color: var(--red);">REQUIRED</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> The core weapon for this build. Massively increases holy damage dealt by all holy skills. The raw weapon damage and unique multiplier elevate Blessed Hammer damage to A-Tier levels. Without this, hammer hits feel weak.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>SHIELD - Herald of Zakarum</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Powerful shield bonuses including Block Chance, damage reduction, and Paladin-specific enhancements. Synergizes with En Guarde passive and Paladin Guard tempering for layered defensive scaling. Essential for surviving melee-range hammer casts.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>HELM - Judicant's Glaivehelm</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Enhances holy skill mechanics and provides bonus holy damage. Amplifies Blessed Hammer damage and improves Consecration zone effectiveness. A strong offensive helmet choice for holy-focused builds.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Mythic Items</h2>
+                <p style="color: #a0a0a0; margin-bottom: 15px;">For pushing the highest Pit tiers, these Mythic uniques provide massive power spikes.</p>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>HELM - Harlequin Crest</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Grants Maximum Life, Cooldown Reduction, and damage reduction. Perfect for this build -- CDR enables more frequent Blessed Hammer casts, Life boosts survivability, and DR keeps you alive during cast animations. Best-in-slot for push content.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>CHEST - Shroud of False Death</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Grants Stealth and Movement Speed when taking fatal damage. The Stealth state lets you reposition safely after dangerous engagements, while Movement Speed keeps you mobile between packs. A critical survivability layer for push content.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>RING - Ring of Starless Skies</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Grants massive resource cost reduction and damage amplification for Core Skills. Since Blessed Hammer is your primary Core Skill, this ring provides both offensive and resource efficiency scaling. Essential for spam-heavy hammer rotations.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Runewords & Gems</h2>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Runewords</span></div>
+                    <div class="unique-effect">
+                        <strong>Helm:</strong> Ahu + Qax -- Defensive synergy for survivability during hammer casts.<br>
+                        <strong>Chest:</strong> Yul + Ohm -- Offensive amplification that scales Blessed Hammer damage.
+                    </div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Gem Setup</span></div>
+                    <div class="unique-effect">
+                        <strong>Weapon:</strong> Grand Emerald -- Critical Strike Damage to Vulnerable enemies. Amplifies hammer crits.<br>
+                        <strong>Armor:</strong> Grand Ruby -- Maximum Life for survivability. Essential for push content where one-shots are common.<br>
+                        <strong>Jewelry:</strong> Grand Diamond -- All Resistances for balanced elemental defense. Supplements Defiance Aura.
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 4: ASPECTS & TEMPERING                 -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="aspects" class="tab-content">
+
+            <div class="section">
+                <h2>Legendary Aspects</h2>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Amulet -- Aspect of Spiraling Hammers</span></div>
+                    <div class="unique-effect">Increases Blessed Hammer count and spiral radius. More hammers with wider coverage = exponentially better AoE clear. The single highest-impact aspect for this build -- mandatory for feeling smooth.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Ring -- Aspect of Holy Punishment</span></div>
+                    <div class="unique-effect">Increases Holy damage dealt to all enemies. A straightforward multiplicative damage increase that scales every Blessed Hammer hit and Consecration tick.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Chest -- Aspect of the Indomitable</span></div>
+                    <div class="unique-effect">Defensive aspect providing damage reduction and Fortify generation. Shores up the build's baseline defense for push content where survivability during cast animations matters.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Weapon -- Aspect of Celestial Strife</span></div>
+                    <div class="unique-effect">Offensive aspect that boosts damage output during combat. Ramps quickly with the rapid hit rate of spinning hammers hitting multiple targets.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Helm -- Aspect of the Golden Hour</span></div>
+                    <div class="unique-effect">Enhances holy skill effectiveness and provides bonus damage during specific combat conditions. Synergizes with Blessed Hammer and Consecration for amplified holy damage output.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Gloves -- Edgemaster's Aspect</span></div>
+                    <div class="unique-effect">Skills deal increased damage based on your available resources. Since this build has minimal resource spending outside Blessed Hammer, you stay near full resource for consistent damage amplification.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Boots -- Aspect of Ascension</span></div>
+                    <div class="unique-effect">Grants bonus Movement Speed and damage after using mobility skills. Pairs with Falling Star for repositioning between packs with a damage bonus when you land and start casting hammers.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Tempering Priorities</h2>
+
+                <div class="tier tier-s">
+                    <h4>S-TIER: Must Have</h4>
+                    <ul>
+                        <li><strong>Blessed Hammer Size</strong> (Hammer Augments) -- Increases the AoE radius of each hammer. Wider hammers hit more enemies per spiral rotation. The single highest-impact temper for clear speed.</li>
+                        <li><strong>Blessed Hammer Count</strong> (Hammer Augments) -- Adds additional hammers per cast. More hammers = more coverage = more damage. Stacks with Spiraling Hammers aspect for massive AoE scaling.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>A-TIER: High Priority</h4>
+                    <ul>
+                        <li><strong>Holy Damage</strong> (Weapon / Amulet) -- Direct scaling for every Blessed Hammer hit and Consecration tick. Stack aggressively for maximum damage output.</li>
+                        <li><strong>Block Chance</strong> (Shield / Gloves) -- Defensive scaling that synergizes with Herald of Zakarum and En Guarde passive. Essential for surviving melee-range hammer casts.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-b">
+                    <h4>B-TIER: Fill</h4>
+                    <ul>
+                        <li><strong>Cooldown Reduction</strong> -- Helps hit CDR thresholds for Blessed Hammer spam. Less critical once you reach sufficient Attack Speed from Fanaticism but still valuable.</li>
+                        <li><strong>Life on Hit</strong> -- Sustain healing that triggers on every hammer hit. With dozens of hammers spiraling per second, this becomes substantial recovery during pack fights.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 5: PARAGON                             -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="paragon" class="tab-content">
+
+            <div class="section">
+                <h2>Paragon Board Order</h2>
+                <p>Attach boards in this exact order. Each board's glyph is listed below -- level glyphs to 15 first, then push to 21 for radius bonus.</p>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Starting Board</span>
+                        <span class="paragon-board-order">Board 1</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Law</span> -- Foundational glyph that scales Paladin law and aura effectiveness. Boosts both Fanaticism and Defiance Aura output from the start.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Castle</span>
+                        <span class="paragon-board-order">Board 2</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Spirit</span> -- Increases holy and spirit damage. Direct scaling for Blessed Hammer hits and Consecration ticks.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Relentless</span>
+                        <span class="paragon-board-order">Board 3</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Judicator</span> -- Amplifies holy skill damage and provides offensive scaling. Even without Judicator Oath, this glyph boosts Blessed Hammer effectiveness. Priority level to 21.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Preacher</span>
+                        <span class="paragon-board-order">Board 4</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Honed</span> -- Critical Strike Damage bonus that scales with surrounding nodes. Amplifies the burst potential of hammer crits in dense packs.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Beacon</span>
+                        <span class="paragon-board-order">Board 5</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Resplendence</span> -- Holy damage amplification and offensive scaling. Perfect for maximizing Blessed Hammer and Consecration damage in push content.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 6: GAMEPLAY                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gameplay" class="tab-content">
+
+            <div class="section">
+                <h2>Rotation</h2>
+                <ol class="rotation-steps">
+                    <li class="rotation-step">
+                        <p><strong>Activate Both Auras</strong> -- Keep Fanaticism Aura (Crit + Attack Speed) and Defiance Aura (Armor + Resistances + Unstoppable) active permanently. These are your core offensive and defensive buffers. Without both active, the build feels sluggish and squishy.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Build Fanaticism Stacks with Punish</strong> -- Use Punish to quickly ramp Fanaticism Aura stacks before engaging packs. Each stack increases Crit Chance and Attack Speed. Reach max stacks before diving into combat for optimal damage.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Cast Consecration under your feet</strong> -- Drop Consecration zones under yourself or in pack centers. The DoT damage layers on top of Blessed Hammer spirals, and the healing provides sustain during extended fights. Keep this active throughout combat.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Spam Blessed Hammer while moving</strong> -- This is your primary damage skill. Cast Blessed Hammer repeatedly while circling or moving through packs. The hammers spiral outward, hitting all enemies in their path. More casts = more hammers = more damage.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Position for maximum hammer coverage</strong> -- Blessed Hammer spirals outward in a predictable pattern. Position yourself so the hammers pass through enemy clusters. Good positioning doubles your effective damage by ensuring every hammer hits multiple targets.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Use Falling Star for repositioning</strong> -- Dash into packs or escape dangerous situations with Falling Star. The invulnerability frames provide emergency survivability, and the gap-close lets you position optimally for hammer spirals.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Maintain Fanaticism stacks during downtime</strong> -- If you stop attacking, Fanaticism stacks decay. Use Punish or Blessed Hammer during movement to maintain stacks. Losing stacks means losing Crit and Attack Speed, which kills your DPS.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Critical mass -- spam and spiral</strong> -- At high Fanaticism stacks and sufficient CDR, you can spam Blessed Hammer nearly off cooldown. Just keep moving and casting. The hammers handle the rest, spiraling through packs and clearing screens passively.</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>Gameplay Tips</h2>
+
+                <div class="tip-card">
+                    <strong>Both auras must be active at all times.</strong>
+                    <p>Fanaticism provides your Crit and Attack Speed scaling. Defiance provides your survivability. Fighting without either active is suicide. Check your buff bar regularly and recast if either drops off.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Hammer pathing matters more than you think.</strong>
+                    <p>Blessed Hammer spirals outward in a fixed pattern. If you cast from the wrong position, hammers miss enemies entirely. Learn the spiral trajectory and position yourself so hammers pass through enemy clusters, not around them.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Keep moving while casting.</strong>
+                    <p>Standing still makes you a sitting duck. Blessed Hammer can be cast while moving, so circle around packs or kite backward while spamming. This keeps you safe while maintaining full DPS output.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Consecration zones amplify your AoE.</strong>
+                    <p>Don't skip Consecration. The DoT damage and healing it provides are substantial. Drop zones under pack centers or under yourself during stationary fights. The zone lasts several seconds, so you get massive value per cast.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Single-target is your weakness.</strong>
+                    <p>Blessed Hammer excels against packs but struggles against solo bosses. Against bosses with no adds, your damage feels mediocre. Accept this limitation -- the build is designed for AoE farming, not boss deletion.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>CDR thresholds enable spam rotations.</strong>
+                    <p>With sufficient CDR, Blessed Hammer cooldown drops to near-zero. This enables true "spam" rotations where you just hold the button and clear screens. Prioritize CDR on gear until the rotation feels smooth.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="/assets/js/guide.js"></script>

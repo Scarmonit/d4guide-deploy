@@ -1,0 +1,425 @@
+---
+layout: base.njk
+title: Hydra Sorcerer Guide | D4 Season 11
+description: Complete Diablo 4 Hydra Sorcerer guide for Season 11. Fire summon build with skills, gear, paragon, aspects. A-Tier persistent damage and safety.
+styles:
+  - /assets/css/guide.css
+---
+
+    <a href="/build-guides" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Build Guides
+    </a>
+
+    <header class="guide-hero">
+        <span class="badge">Season 11 - Divine Intervention</span>
+        <h1>Hydra Sorcerer</h1>
+        <p class="subtitle">A-Tier Summon / Fire / Persistent Damage</p>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+        <button class="nav-tab" onclick="showTab('skills')">Skills</button>
+        <button class="nav-tab" onclick="showTab('gear')">Gear</button>
+        <button class="nav-tab" onclick="showTab('aspects')">Aspects & Tempering</button>
+        <button class="nav-tab" onclick="showTab('paragon')">Paragon</button>
+        <button class="nav-tab" onclick="showTab('gameplay')">Gameplay</button>
+    </div>
+
+    <div class="container">
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 1: OVERVIEW                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="overview" class="tab-content active">
+
+            <div class="section">
+                <h2>Build Summary</h2>
+                <p>The Hydra Sorcerer is an A-Tier fire summon build that excels at safe, methodical gameplay through persistent damage-over-time. Deploy up to 3 Hydras that continuously fire flaming projectiles at enemies while you maintain distance. Enhanced by Gloves of the Illuminator for additional Hydra count and Serpentine aspect for burning ground, this build offers excellent boss damage and consistent clear without exposing yourself to danger. Perfect for players who prefer a laid-back playstyle, Hydra Sorc shines in long boss fights and offers strong defensive layering through barriers and Ice Armor.</p>
+
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Tier</div>
+                        <div class="build-info-value" style="color: var(--gold);">A-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Playstyle</div>
+                        <div class="build-info-value">Summon / Fire</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Best For</div>
+                        <div class="build-info-value">Bossing, Safety</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Difficulty</div>
+                        <div class="build-info-value">
+                            Easy
+                            <div class="difficulty-bar">
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Stat Targets</h2>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Fire Damage</span><span>Stack Aggressively</span></div><div class="stat-progress-bar"><div class="stat-progress-fill dmg"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Critical Strike Chance</span><span>60%+</span></div><div class="stat-progress-bar"><div class="stat-progress-fill crit"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Critical Strike Damage</span><span>High Priority</span></div><div class="stat-progress-bar"><div class="stat-progress-fill dmg"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Cooldown Reduction</span><span>For Teleport + Inferno</span></div><div class="stat-progress-bar"><div class="stat-progress-fill cdr"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Maximum Life</span><span>High</span></div><div class="stat-progress-bar"><div class="stat-progress-fill life"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Armor</span><span>Via Disobedience + Ice Armor</span></div><div class="stat-progress-bar"><div class="stat-progress-fill armor"></div></div></div>
+            </div>
+
+            <div class="section">
+                <h2>Strengths & Weaknesses</h2>
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>Strengths</h4>
+                        <ul>
+                            <li>Fire-and-forget damage</li>
+                            <li>Safe playstyle from range</li>
+                            <li>Easy to play and learn</li>
+                            <li>Consistent damage output</li>
+                            <li>Great for bossing</li>
+                            <li>Strong defensive layers</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>Weaknesses</h4>
+                        <ul>
+                            <li>Lower burst than CE Sorc</li>
+                            <li>Hydra placement matters</li>
+                            <li>Slow clear speed vs packs</li>
+                            <li>Capped at 3 Hydras max</li>
+                            <li>Limited mobility during casting</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 2: SKILLS                              -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="skills" class="tab-content">
+
+            <div class="section">
+                <h2>Active Skills</h2>
+
+                <div class="skill-card">
+                    <div class="skill-icon">1</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Hydra <span class="skill-tag">5/5</span> <span class="skill-tag">PRIMARY</span></div>
+                        <p class="skill-desc">Your primary damage source. Summon up to 3 Hydras that continuously fire at enemies. Enhanced by Gloves of the Illuminator and Serpentine aspect for maximum uptime and burning ground.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">2</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Fire Bolt <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">Basic attack for filler damage and mana generation. Use between Hydra casts to maintain damage output. Low cost allows spamming without resource concerns.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">3</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Teleport <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">Mobility, Unstoppable, and repositioning tool. Use to escape danger, reposition Hydras via better placement angles, or trigger Bounding Conduit for cooldown reduction.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">4</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Flame Shield <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">Grants immunity to damage and crowd control for a brief duration. Emergency defensive button for surviving one-shot mechanics or dangerous burst windows.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">5</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Ice Armor <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">Grants a protective barrier and bonus mana regeneration. Provides the build's primary defensive layer. Enhanced by Aspect of Disobedience for stacking armor.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">6</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Inferno <span class="skill-tag">5/5</span> <span class="skill-tag">ULTIMATE</span></div>
+                        <p class="skill-desc">Summons a fiery serpent that burns enemies in a large area. Use for burst AoE damage windows against dense packs or to burn down elites during downtime between Hydra casts.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Key Passives</h2>
+                <div class="tier tier-s">
+                    <h4>Core Passives</h4>
+                    <ul>
+                        <li><strong>Warmth</strong> &mdash; Gain bonus damage based on active Burning effects on enemies. With Hydras constantly applying burns, this is a permanent damage multiplier throughout combat.</li>
+                        <li><strong>Inner Flames</strong> &mdash; Fire skills deal bonus damage and generate increased Mana. Sustains your resource pool during heavy Hydra and Fire Bolt spam.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>Scaling Passives</h4>
+                    <ul>
+                        <li><strong>Combustion</strong> &mdash; Burning enemies have increased chance to be Stunned. Provides occasional crowd control that synergizes with Aspect of Control for bonus damage windows.</li>
+                        <li><strong>Endless Pyre</strong> &mdash; Burning damage duration increased. Extends Hydra burn uptime for more consistent damage-over-time and better Warmth passive scaling.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 3: GEAR                                -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gear" class="tab-content">
+
+            <div class="section">
+                <h2>Required Unique Items</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--red);">
+                    <div class="gear-slot-header"><span>GLOVES - Gloves of the Illuminator</span><span style="color: var(--red);">REQUIRED</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Hydra receives additional heads and duration. The engine that enables near-permanent Hydra uptime with maximum firepower. Without this, the build lacks consistent damage output.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>PANTS - Flameweaver</span><span style="color: var(--gold);">RECOMMENDED</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Casting Fire skills increases the damage of your Hydras. Stacks quickly during Fire Bolt spam for exponential Hydra damage scaling. Strong offensive multiplier.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>BOOTS - Esu's Heirloom</span><span style="color: var(--gold);">RECOMMENDED</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Your Critical Strikes have a chance to reset Hydra cooldown. Provides additional Hydra cast frequency for better coverage and damage uptime.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Best-in-Slot Gear</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>HELM - Harlequin Crest</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> +All Skills, Damage Reduction, CDR, +Maximum Life. The best-in-slot helm for virtually all builds. Provides both offensive and defensive scaling with CDR that benefits Hydra uptime.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>RING - Ring of Starless Skies</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Each resource spent reduces the cost of your next skill. Stacks during Hydra and Fire Bolt spam, dramatically reducing Mana consumption for sustained damage output.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>RING - Rare Ring with Crit + Fire Damage + CDR</span><span style="color: var(--gold);">RARE</span></div>
+                    <div class="unique-effect"><strong>Stats:</strong> Critical Strike Chance, Critical Strike Damage, Fire Damage, Cooldown Reduction. Stack offensive affixes that directly amplify Hydra damage and cast frequency.</div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 4: ASPECTS & TEMPERING                 -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="aspects" class="tab-content">
+
+            <div class="section">
+                <h2>Legendary Aspects</h2>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of the Serpentine</span></div>
+                    <div class="unique-effect">Hydra attacks leave burning ground beneath them. The single most important aspect for this build &mdash; transforms Hydra into persistent zone control with massive burning damage-over-time.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Engulfing Flames</span></div>
+                    <div class="unique-effect">Fire skills deal bonus damage to Burning enemies. With Hydras constantly applying burns, this is a near-permanent damage multiplier that scales exponentially with burn uptime.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Seared Flesh</span></div>
+                    <div class="unique-effect">Immobilized enemies take increased burning damage. Synergizes with Combustion passive stuns and crowd control for massive burst windows against locked-down targets.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Disobedience</span></div>
+                    <div class="unique-effect">Gain stacking Armor when dealing damage. With constant Hydra hits and Fire Bolt spam, this ramps to max stacks almost instantly for massive damage reduction.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Bounding Conduit</span></div>
+                    <div class="unique-effect">Teleport cooldown reduction and bonus movement speed after Teleporting. Enables frequent repositioning for better Hydra placement angles and emergency escapes.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Inner Calm</span></div>
+                    <div class="unique-effect">Gain bonus damage for each second you stand still. Synergizes with Hydra's fire-and-forget playstyle where you can stand at range and let your summons do the work.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Tempering Priorities</h2>
+
+                <div class="tier tier-s">
+                    <h4>S-TIER: Must Have</h4>
+                    <ul>
+                        <li><strong>Fire Damage</strong> &mdash; Direct scaling on Hydra and all fire skills. Temper this on every piece that allows it for maximum damage output.</li>
+                        <li><strong>Critical Strike Chance</strong> &mdash; Hydras fire constantly. More crits mean more damage and more Esu's Heirloom CDR procs. Aim for 60%+ total Crit Chance.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>A-TIER: High Priority</h4>
+                    <ul>
+                        <li><strong>Critical Strike Damage</strong> &mdash; Amplifies every crit from Hydra attacks. With high Crit Chance, this becomes a massive overall damage increase.</li>
+                        <li><strong>Cooldown Reduction</strong> &mdash; Reduces base cooldown on Hydra, Inferno, and Teleport. Works synergistically with Esu's Heirloom for maximum Hydra uptime.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-b">
+                    <h4>B-TIER: Fill</h4>
+                    <ul>
+                        <li><strong>Barrier Generation</strong> &mdash; Increases Ice Armor barrier strength for better survivability. Provides cushion against burst damage from elites and bosses.</li>
+                        <li><strong>Maximum Life</strong> &mdash; Survivability stat. Sorcerers are naturally fragile; additional Life pool provides safety net for mistakes.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 5: PARAGON                             -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="paragon" class="tab-content">
+
+            <div class="section">
+                <h2>Paragon Board Order</h2>
+                <p>Attach boards in this exact order. Each board's glyph is listed below &mdash; level glyphs to 15 first, then push to 21 for radius bonus.</p>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Starting Board</span>
+                        <span class="paragon-board-order">Board 1</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Elementalist</span> &mdash; Increases elemental damage and provides defensive scaling. The foundation glyph that amplifies Hydra's fire damage from the very start.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Burning Instinct</span>
+                        <span class="paragon-board-order">Board 2</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Searing Heat</span> &mdash; Massive damage bonus to Burning enemies. With Hydras constantly applying burns, this glyph is a permanent multiplier throughout all encounters.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Enchantment Master</span>
+                        <span class="paragon-board-order">Board 3</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Tactician</span> &mdash; Cooldown Reduction and defensive scaling. Reduces Hydra, Inferno, and Teleport cooldowns for better uptime on your key abilities.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Ceaseless Conduit</span>
+                        <span class="paragon-board-order">Board 4</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Destruction</span> &mdash; Critical Strike Damage bonus. With high Crit Chance on Hydra attacks, this glyph amplifies every crit for massive sustained damage.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Static Surge</span>
+                        <span class="paragon-board-order">Board 5</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Unleash</span> &mdash; Bonus damage after using an Ultimate. With Inferno available frequently for burst windows, this provides consistent damage scaling during high-priority encounters.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 6: GAMEPLAY                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gameplay" class="tab-content">
+
+            <div class="section">
+                <h2>Rotation</h2>
+                <ol class="rotation-steps">
+                    <li class="rotation-step">
+                        <p><strong>Summon 3 Hydras immediately</strong> &mdash; Deploy all 3 Hydras at the start of combat. Position them strategically to maximize coverage across enemy positions.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Maintain Ice Armor</strong> &mdash; Keep Ice Armor active for constant barrier uptime. Provides both damage reduction and mana regeneration for sustained casting.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Fire Bolt filler</strong> &mdash; Between Hydra cooldowns, spam Fire Bolt for filler damage and Flameweaver stacks. Each cast increases your Hydra damage.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Recast Hydras as they expire</strong> &mdash; Monitor Hydra duration. Recast individual Hydras as they expire to maintain 3-Hydra uptime continuously.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Inferno for burst windows</strong> &mdash; Use Inferno during dense pack encounters or to burn down elites. The fiery serpent adds significant AoE burst damage.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Teleport for repositioning</strong> &mdash; Use Teleport to escape danger or reposition for better Hydra placement angles. Bounding Conduit provides bonus movement speed.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Flame Shield for emergencies</strong> &mdash; Pop Flame Shield when you take burst damage or need to tank one-shot mechanics. The immunity window can save your life.</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>Gameplay Tips</h2>
+
+                <div class="tip-card">
+                    <strong>Gloves of the Illuminator is mandatory.</strong>
+                    <p>Without Gloves of the Illuminator, Hydra lacks the duration and additional heads needed for consistent damage. This unique is absolutely required for the build to function properly.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Hydra placement matters.</strong>
+                    <p>Hydras have a fixed attack range. Position them strategically at choke points or near boss spawn points to maximize uptime on high-priority targets. Poor placement wastes damage.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Serpentine aspect is non-negotiable.</strong>
+                    <p>Aspect of the Serpentine transforms Hydra from mediocre to excellent by adding persistent burning ground. Without it, the build lacks the damage-over-time needed for high-tier content.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Abuse the safe playstyle.</strong>
+                    <p>Hydra Sorc is one of the safest builds in the game. You can stand at maximum range while your Hydras do the work. Use this to your advantage against dangerous bosses and mechanics.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Stack Fire Bolt for Flameweaver.</strong>
+                    <p>Flameweaver provides exponential Hydra damage scaling based on Fire skill casts. Spam Fire Bolt constantly between Hydra cooldowns to stack the buff as high as possible.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Excellent for bossing.</strong>
+                    <p>Hydra Sorc excels in long boss fights. Deploy your Hydras, maintain Fire Bolt spam, and let the sustained damage-over-time slowly burn down even the toughest targets safely from range.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="/assets/js/guide.js"></script>

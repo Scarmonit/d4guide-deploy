@@ -1,0 +1,639 @@
+---
+layout: base.njk
+title: Triple Golem Necromancer Guide | D4 Season 11
+description: Complete Diablo 4 Triple Golem Necromancer guide for Season 11. Minion burst build with skills, gear, paragon, aspects. A-Tier golem army playstyle.
+styles:
+  - /assets/css/guide.css
+---
+
+    <a href="/build-guides" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to All Guides
+    </a>
+
+    <header class="guide-hero">
+        <span class="badge">Season 11 - Divine Intervention</span>
+        <h1>Triple Golem Necromancer<span class="verified-badge" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">A-TIER</span></h1>
+        <p class="subtitle">A-Tier Minion Army Build -- Three Golems, Corpse Explosions, Army of the Dead Burst</p>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+        <button class="nav-tab" onclick="showTab('skills')">Skills & Passives</button>
+        <button class="nav-tab" onclick="showTab('gear')">Gear & Aspects</button>
+        <button class="nav-tab" onclick="showTab('temper')">Tempering</button>
+        <button class="nav-tab" onclick="showTab('paragon')">Paragon</button>
+        <button class="nav-tab" onclick="showTab('gameplay')">Gameplay</button>
+    </div>
+
+    <div class="container">
+
+        <!-- ============================================================ -->
+        <!-- TAB 1: OVERVIEW                                              -->
+        <!-- ============================================================ -->
+        <div id="overview" class="tab-content active">
+
+            <div class="section">
+                <h2>Build Summary</h2>
+                <p>The Triple Golem Necromancer is an A-Tier minion army build that leverages the unique power of <strong>Gravebloom Maze</strong> to summon all three Golem variants simultaneously. Your three golems provide massive damage output and tank for you, while you chain Corpse Explosions and burst with Army of the Dead during high-density windows.</p>
+                <p>This build combines the survivability of a traditional minion build with explosive burst damage. Your golems constantly generate corpses, which you convert into devastating Corpse Explosions. Gravebloom Maze, Deathspeaker's Pendant, and Howl from Below synergize to create a minion army that scales exponentially with density.</p>
+
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Tier</div>
+                        <div class="build-info-value" style="color: #10b981;">A-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Class</div>
+                        <div class="build-info-value">Necromancer</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Damage Type</div>
+                        <div class="build-info-value" style="color: #ef4444;">Physical / Shadow</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Playstyle</div>
+                        <div class="build-info-value">Minion / Burst Windows</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Difficulty</div>
+                        <div class="build-info-value">
+                            <div class="difficulty-bar">
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Minions</div>
+                        <div class="build-info-value" style="color: var(--green);">3 Golems + Warriors</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Core Mechanic: Gravebloom Maze</h2>
+                <p>The entire build revolves around <strong>Gravebloom Maze</strong>, a unique helm that allows you to summon all three Golem variants at the same time: Bone Golem, Blood Golem, and Iron Golem. Each golem provides unique benefits and damage, turning your minion army into a devastating force.</p>
+                <p>Bone Golem taunts and controls enemies, Blood Golem drains life and provides healing, and Iron Golem deals massive physical damage. With all three active simultaneously, your minion damage triples, and corpse generation becomes constant. Pair this with Corpse Explosion chains and Army of the Dead burst windows for exponential scaling in grouped content.</p>
+
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Golem Count</div>
+                        <div class="build-info-value" style="color: var(--gold);">3 Golems</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Corpse Source</div>
+                        <div class="build-info-value">Minion Kills</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Burst Window</div>
+                        <div class="build-info-value">Army of the Dead</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Key Unique</div>
+                        <div class="build-info-value" style="color: var(--red);">Gravebloom Maze</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Stat Targets</h2>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Minion Damage %</span><span>Max Priority</span></div><div class="stat-progress-bar"><div class="stat-progress-fill dmg"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Cooldown Reduction</span><span>50%+</span></div><div class="stat-progress-bar"><div class="stat-progress-fill cdr" style="width:65%"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Critical Strike Chance</span><span>55%+</span></div><div class="stat-progress-bar"><div class="stat-progress-fill crit" style="width:60%"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Attack Speed</span><span>High Priority</span></div><div class="stat-progress-bar"><div class="stat-progress-fill speed"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Maximum Life</span><span>12,000+</span></div><div class="stat-progress-bar"><div class="stat-progress-fill life" style="width:75%"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Armor / Resistances</span><span>Minion Tanking + DR</span></div><div class="stat-progress-bar"><div class="stat-progress-fill armor" style="width:70%"></div></div></div>
+            </div>
+
+            <div class="section">
+                <h2>Strengths & Weaknesses</h2>
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>Strengths</h4>
+                        <ul>
+                            <li>Three golems provide massive damage output</li>
+                            <li>Minions tank for you, making it very safe</li>
+                            <li>Strong burst potential with Army of the Dead</li>
+                            <li>Corpse Explosion chains scale exponentially with density</li>
+                            <li>Natural corpse generation from minion kills</li>
+                            <li>Excellent for group play and high-density content</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>Weaknesses</h4>
+                        <ul>
+                            <li>Requires Gravebloom Maze to function properly</li>
+                            <li>Golem AI can be unreliable with targeting</li>
+                            <li>Minion positioning matters for optimal damage</li>
+                            <li>Slower in low-density or open-world content</li>
+                            <li>Long cooldown on Army of the Dead limits burst windows</li>
+                            <li>Vulnerable during cooldown gaps</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- TAB 2: SKILLS & PASSIVES                                     -->
+        <!-- ============================================================ -->
+        <div id="skills" class="tab-content">
+
+            <div class="section">
+                <h2>Active Skills</h2>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(168, 85, 247, 0.2); color: #a855f7;">1</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Reap (1/5)<span class="skill-tag">Basic</span></div>
+                        <p class="skill-desc"><strong>Enhanced Reap</strong> &rarr; <strong>Acolyte's Reap</strong> -- Your corpse generator and utility skill. Enhanced Reap generates corpses on hit. Acolyte's Reap grants damage reduction and a stacking attack speed buff. Use to generate corpses when minions are not generating them fast enough, and maintain the DR/attack speed buffs. 1 point for utility only.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(212, 175, 55, 0.25); color: #d4af37;">2</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Golem (5/5)<span class="skill-tag">Summon</span></div>
+                        <p class="skill-desc"><strong>Enhanced Golem</strong> &rarr; <strong>Sacrificial Golem</strong> -- With Gravebloom Maze, this summons all three Golem variants. Enhanced Golem increases their damage and grants life on hit. Sacrificial Golem reduces their cooldown when they take damage. Max rank for maximum golem damage and survivability. Your golems are your primary damage dealers -- treat them as your "main skill."</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(239, 68, 68, 0.2); color: #ef4444;">3</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Corpse Explosion (5/5)<span class="skill-tag">Corpse</span></div>
+                        <p class="skill-desc"><strong>Enhanced Corpse Explosion</strong> &rarr; <strong>Plagued Corpse Explosion</strong> -- Your primary AoE damage skill. Enhanced increases explosion radius. Plagued Corpse Explosion applies a damaging AoE field after the explosion. In dense packs with constant corpse generation from minions, you chain explosions for massive burst. Max rank for maximum damage scaling.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(45, 212, 191, 0.2); color: #2dd4bf;">4</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Corpse Tendrils (1/5)<span class="skill-tag">Corpse</span></div>
+                        <p class="skill-desc"><strong>Enhanced Corpse Tendrils</strong> &rarr; <strong>Plagued Corpse Tendrils</strong> -- Your crowd control pull. Pulls enemies together and stuns them, applying Vulnerable. Groups enemies tightly so your golems and Corpse Explosions hit more targets. Essential for maximizing minion damage and explosion chains. 1 point for the CC utility.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(107, 114, 128, 0.2); color: #9ca3af;">5</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Decrepify (1/5)<span class="skill-tag">Curse</span></div>
+                        <p class="skill-desc"><strong>Enhanced Decrepify</strong> &rarr; <strong>Abhorrent Decrepify</strong> -- Your curse for slowing and debuffing enemies. Enhanced reduces enemy damage. Abhorrent grants cooldown reduction on cursed enemy kills. Combine with Aspect of the Cursed Aura for auto-application. 1 point for utility.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(212, 175, 55, 0.25); color: #d4af37;">6</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Army of the Dead (5/5)<span class="skill-tag">Ultimate</span></div>
+                        <p class="skill-desc"><strong>Prime Army of the Dead</strong> &rarr; <strong>Supreme Army of the Dead</strong> -- Your burst ultimate. Summons a massive wave of skeletal warriors that deal enormous damage to all enemies in a cone. Prime Army grants you damage reduction while active. Supreme Army extends the duration. Use during high-density windows after Corpse Tendrils pulls. Max rank for maximum burst damage.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Key Passives</h2>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(168, 85, 247, 0.3); color: #c084fc;">P</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Golem Mastery<span class="skill-tag">KEY PASSIVE</span></div>
+                        <p class="skill-desc">The build-defining passive. Increases your active Golem's damage and grants bonus effects based on which Golem is active. With Gravebloom Maze, all three golems benefit simultaneously, tripling the effectiveness of this passive.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(0, 0, 0, 0.3); color: #e8e8e8;">P</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Kalan's Edict<span class="skill-tag">DEFENSIVE</span></div>
+                        <p class="skill-desc">After not taking damage for 3 seconds, gain a barrier equal to 100% of your Maximum Life. Critical for survivability in Pit pushes. Your minions tank most damage, making it easy to maintain the barrier uptime. When barrier breaks, you have 3 seconds to reposition before it refreshes.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: rgba(0, 0, 0, 0.3); color: #e8e8e8;">P</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Supporting Passives</div>
+                        <p class="skill-desc">
+                            <strong>Hewed Flesh</strong> -- Chance to create a corpse on hit, supplementing corpse generation from minion kills.<br>
+                            <strong>Death's Embrace</strong> -- Bonus damage to close enemies and damage reduction from distant enemies. Safe to be close since minions tank.<br>
+                            <strong>Death's Reach</strong> -- Increases minion attack range, helping them reach backline targets.<br>
+                            <strong>Necrotic Carapace</strong> -- Gain passive damage reduction based on your Fortify amount. Synergizes with minion builds.<br>
+                            <strong>Fueled by Death</strong> -- After consuming a corpse, gain increased damage. Always active with constant Corpse Explosion usage.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Book of the Dead -- Minion Focus</h2>
+                <p>This build keeps Warriors active and sacrifices Mages for bonus damage. With Gravebloom Maze, all three Golem variants are summoned simultaneously.</p>
+
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Skeletal Warriors</div>
+                        <div class="build-info-value" style="color: #6b7280;">Defenders -- Active</div>
+                        <p style="color: #a0a0a0; font-size: 0.8rem; margin-top: 5px;">Extra tankiness for frontline</p>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Skeletal Mages</div>
+                        <div class="build-info-value" style="color: #a855f7;">Shadow Mages -- Sacrifice</div>
+                        <p style="color: #a0a0a0; font-size: 0.8rem; margin-top: 5px;">Bonus Shadow damage dealt</p>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Golem</div>
+                        <div class="build-info-value" style="color: #6b7280;">All Three -- Active</div>
+                        <p style="color: #a0a0a0; font-size: 0.8rem; margin-top: 5px;">Gravebloom Maze summons all three</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- TAB 3: GEAR & ASPECTS                                        -->
+        <!-- ============================================================ -->
+        <div id="gear" class="tab-content">
+
+            <div class="section">
+                <h2>Unique Items</h2>
+
+                <!-- Gravebloom Maze -->
+                <div class="gear-slot-card" style="border-left-color: var(--red);">
+                    <div class="gear-slot-header"><span>HELM -- Gravebloom Maze</span><span style="color:var(--red);">MANDATORY</span></div>
+                    <div class="stat-row"><span>Minion Damage</span><span class="stat-value-calc">[25-35%]</span></div>
+                    <div class="stat-row"><span>Cooldown Reduction</span><span class="stat-value-calc">[8-12%]</span></div>
+                    <div class="stat-row"><span>Maximum Life</span><span class="stat-value-calc">[700-1000]</span></div>
+                    <div class="unique-effect"><strong>Unique Effect:</strong> Your Golem skill summons all three Golem variants at the same time (Bone, Blood, Iron). This is the entire build -- without Gravebloom Maze, you only have one golem. With it, you have three golems dealing triple damage and providing all three sets of benefits simultaneously.</div>
+                </div>
+
+                <!-- Deathspeaker's Pendant -->
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>AMULET -- Deathspeaker's Pendant</span><span style="color:var(--gold);">HIGH PRIORITY</span></div>
+                    <div class="stat-row"><span>Minion Damage</span><span class="stat-value-calc">[20-30%]</span></div>
+                    <div class="stat-row"><span>Cooldown Reduction</span><span class="stat-value-calc">[8-12%]</span></div>
+                    <div class="stat-row"><span>Critical Strike Chance</span><span class="stat-value-calc">[4-6%]</span></div>
+                    <div class="unique-effect"><strong>Unique Effect:</strong> Blood Surge casts automatically from your minions when they kill an enemy. This provides massive sustain and additional damage procs. Your golems generate constant Blood Surge casts, which heal you and deal area damage. Essential for survivability.</div>
+                </div>
+
+                <!-- Howl from Below -->
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>GLOVES -- Howl from Below</span><span style="color:var(--gold);">UNIQUE</span></div>
+                    <div class="stat-row"><span>Minion Damage</span><span class="stat-value-calc">[18-25%]</span></div>
+                    <div class="stat-row"><span>Critical Strike Chance</span><span class="stat-value-calc">[3-5%]</span></div>
+                    <div class="stat-row"><span>Attack Speed</span><span class="stat-value-calc">[5-8%]</span></div>
+                    <div class="unique-effect"><strong>Unique Effect:</strong> Your Golem gains +50%[x] damage and periodically howls, fearing nearby enemies. Fear is excellent crowd control, and the 50% damage multiplier applies to all three golems when using Gravebloom Maze. Best-in-slot gloves for golem builds.</div>
+                </div>
+
+                <h3>Mythic Uniques (Endgame / Best-in-Slot)</h3>
+
+                <!-- Harlequin Crest -->
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>HELM -- Harlequin Crest</span><span style="color:var(--purple);">MYTHIC</span></div>
+                    <div class="stat-row"><span>+All Skills</span><span class="stat-value-calc">+4 Ranks</span></div>
+                    <div class="stat-row"><span>Cooldown Reduction</span><span class="stat-value-calc">+20%</span></div>
+                    <div class="stat-row"><span>Maximum Life</span><span class="stat-value-calc">+1000</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Gain +20% Damage Reduction and +20% Resource Generation. The +4 All Skills boosts Golem, Corpse Explosion, and Army of the Dead ranks significantly. Best-in-slot helm once you have endgame gear, but requires replacing Gravebloom Maze with a legendary aspect elsewhere (not ideal).</div>
+                </div>
+
+                <!-- Shroud of False Death -->
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>CHEST -- Shroud of False Death</span><span style="color:var(--purple);">MYTHIC</span></div>
+                    <div class="stat-row"><span>+All Passive Ranks</span><span class="stat-value-calc">+1</span></div>
+                    <div class="stat-row"><span>All Stats</span><span class="stat-value-calc">+160</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Gain Stealth and 40% Movement Speed when not attacking. The +1 All Passives boosts Golem Mastery, Kalan's Edict, and all supporting passives. Excellent for repositioning between packs in speedfarm content.</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Legendary Aspects</h2>
+                <p>These are the core aspects that make the build function. Prioritize minion damage multipliers and survivability aspects.</p>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>WEAPON -- Blood Getter's Aspect</span><span style="color: var(--gold);">CORE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Your Golem deals +60%[x] increased damage and has its active cooldown reduced by 30%. This is a massive damage and cooldown multiplier for all three golems when using Gravebloom Maze. Essential aspect for the build.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>CHEST -- Aspect of Hardened Bones</span><span style="color: var(--gold);">DEFENSIVE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> While you have 7 or more Minions active, gain increased damage reduction. With three golems and skeletal warriors, you easily maintain 7+ minions. Provides significant survivability boost.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>AMULET -- Aspect of Decay</span><span style="color: var(--gold);">DAMAGE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Increases Shadow damage dealt. Since Shadow Mages are sacrificed for bonus Shadow damage and Corpse Explosion benefits, this scales your burst AoE damage. Place on amulet for the 50% aspect bonus.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>BOOTS -- Aspect of Grasping Veins</span><span style="color: var(--gold);">UTILITY</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Gain increased Critical Strike Chance for 6 seconds when enemies are affected by Corpse Tendrils. Ensures your Corpse Explosions and minion attacks crit on pulled packs. Critical for burst damage windows.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>PANTS -- Sacrificial Aspect</span><span style="color: var(--gold);">DAMAGE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Gain bonus damage for each type of minion you have sacrificed. Since Mages are sacrificed, this provides a flat damage increase. Synergizes with the Shadow damage from Shadow Mage sacrifice.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>RING 1 -- Aspect of the Damned</span><span style="color: var(--gold);">DAMAGE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Cursed enemies take increased Shadow damage. With Cursed Aura auto-applying Decrepify, this is a permanent multiplicative Shadow damage buff. Boosts Corpse Explosion and Shadow Mage sacrifice bonus.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>RING 2 -- Aspect of Frenzied Dead</span><span style="color: var(--gold);">DAMAGE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Minions gain increased attack speed for each corpse consumed. With constant Corpse Explosion usage, your minions attack faster and deal more damage. Synergizes perfectly with the corpse economy of the build.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- TAB 4: TEMPERING                                             -->
+        <!-- ============================================================ -->
+        <div id="temper" class="tab-content">
+
+            <div class="section">
+                <h2>Tempering Priority</h2>
+                <p>Tempering adds specific affixes to your gear that cannot roll naturally. Focus on Minion Damage first, then Cooldown Reduction for Army of the Dead and Golem uptime.</p>
+
+                <div class="tier tier-s">
+                    <h4>S-TIER: Temper First</h4>
+                    <ul>
+                        <li><strong>Minion Damage:</strong> Direct scaling for all three golems and skeletal warriors. Your primary damage stat. Stack as much as possible.</li>
+                        <li><strong>Cooldown Reduction:</strong> Reduces Army of the Dead, Golem, and Corpse Tendrils cooldowns. Essential for burst window frequency and golem uptime.</li>
+                        <li><strong>Army of the Dead Duration:</strong> Extends your ultimate burst window. More duration = more damage from the skeletal wave.</li>
+                    </ul>
+                </div>
+
+                <div class="tier tier-a">
+                    <h4>A-TIER: High Priority</h4>
+                    <ul>
+                        <li><strong>Maximum Life:</strong> Your primary defensive stat. Target 12,000+ for comfortable Pit pushing.</li>
+                        <li><strong>Critical Strike Chance:</strong> Benefits both your Corpse Explosion bursts and minion attacks. Aim for 55%+ total.</li>
+                        <li><strong>Corpse Tendrils Size:</strong> Larger pull radius groups more enemies for minions and Corpse Explosions to hit.</li>
+                    </ul>
+                </div>
+
+                <div class="tier tier-b">
+                    <h4>B-TIER: Fill Remaining Slots</h4>
+                    <ul>
+                        <li><strong>Attack Speed:</strong> Speeds up Corpse Explosion casts and Reap animations. Less critical than Minion Damage.</li>
+                        <li><strong>Shadow Damage:</strong> Boosts Corpse Explosion and Shadow Mage sacrifice bonus. Good for burst windows.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Tempering by Slot</h2>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Weapon</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Minion Damage</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Critical Strike Chance</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Helm</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Cooldown Reduction</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Maximum Life</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Chest</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Maximum Life</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Minion Damage</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Gloves</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Minion Damage</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Critical Strike Chance</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Pants</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Maximum Life</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Minion Damage</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Boots</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Army of the Dead Duration</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Movement Speed</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Amulet</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Cooldown Reduction</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Minion Damage</span></div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Rings</span></div>
+                    <div class="stat-row"><span>Temper 1</span><span class="stat-value-calc">Critical Strike Chance</span></div>
+                    <div class="stat-row"><span>Temper 2</span><span class="stat-value-calc">Minion Damage</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- TAB 5: PARAGON                                               -->
+        <!-- ============================================================ -->
+        <div id="paragon" class="tab-content">
+
+            <div class="section">
+                <h2>Paragon Board Order</h2>
+                <p>Attach boards in this order. Route through nodes that give Intelligence, Minion Damage, and damage reduction. Socket the listed Glyph in each board's Glyph socket once it reaches level 15.</p>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">1. Starting Board</span>
+                        <span class="paragon-board-order">Board 1</span>
+                    </div>
+                    <p style="color: #c0c0c0; margin: 0;">Glyph: <span class="glyph-name">Sacrifice</span></p>
+                    <p style="color: #a0a0a0; font-size: 0.85rem; margin-top: 8px;">Sacrifice glyph increases damage per sacrificed minion type. With Mages sacrificed, this provides a solid damage boost. Route toward Rare nodes that grant minion damage and damage reduction.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">2. Scent of Death</span>
+                        <span class="paragon-board-order">Board 2</span>
+                    </div>
+                    <p style="color: #c0c0c0; margin: 0;">Glyph: <span class="glyph-name">Hulking</span></p>
+                    <p style="color: #a0a0a0; font-size: 0.85rem; margin-top: 8px;">Hulking glyph increases Golem damage and grants damage reduction per active minion. With three golems and warriors, this is a massive boost. Scent of Death board provides corpse consumption bonuses that synergize with Corpse Explosion.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">3. Blood Begets Blood</span>
+                        <span class="paragon-board-order">Board 3</span>
+                    </div>
+                    <p style="color: #c0c0c0; margin: 0;">Glyph: <span class="glyph-name">Essence</span></p>
+                    <p style="color: #a0a0a0; font-size: 0.85rem; margin-top: 8px;">Essence glyph increases damage based on current Essence. With Deathspeaker's Pendant generating Blood Surge constantly, you maintain high Essence. This board provides life and damage nodes for mid-game survivability.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">4. Wither</span>
+                        <span class="paragon-board-order">Board 4</span>
+                    </div>
+                    <p style="color: #c0c0c0; margin: 0;">Glyph: <span class="glyph-name">Gravekeeper</span></p>
+                    <p style="color: #a0a0a0; font-size: 0.85rem; margin-top: 8px;">Gravekeeper grants bonus damage after consuming a corpse. With constant Corpse Explosion usage, this buff is permanently active. Wither board has Legendary nodes that boost Shadow damage, scaling Corpse Explosion bursts.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">5. Frailty</span>
+                        <span class="paragon-board-order">Board 5</span>
+                    </div>
+                    <p style="color: #c0c0c0; margin: 0;">Glyph: <span class="glyph-name">Abyssal</span></p>
+                    <p style="color: #a0a0a0; font-size: 0.85rem; margin-top: 8px;">Abyssal increases Shadow damage and provides damage reduction against Shadow-afflicted enemies. Frailty board's Legendary node applies a damage debuff to cursed enemies, stacking with Decrepify for additional damage mitigation.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Paragon Stat Priority</h2>
+                <div class="tier tier-s">
+                    <h4>Priority Nodes</h4>
+                    <ul>
+                        <li><strong>Minion Damage %</strong> -- Direct scaling for all minions, including all three golems</li>
+                        <li><strong>Intelligence</strong> -- Necromancer primary stat, boosts skill damage and resistances</li>
+                        <li><strong>Damage Reduction</strong> -- Layers with Hardened Bones and Kalan's Edict</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>Secondary Nodes</h4>
+                    <ul>
+                        <li><strong>Maximum Life</strong> -- Survivability for Pit pushing and Kalan's Edict barrier value</li>
+                        <li><strong>Critical Strike Chance</strong> -- Boosts Corpse Explosion bursts and minion crits</li>
+                        <li><strong>Shadow Damage</strong> -- Scales Corpse Explosion and Mage sacrifice bonus</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- TAB 6: GAMEPLAY                                              -->
+        <!-- ============================================================ -->
+        <div id="gameplay" class="tab-content">
+
+            <div class="section">
+                <h2>Combat Rotation</h2>
+                <p>The rotation revolves around leveraging your three golems for consistent damage while building up to Army of the Dead burst windows. Group enemies with Corpse Tendrils, then chain Corpse Explosions during high-density moments.</p>
+
+                <ol class="rotation-steps">
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong style="color: #d4af37;">Summon All Three Golems</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.85rem;">At the start of combat or when golems die, cast Golem to summon all three variants (Bone, Blood, Iron). With Gravebloom Maze, this single cast brings out your entire golem army. Your golems are your primary damage dealers -- keep them alive and active at all times.</p>
+                        </div>
+                    </li>
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong style="color: #d4af37;">Corpse Tendrils to Pull + Vulnerable</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.85rem;">Use Corpse Tendrils to pull all nearby enemies into a tight group and stun them. This applies Vulnerable and ensures your golems and Corpse Explosions hit maximum targets. Positioning is key -- pull enemies into your golem cluster for maximum damage overlap.</p>
+                        </div>
+                    </li>
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong style="color: #d4af37;">Let Golems Generate Corpses</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.85rem;">Your three golems kill enemies constantly, generating corpses naturally. Wait for 2-3 corpses to accumulate before starting your Corpse Explosion chain. Use Reap to supplement corpse generation if needed, but prioritize letting golems do the work.</p>
+                        </div>
+                    </li>
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong style="color: #d4af37;">Chain Corpse Explosions</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.85rem;">With enemies grouped and multiple corpses available, spam Corpse Explosion. Each explosion deals massive AoE damage, generates more corpses from kills, and chains into the next explosion. In dense packs, explosions create a feedback loop of corpse generation and burst damage.</p>
+                        </div>
+                    </li>
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong style="color: #d4af37;">Army of the Dead During Density</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.85rem;">Save Army of the Dead for high-density windows. After pulling enemies with Corpse Tendrils and with your golems attacking, cast Army of the Dead for a massive burst. Supreme Army extends the duration per kill, so the more enemies you hit, the longer the ultimate lasts.</p>
+                        </div>
+                    </li>
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong style="color: #d4af37;">Decrepify -- Auto-Applied</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.85rem;">With Aspect of the Cursed Aura, Decrepify automatically applies to all nearby enemies. You do not need to cast it manually. Enemies are constantly slowed, deal reduced damage, and trigger Abhorrent Decrepify CDR when they die, reducing your Army of the Dead cooldown.</p>
+                        </div>
+                    </li>
+                    <li class="rotation-step">
+                        <div>
+                            <p><strong style="color: #d4af37;">Reap for Buffs</strong></p>
+                            <p style="color: #a0a0a0; font-size: 0.85rem;">Use Reap every 3-4 seconds to maintain Acolyte's Reap damage reduction and attack speed buffs. This also generates additional corpses when golem kills are slow. One swing is enough -- do not spam.</p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>Tips & Advanced Play</h2>
+
+                <div class="tip-card">
+                    <strong>Golem AI Management</strong>
+                    <p>Your golems follow you and attack nearby enemies, but their AI can be unreliable. Position yourself near high-priority targets to direct golem attacks. If golems are stuck or attacking the wrong target, move closer to the enemy you want them to focus.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Corpse Economy Balance</strong>
+                    <p>Do not blow every corpse on Corpse Explosion -- always save 1-2 corpses for Corpse Tendrils CC. Without Corpse Tendrils, you lose your grouping tool and Vulnerable application, which cripples your burst damage.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Army of the Dead Timing</strong>
+                    <p>Army of the Dead has a long cooldown. Use it only during high-density pulls or boss burn phases. Cast it after Corpse Tendrils groups enemies, and aim the cone to hit as many targets as possible. Each kill extends the duration via Supreme Army, so hitting more enemies = longer ultimate uptime.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Boss Strategy</strong>
+                    <p>Against bosses, let your three golems tank and deal consistent damage. Use Corpse Tendrils to root the boss in place. Save Army of the Dead for when the boss summons adds or reaches a damage window. Corpse Explosion is less effective on single-target, so focus on maintaining golem uptime and Reap buffs.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Kalan's Edict Uptime</strong>
+                    <p>With your minions tanking, Kalan's Edict barrier should have high uptime. If the barrier breaks, reposition behind your golems for 3 seconds to let it refresh. Do not face-tank damage -- let your minions do the work.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Deathspeaker's Pendant Synergy</strong>
+                    <p>Deathspeaker's Pendant triggers Blood Surge from your minions on every kill. Position yourself near your golems so the Blood Surge casts hit enemies in range, providing additional damage and healing. This sustain is critical for maintaining Kalan's Edict barrier uptime.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Content Ratings</h2>
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Speedfarm</div>
+                        <div class="build-info-value" style="color: #3b82f6;">B-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Nightmare Dungeon</div>
+                        <div class="build-info-value" style="color: #10b981;">A-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Pit Pushing</div>
+                        <div class="build-info-value" style="color: #10b981;">A-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Bossing</div>
+                        <div class="build-info-value" style="color: #10b981;">A-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Helltide</div>
+                        <div class="build-info-value" style="color: #3b82f6;">B-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Leveling</div>
+                        <div class="build-info-value" style="color: #6b7280;">C-Tier</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="/assets/js/guide.js"></script>

@@ -1,0 +1,431 @@
+---
+layout: base.njk
+title: Whirlwind Barbarian Guide | D4 Season 11
+description: Complete Diablo 4 Whirlwind Barbarian guide for Season 11. Spin to Win build with skills, gear, paragon, aspects. A-Tier speed and sustained AoE.
+styles:
+  - /assets/css/guide.css
+---
+
+    <a href="/build-guides" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Build Guides
+    </a>
+
+    <header class="guide-hero">
+        <span class="badge">Season 11 - Divine Intervention</span>
+        <h1>Whirlwind Barbarian</h1>
+        <p class="subtitle">A-Tier Spin to Win Build - Sustained AoE & Mobile Destruction</p>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+        <button class="nav-tab" onclick="showTab('skills')">Skills</button>
+        <button class="nav-tab" onclick="showTab('gear')">Gear</button>
+        <button class="nav-tab" onclick="showTab('aspects')">Aspects & Tempering</button>
+        <button class="nav-tab" onclick="showTab('paragon')">Paragon</button>
+        <button class="nav-tab" onclick="showTab('gameplay')">Gameplay</button>
+    </div>
+
+    <div class="container">
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 1: OVERVIEW                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="overview" class="tab-content active">
+
+            <div class="section">
+                <h2>Build Summary</h2>
+                <p>The Whirlwind Barbarian is an A-Tier spin-to-win build that offers one of the most satisfying gameplay loops in Diablo 4. Hold down Whirlwind and spin through hordes of enemies, dealing constant AoE damage while maintaining high mobility. With the mandatory Grasping Whirlwind gloves extending Whirlwind's duration and adding Dust Devil tornadoes, this build excels at sustained clear speed. Layer in powerful shouts for defensive buffs and Wrath of the Berserker for burst windows, and you have a build that's both easy to play and highly effective in speed content and Pit 100+ pushes.</p>
+
+                <div class="build-info-grid">
+                    <div class="build-info-item">
+                        <div class="build-info-label">Tier</div>
+                        <div class="build-info-value" style="color: var(--gold);">A-Tier</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Playstyle</div>
+                        <div class="build-info-value">Spin to Win / AoE</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Best For</div>
+                        <div class="build-info-value">Speedfarm, Sustained AoE</div>
+                    </div>
+                    <div class="build-info-item">
+                        <div class="build-info-label">Difficulty</div>
+                        <div class="build-info-value">
+                            Easy
+                            <div class="difficulty-bar">
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip filled"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                                <div class="difficulty-pip"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Stat Targets</h2>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Fury Cost Reduction</span><span>Stack Aggressively</span></div><div class="stat-progress-bar"><div class="stat-progress-fill cdr"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Critical Strike Chance</span><span>High Priority</span></div><div class="stat-progress-bar"><div class="stat-progress-fill crit"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Critical Strike Damage</span><span>High Priority</span></div><div class="stat-progress-bar"><div class="stat-progress-fill dmg"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Attack Speed</span><span>More Hits = More Damage</span></div><div class="stat-progress-bar"><div class="stat-progress-fill speed"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Maximum Life</span><span>High</span></div><div class="stat-progress-bar"><div class="stat-progress-fill life"></div></div></div>
+                <div class="stat-progress-item"><div class="stat-progress-header"><span>Armor</span><span>Via Disobedience + Iron Skin</span></div><div class="stat-progress-bar"><div class="stat-progress-fill armor"></div></div></div>
+            </div>
+
+            <div class="section">
+                <h2>Strengths & Weaknesses</h2>
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>Strengths</h4>
+                        <ul>
+                            <li>Constant AoE damage to entire screen</li>
+                            <li>High mobility while dealing damage</li>
+                            <li>Very tanky with shout buffs</li>
+                            <li>Easy one-button gameplay</li>
+                            <li>Excellent for speed farming</li>
+                            <li>Pit 100+ capable with good gear</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>Weaknesses</h4>
+                        <ul>
+                            <li>Lower single-target than HotA builds</li>
+                            <li>Fury management in low density areas</li>
+                            <li>Grasping Whirlwind gloves mandatory</li>
+                            <li>Vulnerable to CC (need Unstoppable)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 2: SKILLS                              -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="skills" class="tab-content">
+
+            <div class="section">
+                <h2>Active Skills</h2>
+
+                <div class="skill-card">
+                    <div class="skill-icon">1</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Whirlwind <span class="skill-tag">5/5</span> <span class="skill-tag">PRIMARY</span></div>
+                        <p class="skill-desc">Your primary damage source. Hold down Whirlwind to spin through enemies, dealing constant AoE damage. With Grasping Whirlwind gloves, you spawn Dust Devil tornadoes that amplify your clear speed. Enhanced Whirlwind generates Fury on hit, sustaining the spin.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">2</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Lunging Strike <span class="skill-tag">1/5</span></div>
+                        <p class="skill-desc">Basic Fury generator. Use only when Fury is critically low and you need to ramp up before spinning. Enhanced Lunging Strike heals you, providing some sustain during dangerous moments.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">3</div>
+                    <div class="skill-info">
+                        <div class="skill-name">War Cry <span class="skill-tag">5/5</span></div>
+                        <p class="skill-desc">Increases damage and provides Berserking. Use on cooldown for constant damage buff uptime. Enhanced War Cry grants Fury, helping sustain your Whirlwind spam during heavy combat.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">4</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Rallying Cry <span class="skill-tag">5/5</span></div>
+                        <p class="skill-desc">Increases movement speed, resource generation, and Unstoppable. Essential for mobility and breaking CC. Keep this up constantly while spinning through packs.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">5</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Challenging Shout <span class="skill-tag">5/5</span></div>
+                        <p class="skill-desc">Defensive shout that taunts enemies and grants damage reduction. Use when surrounded or taking heavy damage. The taunt pulls enemies into your Whirlwind for better clear.</p>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">6</div>
+                    <div class="skill-info">
+                        <div class="skill-name">Wrath of the Berserker <span class="skill-tag">5/5</span> <span class="skill-tag">ULTIMATE</span></div>
+                        <p class="skill-desc">Your Ultimate ability. Grants massive damage, Berserking, and Unstoppable. Pop this during high-density packs or dangerous elite encounters for burst damage windows and survivability.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Key Passives</h2>
+                <div class="tier tier-s">
+                    <h4>Core Passives</h4>
+                    <ul>
+                        <li><strong>Endless Fury</strong> &mdash; Increases Fury generation from Whirlwind hits. Essential for sustaining the spin in combat.</li>
+                        <li><strong>Pressure Point</strong> &mdash; Core skills have a chance to make enemies Vulnerable. Synergizes with Vulnerable damage aspects and tempering.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>Scaling Passives</h4>
+                    <ul>
+                        <li><strong>Unconstrained</strong> &mdash; Increases Berserking duration. With War Cry and Wrath of the Berserker, this keeps your damage buff uptime high.</li>
+                        <li><strong>Booming Voice</strong> &mdash; Increases shout duration. More uptime on War Cry, Rallying Cry, and Challenging Shout means better offense and defense.</li>
+                        <li><strong>Pit Fighter</strong> &mdash; Damage and damage reduction when close to enemies. Perfect for Whirlwind's melee-range playstyle.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 3: GEAR                                -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gear" class="tab-content">
+
+            <div class="section">
+                <h2>Required Unique Items</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--red);">
+                    <div class="gear-slot-header"><span>GLOVES - Grasping Whirlwind</span><span style="color: var(--red);">REQUIRED</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Whirlwind duration is extended and spawns Dust Devil tornadoes that deal damage to surrounding enemies. This is the core mechanic of the build &mdash; without it, Whirlwind is significantly weaker and harder to sustain.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Best-in-Slot Gear</h2>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>HELM - Harlequin Crest (All-Around) / Heir of Perdition (Push)</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Harlequin Crest:</strong> +All Skills, Damage Reduction, CDR. Best for general content and speed farming.<br><strong>Heir of Perdition:</strong> +60%[x] Damage, Crit Chance. Swap in for pushing the highest Pit tiers where raw damage is critical.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>CHEST - Gohr's Devastating Grips</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Whirlwind explodes after it ends, dealing damage in an AoE. Synergizes perfectly with Grasping Whirlwind for massive burst when you stop spinning.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>WEAPON - Ramaladni's Magnum Opus (Two-Handed Sword)</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Skills using this weapon deal increased damage and have a chance to cast additional skills. Provides massive damage scaling and amplifies Whirlwind's already high AoE output.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>RING - Melted Heart of Selig</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Gain Maximum Resource as Maximum Life. When you take damage, drain resource before Life. Provides huge survivability by using Fury as a damage buffer, perfect for facetanking while spinning.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--purple);">
+                    <div class="gear-slot-header"><span>RING - Ring of Starless Skies</span><span style="color: var(--purple);">MYTHIC</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Each resource spent reduces the cost of your next skill. Stacks quickly with Whirlwind spam, dramatically reducing Fury consumption for sustained spinning.</div>
+                </div>
+
+                <div class="gear-slot-card" style="border-left-color: var(--gold);">
+                    <div class="gear-slot-header"><span>AMULET - Rage of Harrogath</span><span style="color: var(--gold);">UNIQUE</span></div>
+                    <div class="unique-effect"><strong>Effect:</strong> Reduces shout cooldowns and increases shout damage. Enables near-permanent uptime on War Cry, Rallying Cry, and Challenging Shout for constant offensive and defensive buffs.</div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 4: ASPECTS & TEMPERING                 -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="aspects" class="tab-content">
+
+            <div class="section">
+                <h2>Legendary Aspects</h2>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Dust Devils Aspect</span></div>
+                    <div class="unique-effect">Whirlwind leaves behind Dust Devil tornadoes that deal damage. Amplifies your AoE clear speed by leaving persistent damage zones as you spin through packs.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Berserk Ripping</span></div>
+                    <div class="unique-effect">Increases damage while Berserking. With War Cry and Wrath of the Berserker providing constant Berserking uptime, this is a consistent multiplicative damage layer.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Echoing Fury</span></div>
+                    <div class="unique-effect">Shouts generate Fury and grant bonus damage. Synergizes with your triple-shout setup for both resource generation and damage scaling.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Disobedience</span></div>
+                    <div class="unique-effect">Gain stacking Armor when dealing damage. With constant Whirlwind hits, this ramps to max stacks almost instantly for massive damage reduction.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Aspect of Might</span></div>
+                    <div class="unique-effect">Basic skills grant damage reduction. Use Lunging Strike to proc this before spinning through dangerous packs for a defensive layer.</div>
+                </div>
+
+                <div class="gear-slot-card">
+                    <div class="gear-slot-header"><span>Wind Striker Aspect</span></div>
+                    <div class="unique-effect">Critical Strikes grant bonus movement speed. With high crit chance, this keeps you zooming through packs even faster while spinning.</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Tempering Priorities</h2>
+
+                <div class="tier tier-s">
+                    <h4>S-TIER: Must Have</h4>
+                    <ul>
+                        <li><strong>Fury Cost Reduction</strong> &mdash; The single most important temper. Reduces Whirlwind's Fury drain, allowing you to spin longer without running out of resource.</li>
+                        <li><strong>Critical Strike Chance</strong> &mdash; Direct scaling on your primary damage source. More crits mean more damage and more Wind Striker procs.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-a">
+                    <h4>A-TIER: High Priority</h4>
+                    <ul>
+                        <li><strong>Critical Strike Damage</strong> &mdash; Amplifies every crit from Whirlwind. Essential for high-end damage scaling.</li>
+                        <li><strong>Attack Speed</strong> &mdash; More Whirlwind hits per second mean more damage and more Fury generation. Stack aggressively.</li>
+                        <li><strong>Vulnerable Damage</strong> &mdash; Synergizes with Pressure Point passive. Significant damage boost against priority targets.</li>
+                    </ul>
+                </div>
+                <div class="tier tier-b">
+                    <h4>B-TIER: Fill</h4>
+                    <ul>
+                        <li><strong>Movement Speed</strong> &mdash; Quality of life for positioning and chasing stragglers. Helps maintain momentum between packs.</li>
+                        <li><strong>Maximum Life</strong> &mdash; Survivability temper. Stacks well with Melted Heart of Selig for a massive health pool.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 5: PARAGON                             -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="paragon" class="tab-content">
+
+            <div class="section">
+                <h2>Paragon Board Order</h2>
+                <p>Attach boards in this exact order. Each board's glyph is listed below &mdash; level glyphs to 15 first, then push to 21 for radius bonus.</p>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Starting Board</span>
+                        <span class="paragon-board-order">Board 1</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Exploit</span> &mdash; Increases damage to Vulnerable enemies. Synergizes with Pressure Point passive for consistent damage amplification against all enemies.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Warbringer</span>
+                        <span class="paragon-board-order">Board 2</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Territorial</span> &mdash; Damage reduction and bonus damage while near enemies. Perfect for Whirlwind's close-range playstyle.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Carnage</span>
+                        <span class="paragon-board-order">Board 3</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Wrath</span> &mdash; Increases damage based on Fury spent. With constant Whirlwind spam, this provides a massive consistent damage multiplier.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Blood Rage</span>
+                        <span class="paragon-board-order">Board 4</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Challenger</span> &mdash; Bonus damage to elites and increased damage when close to multiple enemies. Excellent for both pack clear and elite encounters.</p>
+                </div>
+
+                <div class="paragon-board">
+                    <div class="paragon-board-header">
+                        <span class="paragon-board-name">Decimator</span>
+                        <span class="paragon-board-order">Board 5</span>
+                    </div>
+                    <p style="color: #c0c0c0;">Glyph: <span class="glyph-name">Undaunted</span> &mdash; Damage reduction and bonus damage based on missing Life. Provides scaling defensive and offensive power when you're taking heavy damage.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- TAB 6: GAMEPLAY                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <div id="gameplay" class="tab-content">
+
+            <div class="section">
+                <h2>Rotation</h2>
+                <ol class="rotation-steps">
+                    <li class="rotation-step">
+                        <p><strong>Activate all shouts before combat</strong> &mdash; War Cry, Rallying Cry, and Challenging Shout. This gives you full offensive and defensive buffs before engaging packs.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Hold down Whirlwind and spin through enemies</strong> &mdash; Your primary action. Hold the button and guide your character through packs, dealing constant AoE damage to everything in range.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Dust Devils spawn automatically</strong> &mdash; Thanks to Grasping Whirlwind gloves, tornadoes spawn as you spin. These provide persistent damage zones that continue hitting enemies after you pass through.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Recast shouts on cooldown</strong> &mdash; Keep War Cry, Rallying Cry, and Challenging Shout up at all times. Rage of Harrogath reduces their cooldowns for near-permanent uptime.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Pop Wrath of the Berserker for burst windows</strong> &mdash; Use your Ultimate during high-density packs, dangerous elite encounters, or when you need the Unstoppable to break CC and survive.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Use Lunging Strike only when Fury is critically low</strong> &mdash; If you run out of Fury in low-density areas, use Lunging Strike a few times to generate resource before spinning again.</p>
+                    </li>
+                    <li class="rotation-step">
+                        <p><strong>Stop spinning near elites for Gohr's explosion</strong> &mdash; Whirlwind explodes when it ends thanks to Gohr's Devastating Grips. Stop spinning near priority targets to trigger the explosion for burst damage.</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>Gameplay Tips</h2>
+
+                <div class="tip-card">
+                    <strong>Grasping Whirlwind gloves are mandatory.</strong>
+                    <p>Without these gloves, Whirlwind's duration is too short and you lose the Dust Devil tornadoes. This unique is absolutely required &mdash; do not attempt this build without it.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Fury management is critical in low-density areas.</strong>
+                    <p>Whirlwind drains Fury constantly. In sparse areas, use Lunging Strike to generate resource before spinning. Fury Cost Reduction tempering is essential for sustained spinning.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Keep shouts up at all times.</strong>
+                    <p>Your three shouts provide massive offensive and defensive buffs. Rage of Harrogath reduces cooldowns significantly, so recast them immediately when available for near-permanent uptime.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Spin into packs, not around them.</strong>
+                    <p>Whirlwind deals damage to enemies within melee range. Spin directly through packs for maximum hit coverage, leaving Dust Devils in your wake to finish stragglers.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Melted Heart of Selig lets you facetank.</strong>
+                    <p>This ring converts Fury into a damage buffer, absorbing hits before your Life is touched. Combined with shout damage reduction, you can spin through most packs without worrying about death.</p>
+                </div>
+
+                <div class="tip-card">
+                    <strong>Stop spinning strategically for Gohr's explosion.</strong>
+                    <p>Gohr's Devastating Grips makes Whirlwind explode when it ends. Stop spinning near elites or dense packs to trigger the explosion for significant burst damage.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="/assets/js/guide.js"></script>
