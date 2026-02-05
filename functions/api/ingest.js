@@ -100,8 +100,8 @@ async function upsertTierList(db, entries) {
  */
 async function upsertBuilds(db, entries) {
   const stmt = db.prepare(`
-    INSERT OR REPLACE INTO builds (slug, build_name, class_name, tier, season, summary, playstyle, difficulty, source, source_url, updated_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+    INSERT OR REPLACE INTO builds (slug, build_name, class_name, tier, season, summary, playstyle, difficulty, skills, gear, aspects, paragon, rotation, tips, source, source_url, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
   `);
 
   let success = 0;
@@ -118,6 +118,12 @@ async function upsertBuilds(db, entries) {
         entry.summary || null,
         entry.playstyle || null,
         entry.difficulty || 3,
+        entry.skills || null,
+        entry.gear || null,
+        entry.aspects || null,
+        entry.paragon || null,
+        entry.rotation || null,
+        entry.tips || null,
         entry.source || 'maxroll',
         entry.source_url || null
       ).run();
