@@ -253,67 +253,140 @@ function parseBuildGuide(html, buildInfo) {
     }
   }
 
-  // Extract skills from links
-  const skillLinks = html.matchAll(/\/d4\/skills\/[^"]+">([^<]+)</gi);
+  // Extract skills from d4-skill class spans (Maxroll's format)
+  // Pattern: <span class="d4-skill" data-d4-id="...">Skill Name</span>
+  const skillMatches = html.matchAll(/class="d4-skill"[^>]*>([^<]+)</gi);
   const seenSkills = new Set();
-  for (const match of skillLinks) {
+  for (const match of skillMatches) {
     const skill = stripTags(decodeEntities(match[1]));
-    if (skill && skill.length > 1 && !seenSkills.has(skill.toLowerCase())) {
+    // Filter out variations and normalize
+    if (skill && skill.length > 1 && skill.length < 50 && !seenSkills.has(skill.toLowerCase())) {
       seenSkills.add(skill.toLowerCase());
       data.skills.push(skill);
     }
   }
 
-  // Extract gear/uniques from links
-  const uniqueMatches = html.matchAll(/\/d4\/items\/([^"]+)">([^<]+)</gi);
+  // Also try legacy URL-based extraction as fallback
+  if (data.skills.length === 0) {
+    const skillLinks = html.matchAll(/\/d4\/skills\/[^"]+">([^<]+)</gi);
+    for (const match of skillLinks) {
+      const skill = stripTags(decodeEntities(match[1]));
+      if (skill && skill.length > 1 && !seenSkills.has(skill.toLowerCase())) {
+        seenSkills.add(skill.toLowerCase());
+        data.skills.push(skill);
+      }
+    }
+  }
+
+  // Extract gear/uniques from d4-item class spans
+  // Pattern: <span class="d4-item" data-d4-id="...">Item Name</span>
+  const itemMatches = html.matchAll(/class="d4-item"[^>]*>([^<]+)</gi);
   const seenGear = new Set();
-  for (const match of uniqueMatches) {
-    const itemName = stripTags(decodeEntities(match[2]));
-    if (itemName && itemName.length > 1 && !seenGear.has(itemName.toLowerCase())) {
+  for (const match of itemMatches) {
+    const itemName = stripTags(decodeEntities(match[1]));
+    if (itemName && itemName.length > 1 && itemName.length < 60 && !seenGear.has(itemName.toLowerCase())) {
       seenGear.add(itemName.toLowerCase());
       data.gear.push(itemName);
     }
   }
 
-  // Extract aspects from links
-  const aspectMatches = html.matchAll(/\/d4\/aspects\/([^"]+)">([^<]+)</gi);
+  // Fallback to URL-based extraction
+  if (data.gear.length === 0) {
+    const uniqueMatches = html.matchAll(/\/d4\/items\/([^"]+)">([^<]+)</gi);
+    for (const match of uniqueMatches) {
+      const itemName = stripTags(decodeEntities(match[2]));
+      if (itemName && itemName.length > 1 && !seenGear.has(itemName.toLowerCase())) {
+        seenGear.add(itemName.toLowerCase());
+        data.gear.push(itemName);
+      }
+    }
+  }
+
+  // Extract aspects from d4-affix class spans (Maxroll uses d4-affix for legendary aspects)
+  // Pattern: <span class="d4-affix" data-d4-id="...">Aspect Name</span>
+  const affixMatches = html.matchAll(/class="d4-affix"[^>]*>([^<]+)</gi);
   const seenAspects = new Set();
-  for (const match of aspectMatches) {
-    const aspectName = stripTags(decodeEntities(match[2]));
-    if (aspectName && aspectName.length > 1 && !seenAspects.has(aspectName.toLowerCase())) {
+  for (const match of affixMatches) {
+    const aspectName = stripTags(decodeEntities(match[1]));
+    if (aspectName && aspectName.length > 1 && aspectName.length < 60 && !seenAspects.has(aspectName.toLowerCase())) {
       seenAspects.add(aspectName.toLowerCase());
       data.aspects.push(aspectName);
     }
   }
 
-  // Extract paragon glyphs
-  const glyphMatches = html.matchAll(/\/d4\/paragon\/glyphs\/([^"]+)">([^<]+)</gi);
+  // Fallback to URL-based extraction
+  if (data.aspects.length === 0) {
+    const aspectMatches = html.matchAll(/\/d4\/aspects\/([^"]+)">([^<]+)</gi);
+    for (const match of aspectMatches) {
+      const aspectName = stripTags(decodeEntities(match[2]));
+      if (aspectName && aspectName.length > 1 && !seenAspects.has(aspectName.toLowerCase())) {
+        seenAspects.add(aspectName.toLowerCase());
+        data.aspects.push(aspectName);
+      }
+    }
+  }
+
+  // Extract paragon glyphs from d4-glyph class spans
+  const glyphMatches = html.matchAll(/class="d4-glyph"[^>]*>([^<]+)</gi);
   const seenGlyphs = new Set();
   for (const match of glyphMatches) {
-    const glyphName = stripTags(decodeEntities(match[2]));
+    const glyphName = stripTags(decodeEntities(match[1]));
     if (glyphName && !seenGlyphs.has(glyphName.toLowerCase())) {
       seenGlyphs.add(glyphName.toLowerCase());
       data.paragon.push(glyphName);
     }
   }
 
+  // Fallback to URL-based glyph extraction
+  if (data.paragon.length === 0) {
+    const glyphUrlMatches = html.matchAll(/\/d4\/paragon\/glyphs\/([^"]+)">([^<]+)</gi);
+    for (const match of glyphUrlMatches) {
+      const glyphName = stripTags(decodeEntities(match[2]));
+      if (glyphName && !seenGlyphs.has(glyphName.toLowerCase())) {
+        seenGlyphs.add(glyphName.toLowerCase());
+        data.paragon.push(glyphName);
+      }
+    }
+  }
+
   // Extract paragon boards
-  const boardMatches = html.matchAll(/\/d4\/paragon\/boards\/([^"]+)">([^<]+)</gi);
+  const boardMatches = html.matchAll(/class="d4-paragon-board"[^>]*>([^<]+)</gi);
   for (const match of boardMatches) {
+    const boardName = stripTags(decodeEntities(match[1]));
+    if (boardName && !data.paragon.includes(boardName)) {
+      data.paragon.push(boardName);
+    }
+  }
+
+  // Fallback to URL-based board extraction
+  const boardUrlMatches = html.matchAll(/\/d4\/paragon\/boards\/([^"]+)">([^<]+)</gi);
+  for (const match of boardUrlMatches) {
     const boardName = stripTags(decodeEntities(match[2]));
     if (boardName && !data.paragon.includes(boardName)) {
       data.paragon.push(boardName);
     }
   }
 
-  // Extract tempering from links
-  const temperingMatches = html.matchAll(/\/d4\/tempering\/([^"]+)">([^<]+)</gi);
+  // Extract tempering from d4-tempering class spans
+  const temperingMatches = html.matchAll(/class="d4-tempering"[^>]*>([^<]+)</gi);
   const seenTempering = new Set();
   for (const match of temperingMatches) {
-    const tempName = stripTags(decodeEntities(match[2]));
+    const tempName = stripTags(decodeEntities(match[1]));
     if (tempName && !seenTempering.has(tempName.toLowerCase())) {
       seenTempering.add(tempName.toLowerCase());
       data.tempering.push(tempName);
+    }
+  }
+
+  // Fallback to URL-based tempering extraction
+  if (data.tempering.length === 0) {
+    const temperingUrlMatches = html.matchAll(/\/d4\/tempering\/([^"]+)">([^<]+)</gi);
+    for (const match of temperingUrlMatches) {
+      const tempName = stripTags(decodeEntities(match[2]));
+      if (tempName && !seenTempering.has(tempName.toLowerCase())) {
+        seenTempering.add(tempName.toLowerCase());
+        data.tempering.push(tempName);
+      }
     }
   }
 
