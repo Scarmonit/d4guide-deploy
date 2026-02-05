@@ -40,6 +40,15 @@ export async function onRequest(context) {
       case 'builds':
         results = await upsertBuilds(env.DB, data);
         break;
+      case 'items':
+        results = await upsertItems(env.DB, data);
+        break;
+      case 'skills':
+        results = await upsertSkills(env.DB, data);
+        break;
+      case 'aspects':
+        results = await upsertAspects(env.DB, data);
+        break;
       case 'clear_maxroll':
         results = await clearMaxrollData(env.DB);
         break;
@@ -100,8 +109,8 @@ async function upsertTierList(db, entries) {
  */
 async function upsertBuilds(db, entries) {
   const stmt = db.prepare(`
-    INSERT OR REPLACE INTO builds (slug, build_name, class_name, tier, season, summary, playstyle, difficulty, skills, gear, aspects, paragon, rotation, tips, source, source_url, updated_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+    INSERT OR REPLACE INTO builds (slug, build_name, class_name, tier, season, summary, playstyle, difficulty, skills, gear, aspects, paragon, rotation, tips, strengths, weaknesses, tempering, source, source_url, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
   `);
 
   let success = 0;
@@ -124,6 +133,9 @@ async function upsertBuilds(db, entries) {
         entry.paragon || null,
         entry.rotation || null,
         entry.tips || null,
+        entry.strengths || null,
+        entry.weaknesses || null,
+        entry.tempering || null,
         entry.source || 'maxroll',
         entry.source_url || null
       ).run();
@@ -135,4 +147,106 @@ async function upsertBuilds(db, entries) {
   }
 
   return { action: 'builds', success, failed, total: entries.length };
+}
+
+/**
+ * Upsert item entries
+ */
+async function upsertItems(db, entries) {
+  const stmt = db.prepare(`
+    INSERT OR REPLACE INTO items (sno_id, name, item_type, quality, class_restriction, description, affixes, flavor_text, season, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+  `);
+
+  let success = 0;
+  let failed = 0;
+
+  for (const entry of entries) {
+    try {
+      await stmt.bind(
+        entry.sno_id || null,
+        entry.name,
+        entry.item_type || null,
+        entry.quality || null,
+        entry.class_restriction || null,
+        entry.description || null,
+        entry.affixes || null,
+        entry.flavor_text || null,
+        entry.season || 11
+      ).run();
+      success++;
+    } catch (err) {
+      console.error(`Failed to insert item ${entry.name}:`, err.message);
+      failed++;
+    }
+  }
+
+  return { action: 'items', success, failed, total: entries.length };
+}
+
+/**
+ * Upsert skill entries
+ */
+async function upsertSkills(db, entries) {
+  const stmt = db.prepare(`
+    INSERT OR REPLACE INTO skills (sno_id, name, class_name, category, description, tags, max_rank, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'))
+  `);
+
+  let success = 0;
+  let failed = 0;
+
+  for (const entry of entries) {
+    try {
+      await stmt.bind(
+        entry.sno_id || null,
+        entry.name,
+        entry.class_name || 'unknown',
+        entry.category || null,
+        entry.description || null,
+        entry.tags || null,
+        entry.max_rank || 5
+      ).run();
+      success++;
+    } catch (err) {
+      console.error(`Failed to insert skill ${entry.name}:`, err.message);
+      failed++;
+    }
+  }
+
+  return { action: 'skills', success, failed, total: entries.length };
+}
+
+/**
+ * Upsert aspect entries
+ */
+async function upsertAspects(db, entries) {
+  const stmt = db.prepare(`
+    INSERT OR REPLACE INTO aspects (sno_id, name, class_restriction, category, description, slot, dungeon, season, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+  `);
+
+  let success = 0;
+  let failed = 0;
+
+  for (const entry of entries) {
+    try {
+      await stmt.bind(
+        entry.sno_id || null,
+        entry.name,
+        entry.class_restriction || null,
+        entry.category || null,
+        entry.description || null,
+        entry.slot || null,
+        entry.dungeon || null,
+        entry.season || 11
+      ).run();
+      success++;
+    } catch (err) {
+      console.error(`Failed to insert aspect ${entry.name}:`, err.message);
+      failed++;
+    }
+  }
+
+  return { action: 'aspects', success, failed, total: entries.length };
 }

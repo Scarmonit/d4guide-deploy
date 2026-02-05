@@ -11,7 +11,7 @@
  * Usage: node scripts/ingest-d4data.js
  */
 
-const { d1Execute, d1BatchWithProgress } = require('./d1-client');
+const { d1Execute, d1BatchWithProgress, ingestAspects: ingestAspectsAPI, ingestItems: ingestItemsAPI, ingestSkills: ingestSkillsAPI, useIngestAPI } = require('./d1-client');
 
 const GITHUB_API_BASE = 'https://api.github.com/repos/DiabloTools/d4data/contents';
 const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/DiabloTools/d4data/master';
@@ -264,6 +264,24 @@ async function ingestAspects() {
 
   if (statements.length > 0) {
     console.log(`  Inserting ${statements.length} aspects into D1...`);
+
+    // Use Ingest API in CI mode
+    if (useIngestAPI()) {
+      console.log('  Using Ingest API for aspects...');
+      const entries = statements.map(s => ({
+        sno_id: s.params[0],
+        name: s.params[1],
+        class_restriction: s.params[2],
+        category: s.params[3],
+        description: s.params[4],
+        slot: s.params[5],
+        dungeon: s.params[6],
+        season: s.params[7],
+      }));
+      const result = await ingestAspectsAPI(entries);
+      return result.results?.success || entries.length;
+    }
+
     return await d1BatchWithProgress(statements);
   }
 
@@ -344,6 +362,25 @@ async function ingestItems() {
 
   if (statements.length > 0) {
     console.log(`  Inserting ${statements.length} items into D1...`);
+
+    // Use Ingest API in CI mode
+    if (useIngestAPI()) {
+      console.log('  Using Ingest API for items...');
+      const entries = statements.map(s => ({
+        sno_id: s.params[0],
+        name: s.params[1],
+        item_type: s.params[2],
+        quality: s.params[3],
+        class_restriction: s.params[4],
+        description: s.params[5],
+        affixes: s.params[6],
+        flavor_text: s.params[7],
+        season: s.params[8],
+      }));
+      const result = await ingestItemsAPI(entries);
+      return result.results?.success || entries.length;
+    }
+
     return await d1BatchWithProgress(statements);
   }
 
@@ -406,6 +443,23 @@ async function ingestSkills() {
 
   if (statements.length > 0) {
     console.log(`  Inserting ${statements.length} skills into D1...`);
+
+    // Use Ingest API in CI mode
+    if (useIngestAPI()) {
+      console.log('  Using Ingest API for skills...');
+      const entries = statements.map(s => ({
+        sno_id: s.params[0],
+        name: s.params[1],
+        class_name: s.params[2],
+        category: s.params[3],
+        description: s.params[4],
+        tags: s.params[5],
+        max_rank: s.params[6],
+      }));
+      const result = await ingestSkillsAPI(entries);
+      return result.results?.success || entries.length;
+    }
+
     return await d1BatchWithProgress(statements);
   }
 

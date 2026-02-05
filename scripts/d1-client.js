@@ -267,6 +267,33 @@ async function clearMaxrollData() {
   return ingestAPI('clear_maxroll', []);
 }
 
+/**
+ * Upsert items via Ingest API
+ * @param {Array} entries - Item entries
+ * @returns {Promise<Object>} API response
+ */
+async function ingestItems(entries) {
+  return ingestAPI('items', entries);
+}
+
+/**
+ * Upsert skills via Ingest API
+ * @param {Array} entries - Skill entries
+ * @returns {Promise<Object>} API response
+ */
+async function ingestSkills(entries) {
+  return ingestAPI('skills', entries);
+}
+
+/**
+ * Upsert aspects via Ingest API
+ * @param {Array} entries - Aspect entries
+ * @returns {Promise<Object>} API response
+ */
+async function ingestAspects(entries) {
+  return ingestAPI('aspects', entries);
+}
+
 module.exports = {
   d1Execute,
   d1Batch,
@@ -274,6 +301,9 @@ module.exports = {
   ingestAPI,
   ingestTierList,
   ingestBuilds,
+  ingestItems,
+  ingestSkills,
+  ingestAspects,
   clearMaxrollData,
   useIngestAPI,
 };

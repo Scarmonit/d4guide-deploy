@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
     inputs:
       scripts:
-        description: 'Which scripts to run (maxroll-builds, all, tierlist, d4data, maxroll, builds)'
+        description: 'Which scripts to run (auto, maxroll-builds, d4data, all, tierlist, maxroll, builds)'
         required: false
-        default: 'maxroll-builds'
+        default: 'auto'
 
 jobs:
   update-data:
@@ -31,10 +31,19 @@ jobs:
           INGEST_URL: "https://scarmonit.com"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          SCRIPT="${{ github.event.inputs.scripts || 'maxroll-builds' }}"
+          SCRIPT="${{ github.event.inputs.scripts || 'auto' }}"
 
           if [ "$SCRIPT" = "all" ]; then
             node scripts/ingest.js
+          elif [ "$SCRIPT" = "auto" ]; then
+            # Auto mode: Run build guides + game data (supports Ingest API)
+            echo "=== Running Auto-Update (Build Guides + Game Data) ==="
+            echo ""
+            echo "--- Step 1: Maxroll Build Guides ---"
+            node scripts/ingest-maxroll-builds.js
+            echo ""
+            echo "--- Step 2: Game Data (Items, Skills, Aspects) ---"
+            node scripts/ingest-d4data.js
           elif [ "$SCRIPT" = "maxroll-builds" ]; then
             node scripts/ingest-maxroll-builds.js
           elif [ "$SCRIPT" = "tierlist" ]; then

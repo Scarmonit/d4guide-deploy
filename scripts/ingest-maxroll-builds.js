@@ -149,58 +149,138 @@ function parseBuildGuide(html, buildInfo) {
     paragon: [],
     rotation: [],
     tips: [],
+    strengths: [],
+    weaknesses: [],
+    tempering: [],
   };
 
-  // Extract summary/description
-  // Look for meta description or intro paragraph
+  // Helper to decode HTML entities
+  const decodeEntities = (str) => str
+    .replace(/&#x27;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&#(\d+);/g, (_, num) => String.fromCharCode(num));
+
+  // Helper to strip HTML tags
+  const stripTags = (str) => str.replace(/<[^>]+>/g, '').trim();
+
+  // Extract summary/description from meta tag
   const metaDesc = html.match(/<meta[^>]+name="description"[^>]+content="([^"]+)"/i);
   if (metaDesc) {
-    data.summary = metaDesc[1].replace(/&#x27;/g, "'").replace(/&quot;/g, '"');
+    data.summary = decodeEntities(metaDesc[1]);
   }
 
-  // Extract skills from skill tables/sections
-  // Pattern varies but usually in a skills section
-  const skillMatches = html.matchAll(/<h[23][^>]*>([^<]*(?:Skill|Active)[^<]*)<\/h[23]>[\s\S]*?<table[^>]*>([\s\S]*?)<\/table>/gi);
-  for (const match of skillMatches) {
-    const tableContent = match[2];
-    // Extract skill names from table rows
-    const skillRows = tableContent.matchAll(/<tr[^>]*>[\s\S]*?<td[^>]*>([^<]+)<\/td>/gi);
-    for (const row of skillRows) {
-      const skillName = row[1].trim();
-      if (skillName && !skillName.includes('Skill') && skillName.length > 2) {
-        data.skills.push(skillName);
+  // Extract strengths (pros) - look for common patterns
+  const strengthsPatterns = [
+    /(?:strengths?|pros?|advantages?)[:\s]*<\/h[234]>\s*<ul[^>]*>([\s\S]*?)<\/ul>/gi,
+    /class="pros?"[^>]*>([\s\S]*?)<\/(?:ul|div)>/gi,
+    /<li[^>]*class="[^"]*pro[^"]*"[^>]*>([\s\S]*?)<\/li>/gi,
+  ];
+
+  for (const pattern of strengthsPatterns) {
+    const matches = html.matchAll(pattern);
+    for (const match of matches) {
+      const listItems = match[1].matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi);
+      for (const item of listItems) {
+        const text = stripTags(decodeEntities(item[1]));
+        if (text && text.length > 3 && text.length < 200 && !data.strengths.includes(text)) {
+          data.strengths.push(text);
+        }
       }
+    }
+    if (data.strengths.length > 0) break;
+  }
+
+  // Extract weaknesses (cons)
+  const weaknessPatterns = [
+    /(?:weaknesses?|cons?|disadvantages?)[:\s]*<\/h[234]>\s*<ul[^>]*>([\s\S]*?)<\/ul>/gi,
+    /class="cons?"[^>]*>([\s\S]*?)<\/(?:ul|div)>/gi,
+    /<li[^>]*class="[^"]*con[^"]*"[^>]*>([\s\S]*?)<\/li>/gi,
+  ];
+
+  for (const pattern of weaknessPatterns) {
+    const matches = html.matchAll(pattern);
+    for (const match of matches) {
+      const listItems = match[1].matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi);
+      for (const item of listItems) {
+        const text = stripTags(decodeEntities(item[1]));
+        if (text && text.length > 3 && text.length < 200 && !data.weaknesses.includes(text)) {
+          data.weaknesses.push(text);
+        }
+      }
+    }
+    if (data.weaknesses.length > 0) break;
+  }
+
+  // Generate strengths/weaknesses from playstyle analysis if not found
+  if (data.strengths.length === 0) {
+    const lowerHtml = html.toLowerCase();
+    if (lowerHtml.includes('speedfarm') || lowerHtml.includes('fast clear')) {
+      data.strengths.push('Excellent clear speed');
+    }
+    if (lowerHtml.includes('high damage') || lowerHtml.includes('massive damage')) {
+      data.strengths.push('High damage output');
+    }
+    if (lowerHtml.includes('tanky') || lowerHtml.includes('survivab') || lowerHtml.includes('defensive')) {
+      data.strengths.push('Good survivability');
+    }
+    if (lowerHtml.includes('easy') || lowerHtml.includes('beginner')) {
+      data.strengths.push('Beginner friendly');
+    }
+    if (lowerHtml.includes('pit') || lowerHtml.includes('push')) {
+      data.strengths.push('Strong pushing potential');
+    }
+    if (lowerHtml.includes('boss') || lowerHtml.includes('single target')) {
+      data.strengths.push('Strong boss damage');
     }
   }
 
-  // Alternative skill extraction from links
-  if (data.skills.length === 0) {
-    const skillLinks = html.matchAll(/\/d4\/skills\/[^"]+">([^<]+)</gi);
-    for (const match of skillLinks) {
-      const skill = match[1].trim();
-      if (skill && !data.skills.includes(skill)) {
-        data.skills.push(skill);
-      }
+  if (data.weaknesses.length === 0) {
+    const lowerHtml = html.toLowerCase();
+    if (lowerHtml.includes('squishy') || lowerHtml.includes('glass cannon')) {
+      data.weaknesses.push('Low survivability');
+    }
+    if (lowerHtml.includes('expensive') || lowerHtml.includes('gear dependent')) {
+      data.weaknesses.push('Gear dependent');
+    }
+    if (lowerHtml.includes('slow') && !lowerHtml.includes('speedfarm')) {
+      data.weaknesses.push('Slower clear speed');
+    }
+    if (lowerHtml.includes('complex') || lowerHtml.includes('difficult')) {
+      data.weaknesses.push('Complex rotation');
     }
   }
 
-  // Extract gear/uniques
+  // Extract skills from links
+  const skillLinks = html.matchAll(/\/d4\/skills\/[^"]+">([^<]+)</gi);
+  const seenSkills = new Set();
+  for (const match of skillLinks) {
+    const skill = stripTags(decodeEntities(match[1]));
+    if (skill && skill.length > 1 && !seenSkills.has(skill.toLowerCase())) {
+      seenSkills.add(skill.toLowerCase());
+      data.skills.push(skill);
+    }
+  }
+
+  // Extract gear/uniques from links
   const uniqueMatches = html.matchAll(/\/d4\/items\/([^"]+)">([^<]+)</gi);
   const seenGear = new Set();
   for (const match of uniqueMatches) {
-    const itemName = match[2].trim();
-    if (itemName && !seenGear.has(itemName.toLowerCase())) {
+    const itemName = stripTags(decodeEntities(match[2]));
+    if (itemName && itemName.length > 1 && !seenGear.has(itemName.toLowerCase())) {
       seenGear.add(itemName.toLowerCase());
       data.gear.push(itemName);
     }
   }
 
-  // Extract aspects
+  // Extract aspects from links
   const aspectMatches = html.matchAll(/\/d4\/aspects\/([^"]+)">([^<]+)</gi);
   const seenAspects = new Set();
   for (const match of aspectMatches) {
-    const aspectName = match[2].trim();
-    if (aspectName && !seenAspects.has(aspectName.toLowerCase())) {
+    const aspectName = stripTags(decodeEntities(match[2]));
+    if (aspectName && aspectName.length > 1 && !seenAspects.has(aspectName.toLowerCase())) {
       seenAspects.add(aspectName.toLowerCase());
       data.aspects.push(aspectName);
     }
@@ -210,7 +290,7 @@ function parseBuildGuide(html, buildInfo) {
   const glyphMatches = html.matchAll(/\/d4\/paragon\/glyphs\/([^"]+)">([^<]+)</gi);
   const seenGlyphs = new Set();
   for (const match of glyphMatches) {
-    const glyphName = match[2].trim();
+    const glyphName = stripTags(decodeEntities(match[2]));
     if (glyphName && !seenGlyphs.has(glyphName.toLowerCase())) {
       seenGlyphs.add(glyphName.toLowerCase());
       data.paragon.push(glyphName);
@@ -220,13 +300,63 @@ function parseBuildGuide(html, buildInfo) {
   // Extract paragon boards
   const boardMatches = html.matchAll(/\/d4\/paragon\/boards\/([^"]+)">([^<]+)</gi);
   for (const match of boardMatches) {
-    const boardName = match[2].trim();
+    const boardName = stripTags(decodeEntities(match[2]));
     if (boardName && !data.paragon.includes(boardName)) {
       data.paragon.push(boardName);
     }
   }
 
-  // Determine playstyle from content
+  // Extract tempering from links
+  const temperingMatches = html.matchAll(/\/d4\/tempering\/([^"]+)">([^<]+)</gi);
+  const seenTempering = new Set();
+  for (const match of temperingMatches) {
+    const tempName = stripTags(decodeEntities(match[2]));
+    if (tempName && !seenTempering.has(tempName.toLowerCase())) {
+      seenTempering.add(tempName.toLowerCase());
+      data.tempering.push(tempName);
+    }
+  }
+
+  // Extract rotation/gameplay tips from common section patterns
+  const gameplayPatterns = [
+    /(?:rotation|gameplay|how to play)[:\s]*<\/h[234]>\s*([\s\S]*?)(?=<h[234]|$)/gi,
+    /(?:playstyle|combat)[:\s]*<\/h[234]>\s*([\s\S]*?)(?=<h[234]|$)/gi,
+  ];
+
+  for (const pattern of gameplayPatterns) {
+    const matches = html.matchAll(pattern);
+    for (const match of matches) {
+      // Extract numbered steps or list items
+      const listItems = match[1].matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi);
+      for (const item of listItems) {
+        const text = stripTags(decodeEntities(item[1]));
+        if (text && text.length > 10 && text.length < 300) {
+          data.rotation.push(text);
+        }
+      }
+      // Also extract paragraphs as tips
+      const paragraphs = match[1].matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi);
+      for (const p of paragraphs) {
+        const text = stripTags(decodeEntities(p[1]));
+        if (text && text.length > 20 && text.length < 300) {
+          data.tips.push(text);
+        }
+      }
+    }
+    if (data.rotation.length > 0) break;
+  }
+
+  // Generate basic rotation if not found
+  if (data.rotation.length === 0 && data.skills.length > 0) {
+    data.rotation.push(`Use ${data.skills[0] || 'primary skill'} as your main damage dealer`);
+    if (data.skills.length > 1) {
+      data.rotation.push(`Activate ${data.skills.slice(1, 3).join(' and ')} for buffs and utility`);
+    }
+    data.rotation.push('Maintain resource generation while maximizing damage uptime');
+    data.rotation.push('Use defensive cooldowns when taking heavy damage');
+  }
+
+  // Determine playstyle from content analysis
   const playstyleKeywords = {
     'generator': 'Generator',
     'spender': 'Spender',
@@ -239,6 +369,8 @@ function parseBuildGuide(html, buildInfo) {
     'single target': 'Single Target',
     'speedfarm': 'Speedfarm',
     'push': 'Push',
+    'burst': 'Burst',
+    'sustain': 'Sustain',
   };
 
   const playstyles = [];
@@ -249,6 +381,17 @@ function parseBuildGuide(html, buildInfo) {
     }
   }
   data.playstyle = playstyles.slice(0, 3).join(' / ') || `${data.class_name} Build`;
+
+  // Estimate difficulty based on content
+  if (lowerHtml.includes('beginner') || lowerHtml.includes('easy') || lowerHtml.includes('simple')) {
+    data.difficulty = 1;
+  } else if (lowerHtml.includes('intermediate') || lowerHtml.includes('moderate')) {
+    data.difficulty = 3;
+  } else if (lowerHtml.includes('advanced') || lowerHtml.includes('complex') || lowerHtml.includes('difficult')) {
+    data.difficulty = 4;
+  } else if (lowerHtml.includes('expert') || lowerHtml.includes('very difficult')) {
+    data.difficulty = 5;
+  }
 
   return data;
 }
@@ -266,12 +409,15 @@ function buildToDbFormat(build) {
     summary: build.summary || `${build.tier}-Tier ${build.build_name} build for ${build.class_name}.`,
     playstyle: build.playstyle,
     difficulty: build.difficulty || 3,
-    skills: build.skills.length > 0 ? JSON.stringify(build.skills) : null,
-    gear: build.gear.length > 0 ? JSON.stringify(build.gear) : null,
-    aspects: build.aspects.length > 0 ? JSON.stringify(build.aspects) : null,
-    paragon: build.paragon.length > 0 ? JSON.stringify(build.paragon) : null,
-    rotation: build.rotation.length > 0 ? JSON.stringify(build.rotation) : null,
-    tips: build.tips.length > 0 ? JSON.stringify(build.tips) : null,
+    skills: build.skills && build.skills.length > 0 ? JSON.stringify(build.skills) : null,
+    gear: build.gear && build.gear.length > 0 ? JSON.stringify(build.gear) : null,
+    aspects: build.aspects && build.aspects.length > 0 ? JSON.stringify(build.aspects) : null,
+    paragon: build.paragon && build.paragon.length > 0 ? JSON.stringify(build.paragon) : null,
+    rotation: build.rotation && build.rotation.length > 0 ? JSON.stringify(build.rotation) : null,
+    tips: build.tips && build.tips.length > 0 ? JSON.stringify(build.tips) : null,
+    strengths: build.strengths && build.strengths.length > 0 ? JSON.stringify(build.strengths) : null,
+    weaknesses: build.weaknesses && build.weaknesses.length > 0 ? JSON.stringify(build.weaknesses) : null,
+    tempering: build.tempering && build.tempering.length > 0 ? JSON.stringify(build.tempering) : null,
     source: 'maxroll',
     source_url: build.guide_url,
   };
