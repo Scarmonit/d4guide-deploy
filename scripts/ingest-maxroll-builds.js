@@ -21,7 +21,38 @@ const TIER_LIST_URL = 'https://maxroll.gg/d4/tierlists/endgame-tier-list';
 const BUILD_GUIDE_BASE = 'https://maxroll.gg/d4/build-guides/';
 const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36';
 
-const CURRENT_SEASON = 11;
+// Season will be auto-detected from Maxroll, fallback to this if detection fails
+const FALLBACK_SEASON = 11;
+let CURRENT_SEASON = FALLBACK_SEASON;
+
+/**
+ * Auto-detect current season from Maxroll tier list page
+ */
+function detectSeasonFromHtml(html) {
+  // Look for "Season X" patterns in the HTML
+  const seasonMatches = html.match(/Season\s+(\d+)/gi);
+  if (seasonMatches && seasonMatches.length > 0) {
+    // Count occurrences of each season number to find the most common one
+    const seasonCounts = {};
+    for (const match of seasonMatches) {
+      const num = parseInt(match.replace(/\D/g, ''));
+      if (num > 0 && num < 100) { // Sanity check
+        seasonCounts[num] = (seasonCounts[num] || 0) + 1;
+      }
+    }
+    // Return the most frequently mentioned season
+    let maxCount = 0;
+    let detectedSeason = FALLBACK_SEASON;
+    for (const [season, count] of Object.entries(seasonCounts)) {
+      if (count > maxCount) {
+        maxCount = count;
+        detectedSeason = parseInt(season);
+      }
+    }
+    return detectedSeason;
+  }
+  return FALLBACK_SEASON;
+}
 
 // Rate limiting - be nice to Maxroll's servers
 const DELAY_BETWEEN_REQUESTS = 2000; // 2 seconds
@@ -593,7 +624,6 @@ async function updateTierList(builds) {
  */
 async function main() {
   console.log('=== Maxroll Build Guide Auto-Ingestion ===');
-  console.log(`Season: ${CURRENT_SEASON}`);
   console.log(`Tier List: ${TIER_LIST_URL}\n`);
 
   // Step 1: Fetch and parse tier list
@@ -603,6 +633,10 @@ async function main() {
     console.error('ERROR: Failed to fetch tier list. Exiting.');
     process.exit(1);
   }
+
+  // Auto-detect current season from page content
+  CURRENT_SEASON = detectSeasonFromHtml(tierListHtml);
+  console.log(`  Detected Season: ${CURRENT_SEASON}`);
 
   const builds = parseTierList(tierListHtml);
   if (builds.length === 0) {
