@@ -1,0 +1,502 @@
+---
+layout: base.njk
+title: "Destruction Warlock PvE Guide | TBC Classic | Scarmonit"
+description: "Complete Destruction Warlock PvE guide for WoW TBC Classic. Interactive talent calculator with level-by-level progression from 10-70."
+styles:
+  - /assets/css/wow-talents.css
+schemaType: guide
+scripts:
+  - /assets/js/warlock-destro-data.js
+  - /assets/js/talent-calc.js
+  - /assets/js/accordion.js
+---
+
+<section class="guide-hero warlock-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="hero-badge">TBC Classic</div>
+        <h1>Destruction Warlock</h1>
+        <p class="hero-subtitle">PvE Talent Guide & Calculator</p>
+        <div class="build-summary">
+            <span class="build-type">0/21/40</span>
+            <span class="build-role">Raiding & Dungeons</span>
+        </div>
+    </div>
+</section>
+
+<div class="guide-breadcrumb">
+    <a href="/">Home</a>
+    <span class="bc-sep">&#9656;</span>
+    <a href="/wow-tbc-guides/">TBC Guides</a>
+    <span class="bc-sep">&#9656;</span>
+    <span class="bc-current">Destruction Warlock</span>
+</div>
+
+<div class="guide-container">
+    <!-- Level Selector -->
+    <div class="level-selector wow-panel">
+        <div class="panel-header">Character Level</div>
+        <div class="panel-content">
+            <div class="level-input-group">
+                <label for="player-level">Level:</label>
+                <button type="button" class="level-btn" id="level-down" aria-label="Decrease level">-</button>
+                <input type="number" id="player-level" min="10" max="70" value="70" aria-label="Character level">
+                <button type="button" class="level-btn" id="level-up" aria-label="Increase level">+</button>
+            </div>
+            <div class="talent-points-display">
+                <span class="points-label">Talent Points:</span>
+                <span class="points-value" id="available-points">61</span>
+            </div>
+            <div class="button-group">
+                <button id="reset-talents" class="wow-btn red">Reset All</button>
+                <button id="apply-recommended" class="wow-btn green">Apply Build</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="level-progress-container">
+        <div class="level-progress-bar">
+            <div class="level-progress-fill" id="level-progress"></div>
+        </div>
+        <div class="level-markers">
+            <span>10</span><span>20</span><span>30</span><span>40</span><span>50</span><span>60</span><span>70</span>
+        </div>
+    </div>
+
+    <!-- Current Talent Recommendation -->
+    <div class="recommendation-box wow-panel" id="recommendation-box">
+        <div class="panel-header">Next Talent Point</div>
+        <div class="panel-content">
+            <p id="next-talent-text">Put your next point in: <strong id="next-talent-name">Loading...</strong></p>
+        </div>
+    </div>
+
+    <!-- Talent Trees Container -->
+    <div class="talent-trees">
+        <!-- Affliction Tree -->
+        <div class="talent-tree" id="affliction-tree">
+            <div class="tree-header aff">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_deathcoil.jpg" alt="Aff" class="tree-icon">
+                <h2>Affliction</h2>
+                <span class="tree-points" id="aff-points">0</span>
+            </div>
+            <div class="tree-background aff"></div>
+            <div class="tree-grid-wrapper">
+                <svg class="arrow-layer" id="aff-arrows"></svg>
+                <div class="tree-grid" id="aff-grid">
+                    <!-- Talents injected by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Demonology Tree -->
+        <div class="talent-tree" id="demonology-tree">
+            <div class="tree-header demo">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_metamorphosis.jpg" alt="Demo" class="tree-icon">
+                <h2>Demonology</h2>
+                <span class="tree-points" id="demo-points">0</span>
+            </div>
+            <div class="tree-background demo"></div>
+            <div class="tree-grid-wrapper">
+                <svg class="arrow-layer" id="demo-arrows"></svg>
+                <div class="tree-grid" id="demo-grid">
+                    <!-- Talents injected by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Destruction Tree -->
+        <div class="talent-tree" id="destruction-tree">
+            <div class="tree-header destro">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_rainoffire.jpg" alt="Destro" class="tree-icon">
+                <h2>Destruction</h2>
+                <span class="tree-points" id="destro-points">0</span>
+            </div>
+            <div class="tree-background destro"></div>
+            <div class="tree-grid-wrapper">
+                <svg class="arrow-layer" id="destro-arrows"></svg>
+                <div class="tree-grid" id="destro-grid">
+                    <!-- Talents injected by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Build Summary -->
+    <div class="build-export wow-panel">
+        <div class="panel-header">Current Build</div>
+        <div class="panel-content">
+            <div class="build-string" id="build-string">0/0/0</div>
+        </div>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="guide-content wow-panel">
+        <div class="panel-header">Why Destruction?</div>
+        <div class="panel-content">
+            <p>Destruction Warlocks are one of the absolute top DPS specs in The Burning Crusade, competing with BM Hunters for the #1 spot on meters throughout every raid tier. The 0/21/40 build sacrifices your Imp via Demonic Sacrifice for a flat 15% Fire damage increase, then leverages Ruin's doubled crit damage and Shadow and Flame's massive spell power scaling to obliterate bosses with Shadow Bolt and Incinerate.</p>
+
+            <h3>Key Talents</h3>
+            <div class="talent-explanations">
+                <div class="talent-explain">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_shadowbolt.jpg" alt="Improved Shadow Bolt" class="explain-icon">
+                    <div>
+                        <h4>Improved Shadow Bolt</h4>
+                        <p>Your Shadow Bolt crits apply a 20% Shadow damage debuff to the target. Core raid DPS multiplier.</p>
+                    </div>
+                </div>
+                <div class="talent-explain">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_shadowwordpain.jpg" alt="Ruin" class="explain-icon">
+                    <div>
+                        <h4>Ruin</h4>
+                        <p>Doubles your Destruction spell crit damage. The single biggest DPS talent in the tree.</p>
+                    </div>
+                </div>
+                <div class="talent-explain">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_shadowandflame.jpg" alt="Shadow and Flame" class="explain-icon">
+                    <div>
+                        <h4>Shadow and Flame</h4>
+                        <p>Shadow Bolt and Incinerate gain 20% more benefit from spell damage. Massive scaling talent.</p>
+                    </div>
+                </div>
+                <div class="talent-explain">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_psychicscream.jpg" alt="Demonic Sacrifice" class="explain-icon">
+                    <div>
+                        <h4>Demonic Sacrifice</h4>
+                        <p>Sacrifice your Imp for 15% increased Fire damage. The reason you go 21 into Demonology.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Stat Priority</h3>
+            <ol>
+                <li><strong>Hit Rating</strong> (until 16% cap / 202 rating)</li>
+                <li><strong>Spell Damage</strong></li>
+                <li><strong>Spell Haste</strong></li>
+                <li><strong>Spell Critical Strike</strong></li>
+                <li><strong>Intellect</strong></li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Rotation -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Rotation / Ability Priority</div>
+        <div class="panel-content accordion-body">
+            <p class="section-intro">Destruction Warlock DPS centers on Shadow Bolt spam with curse uptime and Demonic Sacrifice (Succubus) for the 15% Shadow damage buff. Keep your curse active, weave in Immolate for Improved Shadow Bolt procs, and Life Tap to sustain mana.</p>
+            <ol class="rotation-list">
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_auraofdarkness.jpg" alt="Curse of Doom" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Curse of Doom / Curse of the Elements</span> — Apply Curse of Doom on long fights (60s+ duration). Use Curse of the Elements if no other Warlock is covering it.</div>
+                </li>
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_fire_immolation.jpg" alt="Immolate" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Immolate</span> — Keep up for Improved Shadow Bolt proc chances and extra damage. Refresh before it falls off.</div>
+                </li>
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_shadowbolt.jpg" alt="Shadow Bolt" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Shadow Bolt</span> — Your primary nuke. Spam this between maintaining debuffs. Benefits from Shadow and Flame (+20% spell power scaling).</div>
+                </li>
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_fire_burnout.jpg" alt="Incinerate" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Incinerate</span> — Alternative nuke when Immolate is on the target. Used in Fire Destruction builds or when Shadow resistance is present.</div>
+                </li>
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_burningspirit.jpg" alt="Life Tap" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Life Tap</span> — Convert health to mana during downtime or when healers can top you off. Never let your mana fully deplete.</div>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Pre-Raid BiS -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Pre-Raid Best in Slot</div>
+        <div class="panel-content accordion-body">
+            <p class="section-intro">Best gear obtainable from heroic dungeons, crafting, reputation, and quests before entering Karazhan. Focus on reaching the spell hit cap first.</p>
+            <table class="bis-table">
+                <thead>
+                    <tr><th class="slot-col">Slot</th><th>Item</th><th>Source</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="slot-col">Head</td><td class="item-col">Spellstrike Hood</td><td class="source-col">Tailoring (Crafted)</td></tr>
+                    <tr><td class="slot-col">Neck</td><td class="item-col rare">Brooch of Heightened Potential</td><td class="source-col">Heroic Underbog — Ghaz'an</td></tr>
+                    <tr><td class="slot-col">Shoulders</td><td class="item-col rare">Mana-Etched Spaulders</td><td class="source-col">Heroic Mechanar — Nethermancer Sepethrea</td></tr>
+                    <tr><td class="slot-col">Back</td><td class="item-col rare">Cloak of the Black Void</td><td class="source-col">Tailoring (Crafted)</td></tr>
+                    <tr><td class="slot-col">Chest</td><td class="item-col">Frozen Shadoweave Robe</td><td class="source-col">Tailoring (Crafted)</td></tr>
+                    <tr><td class="slot-col">Wrists</td><td class="item-col rare">Bracers of Havok</td><td class="source-col">Tailoring (Crafted)</td></tr>
+                    <tr><td class="slot-col">Hands</td><td class="item-col rare">Gloves of Unseen Evil</td><td class="source-col">Heroic Shadow Labyrinth — Murmur</td></tr>
+                    <tr><td class="slot-col">Waist</td><td class="item-col rare">Belt of Depravity</td><td class="source-col">Heroic Shadow Labyrinth — Grandmaster Vorpil</td></tr>
+                    <tr><td class="slot-col">Legs</td><td class="item-col">Spellstrike Pants</td><td class="source-col">Tailoring (Crafted)</td></tr>
+                    <tr><td class="slot-col">Feet</td><td class="item-col">Frozen Shadoweave Boots</td><td class="source-col">Tailoring (Crafted)</td></tr>
+                    <tr><td class="slot-col">Ring 1</td><td class="item-col rare">Seer's Signet</td><td class="source-col">The Scryers — Exalted</td></tr>
+                    <tr><td class="slot-col">Ring 2</td><td class="item-col rare">Ashyen's Gift</td><td class="source-col">Cenarion Expedition — Exalted</td></tr>
+                    <tr><td class="slot-col">Trinket 1</td><td class="item-col rare">Icon of the Silver Crescent</td><td class="source-col">41 Badge of Justice</td></tr>
+                    <tr><td class="slot-col">Trinket 2</td><td class="item-col rare">Quagmirran's Eye</td><td class="source-col">Heroic Slave Pens — Quagmirran</td></tr>
+                    <tr><td class="slot-col">Weapon</td><td class="item-col rare">Greatsword of Horrid Dreams</td><td class="source-col">Heroic Shadow Labyrinth — Murmur</td></tr>
+                    <tr><td class="slot-col">Wand</td><td class="item-col rare">Nether Core's Control Rod</td><td class="source-col">Heroic Mechanar — Nethermancer Sepethrea</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Raid BiS -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Raid Best in Slot (T5 / T6)</div>
+        <div class="panel-content accordion-body">
+            <p class="section-intro">Best endgame gear from SSC, Tempest Keep, Hyjal, Black Temple, and Sunwell Plateau. Prioritize spell hit cap > spell damage > haste > crit.</p>
+            <table class="bis-table">
+                <thead>
+                    <tr><th class="slot-col">Slot</th><th>Item</th><th>Source</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="slot-col">Head</td><td class="item-col">Helm of Burning Righteousness</td><td class="source-col">Sunwell Plateau — Kil'jaeden</td></tr>
+                    <tr><td class="slot-col">Neck</td><td class="item-col">Amulet of Unfettered Magics</td><td class="source-col">Sunwell Plateau — Brutallus</td></tr>
+                    <tr><td class="slot-col">Shoulders</td><td class="item-col">Mantle of the Malefic</td><td class="source-col">Black Temple — Mother Shahraz</td></tr>
+                    <tr><td class="slot-col">Back</td><td class="item-col">Tattered Cape of Antonidas</td><td class="source-col">Sunwell Plateau — Kil'jaeden</td></tr>
+                    <tr><td class="slot-col">Chest</td><td class="item-col">Robe of the Malefic</td><td class="source-col">Black Temple — Illidan Stormrage</td></tr>
+                    <tr><td class="slot-col">Wrists</td><td class="item-col">Bracers of the Malefic</td><td class="source-col">Sunwell Plateau — Kalecgos</td></tr>
+                    <tr><td class="slot-col">Hands</td><td class="item-col">Gloves of the Malefic</td><td class="source-col">Hyjal Summit — Azgalor</td></tr>
+                    <tr><td class="slot-col">Waist</td><td class="item-col">Belt of Divine Inspiration</td><td class="source-col">Sunwell Plateau — M'uru</td></tr>
+                    <tr><td class="slot-col">Legs</td><td class="item-col">Leggings of Calamity</td><td class="source-col">Sunwell Plateau — Felmyst</td></tr>
+                    <tr><td class="slot-col">Feet</td><td class="item-col">Boots of the Malefic</td><td class="source-col">Black Temple — Teron Gorefiend</td></tr>
+                    <tr><td class="slot-col">Ring 1</td><td class="item-col">Ring of Omnipotence</td><td class="source-col">Sunwell Plateau — M'uru</td></tr>
+                    <tr><td class="slot-col">Ring 2</td><td class="item-col">Band of the Eternal Sage</td><td class="source-col">Hyjal Summit — Exalted</td></tr>
+                    <tr><td class="slot-col">Trinket 1</td><td class="item-col">The Skull of Gul'dan</td><td class="source-col">Black Temple — Illidan Stormrage</td></tr>
+                    <tr><td class="slot-col">Trinket 2</td><td class="item-col">Shifting Naaru Sliver</td><td class="source-col">Sunwell Plateau — M'uru</td></tr>
+                    <tr><td class="slot-col">Weapon</td><td class="item-col">Sunflare</td><td class="source-col">Sunwell Plateau — Kil'jaeden</td></tr>
+                    <tr><td class="slot-col">Offhand</td><td class="item-col">Chronicle of Dark Secrets</td><td class="source-col">Sunwell Plateau — Felmyst</td></tr>
+                    <tr><td class="slot-col">Wand</td><td class="item-col">Wand of the Demonsoul</td><td class="source-col">Black Temple — Teron Gorefiend</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Macros & Keybinds</div>
+        <div class="panel-content accordion-body">
+            <p class="section-intro">Essential Destruction Warlock macros for TBC Classic. Focus on burst damage and threat management.</p>
+            <div class="guide-macro-grid">
+                <div class="guide-macro-card">
+                    <div class="guide-macro-title">
+                        <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_shadowbolt.jpg" alt="" loading="lazy">
+                        <h4>Shadow Bolt + Trinkets</h4>
+                    </div>
+                    <code class="guide-macro-code">#showtooltip Shadow Bolt
+/use 13
+/use 14
+/cast Shadow Bolt</code>
+                    <p class="guide-macro-desc">Pops both trinkets with Shadow Bolt for burst phases.</p>
+                </div>
+                <div class="guide-macro-card">
+                    <div class="guide-macro-title">
+                        <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_soulleech_3.jpg" alt="" loading="lazy">
+                        <h4>Soulshatter Emergency</h4>
+                    </div>
+                    <code class="guide-macro-code">#showtooltip Soulshatter
+/stopcasting
+/cast Soulshatter</code>
+                    <p class="guide-macro-desc">Emergency threat dump. Stops casting and instantly reduces threat by 50%.</p>
+                </div>
+                <div class="guide-macro-card">
+                    <div class="guide-macro-title">
+                        <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_lifedrain02.jpg" alt="" loading="lazy">
+                        <h4>Life Tap + Dark Pact</h4>
+                    </div>
+                    <code class="guide-macro-code">#showtooltip Life Tap
+/cast [mod:shift] Dark Pact
+/cast Life Tap</code>
+                    <p class="guide-macro-desc">Life Tap by default, shift-click for Dark Pact. Efficient mana management.</p>
+                </div>
+                <div class="guide-macro-card">
+                    <div class="guide-macro-title">
+                        <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_seedofdestruction.jpg" alt="" loading="lazy">
+                        <h4>Seed of Corruption</h4>
+                    </div>
+                    <code class="guide-macro-code">#showtooltip Seed of Corruption
+/cast [@mouseover,harm,nodead][@target] Seed of Corruption</code>
+                    <p class="guide-macro-desc">Casts Seed on mouseover targets for faster AoE application on trash packs.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Quick Tips & Common Mistakes</div>
+        <div class="panel-content accordion-body">
+            <ul class="quick-tips-list">
+                <li class="tip-do"><span class="tip-icon">+</span> Use Soulshatter proactively — Warlocks generate immense threat and Soulshatter has a 5-min cooldown.</li>
+                <li class="tip-do"><span class="tip-icon">+</span> Life Tap between pulls, not mid-fight — let healers top you off during downtime.</li>
+                <li class="tip-dont"><span class="tip-icon">-</span> Don't forget to sacrifice your pet (Imp for fire, Succubus for shadow) — the damage buff is huge.</li>
+                <li class="tip-dont"><span class="tip-icon">-</span> Don't use Seed of Corruption on single-target fights — it's strictly an AoE spell.</li>
+                <li class="tip-info"><span class="tip-icon">i</span> Hit cap is 16% (202 rating). With Suppression talent (Affliction), you need less from gear.</li>
+                <li class="tip-info"><span class="tip-icon">i</span> Destruction Warlocks are the #1 DPS in TBC — you will consistently top damage meters with proper play.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Gems & Enchants -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Gems & Enchants</div>
+        <div class="panel-content accordion-body">
+            <h3>Meta Gem</h3>
+            <p><span class="gem-meta">Chaotic Skyfire Diamond</span> — +12 Spell Critical Strike, +3% Critical Strike Damage. Requires more blue gems than yellow.</p>
+
+            <h3>Gem Priority</h3>
+            <p>Use <span class="gem-red">Runed Living Ruby</span> (+9 Spell Damage) in red sockets. Use <span class="gem-orange">Veiled Noble Topaz</span> (+4 Spell Hit / +5 Spell Damage) in yellow sockets until hit capped. Use <span class="gem-purple">Glowing Nightseye</span> (+5 Spell Damage / +6 Stamina) in blue sockets to activate meta requirement.</p>
+
+            <h3>Enchants</h3>
+            <div class="enchant-grid">
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Head</div>
+                        <div class="enchant-name">Glyph of Power</div>
+                        <div class="enchant-source">Sha'tar — Revered</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Shoulders</div>
+                        <div class="enchant-name">Greater Inscription of Discipline</div>
+                        <div class="enchant-source">Aldor — Exalted</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Back</div>
+                        <div class="enchant-name">Enchant Cloak — Subtlety</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Chest</div>
+                        <div class="enchant-name">Enchant Chest — Exceptional Stats</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Wrists</div>
+                        <div class="enchant-name">Enchant Bracer — Spellpower</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Hands</div>
+                        <div class="enchant-name">Enchant Gloves — Major Spellpower</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Legs</div>
+                        <div class="enchant-name">Runic Spellthread</div>
+                        <div class="enchant-source">Tailoring</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Feet</div>
+                        <div class="enchant-name">Enchant Boots — Boar's Speed</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Weapon</div>
+                        <div class="enchant-name">Enchant Weapon — Soulfrost</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Ring (if Enchanter)</div>
+                        <div class="enchant-name">Enchant Ring — Spellpower</div>
+                        <div class="enchant-source">Enchanting (370)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Consumables -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Consumables</div>
+        <div class="panel-content accordion-body">
+            <h3>Flasks & Elixirs</h3>
+            <div class="consumable-grid">
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_121.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Flask of Pure Death</div>
+                        <div class="consumable-type">Flask — +80 Shadow, Fire, and Frost Spell Damage</div>
+                    </div>
+                </div>
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_107.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Destruction Potion</div>
+                        <div class="consumable-type">Potion — +120 Spell Damage, +2% Spell Crit for 15s</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Food</h3>
+            <div class="consumable-grid">
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_misc_food_86_basilisk.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Blackened Basilisk</div>
+                        <div class="consumable-type">+23 Spell Damage, +20 Spirit</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Other</h3>
+            <div class="consumable-grid">
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_105.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Brilliant Wizard Oil</div>
+                        <div class="consumable-type">+36 Spell Damage, +14 Spell Crit — Applied to weapon</div>
+                    </div>
+                </div>
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_137.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Super Mana Potion</div>
+                        <div class="consumable-type">Restores 1800-3000 Mana — Backup when Life Tap is risky</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="guide-nav">
+        <div class="guide-nav-grid">
+            <a href="/wow-tbc-guides/mage-fire-pve/" class="guide-nav-link prev">
+                <span class="nav-arrow">&#9666;</span>
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/classicon_mage.jpg" alt="" class="nav-icon" loading="lazy">
+                <div>
+                    <span class="nav-label">Previous Guide</span>
+                    <span class="nav-class">Fire Mage</span>
+                </div>
+            </a>
+            <a href="/wow-tbc-guides/druid-feral-pve/" class="guide-nav-link next">
+                <div>
+                    <span class="nav-label">Next Guide</span>
+                    <span class="nav-class">Feral Druid</span>
+                </div>
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/classicon_druid.jpg" alt="" class="nav-icon" loading="lazy">
+                <span class="nav-arrow">&#9656;</span>
+            </a>
+        </div>
+        <a href="/wow-tbc-guides/" class="guide-back-link">&#9664; Back to All Guides</a>
+    </div>
+</div>
+
+<!-- Tooltip -->
+<div class="talent-tooltip" id="talent-tooltip"></div>

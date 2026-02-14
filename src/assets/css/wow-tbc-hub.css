@@ -1,0 +1,3150 @@
+/* WoW TBC Guides Hub Page Styles — Modern Redesign */
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 120px;
+}
+
+:root {
+    /* WoW Class Colors */
+    --warrior: #C69B6D;
+    --paladin: #F48CBA;
+    --hunter: #AAD372;
+    --rogue: #FFF468;
+    --priest: #FFFFFF;
+    --shaman: #0070DD;
+    --mage: #3FC7EB;
+    --warlock: #8788EE;
+    --druid: #FF7C0A;
+
+    /* Tier Colors */
+    --tier-s: #ffd700;
+    --tier-a: #4caf50;
+    --tier-b: #2196f3;
+    --tier-c: #9e9e9e;
+
+    /* WoW UI */
+    --wow-gold: #ffd100;
+    --wow-gold-dim: #b8960b;
+    --wow-border: #4a3c28;
+    --wow-border-light: #6b5a3c;
+    --wow-dark: #1a0a00;
+    --wow-darker: #0d0800;
+    --wow-panel: rgba(26, 18, 9, 0.95);
+    --wow-panel-alt: rgba(13, 10, 5, 0.95);
+
+    /* Item Rarity */
+    --item-poor: #9d9d9d;
+    --item-common: #ffffff;
+    --item-uncommon: #1eff00;
+    --item-rare: #0070dd;
+    --item-epic: #a335ee;
+    --item-legendary: #ff8000;
+
+    /* Glass Effect */
+    --glass-bg: rgba(18, 12, 6, 0.7);
+    --glass-border: rgba(212, 175, 55, 0.12);
+    --glass-blur: 12px;
+
+    /* Accent Colors */
+    --tbc-fel-green: #70C050;
+    --tbc-arcane-purple: #9B59B6;
+    --tbc-fire-orange: #FF6B35;
+
+    /* Theme Variables (dark default) */
+    --bg-primary: #0a0500;
+    --bg-secondary: #1a0a00;
+    --bg-card: rgba(18, 12, 6, 0.7);
+    --text-primary: rgba(255, 255, 255, 0.9);
+    --text-secondary: rgba(255, 255, 255, 0.55);
+    --text-muted: rgba(255, 255, 255, 0.35);
+    --border-primary: rgba(74, 60, 40, 0.3);
+    --border-accent: rgba(212, 175, 55, 0.2);
+}
+
+/* ==================== LIGHT MODE ==================== */
+.tbc-theme-light {
+    --bg-primary: #f5f0e8;
+    --bg-secondary: #ece4d4;
+    --bg-card: rgba(255, 250, 240, 0.95);
+    --text-primary: #1a1410;
+    --text-secondary: #4a3c28;
+    --text-muted: #6b5a3c;
+    --border-primary: rgba(74, 60, 40, 0.2);
+    --border-accent: rgba(139, 105, 20, 0.3);
+    --glass-bg: rgba(255, 250, 240, 0.9);
+    --glass-border: rgba(139, 105, 20, 0.15);
+    --wow-panel: rgba(255, 250, 240, 0.95);
+}
+
+/* ==================== SCROLL REVEAL ==================== */
+[data-reveal] {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-reveal].revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==================== FLOATING TOC BAR ==================== */
+.tbc-floating-toc {
+    position: sticky;
+    top: 60px;
+    z-index: 50;
+    background: linear-gradient(180deg, rgba(22, 14, 5, 0.97) 0%, rgba(14, 9, 3, 0.95) 100%);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: none;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(212, 175, 55, 0.06), inset 0 0 40px rgba(212, 175, 55, 0.015);
+    overflow: visible;
+    animation: tbc-toc-enter 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: 0.2s;
+}
+.tbc-toc-gold-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(139, 105, 20, 0.3) 10%,
+        rgba(212, 175, 55, 0.6) 30%,
+        var(--wow-gold) 50%,
+        rgba(212, 175, 55, 0.6) 70%,
+        rgba(139, 105, 20, 0.3) 90%,
+        transparent 100%);
+    pointer-events: none;
+}
+.tbc-toc-gold-border-bottom {
+    top: auto;
+    bottom: 0;
+    opacity: 0.5;
+}
+.tbc-floating-toc::before,
+.tbc-floating-toc::after {
+    content: '\25C6';
+    position: absolute;
+    top: -5px;
+    font-size: 10px;
+    color: var(--wow-gold);
+    text-shadow: 0 0 8px rgba(255, 209, 0, 0.6);
+    z-index: 1;
+    opacity: 0.9;
+}
+.tbc-floating-toc::before { left: 24px; }
+.tbc-floating-toc::after { right: 24px; }
+.tbc-floating-toc-inner {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0 1.5rem;
+    max-width: 1440px;
+    margin: 0 auto;
+    min-height: 44px;
+}
+.tbc-toc-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-shrink: 0;
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.35);
+    white-space: nowrap;
+    padding: 0.4rem 0;
+    font-family: 'Georgia', serif;
+}
+.tbc-toc-breadcrumb a {
+    color: rgba(255, 209, 0, 0.45);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+.tbc-toc-breadcrumb a:hover { color: var(--wow-gold); }
+.tbc-toc-breadcrumb .separator { margin: 0 0.35rem; color: rgba(212, 175, 55, 0.4); font-size: 0.5rem; vertical-align: middle; }
+.tbc-toc-breadcrumb #tbc-breadcrumb { color: rgba(255, 255, 255, 0.5); }
+.tbc-toc-divider {
+    width: 1px;
+    height: 22px;
+    margin: 0 0.75rem;
+    flex-shrink: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(212, 175, 55, 0.25) 50%, transparent 100%);
+}
+.tbc-toc-links-scroll {
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    flex: 1;
+    min-width: 0;
+    padding: 0.3rem 0;
+}
+.tbc-toc-links-scroll::-webkit-scrollbar { display: none; }
+/* Scroll overflow fade indicators */
+.tbc-toc-links-scroll.has-overflow-right {
+    mask-image: linear-gradient(to right, black 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+}
+.tbc-toc-links-scroll.has-overflow-left {
+    mask-image: linear-gradient(to left, black 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to left, black 85%, transparent 100%);
+}
+.tbc-toc-links-scroll.has-overflow-both {
+    mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+}
+.tbc-ftoc-link {
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    font-size: 0.78rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    position: relative;
+}
+.tbc-ftoc-link:hover {
+    color: rgba(255, 220, 100, 0.95);
+    background: rgba(255, 209, 0, 0.07);
+    border-color: rgba(212, 175, 55, 0.12);
+    text-shadow: 0 0 10px rgba(255, 209, 0, 0.15);
+}
+.tbc-ftoc-link::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    right: 50%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--wow-gold), transparent);
+    border-radius: 1px;
+    transition: left 0.3s ease, right 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+.tbc-ftoc-link.active {
+    color: var(--wow-gold);
+    background: linear-gradient(180deg, rgba(255, 209, 0, 0.14) 0%, rgba(255, 209, 0, 0.06) 100%);
+    border-color: rgba(255, 209, 0, 0.35);
+    box-shadow: 0 0 14px rgba(255, 209, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.06), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+    text-shadow: 0 0 8px rgba(255, 209, 0, 0.25);
+    letter-spacing: 0.06em;
+}
+.tbc-ftoc-link.active::after {
+    left: 20%;
+    right: 20%;
+    opacity: 1;
+}
+
+/* ==================== FULL WIDTH CONTAINER ==================== */
+.tbc-hub-fullwidth {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 2rem 4rem;
+}
+
+/* ==================== WOW SCROLLBAR ==================== */
+.tbc-hub-fullwidth::-webkit-scrollbar { width: 10px; }
+.tbc-hub-fullwidth::-webkit-scrollbar-track {
+    background: #0a0600;
+    border-left: 1px solid var(--wow-border);
+}
+.tbc-hub-fullwidth::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #5a4a30, #3a2a18);
+    border: 1px solid var(--wow-gold-dim);
+    border-radius: 2px;
+}
+.tbc-hub-fullwidth::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #6a5a40, #4a3a28);
+}
+
+/* ==================== ORNAMENTAL DIVIDER ==================== */
+.tbc-hub-section + .tbc-hub-section::before {
+    content: '\2756 \2013\2013\2013\2013 \2756';
+    display: block;
+    text-align: center;
+    margin: 0 auto 3.5rem;
+    color: rgba(212, 175, 55, 0.3);
+    font-size: 0.85rem;
+    letter-spacing: 0.3em;
+    text-shadow: 0 0 8px rgba(212, 175, 55, 0.15);
+}
+
+/* ==================== HERO ==================== */
+.tbc-hub-hero {
+    position: relative;
+    text-align: center;
+    padding: 8rem 2rem 6rem;
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(ellipse at 50% 120%, rgba(180, 60, 0, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 20% 60%, rgba(255, 80, 0, 0.12) 0%, transparent 40%),
+        radial-gradient(ellipse at 80% 40%, rgba(120, 40, 200, 0.08) 0%, transparent 40%),
+        radial-gradient(ellipse at 50% 0%, rgba(255, 180, 0, 0.06) 0%, transparent 50%),
+        linear-gradient(180deg, #0a0500 0%, #1a0800 20%, #200a02 40%, #150600 70%, #080300 100%);
+    border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+    overflow: hidden;
+}
+
+.tbc-hub-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.6) 100%),
+        radial-gradient(ellipse at 50% 0%, rgba(255, 209, 0, 0.04) 0%, transparent 40%);
+    z-index: 0;
+}
+
+.tbc-hub-hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Floating arcane particles */
+.tbc-hero-particles {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.tbc-particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: var(--wow-gold);
+    border-radius: 50%;
+    opacity: 0;
+    animation: tbc-float 6s ease-in-out infinite;
+    box-shadow: 0 0 6px rgba(255, 209, 0, 0.6), 0 0 12px rgba(255, 160, 0, 0.3);
+}
+
+.tbc-particle:nth-child(1) { left: 15%; animation-delay: 0s; animation-duration: 5s; }
+.tbc-particle:nth-child(2) { left: 30%; animation-delay: 1s; animation-duration: 7s; }
+.tbc-particle:nth-child(3) { left: 50%; animation-delay: 2s; animation-duration: 4.5s; }
+.tbc-particle:nth-child(4) { left: 65%; animation-delay: 0.5s; animation-duration: 6.5s; }
+.tbc-particle:nth-child(5) { left: 80%; animation-delay: 1.5s; animation-duration: 5.5s; }
+.tbc-particle:nth-child(6) { left: 92%; animation-delay: 3s; animation-duration: 4s; }
+
+@keyframes tbc-float {
+    0% { transform: translateY(100px) scale(0.5); opacity: 0; }
+    15% { opacity: 0.8; }
+    50% { transform: translateY(-50px) scale(1); }
+    85% { opacity: 0.2; }
+    100% { transform: translateY(-250px) scale(0.3); opacity: 0; }
+}
+@keyframes tbc-toc-enter {
+    from { opacity: 0; transform: translateY(-100%); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.tbc-hub-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, rgba(255, 209, 0, 0.15), rgba(139, 105, 20, 0.25));
+    color: var(--wow-gold);
+    padding: 0.55rem 1.75rem;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 1.75rem;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 0 0 25px rgba(255, 209, 0, 0.12);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.tbc-hub-hero h1 {
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    color: var(--wow-gold);
+    margin-bottom: 1rem;
+    text-shadow:
+        0 0 50px rgba(255, 209, 0, 0.35),
+        0 0 100px rgba(255, 140, 0, 0.12),
+        0 2px 4px rgba(0, 0, 0, 0.9);
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+}
+
+.tbc-hub-hero .hero-subtitle {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 1.35rem;
+    margin: 0 auto 1.25rem;
+    max-width: 800px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+    font-family: 'Georgia', serif;
+    line-height: 1.5;
+}
+
+.hero-flavor-quote {
+    color: rgba(255, 209, 0, 0.45);
+    font-size: 1rem;
+    font-style: italic;
+    font-family: 'Georgia', serif;
+    margin: 0 auto 1.75rem;
+    text-shadow: 0 0 12px rgba(255, 209, 0, 0.12);
+    letter-spacing: 0.02em;
+}
+
+.hero-meta-row {
+    display: flex;
+    justify-content: center;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+}
+
+.tbc-hub-hero .hero-patch {
+    display: inline-block;
+    color: rgba(255, 209, 0, 0.5);
+    font-size: 0.9rem;
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    letter-spacing: 0.1em;
+    border: 1px solid rgba(255, 209, 0, 0.12);
+    padding: 0.45rem 1.25rem;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.tbc-hub-hero > .tbc-hub-hero-content::after {
+    content: '\2666  \2666  \2666';
+    display: block;
+    margin-top: 2.5rem;
+    color: rgba(212, 175, 55, 0.25);
+    font-size: 0.5rem;
+    letter-spacing: 1em;
+}
+
+/* ==================== SECTION HEADERS ==================== */
+.tbc-hub-section {
+    margin-bottom: 5rem;
+}
+
+.tbc-hub-section:last-of-type {
+    margin-bottom: 3rem;
+}
+
+.tbc-hub-section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(90deg, rgba(212, 175, 55, 0.04), rgba(212, 175, 55, 0.1) 50%, rgba(212, 175, 55, 0.04));
+    border-top: 2px solid rgba(212, 175, 55, 0.2);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    position: relative;
+}
+
+.tbc-hub-section-header::before,
+.tbc-hub-section-header::after {
+    content: '\25C6';
+    position: absolute;
+    color: rgba(212, 175, 55, 0.35);
+    font-size: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    text-shadow: 0 0 4px rgba(212, 175, 55, 0.2);
+}
+.tbc-hub-section-header::before { left: 8px; }
+.tbc-hub-section-header::after { right: 8px; }
+
+.tbc-hub-section-header h2 {
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    color: var(--wow-gold);
+    font-size: 1.75rem;
+    margin: 0;
+    letter-spacing: 0.05em;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 209, 0, 0.12);
+}
+
+.tbc-hub-section-header .section-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+.tbc-hub-section-desc {
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    line-height: 1.6;
+}
+
+/* ==================== SUBSECTION ==================== */
+.tbc-hub-subsection {
+    margin-top: 2rem;
+}
+
+.tbc-subsection-title {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    color: rgba(255, 209, 0, 0.85);
+    font-size: 1.15rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+}
+
+.tbc-subsection-title img {
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    border: 1px solid var(--wow-border);
+}
+
+/* ==================== TIER LISTS ==================== */
+.tbc-hub-tier-list {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.tbc-hub-tier-row {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid rgba(74, 60, 40, 0.3);
+    min-height: 80px;
+    flex-wrap: wrap;
+}
+
+.tbc-hub-tier-row:last-child {
+    border-bottom: none;
+}
+
+.tbc-hub-tier-label {
+    width: 70px;
+    min-width: 70px;
+    text-align: center;
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 1rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tbc-hub-tier-label.tier-s {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 170, 0, 0.1));
+    color: var(--tier-s);
+    border-right: 3px solid var(--tier-s);
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.6), 0 0 30px rgba(255, 215, 0, 0.3);
+}
+
+.tbc-hub-tier-label.tier-a {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.15), rgba(76, 175, 80, 0.08));
+    color: var(--tier-a);
+    border-right: 3px solid var(--tier-a);
+    text-shadow: 0 0 10px rgba(76, 175, 80, 0.4);
+}
+
+.tbc-hub-tier-label.tier-b {
+    background: linear-gradient(135deg, rgba(33, 150, 243, 0.15), rgba(33, 150, 243, 0.08));
+    color: var(--tier-b);
+    border-right: 3px solid var(--tier-b);
+}
+
+.tbc-hub-tier-label.tier-c {
+    background: linear-gradient(135deg, rgba(158, 158, 158, 0.15), rgba(158, 158, 158, 0.08));
+    color: var(--tier-c);
+    border-right: 3px solid var(--tier-c);
+}
+
+.tbc-hub-tier-classes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 0.85rem 1.25rem;
+    flex: 1;
+    align-items: center;
+}
+
+.tbc-hub-tier-class {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(74, 60, 40, 0.4);
+    border-radius: 8px;
+    padding: 0.5rem 0.85rem 0.5rem 0.5rem;
+    transition: all 0.25s ease;
+}
+
+.tbc-hub-tier-class:hover {
+    border-color: var(--wow-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), 0 0 8px rgba(255, 209, 0, 0.1);
+}
+
+.tbc-hub-tier-class img {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+}
+
+.tbc-hub-tier-class-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.tbc-hub-tier-class-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.tbc-hub-tier-class-spec {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.2;
+}
+
+.tbc-tier-explanation {
+    width: 100%;
+    padding: 0.75rem 1.25rem 0.75rem 75px;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.82rem;
+    font-style: italic;
+    font-family: 'Georgia', serif;
+    line-height: 1.6;
+    margin: 0;
+    border-top: 1px dashed rgba(74, 60, 40, 0.2);
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* Lore blockquote */
+.wow-lore-quote {
+    margin: 0 0 1.75rem;
+    padding: 0.85rem 1.5rem;
+    border-left: 3px solid rgba(255, 209, 0, 0.25);
+    background: linear-gradient(90deg, rgba(255, 209, 0, 0.03), transparent 70%);
+    color: rgba(255, 209, 0, 0.45);
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    text-shadow: 0 0 8px rgba(255, 209, 0, 0.08);
+    border-radius: 0 8px 8px 0;
+}
+
+/* Card tagline */
+.tbc-card-tagline {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.85rem;
+    font-style: italic;
+    font-family: 'Georgia', serif;
+    line-height: 1.5;
+    margin: -0.25rem 0 1rem;
+    padding: 0;
+}
+
+/* CTA subtext */
+.tbc-cta-subtext {
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 0.88rem;
+    margin-top: 1.25rem;
+    margin-bottom: 0;
+}
+
+/* ==================== CLASS GRID ==================== */
+.tbc-hub-class-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.tbc-hub-class-card {
+    --card-accent: var(--wow-gold);
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid rgba(74, 60, 40, 0.25);
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Class-colored top gradient bar */
+.tbc-hub-class-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--card-accent), transparent);
+    border-radius: 12px 12px 0 0;
+    z-index: 1;
+}
+
+/* Per-class accent colors */
+.tbc-hub-class-card.warrior { --card-accent: var(--warrior); }
+.tbc-hub-class-card.paladin { --card-accent: var(--paladin); }
+.tbc-hub-class-card.hunter { --card-accent: var(--hunter); }
+.tbc-hub-class-card.rogue { --card-accent: var(--rogue); }
+.tbc-hub-class-card.priest { --card-accent: #ccc; }
+.tbc-hub-class-card.shaman { --card-accent: var(--shaman); }
+.tbc-hub-class-card.mage { --card-accent: var(--mage); }
+.tbc-hub-class-card.warlock { --card-accent: var(--warlock); }
+.tbc-hub-class-card.druid { --card-accent: var(--druid); }
+
+.tbc-hub-class-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(212, 175, 55, 0.3);
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(212, 175, 55, 0.06);
+}
+
+.tbc-hub-class-card.warrior:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 30px rgba(198,155,109,0.15); }
+.tbc-hub-class-card.paladin:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 30px rgba(244,140,186,0.15); }
+.tbc-hub-class-card.hunter:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 30px rgba(170,211,114,0.15); }
+.tbc-hub-class-card.rogue:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 30px rgba(255,244,104,0.12); }
+.tbc-hub-class-card.priest:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 30px rgba(255,255,255,0.08); }
+.tbc-hub-class-card.shaman:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 30px rgba(0,112,221,0.15); }
+.tbc-hub-class-card.mage:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 30px rgba(63,199,235,0.15); }
+.tbc-hub-class-card.warlock:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 30px rgba(135,136,238,0.15); }
+.tbc-hub-class-card.druid:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 30px rgba(255,124,10,0.15); }
+
+.tbc-hub-card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.tbc-hub-card-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 10px;
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    flex-shrink: 0;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.5), 0 0 24px rgba(212, 175, 55, 0.06);
+    transition: transform 0.3s ease;
+}
+.tbc-hub-class-card:hover .tbc-hub-card-icon {
+    transform: scale(1.05);
+}
+
+.tbc-hub-card-title {
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    font-size: 1.2rem;
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: 0.04em;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.tbc-hub-class-card.warrior .tbc-hub-card-title { color: var(--warrior); }
+.tbc-hub-class-card.paladin .tbc-hub-card-title { color: var(--paladin); }
+.tbc-hub-class-card.hunter .tbc-hub-card-title { color: var(--hunter); }
+.tbc-hub-class-card.rogue .tbc-hub-card-title { color: var(--rogue); }
+.tbc-hub-class-card.priest .tbc-hub-card-title { color: #ccc; }
+.tbc-hub-class-card.shaman .tbc-hub-card-title { color: var(--shaman); }
+.tbc-hub-class-card.mage .tbc-hub-card-title { color: var(--mage); }
+.tbc-hub-class-card.warlock .tbc-hub-card-title { color: var(--warlock); }
+.tbc-hub-class-card.druid .tbc-hub-card-title { color: var(--druid); }
+
+.tbc-hub-card-specs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.tbc-hub-spec-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+}
+
+.tbc-hub-spec-label {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    min-width: 32px;
+    font-family: 'Georgia', serif;
+}
+
+.tbc-hub-spec-name {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.tbc-hub-card-roles {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+    justify-content: center;
+}
+
+.tbc-hub-role-badge {
+    font-size: 0.72rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+    font-family: 'Friz Quadrata', serif;
+}
+
+.tbc-hub-role-badge.tank {
+    background: rgba(33, 150, 243, 0.12);
+    color: #64b5f6;
+    border: 1px solid rgba(33, 150, 243, 0.2);
+}
+
+.tbc-hub-role-badge.healer {
+    background: rgba(76, 175, 80, 0.12);
+    color: #81c784;
+    border: 1px solid rgba(76, 175, 80, 0.2);
+}
+
+.tbc-hub-role-badge.dps {
+    background: rgba(244, 67, 54, 0.12);
+    color: #e57373;
+    border: 1px solid rgba(244, 67, 54, 0.2);
+}
+
+.tbc-hub-card-btn {
+    display: block;
+    text-align: center;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    border: 1px solid;
+    position: relative;
+    width: 100%;
+}
+
+.tbc-hub-card-btn.available {
+    background: linear-gradient(180deg, rgba(60, 45, 20, 0.6), rgba(40, 28, 12, 0.8));
+    color: var(--wow-gold);
+    border-color: rgba(255, 209, 0, 0.25);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.tbc-hub-card-btn.available:hover {
+    background: linear-gradient(180deg, rgba(80, 60, 25, 0.8), rgba(55, 40, 15, 0.9));
+    border-color: rgba(255, 209, 0, 0.5);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 0 16px rgba(255, 209, 0, 0.12);
+    color: #fff;
+}
+
+/* ==================== RAID PROGRESSION ==================== */
+.tbc-raid-timeline {
+    position: relative;
+    padding-left: 2.5rem;
+}
+
+.tbc-raid-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--wow-gold), rgba(255, 140, 0, 0.6), rgba(200, 50, 0, 0.8));
+    border-radius: 2px;
+    box-shadow: 0 0 8px rgba(255, 209, 0, 0.15);
+}
+
+.tbc-raid-phase {
+    position: relative;
+    margin-bottom: 2.5rem;
+}
+
+.tbc-raid-phase::before {
+    content: '';
+    position: absolute;
+    left: -2.5rem;
+    top: 0.6rem;
+    width: 22px;
+    height: 22px;
+    background: radial-gradient(circle, var(--wow-gold), #b8860b);
+    border: 3px solid var(--wow-dark);
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(255, 209, 0, 0.5), 0 0 24px rgba(255, 209, 0, 0.15);
+    z-index: 1;
+}
+
+.tbc-raid-phase-header {
+    margin-bottom: 1.25rem;
+}
+
+.tbc-raid-phase-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, rgba(255, 209, 0, 0.12), rgba(255, 140, 0, 0.08));
+    color: var(--wow-gold);
+    padding: 0.5rem 1.5rem;
+    border-radius: 6px;
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    border: 1px solid rgba(255, 209, 0, 0.2);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.tbc-raid-phase-badge.phase-final {
+    background: linear-gradient(135deg, rgba(255, 50, 0, 0.18), rgba(255, 209, 0, 0.12));
+    border-color: rgba(255, 100, 0, 0.35);
+    color: #ff8c00;
+    box-shadow: 0 0 16px rgba(255, 100, 0, 0.12);
+    text-shadow: 0 0 10px rgba(255, 100, 0, 0.3);
+}
+
+.tbc-raid-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.tbc-raid-card {
+    display: flex;
+    gap: 1.25rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.tbc-raid-card:hover {
+    border-color: rgba(255, 209, 0, 0.25);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4), 0 0 12px rgba(255, 209, 0, 0.04);
+    transform: translateX(4px);
+}
+
+.tbc-raid-card.sunwell {
+    border-color: rgba(255, 100, 0, 0.3);
+    background: linear-gradient(135deg, rgba(40, 15, 5, 0.85), rgba(20, 8, 2, 0.9));
+}
+
+.tbc-raid-card.sunwell:hover {
+    border-color: rgba(255, 100, 0, 0.5);
+    box-shadow: 0 6px 24px rgba(255, 100, 0, 0.1), 0 0 20px rgba(255, 100, 0, 0.05);
+}
+
+.tbc-raid-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    flex-shrink: 0;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+.tbc-raid-info h4 {
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    color: var(--wow-gold);
+    font-size: 1.15rem;
+    margin: 0 0 0.5rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.tbc-raid-meta {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.65rem;
+}
+
+.tbc-raid-size,
+.tbc-raid-bosses {
+    font-size: 0.78rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-weight: 700;
+    font-family: 'Friz Quadrata', serif;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.tbc-raid-size {
+    background: rgba(33, 150, 243, 0.1);
+    color: #64b5f6;
+    border: 1px solid rgba(33, 150, 243, 0.18);
+}
+
+.tbc-raid-bosses {
+    background: rgba(244, 67, 54, 0.1);
+    color: #e57373;
+    border: 1px solid rgba(244, 67, 54, 0.18);
+}
+
+.tbc-raid-info p {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ==================== DUNGEONS ==================== */
+.tbc-dungeon-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.85rem;
+}
+
+.tbc-dungeon-item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(74, 60, 40, 0.3);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    transition: all 0.2s ease;
+}
+
+.tbc-dungeon-item:hover {
+    border-color: rgba(212, 175, 55, 0.25);
+    background: rgba(0, 0, 0, 0.35);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.04);
+}
+
+.tbc-dungeon-item img {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    border: 2px solid var(--wow-border);
+    flex-shrink: 0;
+}
+
+.tbc-dungeon-item strong {
+    display: block;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.88rem;
+    margin-bottom: 0.2rem;
+}
+
+.tbc-dungeon-item span {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.8rem;
+    line-height: 1.35;
+}
+
+/* ==================== ATTUNEMENTS ==================== */
+.tbc-attune-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5rem;
+}
+
+.tbc-attune-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.tbc-attune-card:hover {
+    border-color: rgba(212, 175, 55, 0.25);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4), 0 0 8px rgba(255, 209, 0, 0.04);
+}
+
+.tbc-attune-header {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.85rem 1.25rem;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(212, 175, 55, 0.03));
+    border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+}
+
+.tbc-attune-header::before {
+    content: '!';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    background: linear-gradient(180deg, #ffd100, #cc9900);
+    color: #1a0a00;
+    font-family: 'Friz Quadrata', serif;
+    font-size: 0.78rem;
+    font-weight: 900;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 209, 0, 0.4), 0 0 4px rgba(255, 209, 0, 0.6);
+}
+
+.tbc-attune-header img {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    border: 2px solid var(--wow-border);
+}
+
+.tbc-attune-header h4 {
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    color: var(--wow-gold);
+    font-size: 1rem;
+    margin: 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.tbc-attune-steps {
+    padding: 0.85rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+}
+
+.tbc-attune-steps::before {
+    content: '';
+    position: absolute;
+    left: 1.85rem;
+    top: 0.85rem;
+    bottom: 0.85rem;
+    width: 2px;
+    background: linear-gradient(180deg, rgba(255, 209, 0, 0.2), rgba(255, 209, 0, 0.06));
+}
+
+.tbc-attune-step {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.45;
+    padding: 0.5rem 0;
+    position: relative;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+}
+.tbc-attune-step:hover {
+    background: rgba(255, 209, 0, 0.03);
+}
+
+.tbc-attune-step .step-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    background: linear-gradient(180deg, rgba(80, 60, 30, 0.6), rgba(50, 35, 15, 0.8));
+    color: var(--wow-gold);
+    border: 2px solid rgba(255, 209, 0, 0.25);
+    border-radius: 50%;
+    font-size: 0.72rem;
+    font-weight: 700;
+    font-family: 'Friz Quadrata', serif;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 6px rgba(255, 209, 0, 0.12);
+    position: relative;
+    z-index: 1;
+}
+
+/* ==================== ATTUNEMENT CARD PROGRESS (HTML variant) ==================== */
+.tbc-attune-progress[data-raid] {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1.25rem;
+}
+.tbc-attune-progress[data-raid] .tbc-attune-progress-bar {
+    flex: 1;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(74, 60, 40, 0.3);
+}
+.tbc-attune-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--tbc-fel-green), #90EE90);
+    border-radius: 4px;
+    transition: width 0.4s ease;
+}
+.tbc-attune-progress-text {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.5);
+    min-width: 45px;
+    text-align: right;
+    font-family: 'Friz Quadrata', serif;
+    white-space: nowrap;
+}
+.tbc-attune-tracker-controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1.25rem;
+}
+.tbc-attune-reset-btn {
+    padding: 0.6rem 1.5rem;
+    background: linear-gradient(180deg, rgba(180, 40, 40, 0.3), rgba(120, 20, 20, 0.4));
+    border: 1px solid rgba(200, 50, 50, 0.3);
+    border-radius: 8px;
+    color: #e57373;
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.tbc-attune-reset-btn:hover {
+    border-color: rgba(200, 50, 50, 0.6);
+    background: rgba(180, 40, 40, 0.4);
+}
+
+/* Style checkboxes inside attunement steps */
+.tbc-attune-step input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+}
+.tbc-attune-step input[type="checkbox"]:checked {
+    background: linear-gradient(135deg, var(--tbc-fel-green), #4a9a30);
+    border-color: var(--tbc-fel-green);
+}
+.tbc-attune-step input[type="checkbox"]:checked::after {
+    content: '\2713';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+.tbc-attune-step.completed span:last-child {
+    color: rgba(255, 255, 255, 0.35);
+    text-decoration: line-through;
+}
+
+/* ==================== PROFESSIONS TABLE ==================== */
+.tbc-prof-table-wrap {
+    overflow-x: auto;
+    border-radius: 10px;
+    border: 1px solid rgba(74, 60, 40, 0.25);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.tbc-prof-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--glass-bg);
+}
+
+.tbc-prof-table thead th {
+    background: linear-gradient(180deg, rgba(60, 45, 25, 0.8), rgba(35, 25, 12, 0.9));
+    color: var(--wow-gold);
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.85rem 1.25rem;
+    text-align: left;
+    border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+    white-space: nowrap;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.tbc-prof-table tbody td {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.75);
+    border-bottom: 1px solid rgba(74, 60, 40, 0.2);
+}
+
+.tbc-prof-table tbody tr:nth-child(even) {
+    background: rgba(255, 209, 0, 0.015);
+}
+
+.tbc-prof-table tbody tr:hover {
+    background: rgba(255, 209, 0, 0.035);
+}
+
+.tbc-prof-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ==================== MACROS ==================== */
+.tbc-macro-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+}
+
+.tbc-macro-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 0;
+    overflow: hidden;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.tbc-macro-card:hover {
+    border-color: rgba(212, 175, 55, 0.25);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.tbc-macro-header {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.75rem 1.25rem;
+    background: linear-gradient(180deg, rgba(50, 38, 20, 0.5), rgba(30, 22, 10, 0.6));
+    border-bottom: 1px solid rgba(74, 60, 40, 0.3);
+}
+
+.tbc-macro-header img {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    border: 2px solid rgba(212, 175, 55, 0.25);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+}
+
+.tbc-macro-header h4 {
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    color: var(--wow-gold);
+    font-size: 0.95rem;
+    margin: 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.tbc-macro-code {
+    display: block;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-bottom: 1px solid rgba(74, 60, 40, 0.2);
+    border-radius: 0;
+    padding: 0.85rem 1.25rem;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.8rem;
+    color: #ffd100;
+    line-height: 1.65;
+    white-space: pre-wrap;
+    word-break: break-all;
+    margin: 0;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.tbc-macro-desc {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85rem;
+    font-style: italic;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0.75rem 1.25rem;
+}
+
+/* ==================== ENCHANTS ==================== */
+.tbc-enchant-tabs {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+    border-bottom: 2px solid rgba(74, 60, 40, 0.3);
+}
+
+.tbc-enchant-tab {
+    background: linear-gradient(180deg, rgba(30, 22, 10, 0.5), rgba(18, 12, 5, 0.7));
+    border: 1px solid rgba(74, 60, 40, 0.3);
+    border-bottom: none;
+    color: rgba(255, 255, 255, 0.45);
+    padding: 0.6rem 1.35rem;
+    border-radius: 8px 8px 0 0;
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    top: 2px;
+}
+
+.tbc-enchant-tab:hover {
+    border-color: rgba(212, 175, 55, 0.3);
+    color: rgba(255, 255, 255, 0.85);
+    background: linear-gradient(180deg, rgba(50, 38, 20, 0.7), rgba(35, 24, 12, 0.8));
+}
+
+.tbc-enchant-tab.active {
+    background: linear-gradient(180deg, rgba(50, 35, 15, 0.9), var(--glass-bg));
+    border-color: rgba(74, 60, 40, 0.4);
+    border-bottom: 2px solid transparent;
+    color: var(--wow-gold);
+    box-shadow: inset 0 2px 0 rgba(255, 209, 0, 0.2);
+    text-shadow: 0 0 10px rgba(255, 209, 0, 0.2);
+    margin-bottom: -2px;
+    z-index: 1;
+}
+
+.tbc-enchant-content {
+    display: none;
+}
+
+.tbc-enchant-content.active {
+    display: block;
+}
+
+.tbc-enchant-table tbody td:first-child {
+    color: var(--wow-gold);
+    font-weight: 600;
+    font-size: 0.83rem;
+    white-space: nowrap;
+}
+
+.tbc-enchant-table tbody td:nth-child(3) {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.82rem;
+}
+
+/* ==================== CONSUMABLES ==================== */
+.tbc-consumable-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.tbc-consumable-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.tbc-consumable-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.tbc-consumable-role {
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    padding: 0.7rem 1.25rem;
+    margin: 0;
+    border-bottom: 1px solid rgba(74, 60, 40, 0.3);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+}
+
+.tbc-consumable-role.melee {
+    background: linear-gradient(90deg, rgba(198, 155, 109, 0.12), transparent);
+    color: var(--warrior);
+    border-bottom-color: rgba(198, 155, 109, 0.2);
+    border-left: 3px solid rgba(198, 155, 109, 0.4);
+}
+
+.tbc-consumable-role.caster {
+    background: linear-gradient(90deg, rgba(135, 136, 238, 0.12), transparent);
+    color: var(--warlock);
+    border-bottom-color: rgba(135, 136, 238, 0.2);
+    border-left: 3px solid rgba(135, 136, 238, 0.4);
+}
+
+.tbc-consumable-role.tank-cons {
+    background: linear-gradient(90deg, rgba(33, 150, 243, 0.12), transparent);
+    color: #64b5f6;
+    border-bottom-color: rgba(33, 150, 243, 0.2);
+    border-left: 3px solid rgba(33, 150, 243, 0.4);
+}
+
+.tbc-consumable-role.healer-cons {
+    background: linear-gradient(90deg, rgba(76, 175, 80, 0.12), transparent);
+    color: #81c784;
+    border-bottom-color: rgba(76, 175, 80, 0.2);
+    border-left: 3px solid rgba(76, 175, 80, 0.4);
+}
+
+.tbc-consumable-list {
+    padding: 0.85rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.tbc-consumable-item {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.45rem 0.6rem;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+}
+
+.tbc-consumable-item:hover {
+    background: rgba(255, 209, 0, 0.03);
+}
+
+.tbc-consumable-item img {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    border: 2px solid var(--wow-border);
+    flex-shrink: 0;
+}
+
+.tbc-consumable-item strong {
+    display: block;
+    color: var(--item-uncommon);
+    font-size: 0.85rem;
+    margin-bottom: 0.1rem;
+}
+
+.tbc-consumable-item span {
+    display: block;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.78rem;
+}
+
+.tbc-consumable-card:nth-child(1) .tbc-consumable-item:first-child strong,
+.tbc-consumable-card:nth-child(2) .tbc-consumable-item:first-child strong,
+.tbc-consumable-card:nth-child(3) .tbc-consumable-item:first-child strong,
+.tbc-consumable-card:nth-child(4) .tbc-consumable-item:first-child strong {
+    color: var(--item-rare);
+}
+
+/* ==================== CTA ==================== */
+.tbc-hub-cta {
+    text-align: center;
+    padding: 4rem 2.5rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(212, 175, 55, 0.12);
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    position: relative;
+}
+
+.tbc-hub-cta::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 24px;
+    height: 24px;
+    border-top: 2px solid rgba(212, 175, 55, 0.2);
+    border-left: 2px solid rgba(212, 175, 55, 0.2);
+}
+
+.tbc-hub-cta h3 {
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    color: var(--wow-gold);
+    font-size: 1.8rem;
+    margin-bottom: 0.75rem;
+    text-shadow: 0 0 25px rgba(255, 209, 0, 0.18), 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.tbc-hub-cta p {
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 1.75rem;
+    font-family: 'Georgia', serif;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.tbc-hub-cta-btn {
+    display: inline-block;
+    background: linear-gradient(180deg, #c4960a, #8B6914, #6a4f0e);
+    color: #fff;
+    padding: 1rem 3rem;
+    border-radius: 8px;
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 209, 0, 0.35);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 4px 12px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(255, 209, 0, 0.08);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.tbc-hub-cta-btn:hover {
+    transform: translateY(-3px);
+    background: linear-gradient(180deg, #d4a60a, #a07918, #7a5f12);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        0 6px 18px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(255, 209, 0, 0.15);
+}
+
+.tbc-hub-cta-btn:active {
+    transform: translateY(0);
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.4),
+        0 0 12px rgba(255, 209, 0, 0.08);
+}
+
+/* ==================== ARENA / PVP CARDS ==================== */
+.tbc-arena-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+}
+.tbc-arena-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+.tbc-arena-card:hover {
+    border-color: rgba(212, 175, 55, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+}
+.tbc-arena-tier {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    font-family: 'Friz Quadrata', serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+.tbc-arena-tier.tier-s {
+    background: rgba(255, 215, 0, 0.15);
+    color: var(--tier-s);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+}
+.tbc-arena-tier.tier-a {
+    background: rgba(76, 175, 80, 0.12);
+    color: var(--tier-a);
+    border: 1px solid rgba(76, 175, 80, 0.2);
+}
+.tbc-arena-card h4 {
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    color: var(--wow-gold);
+    font-size: 0.95rem;
+    margin: 0 0 0.5rem;
+    padding-right: 2rem;
+}
+.tbc-arena-card p {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ==================== HONOR PRIORITY LIST ==================== */
+.tbc-honor-priority {
+    padding-left: 1.5rem;
+    margin: 1rem 0 0;
+}
+.tbc-honor-priority li {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+    padding-left: 0.25rem;
+}
+.tbc-honor-priority li strong {
+    color: var(--wow-gold);
+}
+
+/* ==================== GOLD MAKING HEADER ==================== */
+.tbc-gold-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1200px) {
+    .tbc-hub-class-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .tbc-floating-toc-inner { padding: 0 1rem; }
+    .tbc-toc-breadcrumb { font-size: 0.72rem; }
+    .tbc-toc-divider:first-of-type { display: none; }
+    .tbc-ftoc-link { font-size: 0.75rem; padding: 0.35rem 0.7rem; }
+    .tbc-hub-fullwidth {
+        padding: 2rem 1.25rem 3rem;
+    }
+    .tbc-hub-hero {
+        min-height: 50vh;
+        padding: 5rem 1.5rem 4rem;
+    }
+    .tbc-hub-section {
+        margin-bottom: 3.5rem;
+    }
+
+    .tbc-hub-tier-class-info {
+        display: none;
+    }
+    .tbc-hub-tier-class {
+        padding: 0.35rem;
+    }
+    .tbc-hub-tier-label {
+        width: 50px;
+        min-width: 50px;
+        font-size: 1.2rem;
+    }
+    .tbc-tier-explanation {
+        padding-left: 55px;
+        font-size: 0.78rem;
+    }
+
+    .wow-lore-quote {
+        font-size: 0.85rem;
+        padding: 0.6rem 1rem;
+    }
+
+    .tbc-macro-grid {
+        grid-template-columns: 1fr;
+    }
+    .tbc-dungeon-grid {
+        grid-template-columns: 1fr;
+    }
+    .tbc-consumable-grid {
+        grid-template-columns: 1fr;
+    }
+    .tbc-attune-grid {
+        grid-template-columns: 1fr;
+    }
+    .tbc-raid-timeline {
+        padding-left: 1.75rem;
+    }
+}
+
+@media (max-width: 600px) {
+    #tbc-search-input {
+        width: 0;
+        padding-left: 1.7rem;
+        padding-right: 0.3rem;
+        border-color: transparent;
+        background: transparent;
+        cursor: pointer;
+    }
+    #tbc-search-input:focus,
+    #tbc-search-input.expanded {
+        width: 140px;
+        background: rgba(0, 0, 0, 0.3);
+        border-color: rgba(74, 60, 40, 0.35);
+        cursor: text;
+    }
+    .tbc-search-icon {
+        cursor: pointer;
+        pointer-events: auto;
+    }
+    .tbc-toc-divider:last-of-type { display: none; }
+    .tbc-toc-breadcrumb { font-size: 0.7rem; max-width: 80px; overflow: hidden; text-overflow: ellipsis; }
+    .tbc-floating-toc::before, .tbc-floating-toc::after { display: none; }
+    .tbc-hub-hero {
+        min-height: auto;
+        padding: 3rem 1rem 2.5rem;
+    }
+    .tbc-hub-hero h1 {
+        font-size: clamp(1.8rem, 8vw, 2.8rem);
+    }
+    .tbc-hub-hero .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .tbc-hub-fullwidth {
+        padding: 1.5rem 1rem 3rem;
+    }
+
+    .tbc-hub-class-grid {
+        grid-template-columns: 1fr;
+    }
+    .tbc-hub-class-card {
+        padding: 1.5rem 1.25rem;
+    }
+
+    .tbc-hub-tier-classes {
+        gap: 0.5rem;
+        padding: 0.6rem 0.75rem;
+    }
+    .tbc-hub-tier-class img {
+        width: 32px;
+        height: 32px;
+    }
+
+    .tbc-hub-section-header h2 {
+        font-size: 1.3rem;
+    }
+    .tbc-hub-section-header::before,
+    .tbc-hub-section-header::after {
+        display: none;
+    }
+
+    .tbc-hub-cta {
+        padding: 2.5rem 1.5rem;
+    }
+    .tbc-hub-cta::before {
+        display: none;
+    }
+    .tbc-hub-cta h3 {
+        font-size: 1.4rem;
+    }
+
+    .tbc-raid-card {
+        flex-direction: column;
+        gap: 0.85rem;
+    }
+    .tbc-raid-icon {
+        width: 44px;
+        height: 44px;
+    }
+
+    .tbc-enchant-tab {
+        padding: 0.45rem 0.85rem;
+        font-size: 0.78rem;
+    }
+
+    .hero-flavor-quote {
+        font-size: 0.88rem;
+    }
+    .hero-meta-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    .tbc-hub-section + .tbc-hub-section::before {
+        letter-spacing: 0.15em;
+    }
+    .tbc-card-tagline {
+        font-size: 0.82rem;
+    }
+
+    .tbc-attune-steps::before {
+        display: none;
+    }
+
+    /* Disable backdrop-filter on mobile for performance */
+    .tbc-hub-class-card,
+    .tbc-hub-tier-list,
+    .tbc-raid-card,
+    .tbc-attune-card,
+    .tbc-macro-card,
+    .tbc-consumable-card,
+    .tbc-hub-cta {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: var(--wow-panel);
+    }
+}
+
+/* ==================== FACTION & ACCENT VARIABLES ==================== */
+:root {
+    --tbc-horde-red: #B30000;
+    --tbc-alliance-blue: #0057B8;
+}
+
+/* ==================== LIGHT MODE: EXTRA OVERRIDES ==================== */
+.tbc-theme-light {
+    --wow-dark: #f5f0e8;
+    --wow-darker: #ece4d4;
+    --wow-panel: rgba(255, 250, 240, 0.95);
+    --wow-panel-alt: rgba(245, 238, 225, 0.95);
+    --glass-bg: rgba(255, 250, 240, 0.85);
+    --glass-border: rgba(139, 105, 20, 0.15);
+    --wow-border: rgba(74, 60, 40, 0.25);
+}
+.tbc-theme-light body,
+.tbc-theme-light .tbc-hub-fullwidth,
+.tbc-theme-light .tbc-main-content {
+    color: #1a1410;
+}
+.tbc-theme-light .tbc-hub-hero {
+    background: linear-gradient(180deg, #e8dcc8 0%, #dfd0b8 40%, #d4c4a8 70%, #c8b898 100%);
+}
+.tbc-theme-light .tbc-hub-hero h1 { color: #8B6914; text-shadow: 0 1px 2px rgba(0,0,0,0.15); }
+.tbc-theme-light .hero-subtitle,
+.tbc-theme-light .tbc-hub-section-desc { color: #4a3c28; }
+.tbc-theme-light .hero-flavor-quote { color: rgba(139, 105, 20, 0.6); }
+.tbc-theme-light .tbc-floating-toc { background: rgba(245, 240, 230, 0.95); border-color: rgba(139, 105, 20, 0.15); }
+.tbc-theme-light .tbc-toc-gold-border { background: linear-gradient(90deg, transparent 0%, rgba(139, 105, 20, 0.15) 10%, rgba(139, 105, 20, 0.4) 30%, rgba(139, 105, 20, 0.6) 50%, rgba(139, 105, 20, 0.4) 70%, rgba(139, 105, 20, 0.15) 90%, transparent 100%); }
+.tbc-theme-light .tbc-floating-toc::before, .tbc-theme-light .tbc-floating-toc::after { color: #8B6914; text-shadow: none; }
+.tbc-theme-light .tbc-toc-breadcrumb { color: #6b5a3c; }
+.tbc-theme-light .tbc-toc-breadcrumb a { color: rgba(139, 105, 20, 0.6); }
+.tbc-theme-light .tbc-toc-divider { background: linear-gradient(180deg, transparent 0%, rgba(139, 105, 20, 0.2) 50%, transparent 100%); }
+.tbc-theme-light .tbc-ftoc-link { color: rgba(26, 20, 16, 0.5); }
+.tbc-theme-light .tbc-ftoc-link.active { color: #8B6914; background: rgba(139, 105, 20, 0.1); }
+.tbc-theme-light .tbc-search-icon { color: rgba(26, 20, 16, 0.3); }
+.tbc-theme-light .tbc-hub-section-header { background: linear-gradient(90deg, rgba(139, 105, 20, 0.04), rgba(139, 105, 20, 0.1) 50%, rgba(139, 105, 20, 0.04)); }
+.tbc-theme-light .tbc-hub-section-header h2 { color: #8B6914; }
+.tbc-theme-light .tbc-hub-class-card,
+.tbc-theme-light .tbc-raid-card,
+.tbc-theme-light .tbc-attune-card,
+.tbc-theme-light .tbc-macro-card,
+.tbc-theme-light .tbc-consumable-card,
+.tbc-theme-light .tbc-arena-card { background: rgba(255, 250, 240, 0.85); border-color: rgba(139, 105, 20, 0.15); }
+.tbc-theme-light .tbc-hub-tier-list { background: rgba(255, 250, 240, 0.85); }
+.tbc-theme-light .tbc-hub-tier-class { background: rgba(139, 105, 20, 0.05); border-color: rgba(139, 105, 20, 0.15); }
+.tbc-theme-light .tbc-hub-tier-class-name { filter: brightness(0.7); }
+.tbc-theme-light .tbc-tier-explanation { color: #4a3c28; background: rgba(139, 105, 20, 0.03); }
+.tbc-theme-light .tbc-card-tagline { color: #6b5a3c; }
+.tbc-theme-light .tbc-hub-spec-name { color: #1a1410; }
+.tbc-theme-light .tbc-hub-spec-label { color: #6b5a3c; }
+.tbc-theme-light .tbc-raid-info p { color: #4a3c28; }
+.tbc-theme-light .tbc-raid-info h4 { color: #8B6914; }
+.tbc-theme-light .tbc-prof-table { background: rgba(255, 250, 240, 0.85); }
+.tbc-theme-light .tbc-prof-table thead th { background: rgba(139, 105, 20, 0.12); color: #8B6914; }
+.tbc-theme-light .tbc-prof-table tbody td { color: #1a1410; border-color: rgba(139, 105, 20, 0.1); }
+.tbc-theme-light .tbc-macro-code { background: rgba(26, 20, 16, 0.05); color: #8B6914; }
+.tbc-theme-light .tbc-macro-desc { color: #4a3c28; }
+.tbc-theme-light .tbc-attune-step span { color: #1a1410; }
+.tbc-theme-light .tbc-consumable-item strong { color: #1a7a00; }
+.tbc-theme-light .tbc-consumable-item span { color: #4a3c28; }
+.tbc-theme-light .tbc-enchant-table tbody td:nth-child(3) { color: #6b5a3c; }
+.tbc-theme-light .tbc-hub-cta { background: rgba(255, 250, 240, 0.9); }
+.tbc-theme-light .tbc-hub-cta h3 { color: #8B6914; }
+.tbc-theme-light .tbc-hub-cta p { color: #4a3c28; }
+
+/* ==================== THEME TOGGLE ==================== */
+#tbc-theme-toggle {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 200;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    background: rgba(10, 6, 2, 0.85);
+    backdrop-filter: blur(8px);
+    color: var(--wow-gold);
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+#tbc-theme-toggle:hover {
+    border-color: var(--wow-gold);
+    box-shadow: 0 0 20px rgba(255, 209, 0, 0.2);
+    transform: scale(1.1);
+}
+.tbc-theme-icon-sun,
+.tbc-theme-icon-moon {
+    line-height: 1;
+    pointer-events: none;
+}
+.tbc-theme-light #tbc-theme-toggle {
+    background: rgba(255, 250, 240, 0.9);
+    border-color: rgba(139, 105, 20, 0.3);
+    color: #8B6914;
+}
+
+/* ==================== BREADCRUMB (merged into TOC bar) ==================== */
+/* Old standalone .tbc-breadcrumb removed — now integrated as .tbc-toc-breadcrumb inside .tbc-floating-toc */
+
+/* ==================== SEARCH BAR ==================== */
+.tbc-search-section {
+    max-width: 1200px;
+    margin: 1.5rem auto;
+    padding: 0 2rem;
+}
+.tbc-ftoc-search {
+    position: relative;
+    margin-left: 0;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+.tbc-search-icon {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.25);
+    pointer-events: none;
+    z-index: 1;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+}
+#tbc-search-input {
+    width: 150px;
+    padding: 0.35rem 1.8rem 0.35rem 1.7rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(74, 60, 40, 0.35);
+    border-radius: 6px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.78rem;
+    font-family: 'Georgia', serif;
+    letter-spacing: 0.02em;
+    transition: all 0.3s ease;
+    outline: none;
+}
+#tbc-search-input::placeholder { color: rgba(255, 255, 255, 0.3); font-size: 0.75rem; }
+#tbc-search-input:focus {
+    width: 200px;
+    border-color: rgba(255, 209, 0, 0.45);
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 12px rgba(255, 209, 0, 0.1), inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+.tbc-theme-light #tbc-search-input {
+    background: rgba(255, 250, 240, 0.9);
+    color: #1a1410;
+    border-color: rgba(139, 105, 20, 0.2);
+}
+#tbc-search-clear {
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 2px 6px;
+    line-height: 1;
+}
+#tbc-search-clear:hover { color: var(--wow-gold); }
+.tbc-search-highlight {
+    background: rgba(255, 209, 0, 0.3);
+    color: #fff;
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+/* ==================== SIDEBAR ==================== */
+#tbc-sidebar-toggle {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 200;
+    padding: 0.65rem 1.25rem;
+    border-radius: 10px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    background: rgba(10, 6, 2, 0.9);
+    backdrop-filter: blur(8px);
+    color: var(--wow-gold);
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    font-size: 0.82rem;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    transition: all 0.25s ease;
+}
+#tbc-sidebar-toggle:hover { border-color: var(--wow-gold); }
+#tbc-sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 90;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+#tbc-sidebar-overlay.active { display: block; opacity: 1; }
+
+.tbc-layout-wrapper {
+    display: flex;
+    max-width: 1440px;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+.tbc-sidebar {
+    width: 260px;
+    min-width: 260px;
+    background: rgba(10, 6, 2, 0.95);
+    border-right: 1px solid rgba(74, 60, 40, 0.2);
+    padding: 1.5rem 0;
+    position: sticky;
+    top: 100px;
+    height: calc(100vh - 100px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(212, 175, 55, 0.2) transparent;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.tbc-sidebar::-webkit-scrollbar { width: 6px; }
+.tbc-sidebar::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.2); border-radius: 3px; }
+.tbc-sidebar.collapsed { display: none; }
+.tbc-sidebar-title {
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    color: var(--wow-gold);
+    font-size: 0.9rem;
+    padding: 0 1.25rem 0.75rem;
+    border-bottom: 1px solid rgba(74, 60, 40, 0.2);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+.tbc-sidebar-category { margin-bottom: 0.25rem; }
+.tbc-sidebar-category-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.55rem 1.25rem;
+    background: none;
+    border: none;
+    color: rgba(255, 209, 0, 0.7);
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    text-align: left;
+}
+.tbc-sidebar-category-header:hover { color: var(--wow-gold); background: rgba(255, 209, 0, 0.04); }
+.tbc-sidebar-category-header::before {
+    content: '\25BE';
+    font-size: 0.7rem;
+    transition: transform 0.2s ease;
+    min-width: 12px;
+}
+.tbc-sidebar-category.collapsed .tbc-sidebar-category-header::before {
+    transform: rotate(-90deg);
+}
+.tbc-sidebar-category-items { padding: 0; }
+.tbc-sidebar-category.collapsed .tbc-sidebar-category-items { display: none; }
+.tbc-sidebar-category-items a {
+    display: block;
+    padding: 0.4rem 1.25rem 0.4rem 2.5rem;
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: all 0.2s ease;
+    border-left: 2px solid transparent;
+}
+.tbc-sidebar-category-items a:hover {
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 209, 0, 0.03);
+    border-left-color: rgba(255, 209, 0, 0.2);
+}
+.tbc-sidebar-category-items a.active {
+    color: var(--wow-gold);
+    background: rgba(255, 209, 0, 0.06);
+    border-left-color: var(--wow-gold);
+}
+.tbc-main-content {
+    flex: 1;
+    min-width: 0;
+    padding: 3rem 2rem 4rem;
+    max-width: 1180px;
+}
+
+/* ==================== ATTUNEMENT TRACKER ==================== */
+.tbc-attune-tracker { display: flex; flex-direction: column; gap: 1.5rem; }
+.tbc-attune-chain {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.25s ease;
+}
+.tbc-attune-chain.chain-complete { border-color: rgba(112, 192, 80, 0.3); }
+.tbc-attune-chain-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.65rem;
+    padding: 0.85rem 1.25rem;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(212, 175, 55, 0.03));
+    border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+}
+.tbc-attune-chain-header h4 {
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    color: var(--wow-gold);
+    font-size: 1rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.tbc-attune-chain-header img {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: 2px solid var(--wow-border);
+}
+.tbc-attune-progress-wrap {
+    flex: 1;
+    max-width: 200px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.tbc-attune-progress-bar {
+    flex: 1;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(74, 60, 40, 0.3);
+}
+.tbc-attune-progress {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--tbc-fel-green), #90EE90);
+    border-radius: 4px;
+    transition: width 0.4s ease;
+}
+.tbc-attune-progress-label {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    min-width: 65px;
+    text-align: right;
+    font-family: 'Friz Quadrata', serif;
+}
+.tbc-attune-steps {
+    padding: 0.5rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+.tbc-attune-step {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0.5rem;
+    border-bottom: 1px solid rgba(74, 60, 40, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 6px;
+}
+.tbc-attune-step:last-child { border-bottom: none; }
+.tbc-attune-step:hover { background: rgba(255, 209, 0, 0.03); }
+.tbc-attune-step .step-checkbox {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: transparent;
+    transition: all 0.2s ease;
+    background: rgba(0, 0, 0, 0.2);
+}
+.tbc-attune-step.completed .step-checkbox {
+    background: linear-gradient(135deg, var(--tbc-fel-green), #4a9a30);
+    border-color: var(--tbc-fel-green);
+    color: #fff;
+}
+.tbc-attune-step .step-text {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.88rem;
+    line-height: 1.4;
+    transition: all 0.2s ease;
+}
+.tbc-attune-step.completed .step-text {
+    color: rgba(255, 255, 255, 0.35);
+    text-decoration: line-through;
+}
+.tbc-attune-step .step-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    background: linear-gradient(180deg, rgba(80, 60, 30, 0.6), rgba(50, 35, 15, 0.8));
+    color: var(--wow-gold);
+    border: 2px solid rgba(255, 209, 0, 0.25);
+    border-radius: 50%;
+    font-size: 0.72rem;
+    font-weight: 700;
+    font-family: 'Friz Quadrata', serif;
+}
+.tbc-attune-reset {
+    margin-top: 1rem;
+    padding: 0.6rem 1.5rem;
+    background: linear-gradient(180deg, rgba(180, 40, 40, 0.3), rgba(120, 20, 20, 0.4));
+    border: 1px solid rgba(200, 50, 50, 0.3);
+    border-radius: 8px;
+    color: #e57373;
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.tbc-attune-reset:hover { border-color: rgba(200, 50, 50, 0.6); background: rgba(180, 40, 40, 0.4); }
+
+/* ==================== DUNGEON DATABASE ==================== */
+.tbc-db-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.tbc-db-filter-select {
+    padding: 0.5rem 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(74, 60, 40, 0.3);
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.8);
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+.tbc-db-filter-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.tbc-db-label {
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    font-size: 0.85rem;
+}
+.tbc-db-filter-select option { background: #1a0a00; }
+.tbc-db-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.tbc-db-table thead th {
+    background: linear-gradient(180deg, rgba(60, 45, 25, 0.8), rgba(35, 25, 12, 0.9));
+    color: var(--wow-gold);
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    font-size: 0.82rem;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+    white-space: nowrap;
+    user-select: none;
+}
+.tbc-db-sort {
+    cursor: pointer;
+    position: relative;
+    padding-right: 1.5rem !important;
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    text-transform: inherit;
+    letter-spacing: inherit;
+}
+.tbc-db-sort::after {
+    content: '\2195';
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.7rem;
+    opacity: 0.4;
+}
+.tbc-db-sort.sort-asc::after { content: '\2191'; opacity: 1; }
+.tbc-db-sort.sort-desc::after { content: '\2193'; opacity: 1; }
+.tbc-db-table tbody td {
+    padding: 0.65rem 1rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.75);
+    border-bottom: 1px solid rgba(74, 60, 40, 0.15);
+}
+.tbc-db-table tbody tr:hover { background: rgba(255, 209, 0, 0.03); }
+.tbc-db-type {
+    display: inline-block;
+    padding: 0.15rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.tbc-db-type-normal { background: rgba(76, 175, 80, 0.12); color: #81c784; border: 1px solid rgba(76, 175, 80, 0.2); }
+.tbc-db-type-heroic { background: rgba(255, 152, 0, 0.12); color: #ffb74d; border: 1px solid rgba(255, 152, 0, 0.2); }
+.tbc-db-type-raid { background: rgba(163, 53, 238, 0.12); color: #ce93d8; border: 1px solid rgba(163, 53, 238, 0.2); }
+.tbc-db-difficulty { color: var(--wow-gold); letter-spacing: -1px; font-size: 0.8rem; }
+
+/* ==================== LEVELING PLANNER ==================== */
+.tbc-faction-toggle {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+.tbc-faction-btn {
+    padding: 0.65rem 2rem;
+    border-radius: 8px;
+    border: 2px solid rgba(74, 60, 40, 0.3);
+    background: rgba(0, 0, 0, 0.3);
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+.tbc-faction-btn[data-faction="horde"]:hover,
+.tbc-faction-btn[data-faction="horde"].active {
+    border-color: var(--tbc-horde-red);
+    color: #ff4444;
+    background: rgba(179, 0, 0, 0.15);
+    box-shadow: 0 0 16px rgba(179, 0, 0, 0.12);
+}
+.tbc-faction-btn[data-faction="alliance"]:hover,
+.tbc-faction-btn[data-faction="alliance"].active {
+    border-color: var(--tbc-alliance-blue);
+    color: #4488ff;
+    background: rgba(0, 87, 184, 0.15);
+    box-shadow: 0 0 16px rgba(0, 87, 184, 0.12);
+}
+.tbc-zone-path {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+    padding-left: 2rem;
+}
+.tbc-zone-path::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--tbc-fel-green), var(--wow-gold), var(--tbc-arcane-purple));
+    border-radius: 2px;
+}
+.tbc-zone-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.25s ease;
+    position: relative;
+}
+.tbc-zone-card::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 1.2rem;
+    width: 16px;
+    height: 16px;
+    background: var(--tbc-fel-green);
+    border: 3px solid var(--wow-dark);
+    border-radius: 50%;
+    z-index: 1;
+    box-shadow: 0 0 8px rgba(112, 192, 80, 0.4);
+}
+.tbc-zone-card:hover { border-color: rgba(212, 175, 55, 0.25); }
+.tbc-zone-card.expanded { border-color: rgba(255, 209, 0, 0.3); }
+.tbc-zone-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+}
+.tbc-zone-header h4 {
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    color: var(--wow-gold);
+    font-size: 1rem;
+    margin: 0;
+    flex: 1;
+}
+.tbc-zone-badges {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+.tbc-zone-level,
+.tbc-zone-time {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-family: 'Friz Quadrata', serif;
+}
+.tbc-zone-level { background: rgba(112, 192, 80, 0.12); color: var(--tbc-fel-green); border: 1px solid rgba(112, 192, 80, 0.2); }
+.tbc-zone-time { background: rgba(255, 209, 0, 0.1); color: var(--wow-gold); border: 1px solid rgba(255, 209, 0, 0.2); }
+.tbc-zone-density {
+    color: var(--wow-gold);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+}
+.tbc-zone-details {
+    padding: 0 1.25rem 1.25rem;
+    border-top: 1px solid rgba(74, 60, 40, 0.15);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.88rem;
+    line-height: 1.6;
+}
+.tbc-zone-details h5 { color: var(--wow-gold); font-size: 0.9rem; margin: 0.75rem 0 0.35rem; }
+.tbc-zone-details ul { margin: 0; padding-left: 1.2rem; }
+.tbc-zone-details li { margin-bottom: 0.3rem; }
+
+/* ==================== PROFESSION CALCULATOR ==================== */
+.tbc-prof-calc { margin-top: 2rem; }
+.tbc-prof-select-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+.tbc-prof-select {
+    padding: 0.65rem 1.25rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(74, 60, 40, 0.3);
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.8);
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    min-width: 250px;
+}
+.tbc-prof-select option { background: #1a0a00; }
+.tbc-prof-results { margin-top: 1rem; }
+.tbc-prof-results .tbc-prof-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+.tbc-prof-results h3 {
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    color: var(--wow-gold);
+    font-size: 1.15rem;
+    margin: 0;
+}
+.tbc-prof-total {
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    font-size: 0.95rem;
+    color: var(--wow-gold);
+    background: rgba(255, 209, 0, 0.08);
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 209, 0, 0.2);
+}
+.tbc-prof-phase-label {
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    color: rgba(255, 209, 0, 0.75);
+    font-size: 0.95rem;
+    margin: 1.25rem 0 0.75rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+}
+
+/* ==================== COMMUNITY ACTIONS ==================== */
+.tbc-community-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    margin-top: 1.5rem;
+    border-top: 1px solid rgba(74, 60, 40, 0.15);
+    flex-wrap: wrap;
+}
+.tbc-vote-group {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+.tbc-vote-btn {
+    background: none;
+    border: 1px solid rgba(74, 60, 40, 0.25);
+    border-radius: 4px;
+    color: rgba(255, 255, 255, 0.35);
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    line-height: 1;
+}
+.tbc-vote-btn:hover { border-color: rgba(212, 175, 55, 0.4); color: rgba(255, 255, 255, 0.7); }
+.tbc-vote-btn[data-vote="up"].active { color: var(--tbc-fel-green); border-color: var(--tbc-fel-green); }
+.tbc-vote-btn[data-vote="down"].active { color: #e57373; border-color: #e57373; }
+.tbc-vote-count {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.4);
+    min-width: 24px;
+    text-align: center;
+    font-family: 'Friz Quadrata', serif;
+}
+.tbc-vote-count.positive { color: var(--tbc-fel-green); }
+.tbc-vote-count.negative { color: #e57373; }
+.tbc-share-btn,
+.tbc-report-btn {
+    background: none;
+    border: 1px solid rgba(74, 60, 40, 0.2);
+    border-radius: 6px;
+    color: rgba(255, 255, 255, 0.35);
+    padding: 0.3rem 0.75rem;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Georgia', serif;
+}
+.tbc-share-btn:hover { border-color: rgba(212, 175, 55, 0.3); color: rgba(255, 255, 255, 0.7); }
+.tbc-report-btn:hover { border-color: rgba(200, 50, 50, 0.3); color: #e57373; }
+.tbc-updated-badge {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.25);
+    font-style: italic;
+}
+
+/* ==================== TOAST NOTIFICATIONS ==================== */
+.tbc-toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.tbc-toast {
+    background: rgba(26, 18, 9, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 8px;
+    padding: 0.75rem 1.25rem;
+    color: var(--wow-gold);
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    font-size: 0.88rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    transform: translateX(120%);
+    transition: transform 0.3s ease;
+}
+.tbc-toast-visible { transform: translateX(0); }
+
+/* ==================== GOLD MAKING ==================== */
+.tbc-gold-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+}
+.tbc-gold-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    transition: all 0.25s ease;
+}
+.tbc-gold-card:hover { border-color: rgba(212, 175, 55, 0.25); transform: translateY(-2px); }
+.tbc-gold-card h4 {
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    color: var(--wow-gold);
+    font-size: 0.95rem;
+    margin: 0 0 0.5rem;
+}
+.tbc-gold-amount {
+    font-family: 'Friz Quadrata', serif;
+    font-size: 1.1rem;
+    color: var(--wow-gold);
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+}
+.tbc-gold-card p { color: rgba(255, 255, 255, 0.5); font-size: 0.85rem; line-height: 1.5; margin: 0.5rem 0 0; }
+.tbc-gold-meta {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+}
+.tbc-gold-difficulty,
+.tbc-gold-req {
+    font-size: 0.72rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.tbc-gold-difficulty { background: rgba(76, 175, 80, 0.12); color: #81c784; border: 1px solid rgba(76, 175, 80, 0.2); }
+.tbc-gold-difficulty.medium { background: rgba(255, 152, 0, 0.12); color: #ffb74d; border-color: rgba(255, 152, 0, 0.2); }
+.tbc-gold-difficulty.hard { background: rgba(244, 67, 54, 0.12); color: #e57373; border-color: rgba(244, 67, 54, 0.2); }
+.tbc-gold-req { background: rgba(33, 150, 243, 0.12); color: #64b5f6; border: 1px solid rgba(33, 150, 243, 0.2); }
+
+/* ==================== REPUTATION ==================== */
+.tbc-rep-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.25rem;
+}
+.tbc-rep-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.25s ease;
+}
+.tbc-rep-card:hover { border-color: rgba(212, 175, 55, 0.25); }
+.tbc-rep-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.75rem 1.25rem;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.06), transparent);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+}
+.tbc-rep-card-header h4 {
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    color: var(--wow-gold);
+    font-size: 0.95rem;
+    margin: 0;
+}
+.tbc-rep-card-header .tbc-rep-zone {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.35);
+}
+.tbc-rep-card-body { padding: 0.85rem 1.25rem; }
+.tbc-rep-card-body p { color: rgba(255, 255, 255, 0.55); font-size: 0.85rem; line-height: 1.5; margin: 0 0 0.5rem; }
+.tbc-rep-rewards { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
+.tbc-rep-reward {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    background: rgba(163, 53, 238, 0.08);
+    color: var(--item-epic);
+    border: 1px solid rgba(163, 53, 238, 0.15);
+}
+
+/* ==================== PVP SECTION ==================== */
+.tbc-pvp-bracket { margin-bottom: 2rem; }
+.tbc-pvp-bracket h3 {
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    color: rgba(255, 209, 0, 0.85);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+}
+.tbc-pvp-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+.tbc-pvp-comp-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    transition: all 0.25s ease;
+}
+.tbc-pvp-comp-card:hover { border-color: rgba(212, 175, 55, 0.25); }
+.tbc-pvp-comp-card h4 {
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    color: var(--wow-gold);
+    font-size: 0.95rem;
+    margin: 0 0 0.35rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.tbc-pvp-tier-badge {
+    font-size: 0.7rem;
+    padding: 0.1rem 0.45rem;
+    border-radius: 4px;
+    font-weight: 700;
+}
+.tbc-pvp-tier-badge.tier-s { background: rgba(255, 215, 0, 0.15); color: var(--tier-s); border: 1px solid rgba(255, 215, 0, 0.3); }
+.tbc-pvp-tier-badge.tier-a { background: rgba(76, 175, 80, 0.12); color: var(--tier-a); border: 1px solid rgba(76, 175, 80, 0.2); }
+.tbc-pvp-comp-card p { color: rgba(255, 255, 255, 0.5); font-size: 0.85rem; line-height: 1.5; margin: 0; }
+
+/* ==================== RESPONSIVE: NEW SECTIONS ==================== */
+@media (max-width: 1024px) {
+    .tbc-sidebar { display: none; }
+    .tbc-sidebar.open {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 100;
+        width: 280px;
+        height: 100vh;
+    }
+    #tbc-sidebar-toggle { display: flex; }
+    .tbc-main-content { padding: 2rem 1.25rem 3rem; }
+}
+
+@media (max-width: 900px) {
+    .tbc-gold-grid,
+    .tbc-pvp-grid,
+    .tbc-arena-grid { grid-template-columns: 1fr; }
+    .tbc-zone-path { padding-left: 1.5rem; }
+    .tbc-zone-card::before { left: -1.5rem; }
+    .tbc-attune-chain-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    .tbc-attune-progress-wrap { max-width: 100%; }
+}
+
+@media (max-width: 600px) {
+    .tbc-search-section { padding: 0 1rem; }
+    .tbc-db-table { font-size: 0.78rem; }
+    .tbc-db-table thead th,
+    .tbc-db-table tbody td { padding: 0.5rem 0.6rem; }
+    .tbc-community-actions { font-size: 0.78rem; }
+    .tbc-rep-grid { grid-template-columns: 1fr; }
+    #tbc-theme-toggle { top: auto; bottom: 20px; right: 20px; width: 38px; height: 38px; font-size: 1.1rem; }
+    .tbc-zone-path { padding-left: 0; }
+    .tbc-zone-path::before { display: none; }
+    .tbc-zone-card::before { display: none; }
+    .tbc-sidebar.open { width: 260px; }
+    .tbc-attune-tracker .tbc-attune-chain,
+    .tbc-gold-card,
+    .tbc-pvp-comp-card,
+    .tbc-arena-card,
+    .tbc-rep-card { backdrop-filter: none; background: var(--wow-panel); }
+}
+
+
+/* ==================== THEME TOGGLE (class selector) ==================== */
+.tbc-theme-toggle {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 200;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    background: rgba(10, 6, 2, 0.85);
+    backdrop-filter: blur(8px);
+    color: var(--wow-gold);
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+.tbc-theme-toggle:hover {
+    border-color: var(--wow-gold);
+    box-shadow: 0 0 20px rgba(255, 209, 0, 0.2);
+    transform: scale(1.1);
+}
+.tbc-theme-toggle .toggle-icon {
+    transition: transform 0.3s ease;
+}
+.tbc-theme-toggle:hover .toggle-icon {
+    transform: rotate(20deg);
+}
+.tbc-theme-light .tbc-theme-toggle {
+    background: rgba(255, 250, 240, 0.9);
+    border-color: rgba(139, 105, 20, 0.3);
+    color: #8B6914;
+}
+
+/* ==================== PROFESSION CALCULATOR ROWS ==================== */
+.tbc-prof-phase {
+    margin-bottom: 1.5rem;
+}
+.tbc-prof-phase-header {
+    display: inline-block;
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    color: rgba(255, 209, 0, 0.85);
+    font-size: 0.9rem;
+    padding: 0.35rem 1rem;
+    border-radius: 6px;
+    background: rgba(255, 209, 0, 0.06);
+    border: 1px solid rgba(255, 209, 0, 0.15);
+    margin-bottom: 0.75rem;
+}
+.tbc-prof-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.6rem 0.85rem;
+    border-bottom: 1px solid rgba(74, 60, 40, 0.1);
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    transition: background 0.2s ease;
+}
+.tbc-prof-row:last-child { border-bottom: none; }
+.tbc-prof-row:hover { background: rgba(255, 209, 0, 0.025); }
+.tbc-prof-row .recipe-name {
+    color: var(--item-uncommon);
+    font-weight: 600;
+    min-width: 180px;
+}
+.tbc-prof-row .recipe-range {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.78rem;
+    min-width: 60px;
+}
+.tbc-prof-mat-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    flex: 1;
+}
+.tbc-prof-mat-list span {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 0.1rem 0.45rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    border: 1px solid rgba(74, 60, 40, 0.15);
+}
+.tbc-prof-gold {
+    color: var(--wow-gold);
+    font-weight: 700;
+    font-family: 'Friz Quadrata', serif;
+    font-size: 0.85rem;
+    min-width: 60px;
+    text-align: right;
+}
+
+/* ==================== DIFFICULTY BADGES ==================== */
+.tbc-difficulty-badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    padding: 0.15rem 0.55rem;
+    border-radius: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+.tbc-difficulty-badge.easy {
+    background: rgba(76, 175, 80, 0.12);
+    color: #81c784;
+    border: 1px solid rgba(76, 175, 80, 0.2);
+}
+.tbc-difficulty-badge.medium {
+    background: rgba(255, 235, 59, 0.12);
+    color: #fff176;
+    border: 1px solid rgba(255, 235, 59, 0.2);
+}
+.tbc-difficulty-badge.hard {
+    background: rgba(255, 152, 0, 0.12);
+    color: #ffb74d;
+    border: 1px solid rgba(255, 152, 0, 0.2);
+}
+.tbc-difficulty-badge.brutal {
+    background: rgba(244, 67, 54, 0.12);
+    color: #e57373;
+    border: 1px solid rgba(244, 67, 54, 0.2);
+}
+
+/* ==================== UPDATED / PATCH BADGES ==================== */
+.tbc-updated-badge {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.25);
+    font-style: italic;
+}
+.tbc-patch-badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    padding: 0.15rem 0.55rem;
+    border-radius: 4px;
+    background: rgba(155, 89, 182, 0.1);
+    color: var(--tbc-arcane-purple);
+    border: 1px solid rgba(155, 89, 182, 0.2);
+    font-family: 'Friz Quadrata', serif;
+    font-weight: 600;
+}
+
+/* ==================== PVP EXTRAS ==================== */
+.tbc-pvp-rating {
+    display: inline-block;
+    font-size: 0.78rem;
+    padding: 0.15rem 0.6rem;
+    border-radius: 4px;
+    background: rgba(255, 209, 0, 0.08);
+    color: var(--wow-gold);
+    border: 1px solid rgba(255, 209, 0, 0.2);
+    font-family: 'Friz Quadrata', serif;
+    font-weight: 700;
+}
+.tbc-pvp-class-icons {
+    display: flex;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
+}
+.tbc-pvp-class-icons img {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    transition: transform 0.2s ease;
+}
+.tbc-pvp-class-icons img:hover {
+    transform: scale(1.15);
+}
+
+/* ==================== REPUTATION EXTRAS ==================== */
+.tbc-rep-method {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+    margin-top: 0.35rem;
+    line-height: 1.5;
+}
+.tbc-rep-standing-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0.12rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+.tbc-rep-standing-badge.neutral {
+    background: rgba(158, 158, 158, 0.12);
+    color: #bdbdbd;
+    border: 1px solid rgba(158, 158, 158, 0.2);
+}
+.tbc-rep-standing-badge.friendly {
+    background: rgba(76, 175, 80, 0.1);
+    color: #81c784;
+    border: 1px solid rgba(76, 175, 80, 0.18);
+}
+.tbc-rep-standing-badge.honored {
+    background: rgba(76, 175, 80, 0.15);
+    color: #66bb6a;
+    border: 1px solid rgba(76, 175, 80, 0.25);
+}
+.tbc-rep-standing-badge.revered {
+    background: rgba(33, 150, 243, 0.12);
+    color: #64b5f6;
+    border: 1px solid rgba(33, 150, 243, 0.2);
+}
+.tbc-rep-standing-badge.exalted {
+    background: rgba(163, 53, 238, 0.12);
+    color: var(--item-epic);
+    border: 1px solid rgba(163, 53, 238, 0.2);
+    box-shadow: 0 0 8px rgba(163, 53, 238, 0.1);
+}
+
+/* ==================== GOLD MAKING REQUIREMENTS ==================== */
+.tbc-gold-requirements {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+.tbc-gold-requirements li {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.45);
+    padding-left: 1rem;
+    position: relative;
+}
+.tbc-gold-requirements li::before {
+    content: '\2022';
+    position: absolute;
+    left: 0;
+    color: rgba(255, 209, 0, 0.4);
+}
+
+/* ==================== RESPONSIVE: MISSING SECTIONS ==================== */
+@media (max-width: 900px) {
+    .tbc-prof-row {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    .tbc-prof-row .recipe-name { min-width: auto; }
+    .tbc-prof-mat-list { flex-basis: 100%; }
+}
+
+@media (max-width: 600px) {
+    .tbc-prof-row { padding: 0.5rem 0.5rem; font-size: 0.8rem; }
+    .tbc-pvp-class-icons img { width: 20px; height: 20px; }
+    .tbc-theme-toggle {
+        top: auto;
+        bottom: 20px;
+        right: 20px;
+        width: 38px;
+        height: 38px;
+        font-size: 1.1rem;
+    }
+}

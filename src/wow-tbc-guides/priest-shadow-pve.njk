@@ -1,0 +1,502 @@
+---
+layout: base.njk
+title: "Shadow Priest PvE Guide | TBC Classic | Scarmonit"
+description: "Complete Shadow Priest PvE guide for WoW TBC Classic. Interactive talent calculator with level-by-level progression from 10-70."
+styles:
+  - /assets/css/wow-talents.css
+schemaType: guide
+scripts:
+  - /assets/js/priest-shadow-data.js
+  - /assets/js/talent-calc.js
+  - /assets/js/accordion.js
+---
+
+<section class="guide-hero priest-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="hero-badge">TBC Classic</div>
+        <h1>Shadow Priest</h1>
+        <p class="hero-subtitle">PvE Talent Guide & Calculator</p>
+        <div class="build-summary">
+            <span class="build-type">14/0/47</span>
+            <span class="build-role">Raiding & Dungeons</span>
+        </div>
+    </div>
+</section>
+
+<div class="guide-breadcrumb">
+    <a href="/">Home</a>
+    <span class="bc-sep">&#9656;</span>
+    <a href="/wow-tbc-guides/">TBC Guides</a>
+    <span class="bc-sep">&#9656;</span>
+    <span class="bc-current">Shadow Priest</span>
+</div>
+
+<div class="guide-container">
+    <!-- Level Selector -->
+    <div class="level-selector wow-panel">
+        <div class="panel-header">Character Level</div>
+        <div class="panel-content">
+            <div class="level-input-group">
+                <label for="player-level">Level:</label>
+                <button type="button" class="level-btn" id="level-down" aria-label="Decrease level">-</button>
+                <input type="number" id="player-level" min="10" max="70" value="70" aria-label="Character level">
+                <button type="button" class="level-btn" id="level-up" aria-label="Increase level">+</button>
+            </div>
+            <div class="talent-points-display">
+                <span class="points-label">Talent Points:</span>
+                <span class="points-value" id="available-points">61</span>
+            </div>
+            <div class="button-group">
+                <button id="reset-talents" class="wow-btn red">Reset All</button>
+                <button id="apply-recommended" class="wow-btn green">Apply Build</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="level-progress-container">
+        <div class="level-progress-bar">
+            <div class="level-progress-fill" id="level-progress"></div>
+        </div>
+        <div class="level-markers">
+            <span>10</span><span>20</span><span>30</span><span>40</span><span>50</span><span>60</span><span>70</span>
+        </div>
+    </div>
+
+    <!-- Current Talent Recommendation -->
+    <div class="recommendation-box wow-panel" id="recommendation-box">
+        <div class="panel-header">Next Talent Point</div>
+        <div class="panel-content">
+            <p id="next-talent-text">Put your next point in: <strong id="next-talent-name">Loading...</strong></p>
+        </div>
+    </div>
+
+    <!-- Talent Trees Container -->
+    <div class="talent-trees">
+        <!-- Discipline Tree -->
+        <div class="talent-tree" id="discipline-tree">
+            <div class="tree-header disc">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_holy_wordfortitude.jpg" alt="Discipline" class="tree-icon">
+                <h2>Discipline</h2>
+                <span class="tree-points" id="disc-points">0</span>
+            </div>
+            <div class="tree-background disc"></div>
+            <div class="tree-grid-wrapper">
+                <svg class="arrow-layer" id="disc-arrows"></svg>
+                <div class="tree-grid" id="disc-grid">
+                    <!-- Talents injected by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Holy Tree -->
+        <div class="talent-tree" id="holy-tree">
+            <div class="tree-header pri-holy">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_holy_holybolt.jpg" alt="Holy" class="tree-icon">
+                <h2>Holy</h2>
+                <span class="tree-points" id="holy-points">0</span>
+            </div>
+            <div class="tree-background pri-holy"></div>
+            <div class="tree-grid-wrapper">
+                <svg class="arrow-layer" id="holy-arrows"></svg>
+                <div class="tree-grid" id="holy-grid">
+                    <!-- Talents injected by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Shadow Tree -->
+        <div class="talent-tree" id="shadow-tree">
+            <div class="tree-header shadow">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_shadowwordpain.jpg" alt="Shadow" class="tree-icon">
+                <h2>Shadow</h2>
+                <span class="tree-points" id="shadow-points">0</span>
+            </div>
+            <div class="tree-background shadow"></div>
+            <div class="tree-grid-wrapper">
+                <svg class="arrow-layer" id="shadow-arrows"></svg>
+                <div class="tree-grid" id="shadow-grid">
+                    <!-- Talents injected by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Build Summary -->
+    <div class="build-export wow-panel">
+        <div class="panel-header">Current Build</div>
+        <div class="panel-content">
+            <div class="build-string" id="build-string">0/0/0</div>
+        </div>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="guide-content wow-panel">
+        <div class="panel-header">Why Shadow?</div>
+        <div class="panel-content">
+            <p>Shadow Priests are one of the most desirable raid specs in TBC Classic. While your personal DPS is moderate, Vampiric Touch returns mana to your entire group equal to 5% of your Shadow damage, making you essential for sustaining mana-hungry casters. Shadow Weaving also increases Shadow damage taken by 10%, boosting Warlock DPS significantly. The 14/0/47 build maximizes Shadow output while picking up Meditation from Discipline for mana sustainability.</p>
+
+            <h3>Key Talents</h3>
+            <div class="talent-explanations">
+                <div class="talent-explain">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_shadowwordpain.jpg" alt="Vampiric Touch" class="explain-icon">
+                    <div>
+                        <h4>Vampiric Touch</h4>
+                        <p>Causes Shadow damage over 15 sec. When the target takes damage from your Mind Blast, your party gains mana equal to 5% of the damage. The #1 reason you're brought to raids.</p>
+                    </div>
+                </div>
+                <div class="talent-explain">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_shadowform.jpg" alt="Shadowform" class="explain-icon">
+                    <div>
+                        <h4>Shadowform</h4>
+                        <p>Assume a Shadowform, increasing your Shadow damage by 15% and reducing Physical damage taken by 15%. Your core form for all Shadow DPS.</p>
+                    </div>
+                </div>
+                <div class="talent-explain">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_misery.jpg" alt="Misery" class="explain-icon">
+                    <div>
+                        <h4>Misery</h4>
+                        <p>Your Shadow Word: Pain, Mind Flay and Vampiric Touch spells also increase the chance for spells to hit by 5%. Massive raid-wide hit buff for all casters.</p>
+                    </div>
+                </div>
+                <div class="talent-explain">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_shadowweaving.jpg" alt="Shadow Weaving" class="explain-icon">
+                    <div>
+                        <h4>Shadow Weaving</h4>
+                        <p>Your Shadow damage spells have a 100% chance to cause your target to be vulnerable to Shadow damage, increasing Shadow damage taken by 2% per stack, up to 10%.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Stat Priority</h3>
+            <ol>
+                <li><strong>Hit Rating</strong> (until 16% / 202 rating for spells)</li>
+                <li><strong>Spell Damage (Shadow)</strong></li>
+                <li><strong>Spell Haste Rating</strong></li>
+                <li><strong>Spell Critical Strike Rating</strong></li>
+                <li><strong>Intellect</strong></li>
+                <li><strong>Spirit</strong></li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Rotation -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Rotation / Ability Priority</div>
+        <div class="panel-content accordion-body">
+            <p class="section-intro">Shadow Priest DPS follows a strict DoT-priority rotation. Keep Vampiric Touch and Shadow Word: Pain active at all times, use Mind Blast on cooldown to trigger mana return, and fill with Mind Flay. Shadow Word: Death is a filler when safe to use.</p>
+            <ol class="rotation-list">
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_shadowwordpain.jpg" alt="Vampiric Touch" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Vampiric Touch</span> — Apply first and keep up at all times. When Mind Blast deals damage, your party gains mana equal to 5% of VT's damage.</div>
+                </li>
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_shadowwordpain.jpg" alt="Shadow Word: Pain" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Shadow Word: Pain</span> — Keep up at all times. Strong DoT that benefits from Shadow Weaving and Shadow Form.</div>
+                </li>
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_unholyfrenzy.jpg" alt="Mind Blast" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Mind Blast</span> — Use on cooldown (5.5s with talents). Triggers Vampiric Touch mana return for your group. Highest single-hit damage.</div>
+                </li>
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_siphonmana.jpg" alt="Mind Flay" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Mind Flay</span> — Your primary filler. Cast 2-3 times between Mind Blast cooldowns. Clip the last tick if Mind Blast is coming off cooldown.</div>
+                </li>
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_demonicfortitude.jpg" alt="Shadow Word: Death" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Shadow Word: Death</span> — Instant cast filler when safe. Deals backlash damage to you, so only use when healers can keep you topped.</div>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Pre-Raid BiS -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Pre-Raid Best in Slot</div>
+        <div class="panel-content accordion-body">
+            <p class="section-intro">Best gear obtainable from heroic dungeons, crafting, reputation, and quests before entering Karazhan. Reaching the 16% spell hit cap is critical.</p>
+            <table class="bis-table">
+                <thead>
+                    <tr><th class="slot-col">Slot</th><th>Item</th><th>Source</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="slot-col">Head</td><td class="item-col">Spellstrike Hood</td><td class="source-col">Tailoring (Crafted)</td></tr>
+                    <tr><td class="slot-col">Neck</td><td class="item-col rare">Brooch of Heightened Potential</td><td class="source-col">Heroic Underbog — Ghaz'an</td></tr>
+                    <tr><td class="slot-col">Shoulders</td><td class="item-col">Frozen Shadoweave Shoulders</td><td class="source-col">Tailoring (Crafted)</td></tr>
+                    <tr><td class="slot-col">Back</td><td class="item-col rare">Cloak of the Black Void</td><td class="source-col">Tailoring (Crafted)</td></tr>
+                    <tr><td class="slot-col">Chest</td><td class="item-col">Frozen Shadoweave Robe</td><td class="source-col">Tailoring (Crafted)</td></tr>
+                    <tr><td class="slot-col">Wrists</td><td class="item-col rare">Bracers of Havok</td><td class="source-col">Tailoring (Crafted)</td></tr>
+                    <tr><td class="slot-col">Hands</td><td class="item-col rare">Gloves of Unseen Evil</td><td class="source-col">Heroic Shadow Labyrinth — Murmur</td></tr>
+                    <tr><td class="slot-col">Waist</td><td class="item-col rare">Belt of Depravity</td><td class="source-col">Heroic Shadow Labyrinth — Grandmaster Vorpil</td></tr>
+                    <tr><td class="slot-col">Legs</td><td class="item-col">Spellstrike Pants</td><td class="source-col">Tailoring (Crafted)</td></tr>
+                    <tr><td class="slot-col">Feet</td><td class="item-col">Frozen Shadoweave Boots</td><td class="source-col">Tailoring (Crafted)</td></tr>
+                    <tr><td class="slot-col">Ring 1</td><td class="item-col rare">Seer's Signet</td><td class="source-col">The Scryers — Exalted</td></tr>
+                    <tr><td class="slot-col">Ring 2</td><td class="item-col rare">Ashyen's Gift</td><td class="source-col">Cenarion Expedition — Exalted</td></tr>
+                    <tr><td class="slot-col">Trinket 1</td><td class="item-col rare">Icon of the Silver Crescent</td><td class="source-col">41 Badge of Justice</td></tr>
+                    <tr><td class="slot-col">Trinket 2</td><td class="item-col rare">Quagmirran's Eye</td><td class="source-col">Heroic Slave Pens — Quagmirran</td></tr>
+                    <tr><td class="slot-col">Weapon</td><td class="item-col rare">Greatsword of Horrid Dreams</td><td class="source-col">Heroic Shadow Labyrinth — Murmur</td></tr>
+                    <tr><td class="slot-col">Wand</td><td class="item-col rare">Nether Core's Control Rod</td><td class="source-col">Heroic Mechanar — Nethermancer Sepethrea</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Raid BiS -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Raid Best in Slot (T5 / T6)</div>
+        <div class="panel-content accordion-body">
+            <p class="section-intro">Best endgame gear from SSC, Tempest Keep, Hyjal, Black Temple, and Sunwell Plateau. Prioritize spell hit (16% cap) > shadow damage > haste > crit.</p>
+            <table class="bis-table">
+                <thead>
+                    <tr><th class="slot-col">Slot</th><th>Item</th><th>Source</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="slot-col">Head</td><td class="item-col">Helm of Burning Righteousness</td><td class="source-col">Sunwell Plateau — Kil'jaeden</td></tr>
+                    <tr><td class="slot-col">Neck</td><td class="item-col">Amulet of Unfettered Magics</td><td class="source-col">Sunwell Plateau — Brutallus</td></tr>
+                    <tr><td class="slot-col">Shoulders</td><td class="item-col">Shoulderpads of Absolution</td><td class="source-col">Black Temple — Mother Shahraz</td></tr>
+                    <tr><td class="slot-col">Back</td><td class="item-col">Tattered Cape of Antonidas</td><td class="source-col">Sunwell Plateau — Kil'jaeden</td></tr>
+                    <tr><td class="slot-col">Chest</td><td class="item-col">Vestments of Absolution</td><td class="source-col">Black Temple — Illidan Stormrage</td></tr>
+                    <tr><td class="slot-col">Wrists</td><td class="item-col">Cuffs of Absolution</td><td class="source-col">Sunwell Plateau — Kalecgos</td></tr>
+                    <tr><td class="slot-col">Hands</td><td class="item-col">Handguards of Absolution</td><td class="source-col">Hyjal Summit — Azgalor</td></tr>
+                    <tr><td class="slot-col">Waist</td><td class="item-col">Belt of Divine Inspiration</td><td class="source-col">Sunwell Plateau — M'uru</td></tr>
+                    <tr><td class="slot-col">Legs</td><td class="item-col">Leggings of Calamity</td><td class="source-col">Sunwell Plateau — Felmyst</td></tr>
+                    <tr><td class="slot-col">Feet</td><td class="item-col">Boots of Absolution</td><td class="source-col">Black Temple — Teron Gorefiend</td></tr>
+                    <tr><td class="slot-col">Ring 1</td><td class="item-col">Ring of Omnipotence</td><td class="source-col">Sunwell Plateau — M'uru</td></tr>
+                    <tr><td class="slot-col">Ring 2</td><td class="item-col">Band of the Eternal Sage</td><td class="source-col">Hyjal Summit — Exalted</td></tr>
+                    <tr><td class="slot-col">Trinket 1</td><td class="item-col">The Skull of Gul'dan</td><td class="source-col">Black Temple — Illidan Stormrage</td></tr>
+                    <tr><td class="slot-col">Trinket 2</td><td class="item-col">Shifting Naaru Sliver</td><td class="source-col">Sunwell Plateau — M'uru</td></tr>
+                    <tr><td class="slot-col">Weapon</td><td class="item-col">Sunflare</td><td class="source-col">Sunwell Plateau — Kil'jaeden</td></tr>
+                    <tr><td class="slot-col">Offhand</td><td class="item-col">Chronicle of Dark Secrets</td><td class="source-col">Sunwell Plateau — Felmyst</td></tr>
+                    <tr><td class="slot-col">Wand</td><td class="item-col">Wand of the Demonsoul</td><td class="source-col">Black Temple — Teron Gorefiend</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Macros & Keybinds</div>
+        <div class="panel-content accordion-body">
+            <p class="section-intro">Essential Shadow Priest macros for TBC Classic. Focus on DoT management and utility.</p>
+            <div class="guide-macro-grid">
+                <div class="guide-macro-card">
+                    <div class="guide-macro-title">
+                        <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_shadowwordpain.jpg" alt="" loading="lazy">
+                        <h4>Vampiric Touch + Trinkets</h4>
+                    </div>
+                    <code class="guide-macro-code">#showtooltip Vampiric Touch
+/use 13
+/use 14
+/cast Vampiric Touch</code>
+                    <p class="guide-macro-desc">Opens with trinkets + VT for maximum damage on initial DoTs.</p>
+                </div>
+                <div class="guide-macro-card">
+                    <div class="guide-macro-title">
+                        <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_demonicfortitude.jpg" alt="" loading="lazy">
+                        <h4>Shadow Word: Death Cancel</h4>
+                    </div>
+                    <code class="guide-macro-code">#showtooltip Shadow Word: Death
+/stopcasting
+/cast Shadow Word: Death</code>
+                    <p class="guide-macro-desc">Cancels Mind Flay to instantly fire SW:D when it comes off cooldown.</p>
+                </div>
+                <div class="guide-macro-card">
+                    <div class="guide-macro-title">
+                        <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_holy_dispelmagic.jpg" alt="" loading="lazy">
+                        <h4>Mouseover Dispel</h4>
+                    </div>
+                    <code class="guide-macro-code">#showtooltip Dispel Magic
+/cast [@mouseover,help,nodead][@target] Dispel Magic</code>
+                    <p class="guide-macro-desc">Dispels friendly targets without losing your DPS target.</p>
+                </div>
+                <div class="guide-macro-card">
+                    <div class="guide-macro-title">
+                        <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_unholyfrenzy.jpg" alt="" loading="lazy">
+                        <h4>Shadowfiend on Target</h4>
+                    </div>
+                    <code class="guide-macro-code">#showtooltip Shadowfiend
+/cast [@target,harm,nodead] Shadowfiend</code>
+                    <p class="guide-macro-desc">Summons Shadowfiend on your current target for mana regen.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Quick Tips & Common Mistakes</div>
+        <div class="panel-content accordion-body">
+            <ul class="quick-tips-list">
+                <li class="tip-do"><span class="tip-icon">+</span> Keep Vampiric Touch up at all times — it provides mana to your entire party (5% of shadow damage dealt).</li>
+                <li class="tip-do"><span class="tip-icon">+</span> Cancel Mind Flay early if Mind Blast or SW:D come off cooldown — never let them sit unused.</li>
+                <li class="tip-dont"><span class="tip-icon">-</span> Don't forget Shadow Word: Death — it's free DPS. Just watch your health on the self-damage backlash.</li>
+                <li class="tip-dont"><span class="tip-icon">-</span> Don't multi-dot in raids unless assigned to — threat generation from multiple DoTs can pull aggro.</li>
+                <li class="tip-info"><span class="tip-icon">i</span> Hit cap is 16% for spells (202 rating). Shadow Focus talent provides 10%, so you only need 76 rating from gear.</li>
+                <li class="tip-info"><span class="tip-icon">i</span> Shadow Priests have NO AoE — on trash, multi-dot or use SW:P on as many targets as feasible.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Gems & Enchants -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Gems & Enchants</div>
+        <div class="panel-content accordion-body">
+            <h3>Meta Gem</h3>
+            <p><span class="gem-meta">Chaotic Skyfire Diamond</span> — +12 Spell Critical Strike, +3% Critical Strike Damage. Requires more blue gems than yellow.</p>
+
+            <h3>Gem Priority</h3>
+            <p>Use <span class="gem-red">Runed Living Ruby</span> (+9 Spell Damage) in red sockets. Use <span class="gem-orange">Veiled Noble Topaz</span> (+4 Spell Hit / +5 Spell Damage) in yellow sockets until hit capped. Use <span class="gem-purple">Glowing Nightseye</span> (+5 Spell Damage / +6 Stamina) in blue sockets to activate meta requirement.</p>
+
+            <h3>Enchants</h3>
+            <div class="enchant-grid">
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Head</div>
+                        <div class="enchant-name">Glyph of Power</div>
+                        <div class="enchant-source">Sha'tar — Revered</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Shoulders</div>
+                        <div class="enchant-name">Greater Inscription of Discipline</div>
+                        <div class="enchant-source">Aldor — Exalted</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Back</div>
+                        <div class="enchant-name">Enchant Cloak — Subtlety</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Chest</div>
+                        <div class="enchant-name">Enchant Chest — Exceptional Stats</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Wrists</div>
+                        <div class="enchant-name">Enchant Bracer — Spellpower</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Hands</div>
+                        <div class="enchant-name">Enchant Gloves — Major Spellpower</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Legs</div>
+                        <div class="enchant-name">Runic Spellthread</div>
+                        <div class="enchant-source">Tailoring</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Feet</div>
+                        <div class="enchant-name">Enchant Boots — Boar's Speed</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Weapon</div>
+                        <div class="enchant-name">Enchant Weapon — Soulfrost</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Ring (if Enchanter)</div>
+                        <div class="enchant-name">Enchant Ring — Spellpower</div>
+                        <div class="enchant-source">Enchanting (370)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Consumables -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Consumables</div>
+        <div class="panel-content accordion-body">
+            <h3>Flasks & Elixirs</h3>
+            <div class="consumable-grid">
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_121.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Flask of Pure Death</div>
+                        <div class="consumable-type">Flask — +80 Shadow, Fire, and Frost Spell Damage</div>
+                    </div>
+                </div>
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_107.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Destruction Potion</div>
+                        <div class="consumable-type">Potion — +120 Spell Damage, +2% Spell Crit for 15s</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Food</h3>
+            <div class="consumable-grid">
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_misc_food_86_basilisk.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Blackened Basilisk</div>
+                        <div class="consumable-type">+23 Spell Damage, +20 Spirit</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Other</h3>
+            <div class="consumable-grid">
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_105.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Superior Wizard Oil</div>
+                        <div class="consumable-type">+42 Spell Damage — Applied to weapon</div>
+                    </div>
+                </div>
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_137.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Super Mana Potion</div>
+                        <div class="consumable-type">Restores 1800-3000 Mana — Essential for long fights</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="guide-nav">
+        <div class="guide-nav-grid">
+            <a href="/wow-tbc-guides/rogue-combat-pve/" class="guide-nav-link prev">
+                <span class="nav-arrow">&#9666;</span>
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/classicon_rogue.jpg" alt="" class="nav-icon" loading="lazy">
+                <div>
+                    <span class="nav-label">Previous Guide</span>
+                    <span class="nav-class">Combat Rogue</span>
+                </div>
+            </a>
+            <a href="/wow-tbc-guides/shaman-enh-pve/" class="guide-nav-link next">
+                <div>
+                    <span class="nav-label">Next Guide</span>
+                    <span class="nav-class">Enh Shaman</span>
+                </div>
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/classicon_shaman.jpg" alt="" class="nav-icon" loading="lazy">
+                <span class="nav-arrow">&#9656;</span>
+            </a>
+        </div>
+        <a href="/wow-tbc-guides/" class="guide-back-link">&#9664; Back to All Guides</a>
+    </div>
+</div>
+
+<!-- Tooltip -->
+<div class="talent-tooltip" id="talent-tooltip"></div>

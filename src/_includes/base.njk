@@ -7,12 +7,12 @@
     <meta name="description" content="{{ description | default("Your ultimate gaming hub for Diablo 4 build guides, gaming tools, file sharing, and more. Premium resources for serious gamers.") }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/assets/css/enhanced.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/style.css?v=20260214a">
+    <link rel="stylesheet" href="/assets/css/enhanced.css?v=20260214a">
     {% if styles %}
     {% for style in styles %}
-    <link rel="stylesheet" href="{{ style }}">
+    <link rel="stylesheet" href="{{ style }}?v=20260214b">
     {% endfor %}
     {% endif %}
 
@@ -22,9 +22,12 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="SCARMONIT">
-    <link rel="apple-touch-icon" href="/assets/images/icon-192.png">
+    <link rel="apple-touch-icon" href="/assets/images/icon-512.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16.png">
+    {% if canonicalUrl %}
+    <link rel="canonical" href="{{ canonicalUrl }}">
+    {% endif %}
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:type" content="website">
@@ -58,6 +61,28 @@
         }
     }
     </script>
+    {% if schemaType == "guide" %}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "{{ title }}",
+        "description": "{{ description }}",
+        "articleSection": "Gaming",
+        "url": "https://scarmonit.com{{ page.url }}",
+        "publisher": {
+            "@type": "Organization",
+            "name": "SCARMONIT",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://scarmonit.com/assets/images/icon-512.png"
+            }
+        },
+        "datePublished": "2026-02-06",
+        "dateModified": "2026-02-07"
+    }
+    </script>
+    {% endif %}
 </head>
 <body>
     {% include "svg-defs.njk" %}
@@ -101,7 +126,7 @@
 
             <!-- Apps Dropdown -->
             <div class="nav-dropdown">
-                <button class="nav-dropdown-trigger {% if page.url | startsWith("/tools") or page.url | startsWith("/kpass") or page.url | startsWith("/soundboard") or page.url | startsWith("/upload") or page.url | startsWith("/screen-share") %}active{% endif %}" aria-haspopup="true" aria-expanded="false">
+                <button class="nav-dropdown-trigger {% if page.url | startsWith("/tools") or page.url | startsWith("/kpass") or page.url | startsWith("/soundboard") or page.url | startsWith("/upload") or page.url | startsWith("/screen-share") or page.url | startsWith("/music") %}active{% endif %}" aria-haspopup="true" aria-expanded="false">
                     Apps <span class="dropdown-arrow">▾</span>
                 </button>
                 <div class="dropdown-menu">
@@ -111,6 +136,7 @@
 
                     <a href="/upload" class="{% if page.url | startsWith("/upload") %}active{% endif %}">Upload</a>
                     <a href="/screen-share" class="{% if page.url | startsWith("/screen-share") %}active{% endif %}">Screen Share</a>
+                    <a href="/music" class="{% if page.url | startsWith("/music") %}active{% endif %}">Music</a>
                 </div>
             </div>
 
@@ -133,7 +159,7 @@
 
     {% if scripts %}
     {% for script in scripts %}
-    <script src="{{ script }}" defer></script>
+    <script src="{{ script }}?v=20260214d" defer></script>
     {% endfor %}
     {% endif %}
 

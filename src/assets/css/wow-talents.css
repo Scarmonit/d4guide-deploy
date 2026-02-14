@@ -1,0 +1,1797 @@
+:root {
+    --wow-gold: #ffd100;
+    --wow-gold-dark: #b8860b;
+    --wow-gold-dim: #8B6914;
+    --wow-brown: #1a1410;
+    --wow-brown-light: #2d2419;
+    --wow-border: #4a3c28;
+    --wow-border-light: #6b5a3c;
+    --hunter-green: #abd473;
+    --hunter-green-dark: #3d5a20;
+    --panel-bg: rgba(20, 15, 10, 0.95);
+    --tooltip-bg: rgba(1, 3, 8, 0.95);
+    --item-poor: #9d9d9d;
+    --item-common: #ffffff;
+    --item-uncommon: #1eff00;
+    --item-rare: #0070dd;
+    --item-epic: #a335ee;
+    --item-legendary: #ff8000;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+}
+
+/* Custom WoW Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0a0600;
+    border-left: 1px solid rgba(74, 60, 40, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #5a4a30, #3a2a18);
+    border: 1px solid var(--wow-gold-dark);
+    border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #6a5a40, #4a3a28);
+}
+
+/* Hero Section */
+.guide-hero.hunter-hero {
+    position: relative;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #1a2a1a 0%, #0d1a0d 100%);
+    border-bottom: 3px solid var(--hunter-green);
+    overflow: hidden;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('/assets/images/rexxar-hero.jpg') center/cover;
+    opacity: 0.15;
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--hunter-green), var(--hunter-green-dark));
+    color: #000;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 0 10px rgba(171, 212, 115, 0.2);
+}
+
+.guide-hero h1 {
+    font-family: 'Friz Quadrata', 'Georgia', 'Times New Roman', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--hunter-green);
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8), 0 0 30px rgba(171, 212, 115, 0.3);
+    letter-spacing: 1px;
+}
+
+.hero-subtitle {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+}
+
+.build-summary {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.build-type, .build-role {
+    background: var(--panel-bg);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    font-size: 0.9rem;
+    border: 1px solid var(--wow-border);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+}
+
+.build-type {
+    color: var(--hunter-green);
+}
+
+.build-role {
+    color: var(--wow-gold);
+}
+
+/* Guide Container */
+.guide-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 4rem;
+}
+
+/* WoW Panel Style - Authentic WoW UI Frame */
+.wow-panel {
+    background: var(--panel-bg);
+    border: 2px solid var(--wow-border);
+    border-radius: 6px;
+    margin-bottom: 1.75rem;
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+        0 0 0 1px rgba(100, 80, 50, 0.2),
+        0 0 0 3px rgba(15, 10, 5, 0.8),
+        0 6px 20px rgba(0, 0, 0, 0.5),
+        0 0 10px rgba(212, 175, 55, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04),
+        inset 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Subtle stone texture on panels */
+.wow-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: 0;
+}
+
+.panel-header {
+    background: linear-gradient(180deg, #352a1c 0%, var(--wow-brown) 100%);
+    padding: 0.75rem 1.25rem;
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    font-size: 1rem;
+    color: var(--wow-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 2px solid var(--wow-border);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 209, 0, 0.1);
+    border-top: 1px solid rgba(212, 175, 55, 0.15);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.06),
+        0 2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1;
+}
+
+.panel-content {
+    padding: 1rem;
+}
+
+/* Level Selector */
+.level-selector .panel-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.level-input-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.level-input-group label {
+    color: rgba(255,255,255,0.8);
+    font-weight: 500;
+}
+
+.level-input-group input {
+    width: 70px;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    font-family: 'Friz Quadrata', monospace;
+    background: rgba(0,0,0,0.5);
+    border: 2px solid var(--wow-border);
+    border-radius: 4px;
+    color: var(--wow-gold);
+    text-align: center;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.8);
+}
+
+.level-input-group input:focus {
+    outline: none;
+    border-color: var(--hunter-green);
+}
+
+.level-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    background: linear-gradient(to bottom, #2a2a2a, #1a1a1a);
+    border: 1px solid var(--wow-border);
+    border-radius: 4px;
+    color: var(--wow-gold);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.level-btn:hover {
+    border-color: var(--wow-gold);
+    background: linear-gradient(to bottom, #3a3a3a, #2a2a2a);
+    color: #fff;
+}
+
+.level-btn:active {
+    transform: scale(0.95);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.talent-points-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.points-label {
+    color: rgba(255,255,255,0.7);
+}
+
+.points-value {
+    font-family: 'Friz Quadrata', monospace;
+    font-size: 1.3rem;
+    color: var(--wow-gold);
+    font-weight: 700;
+    text-shadow: 0 0 5px rgba(255, 209, 0, 0.3);
+}
+
+.button-group {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.wow-btn {
+    padding: 0.6rem 1.2rem;
+    border: 1px solid;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    font-family: 'Friz Quadrata', serif;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+
+.wow-btn.red {
+    background: linear-gradient(180deg, #5a2020, #3a1010);
+    border-color: #7a4040;
+    color: #ff9b9b;
+}
+
+.wow-btn.red:hover {
+    background: linear-gradient(180deg, #6a3030, #4a1515);
+    border-color: #9a5050;
+    color: #fff;
+}
+
+.wow-btn.green {
+    background: linear-gradient(180deg, #3a5a20, #2a3a10);
+    border-color: #4a7a30;
+    color: #d4ff9b;
+}
+
+.wow-btn.green:hover {
+    background: linear-gradient(180deg, #4a6a30, #3a4a15);
+    border-color: #5a8a40;
+    color: #fff;
+}
+
+/* Level Progress */
+.level-progress-container {
+    margin-bottom: 1.5rem;
+}
+
+.level-progress-bar {
+    height: 12px;
+    background: #000;
+    border-radius: 6px;
+    border: 1px solid var(--wow-border);
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.level-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg,
+        var(--hunter-green-dark) 0%,
+        var(--hunter-green) 30%,
+        #c4e896 50%,
+        var(--hunter-green) 70%,
+        var(--hunter-green-dark) 100%);
+    transition: width 0.3s ease;
+    width: 100%;
+    box-shadow: 0 0 8px rgba(171, 212, 115, 0.6), inset 0 1px 0 rgba(255,255,255,0.3);
+}
+
+.level-markers {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.75rem;
+    font-family: 'Friz Quadrata', monospace;
+}
+
+/* Recommendation Box */
+.recommendation-box .panel-content p {
+    margin: 0;
+    text-align: center;
+    color: rgba(255,255,255,0.8);
+}
+
+.recommendation-box #next-talent-name {
+    color: var(--wow-gold);
+    font-size: 1.1rem;
+}
+
+/* Talent Trees */
+.talent-trees {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 1100px) {
+    .talent-trees {
+        grid-template-columns: 1fr;
+    }
+}
+
+.talent-tree {
+    position: relative;
+    background: var(--panel-bg);
+    border: 2px solid var(--wow-border);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.tree-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 2px solid;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.tree-header.bm {
+    background: linear-gradient(180deg, rgba(61, 90, 32, 0.95), rgba(26, 42, 26, 0.98));
+    border-color: var(--hunter-green);
+}
+
+.tree-header.mm {
+    background: linear-gradient(180deg, rgba(90, 60, 32, 0.95), rgba(42, 26, 15, 0.98));
+    border-color: #d4a03a;
+}
+
+.tree-header.sv {
+    background: linear-gradient(180deg, rgba(70, 50, 30, 0.95), rgba(35, 25, 15, 0.98));
+    border-color: #c49a6c;
+}
+
+.tree-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    border: 2px solid rgba(255,255,255,0.2);
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+.tree-header h2 {
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    font-size: 1rem;
+    color: #fff;
+    margin: 0;
+    flex: 1;
+    text-shadow: 1px 1px 2px #000;
+}
+
+.tree-points {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 0.3rem 0.75rem;
+    border-radius: 4px;
+    font-family: 'Friz Quadrata', monospace;
+    font-size: 1rem;
+    color: var(--wow-gold);
+    border: 1px solid var(--wow-border);
+    box-shadow: inset 0 0 5px #000;
+}
+
+.tree-background {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.25;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+}
+
+.tree-background.bm {
+    background: linear-gradient(180deg,
+        rgba(30, 60, 20, 0.8) 0%,
+        rgba(20, 45, 15, 0.9) 50%,
+        rgba(15, 35, 10, 1) 100%),
+        url('/assets/images/talent-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 1;
+}
+
+.tree-background.mm {
+    background: linear-gradient(180deg,
+        rgba(60, 45, 25, 0.8) 0%,
+        rgba(45, 35, 20, 0.9) 50%,
+        rgba(30, 25, 15, 1) 100%),
+        url('/assets/images/talent-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 1;
+}
+
+.tree-background.sv {
+    background: linear-gradient(180deg,
+        rgba(20, 50, 40, 0.8) 0%,
+        rgba(15, 40, 30, 0.9) 30%,
+        rgba(10, 30, 25, 0.95) 70%,
+        rgba(5, 20, 15, 1) 100%);
+    opacity: 1;
+}
+
+/* Warlock tree styles */
+.tree-header.aff {
+    background: linear-gradient(180deg, rgba(60, 30, 70, 0.95), rgba(30, 15, 40, 0.98));
+    border-color: #9b59b6;
+}
+
+.tree-header.demo {
+    background: linear-gradient(180deg, rgba(70, 40, 40, 0.95), rgba(40, 20, 20, 0.98));
+    border-color: #e74c3c;
+}
+
+.tree-header.destro {
+    background: linear-gradient(180deg, rgba(80, 50, 20, 0.95), rgba(45, 25, 10, 0.98));
+    border-color: #e67e22;
+}
+
+.tree-background.aff {
+    background: linear-gradient(180deg,
+        rgba(40, 20, 50, 0.8) 0%,
+        rgba(30, 15, 40, 0.9) 50%,
+        rgba(20, 10, 30, 1) 100%);
+    opacity: 1;
+}
+
+.tree-background.demo {
+    background: linear-gradient(180deg,
+        rgba(50, 25, 25, 0.8) 0%,
+        rgba(40, 20, 20, 0.9) 50%,
+        rgba(30, 15, 15, 1) 100%);
+    opacity: 1;
+}
+
+.tree-background.destro {
+    background: linear-gradient(180deg,
+        rgba(60, 35, 15, 0.8) 0%,
+        rgba(45, 25, 10, 0.9) 50%,
+        rgba(30, 18, 8, 1) 100%);
+    opacity: 1;
+}
+
+/* Warlock hero */
+.guide-hero.warlock-hero {
+    position: relative;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #1a101a 0%, #0d050d 100%);
+    border-bottom: 3px solid #8788EE;
+    overflow: hidden;
+}
+
+/* Mage tree styles */
+.guide-hero.mage-hero {
+    position: relative;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #0a1520 0%, #050a10 100%);
+    border-bottom: 3px solid #3FC7EB;
+    overflow: hidden;
+}
+
+.tree-header.arc {
+    background: linear-gradient(180deg, rgba(40, 40, 80, 0.95), rgba(20, 20, 45, 0.98));
+    border-color: #6e5bcc;
+}
+
+.tree-header.fr {
+    background: linear-gradient(180deg, rgba(80, 50, 20, 0.95), rgba(45, 25, 10, 0.98));
+    border-color: #e67e22;
+}
+
+.tree-header.fst {
+    background: linear-gradient(180deg, rgba(20, 50, 80, 0.95), rgba(10, 25, 45, 0.98));
+    border-color: #3FC7EB;
+}
+
+.tree-background.arc {
+    background: linear-gradient(180deg,
+        rgba(30, 25, 60, 0.8) 0%,
+        rgba(20, 18, 45, 0.9) 50%,
+        rgba(15, 12, 35, 1) 100%);
+    opacity: 1;
+}
+
+.tree-background.fr {
+    background: linear-gradient(180deg,
+        rgba(60, 30, 10, 0.8) 0%,
+        rgba(45, 22, 8, 0.9) 50%,
+        rgba(30, 15, 5, 1) 100%);
+    opacity: 1;
+}
+
+.tree-background.fst {
+    background: linear-gradient(180deg,
+        rgba(15, 35, 60, 0.8) 0%,
+        rgba(10, 25, 45, 0.9) 50%,
+        rgba(5, 18, 35, 1) 100%);
+    opacity: 1;
+}
+
+/* Rogue tree styles */
+.guide-hero.rogue-hero {
+    position: relative;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #1a1a0a 0%, #0d0d05 100%);
+    border-bottom: 3px solid #FFF468;
+    overflow: hidden;
+}
+
+.tree-header.assa {
+    background: linear-gradient(180deg, rgba(60, 50, 20, 0.95), rgba(35, 28, 10, 0.98));
+    border-color: #c4a82a;
+}
+
+.tree-header.comb {
+    background: linear-gradient(180deg, rgba(50, 50, 50, 0.95), rgba(28, 28, 28, 0.98));
+    border-color: #aaa;
+}
+
+.tree-header.subt {
+    background: linear-gradient(180deg, rgba(30, 25, 50, 0.95), rgba(15, 12, 30, 0.98));
+    border-color: #7a6baa;
+}
+
+.tree-background.assa {
+    background: linear-gradient(180deg,
+        rgba(45, 35, 15, 0.8) 0%,
+        rgba(35, 25, 10, 0.9) 50%,
+        rgba(25, 18, 8, 1) 100%);
+    opacity: 1;
+}
+
+.tree-background.comb {
+    background: linear-gradient(180deg,
+        rgba(40, 40, 40, 0.8) 0%,
+        rgba(30, 30, 30, 0.9) 50%,
+        rgba(20, 20, 20, 1) 100%);
+    opacity: 1;
+}
+
+.tree-background.subt {
+    background: linear-gradient(180deg,
+        rgba(25, 20, 40, 0.8) 0%,
+        rgba(18, 15, 30, 0.9) 50%,
+        rgba(12, 10, 22, 1) 100%);
+    opacity: 1;
+}
+
+/* Warrior tree styles */
+.guide-hero.warrior-hero {
+    position: relative;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #1a1510 0%, #0d0a05 100%);
+    border-bottom: 3px solid #C69B6D;
+    overflow: hidden;
+}
+
+.tree-header.arms-tree {
+    background: linear-gradient(180deg, rgba(80, 50, 30, 0.95), rgba(45, 28, 15, 0.98));
+    border-color: #C69B6D;
+}
+
+.tree-header.fury-tree {
+    background: linear-gradient(180deg, rgba(70, 30, 30, 0.95), rgba(40, 15, 15, 0.98));
+    border-color: #cc4444;
+}
+
+.tree-header.prot-tree {
+    background: linear-gradient(180deg, rgba(40, 50, 60, 0.95), rgba(20, 28, 35, 0.98));
+    border-color: #6699cc;
+}
+
+.tree-background.arms-tree {
+    background: linear-gradient(180deg,
+        rgba(55, 35, 20, 0.8) 0%,
+        rgba(40, 25, 15, 0.9) 50%,
+        rgba(28, 18, 10, 1) 100%);
+    opacity: 1;
+}
+
+.tree-background.fury-tree {
+    background: linear-gradient(180deg,
+        rgba(50, 20, 20, 0.8) 0%,
+        rgba(38, 15, 15, 0.9) 50%,
+        rgba(25, 10, 10, 1) 100%);
+    opacity: 1;
+}
+
+.tree-background.prot-tree {
+    background: linear-gradient(180deg,
+        rgba(25, 35, 45, 0.8) 0%,
+        rgba(18, 25, 35, 0.9) 50%,
+        rgba(12, 18, 25, 1) 100%);
+    opacity: 1;
+}
+
+/* Paladin tree styles */
+.guide-hero.paladin-hero {
+    position: relative;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #1a1418 0%, #0d0a0e 100%);
+    border-bottom: 3px solid #F48CBA;
+    overflow: hidden;
+}
+
+.tree-header.pal-holy {
+    background: linear-gradient(180deg, rgba(80, 60, 70, 0.95), rgba(45, 32, 38, 0.98));
+    border-color: #F48CBA;
+}
+
+.tree-header.pal-prot {
+    background: linear-gradient(180deg, rgba(60, 50, 70, 0.95), rgba(32, 28, 40, 0.98));
+    border-color: #9999cc;
+}
+
+.tree-header.pal-ret {
+    background: linear-gradient(180deg, rgba(70, 50, 30, 0.95), rgba(40, 28, 15, 0.98));
+    border-color: #e6cc80;
+}
+
+.tree-background.pal-holy {
+    background: linear-gradient(180deg,
+        rgba(55, 40, 48, 0.8) 0%,
+        rgba(40, 28, 35, 0.9) 50%,
+        rgba(28, 18, 22, 1) 100%);
+    opacity: 1;
+}
+
+.tree-background.pal-prot {
+    background: linear-gradient(180deg,
+        rgba(38, 32, 48, 0.8) 0%,
+        rgba(26, 22, 36, 0.9) 50%,
+        rgba(16, 14, 24, 1) 100%);
+    opacity: 1;
+}
+
+.tree-background.pal-ret {
+    background: linear-gradient(180deg,
+        rgba(50, 38, 20, 0.8) 0%,
+        rgba(36, 26, 14, 0.9) 50%,
+        rgba(24, 16, 8, 1) 100%);
+    opacity: 1;
+}
+
+/* Priest tree styles */
+.guide-hero.priest-hero {
+    position: relative;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #18181a 0%, #0d0d10 100%);
+    border-bottom: 3px solid #FFFFFF;
+    overflow: hidden;
+}
+
+.tree-header.disc {
+    background: linear-gradient(180deg, rgba(60, 60, 70, 0.95), rgba(32, 32, 40, 0.98));
+    border-color: #ccccdd;
+}
+
+.tree-header.pri-holy {
+    background: linear-gradient(180deg, rgba(70, 65, 50, 0.95), rgba(40, 36, 25, 0.98));
+    border-color: #ffe680;
+}
+
+.tree-header.shadow {
+    background: linear-gradient(180deg, rgba(40, 30, 60, 0.95), rgba(22, 15, 35, 0.98));
+    border-color: #9572cc;
+}
+
+.tree-background.disc {
+    background: linear-gradient(180deg,
+        rgba(40, 40, 50, 0.8) 0%,
+        rgba(28, 28, 38, 0.9) 50%,
+        rgba(18, 18, 25, 1) 100%);
+    opacity: 1;
+}
+
+.tree-background.pri-holy {
+    background: linear-gradient(180deg,
+        rgba(50, 46, 32, 0.8) 0%,
+        rgba(36, 32, 22, 0.9) 50%,
+        rgba(24, 20, 12, 1) 100%);
+    opacity: 1;
+}
+
+.tree-background.shadow {
+    background: linear-gradient(180deg,
+        rgba(30, 22, 45, 0.8) 0%,
+        rgba(22, 15, 35, 0.9) 50%,
+        rgba(14, 10, 24, 1) 100%);
+    opacity: 1;
+}
+
+/* Shaman tree styles */
+.guide-hero.shaman-hero {
+    position: relative;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #121820 0%, #080d14 100%);
+    border-bottom: 3px solid #0070DD;
+    overflow: hidden;
+}
+
+.tree-header.ele {
+    background: linear-gradient(180deg, rgba(40, 50, 70, 0.95), rgba(22, 28, 40, 0.98));
+    border-color: #6688cc;
+}
+
+.tree-header.enh {
+    background: linear-gradient(180deg, rgba(60, 45, 30, 0.95), rgba(35, 24, 15, 0.98));
+    border-color: #cc8844;
+}
+
+.tree-header.sha-resto {
+    background: linear-gradient(180deg, rgba(30, 55, 45, 0.95), rgba(15, 32, 25, 0.98));
+    border-color: #44cc88;
+}
+
+.tree-background.ele {
+    background: linear-gradient(180deg,
+        rgba(28, 36, 52, 0.8) 0%,
+        rgba(20, 26, 40, 0.9) 50%,
+        rgba(12, 16, 28, 1) 100%);
+    opacity: 1;
+}
+
+.tree-background.enh {
+    background: linear-gradient(180deg,
+        rgba(45, 32, 20, 0.8) 0%,
+        rgba(32, 22, 14, 0.9) 50%,
+        rgba(22, 14, 8, 1) 100%);
+    opacity: 1;
+}
+
+.tree-background.sha-resto {
+    background: linear-gradient(180deg,
+        rgba(20, 40, 32, 0.8) 0%,
+        rgba(14, 28, 22, 0.9) 50%,
+        rgba(8, 18, 14, 1) 100%);
+    opacity: 1;
+}
+
+/* Druid tree styles */
+.guide-hero.druid-hero {
+    position: relative;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #151a12 0%, #0a0d08 100%);
+    border-bottom: 3px solid #FF7C0A;
+    overflow: hidden;
+}
+
+.tree-header.bal {
+    background: linear-gradient(180deg, rgba(45, 45, 65, 0.95), rgba(25, 25, 38, 0.98));
+    border-color: #8888cc;
+}
+
+.tree-header.feral {
+    background: linear-gradient(180deg, rgba(70, 50, 25, 0.95), rgba(40, 28, 12, 0.98));
+    border-color: #FF7C0A;
+}
+
+.tree-header.dru-resto {
+    background: linear-gradient(180deg, rgba(35, 55, 35, 0.95), rgba(18, 32, 18, 0.98));
+    border-color: #55cc55;
+}
+
+.tree-background.bal {
+    background: linear-gradient(180deg,
+        rgba(32, 32, 48, 0.8) 0%,
+        rgba(22, 22, 36, 0.9) 50%,
+        rgba(14, 14, 24, 1) 100%);
+    opacity: 1;
+}
+
+.tree-background.feral {
+    background: linear-gradient(180deg,
+        rgba(50, 36, 18, 0.8) 0%,
+        rgba(36, 24, 12, 0.9) 50%,
+        rgba(24, 16, 6, 1) 100%);
+    opacity: 1;
+}
+
+.tree-background.dru-resto {
+    background: linear-gradient(180deg,
+        rgba(24, 40, 24, 0.8) 0%,
+        rgba(16, 28, 16, 0.9) 50%,
+        rgba(10, 18, 10, 1) 100%);
+    opacity: 1;
+}
+
+.tree-grid-wrapper {
+    position: relative;
+    z-index: 1;
+}
+
+.arrow-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.arrow-layer line {
+    stroke-linecap: round;
+    transition: stroke 0.2s, filter 0.2s;
+}
+
+.arrow-layer line.active {
+    filter: drop-shadow(0 0 4px rgba(0, 255, 0, 0.6));
+}
+
+.arrow-layer polygon {
+    transition: fill 0.2s, filter 0.2s;
+}
+
+.arrow-layer polygon.active {
+    filter: drop-shadow(0 0 4px rgba(0, 255, 0, 0.6));
+}
+
+.tree-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    padding: 0.75rem;
+    position: relative;
+    min-height: 520px;
+}
+
+/* Individual Talents - WoW Icon Style */
+.talent {
+    position: relative;
+    aspect-ratio: 1;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #555;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    overflow: hidden;
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.6),
+        inset 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+.talent:hover,
+.talent:focus {
+    border-color: #ddd;
+    transform: scale(1.1);
+    z-index: 10;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.3), 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+.talent:focus {
+    outline: 2px solid var(--wow-gold);
+    outline-offset: 2px;
+}
+
+.talent:focus-visible {
+    outline: 3px solid var(--wow-gold);
+    outline-offset: 3px;
+}
+
+.talent.selected {
+    border-color: #40ff40;
+    box-shadow: 0 0 6px rgba(64, 255, 64, 0.3), inset 0 0 3px rgba(64, 255, 64, 0.1);
+}
+
+.talent.maxed {
+    border-color: var(--wow-gold);
+    box-shadow: 0 0 8px rgba(255, 209, 0, 0.5), 0 0 16px rgba(255, 209, 0, 0.2);
+}
+
+.talent.locked {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(100%) brightness(0.7);
+}
+
+.talent.locked:hover {
+    transform: none;
+    border-color: #444;
+    box-shadow: none;
+}
+
+.talent.recommended {
+    animation: pulse-recommend 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-recommend {
+    0%, 100% { box-shadow: 0 0 5px rgba(255, 209, 0, 0.4); border-color: var(--wow-gold); }
+    50% { box-shadow: 0 0 20px rgba(255, 209, 0, 0.8); border-color: #fff; }
+}
+
+.talent-icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.talent-points-badge {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #000;
+    padding: 1px 4px;
+    border-top-left-radius: 4px;
+    font-size: 0.75rem;
+    font-family: 'Friz Quadrata', monospace;
+    color: #0f0;
+    border-top: 1px solid #333;
+    border-left: 1px solid #333;
+    font-weight: 700;
+}
+
+.talent.maxed .talent-points-badge {
+    color: var(--wow-gold);
+}
+
+.talent-empty {
+    background: transparent;
+}
+
+/* Talent Tooltip - Authentic WoW Style */
+.talent-tooltip {
+    position: fixed;
+    background: linear-gradient(180deg, rgba(8, 12, 24, 0.97), rgba(2, 4, 12, 0.98));
+    border: 2px solid #6a6a8a;
+    border-radius: 2px;
+    padding: 0.85rem;
+    max-width: 300px;
+    z-index: 1000;
+    pointer-events: none;
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.8),
+        0 0 0 3px rgba(40, 40, 60, 0.4),
+        0 8px 30px rgba(0, 0, 0, 0.9),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    display: none;
+}
+
+.talent-tooltip.visible {
+    display: block;
+}
+
+.talent-tooltip .tt-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.talent-tooltip .tt-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 4px;
+    border: 1px solid #b0b0b0;
+    box-shadow: 0 0 5px #000;
+}
+
+.talent-tooltip .tt-title {
+    color: #fff;
+    font-family: 'Friz Quadrata', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.talent-tooltip .tt-rank {
+    color: #ffd100;
+    font-size: 0.85rem;
+    margin-top: 2px;
+}
+
+.talent-tooltip .tt-desc {
+    color: #ffd100;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+}
+
+.talent-tooltip .tt-req {
+    color: #ff2020;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+/* Build Export */
+.build-export .panel-content {
+    text-align: center;
+}
+
+.build-string {
+    font-family: 'Friz Quadrata', monospace;
+    font-size: 2.5rem;
+    color: var(--wow-gold);
+    letter-spacing: 0.15em;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+/* Guide Content */
+.guide-content .panel-content p {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.guide-content h3 {
+    font-family: 'Friz Quadrata', sans-serif;
+    color: var(--hunter-green);
+    font-size: 1.4rem;
+    margin: 1.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--wow-border);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.guide-content ol {
+    color: rgba(255, 255, 255, 0.9);
+    padding-left: 1.5rem;
+}
+
+.guide-content li {
+    margin-bottom: 0.4rem;
+}
+
+.talent-explanations {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.talent-explain {
+    display: flex;
+    gap: 1rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--wow-border);
+    border-radius: 6px;
+    padding: 1rem;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+}
+
+.explain-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 4px;
+    border: 1px solid #b0b0b0;
+    flex-shrink: 0;
+    box-shadow: 0 0 5px #000;
+}
+
+.talent-explain h4 {
+    color: #fff;
+    margin: 0 0 0.25rem 0;
+    font-size: 1rem;
+    font-family: 'Friz Quadrata', sans-serif;
+}
+
+.talent-explain p {
+    font-size: 0.85rem;
+    margin: 0;
+    color: #ffd100;
+}
+
+/* ===== Accordion / Collapsible Panels ===== */
+.panel-header.collapsible {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+    transition: background 0.2s ease;
+}
+
+.panel-header.collapsible:hover {
+    background: linear-gradient(180deg, #3f3220 0%, #251c12 100%);
+    border-bottom-color: rgba(212, 175, 55, 0.25);
+}
+
+.panel-header.collapsible:focus-visible {
+    outline: 2px solid var(--wow-gold);
+    outline-offset: -2px;
+}
+
+.panel-header.collapsible::after {
+    content: none;
+}
+
+.panel-content.accordion-body {
+    transition: max-height 0.35s ease;
+    overflow: hidden;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== Rotation / Priority List ===== */
+.rotation-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: rotation-step;
+}
+
+.rotation-list li {
+    counter-increment: rotation-step;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--wow-border);
+    border-radius: 6px;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.5;
+}
+
+.rotation-list li::before {
+    content: counter(rotation-step);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 28px;
+    background: linear-gradient(180deg, var(--wow-brown-light), var(--wow-brown));
+    border: 1px solid var(--wow-border-light);
+    border-radius: 50%;
+    color: var(--wow-gold);
+    font-size: 0.85rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.rotation-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    border: 1px solid #888;
+    flex-shrink: 0;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
+
+.rotation-ability {
+    color: var(--wow-gold);
+    font-weight: 600;
+}
+
+/* ===== BiS Gear Tables - WoW Item Quality Colors ===== */
+.bis-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.bis-table thead th {
+    background: linear-gradient(180deg, #352a1c, var(--wow-brown));
+    color: var(--wow-gold);
+    padding: 0.65rem 0.75rem;
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    border-bottom: 2px solid rgba(212, 175, 55, 0.25);
+    font-family: 'Friz Quadrata', serif;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.bis-table tbody tr {
+    border-bottom: 1px solid rgba(74, 60, 40, 0.4);
+    transition: background 0.15s ease;
+}
+
+.bis-table tbody tr:nth-child(even) {
+    background: rgba(26, 18, 9, 0.3);
+}
+
+.bis-table tbody tr:hover {
+    background: rgba(255, 209, 0, 0.04);
+}
+
+.bis-table td {
+    padding: 0.5rem 0.75rem;
+    color: rgba(255, 255, 255, 0.85);
+    vertical-align: middle;
+}
+
+.bis-table .slot-col {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    white-space: nowrap;
+    width: 80px;
+    font-family: 'Friz Quadrata', serif;
+    letter-spacing: 0.03em;
+}
+
+/* Item quality colors - matching WoW exactly */
+.bis-table .item-col {
+    color: var(--item-epic);
+    font-weight: 600;
+}
+
+.bis-table .item-col.poor { color: var(--item-poor); }
+.bis-table .item-col.common { color: var(--item-common); }
+.bis-table .item-col.uncommon { color: var(--item-uncommon); }
+.bis-table .item-col.rare { color: var(--item-rare); }
+.bis-table .item-col.epic { color: var(--item-epic); }
+.bis-table .item-col.legendary { color: var(--item-legendary); text-shadow: 0 0 6px rgba(255, 128, 0, 0.3); }
+
+.bis-table .source-col {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.82rem;
+}
+
+.section-intro {
+    margin-bottom: 1rem;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+}
+
+/* ===== Gems & Enchants ===== */
+.enchant-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 0.75rem;
+}
+
+.enchant-item {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--wow-border);
+    border-radius: 4px;
+    padding: 0.75rem;
+    transition: all 0.15s ease;
+}
+
+.enchant-item:hover {
+    background: rgba(0, 0, 0, 0.4);
+    border-color: rgba(30, 255, 0, 0.2);
+}
+
+.enchant-slot {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.enchant-name {
+    color: #1eff00;
+    font-weight: 500;
+}
+
+.enchant-source {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8rem;
+}
+
+.gem-red { color: #ff4040; }
+.gem-blue { color: #4080ff; }
+.gem-yellow { color: #ffcc00; }
+.gem-orange { color: #ff8000; }
+.gem-purple { color: #cc44ff; }
+.gem-green { color: #00cc44; }
+.gem-meta { color: #e6cc80; }
+
+/* ===== Consumables ===== */
+.consumable-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.75rem;
+}
+
+.consumable-item {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--wow-border);
+    border-radius: 6px;
+    padding: 0.6rem 0.75rem;
+}
+
+.consumable-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    border: 1px solid #888;
+    flex-shrink: 0;
+}
+
+.consumable-name {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+}
+
+.consumable-type {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+.guide-content h3 {
+    color: var(--wow-gold);
+    margin: 1.5rem 0 0.75rem 0;
+    font-size: 1.1rem;
+    border-bottom: 1px solid var(--wow-border);
+    padding-bottom: 0.4rem;
+}
+
+.guide-content h3:first-child {
+    margin-top: 0;
+}
+
+/* ===== Collapse Arrow ===== */
+.collapse-arrow {
+    margin-left: auto;
+    color: rgba(255, 209, 0, 0.4);
+    font-size: 0.9rem;
+    transition: transform 0.2s ease;
+    display: inline-block;
+}
+
+.panel-header.expanded .collapse-arrow {
+    transform: rotate(180deg);
+}
+
+/* ===== Floating Guide TOC ===== */
+.guide-floating-toc {
+    position: fixed;
+    right: 20px;
+    top: 100px;
+    width: 180px;
+    background: linear-gradient(180deg, rgba(15, 10, 5, 0.95), rgba(8, 5, 2, 0.98));
+    border: 1px solid rgba(74, 60, 40, 0.4);
+    border-radius: 6px;
+    padding: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    overflow: hidden;
+}
+
+.guide-floating-toc.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+}
+
+.guide-toc-title {
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    color: rgba(255, 209, 0, 0.5);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 0.6rem 0.75rem;
+    margin: 0;
+    border-bottom: 1px solid rgba(74, 60, 40, 0.3);
+    cursor: default;
+}
+
+.guide-toc-list {
+    list-style: none;
+    padding: 0.4rem 0;
+    margin: 0;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.guide-toc-item {
+    display: block;
+    padding: 0.35rem 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    font-size: 0.72rem;
+    border-left: 2px solid transparent;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.guide-toc-item:hover {
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 209, 0, 0.04);
+    border-left-color: rgba(255, 209, 0, 0.2);
+}
+
+.guide-toc-item.active {
+    color: var(--wow-gold);
+    border-left-color: var(--wow-gold);
+    background: rgba(255, 209, 0, 0.06);
+    font-weight: 600;
+}
+
+/* Hide TOC on narrow screens - show as mobile drawer */
+@media (max-width: 1300px) {
+    .guide-floating-toc {
+        right: 10px;
+        width: 160px;
+        top: 80px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .guide-floating-toc {
+        display: none;
+    }
+}
+
+/* ===== Mobile Responsive ===== */
+@media (max-width: 768px) {
+    .bis-table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+@media (max-width: 640px) {
+    .guide-hero {
+        padding: 2rem 1rem;
+    }
+
+    .level-selector .panel-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .tree-grid {
+        gap: 4px;
+        padding: 0.5rem;
+    }
+
+    .build-string {
+        font-size: 1.8rem;
+    }
+
+    .talent-explanations {
+        grid-template-columns: 1fr;
+    }
+
+    .bis-table .slot-col {
+        display: none;
+    }
+
+    .bis-table td,
+    .bis-table th {
+        padding: 0.4rem 0.5rem;
+    }
+
+    .enchant-grid,
+    .consumable-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .rotation-list li {
+        padding: 0.5rem;
+    }
+
+    .guide-breadcrumb {
+        flex-wrap: wrap;
+    }
+
+    .guide-nav-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .guide-macro-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== Breadcrumbs - WoW Path Style ===== */
+.guide-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(90deg, rgba(20, 14, 6, 0.9), rgba(10, 8, 5, 0.85), rgba(20, 14, 6, 0.9));
+    border-bottom: 1px solid rgba(74, 60, 40, 0.35);
+    border-top: 1px solid rgba(74, 60, 40, 0.15);
+    font-size: 0.82rem;
+    font-family: 'Georgia', serif;
+}
+
+.guide-breadcrumb a {
+    color: rgba(255, 209, 0, 0.7);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.guide-breadcrumb a:hover {
+    color: var(--wow-gold);
+}
+
+.guide-breadcrumb .bc-sep {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 0.7rem;
+}
+
+.guide-breadcrumb .bc-current {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* ===== Guide Navigation (Prev/Next) ===== */
+.guide-nav {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.guide-nav-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.guide-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: linear-gradient(180deg, rgba(35, 25, 12, 0.95), rgba(18, 12, 5, 0.95));
+    border: 2px solid var(--wow-border);
+    border-radius: 4px;
+    padding: 1rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.04),
+        0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.guide-nav-link:hover {
+    border-color: rgba(255, 209, 0, 0.35);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.06),
+        0 4px 12px rgba(0, 0, 0, 0.5),
+        0 0 8px rgba(255, 209, 0, 0.05);
+    transform: translateY(-2px);
+}
+
+.guide-nav-link.next {
+    flex-direction: row-reverse;
+    text-align: right;
+}
+
+.guide-nav-link .nav-arrow {
+    color: var(--wow-gold);
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    opacity: 0.7;
+}
+
+.guide-nav-link .nav-label {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: block;
+    margin-bottom: 0.2rem;
+}
+
+.guide-nav-link .nav-class {
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    color: var(--wow-gold);
+    font-size: 0.9rem;
+}
+
+.guide-nav-link .nav-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    border: 2px solid rgba(212, 175, 55, 0.4);
+    flex-shrink: 0;
+}
+
+.guide-back-link {
+    display: block;
+    text-align: center;
+    margin-top: 1rem;
+    padding: 0.6rem 1rem;
+    color: rgba(255, 209, 0, 0.6);
+    font-size: 0.82rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.guide-back-link:hover {
+    color: var(--wow-gold);
+}
+
+/* ===== Guide Macros - WoW Spellbook Style ===== */
+.guide-macro-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.guide-macro-card {
+    background: linear-gradient(180deg, rgba(20, 15, 8, 0.9), rgba(12, 8, 4, 0.95));
+    border: 2px solid var(--wow-border);
+    border-radius: 4px;
+    padding: 1rem;
+    transition: all 0.2s ease;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.03),
+        0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.guide-macro-card:hover {
+    border-color: rgba(212, 175, 55, 0.35);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.04),
+        0 4px 12px rgba(0, 0, 0, 0.5),
+        0 0 6px rgba(212, 175, 55, 0.04);
+}
+
+.guide-macro-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
+}
+
+.guide-macro-title img {
+    width: 28px;
+    height: 28px;
+    border-radius: 3px;
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
+
+.guide-macro-title h4 {
+    font-family: 'Friz Quadrata', 'Georgia', serif;
+    color: var(--wow-gold);
+    font-size: 0.88rem;
+    margin: 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.guide-macro-code {
+    display: block;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(74, 60, 40, 0.6);
+    border-radius: 3px;
+    padding: 0.7rem;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.73rem;
+    color: #a8e6cf;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-all;
+    margin-bottom: 0.5rem;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.guide-macro-desc {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.75rem;
+    margin: 0;
+    line-height: 1.4;
+    font-style: italic;
+}
+
+/* ===== Quick Tips - WoW Loading Screen Tips Style ===== */
+.quick-tips-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.quick-tips-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.7rem 0.85rem;
+    margin-bottom: 0.5rem;
+    background: rgba(0, 0, 0, 0.25);
+    border-left: 3px solid var(--wow-gold);
+    border-radius: 0 3px 3px 0;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    transition: background 0.15s ease;
+}
+
+.quick-tips-list li:hover {
+    background: rgba(0, 0, 0, 0.35);
+}
+
+.quick-tips-list .tip-icon {
+    flex-shrink: 0;
+    font-size: 0.85rem;
+    font-weight: 900;
+    margin-top: 1px;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-family: 'Friz Quadrata', serif;
+}
+
+.tip-do { border-left-color: #4caf50; }
+.tip-do .tip-icon { color: #4caf50; background: rgba(76, 175, 80, 0.12); }
+.tip-dont { border-left-color: #e53935; }
+.tip-dont .tip-icon { color: #e53935; background: rgba(229, 57, 53, 0.12); }
+.tip-info { border-left-color: #42a5f5; }
+.tip-info .tip-icon { color: #42a5f5; background: rgba(66, 165, 245, 0.12); }

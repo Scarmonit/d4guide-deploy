@@ -1,159 +1,2182 @@
 ---
 layout: base.njk
-title: "WoW TBC Guides | Scarmonit - The Burning Crusade Classic"
-description: "World of Warcraft: The Burning Crusade Classic guides, builds, and strategies for all classes."
+title: "WoW TBC Classic Anniversary Guides | Scarmonit - The Burning Crusade Resource Hub"
+description: "The ultimate TBC Classic Anniversary resource hub. Class guides, talent calculators, attunement tracker, dungeon database, leveling paths, profession calculators, raid strategies, PvP arena comps, and more."
+styles:
+  - /assets/css/wow-talents.css
+  - /assets/css/wow-tbc-hub.css
+scripts:
+  - /assets/js/tbc-hub.js
+schemaType: guide
 ---
 
-<section class="hero">
-    <div class="hero-badge">WoW TBC Classic</div>
-    <h1>The Burning Crusade Guides</h1>
-    <p class="hero-subtitle">Class guides, raid strategies, and leveling tips for TBC Classic</p>
+<!-- Theme Toggle -->
+<button id="tbc-theme-toggle" class="tbc-theme-toggle" aria-label="Toggle light/dark theme" title="Toggle theme">
+    <span class="tbc-theme-icon-sun" aria-hidden="true">&#9728;</span>
+    <span class="tbc-theme-icon-moon" aria-hidden="true">&#9790;</span>
+</button>
+
+<!-- Hero -->
+<section class="tbc-hub-hero">
+    <div class="tbc-hero-particles" aria-hidden="true">
+        <div class="tbc-particle"></div>
+        <div class="tbc-particle"></div>
+        <div class="tbc-particle"></div>
+        <div class="tbc-particle"></div>
+        <div class="tbc-particle"></div>
+        <div class="tbc-particle"></div>
+    </div>
+    <div class="tbc-hub-hero-content">
+        <div class="tbc-hub-badge">WoW TBC Classic Anniversary</div>
+        <h1>The Burning Crusade Guides</h1>
+        <p class="hero-subtitle">Class guides, talent builds, attunement tracker, dungeon database, leveling paths, profession calculators, raid strategies, PvP arena comps, and more</p>
+        <p class="hero-flavor-quote">"You are not prepared!" &mdash; Illidan Stormrage</p>
+        <div class="hero-meta-row">
+            <span class="hero-patch">Patch 2.5.4</span>
+            <span class="hero-patch">Level 70</span>
+            <span class="hero-patch">9 Classes</span>
+            <span class="hero-patch">Last Updated: Feb 2026</span>
+        </div>
+    </div>
 </section>
 
-<div class="container">
-    <div class="content-section">
-        <h2>Coming Soon</h2>
-        <p>WoW TBC Classic guides are currently in development. Check back soon for:</p>
+<!-- Merged Breadcrumb + Floating TOC Bar -->
+<div class="tbc-floating-toc" id="tbc-floating-toc" role="navigation" aria-label="Page sections">
+    <div class="tbc-toc-gold-border"></div>
+    <div class="tbc-toc-gold-border tbc-toc-gold-border-bottom"></div>
+    <div class="tbc-floating-toc-inner">
+        <div class="tbc-toc-breadcrumb" role="navigation" aria-label="Breadcrumb">
+            <a href="/">Home</a> <span class="separator">&#9670;</span>
+            <span id="tbc-breadcrumb">TBC Guides</span>
+        </div>
+        <div class="tbc-toc-divider"></div>
+        <div class="tbc-toc-links-scroll">
+            <a href="#tier-lists" class="tbc-ftoc-link active" data-section="tier-lists">Tier Lists</a>
+            <a href="#classes" class="tbc-ftoc-link" data-section="classes">Classes</a>
+            <a href="#dungeon-db" class="tbc-ftoc-link" data-section="dungeon-db">Dungeons</a>
+            <a href="#raids" class="tbc-ftoc-link" data-section="raids">Raids</a>
+            <a href="#attunement-tracker" class="tbc-ftoc-link" data-section="attunement-tracker">Attunements</a>
+            <a href="#leveling" class="tbc-ftoc-link" data-section="leveling">Leveling</a>
+            <a href="#professions" class="tbc-ftoc-link" data-section="professions">Professions</a>
+            <a href="#pvp" class="tbc-ftoc-link" data-section="pvp">PvP</a>
+            <a href="#gold-making" class="tbc-ftoc-link" data-section="gold-making">Gold</a>
+            <a href="#reputation" class="tbc-ftoc-link" data-section="reputation">Reputation</a>
+            <a href="#macros" class="tbc-ftoc-link" data-section="macros">Macros</a>
+            <a href="#enchants" class="tbc-ftoc-link" data-section="enchants">Enchants</a>
+            <a href="#consumables" class="tbc-ftoc-link" data-section="consumables">Consumables</a>
+        </div>
+        <div class="tbc-toc-divider"></div>
+        <div class="tbc-ftoc-search">
+            <span class="tbc-search-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+            <input type="text" id="tbc-search-input" class="tbc-search-input" placeholder="Search..." aria-label="Search TBC guides">
+            <button id="tbc-search-clear" class="tbc-search-clear" aria-label="Clear search" title="Clear search">&times;</button>
+        </div>
+    </div>
+</div>
 
-        <div class="feature-grid">
-            <div class="feature-card">
-                <div class="feature-icon">&#9876;</div>
-                <h3>Class Guides</h3>
-                <p>In-depth guides for all 9 classes with talent builds, gear recommendations, and rotation tips.</p>
+<!-- Sidebar Toggle -->
+<button id="tbc-sidebar-toggle" class="tbc-sidebar-toggle" aria-label="Open guide navigation">&#9776; Guide Navigation</button>
+<div id="tbc-sidebar-overlay" class="tbc-sidebar-overlay"></div>
+
+<!-- Layout Wrapper -->
+<div class="tbc-layout-wrapper">
+
+    <!-- Sidebar -->
+    <aside id="tbc-sidebar" class="tbc-sidebar" aria-label="Guide navigation">
+        <div class="tbc-sidebar-category">
+            <button class="tbc-sidebar-category-header" aria-expanded="true">Getting Started</button>
+            <div class="tbc-sidebar-category-items">
+                <a href="#tier-lists">Tier Lists</a>
             </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">&#128737;</div>
-                <h3>Raid Strategies</h3>
-                <p>Boss guides for Karazhan, Gruul's Lair, Magtheridon, SSC, TK, Black Temple, and Sunwell.</p>
+        </div>
+        <div class="tbc-sidebar-category">
+            <button class="tbc-sidebar-category-header" aria-expanded="false">Class Guides</button>
+            <div class="tbc-sidebar-category-items">
+                <a href="/wow-tbc-guides/warrior-arms-pve/">Warrior</a>
+                <a href="/wow-tbc-guides/paladin-ret-pve/">Paladin</a>
+                <a href="/wow-tbc-guides/hunter-bm-pve/">Hunter</a>
+                <a href="/wow-tbc-guides/rogue-combat-pve/">Rogue</a>
+                <a href="/wow-tbc-guides/priest-shadow-pve/">Priest</a>
+                <a href="/wow-tbc-guides/shaman-enh-pve/">Shaman</a>
+                <a href="/wow-tbc-guides/mage-fire-pve/">Mage</a>
+                <a href="/wow-tbc-guides/warlock-destro-pve/">Warlock</a>
+                <a href="/wow-tbc-guides/druid-feral-pve/">Druid</a>
             </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">&#9889;</div>
-                <h3>Leveling Guides</h3>
-                <p>Efficient 1-70 leveling paths, zone guides, and dungeon recommendations.</p>
+        </div>
+        <div class="tbc-sidebar-category">
+            <button class="tbc-sidebar-category-header" aria-expanded="false">Tier Lists</button>
+            <div class="tbc-sidebar-category-items">
+                <a href="#tier-lists">PvE DPS Rankings</a>
+                <a href="#tier-lists">PvP Arena Rankings</a>
             </div>
+        </div>
+        <div class="tbc-sidebar-category">
+            <button class="tbc-sidebar-category-header" aria-expanded="false">Leveling</button>
+            <div class="tbc-sidebar-category-items">
+                <a href="#leveling">58-70 Zone Planner</a>
+            </div>
+        </div>
+        <div class="tbc-sidebar-category">
+            <button class="tbc-sidebar-category-header" aria-expanded="false">Dungeons &amp; Raids</button>
+            <div class="tbc-sidebar-category-items">
+                <a href="#dungeon-db">Dungeon Database</a>
+                <a href="#raids">Raid Progression</a>
+            </div>
+        </div>
+        <div class="tbc-sidebar-category">
+            <button class="tbc-sidebar-category-header" aria-expanded="false">Attunements</button>
+            <div class="tbc-sidebar-category-items">
+                <a href="#attunement-tracker">Attunement Tracker</a>
+            </div>
+        </div>
+        <div class="tbc-sidebar-category">
+            <button class="tbc-sidebar-category-header" aria-expanded="false">Professions</button>
+            <div class="tbc-sidebar-category-items">
+                <a href="#professions">Tier Rankings</a>
+                <a href="#professions">Calculator</a>
+            </div>
+        </div>
+        <div class="tbc-sidebar-category">
+            <button class="tbc-sidebar-category-header" aria-expanded="false">PvP</button>
+            <div class="tbc-sidebar-category-items">
+                <a href="#pvp">Arena Comps</a>
+                <a href="#pvp">Honor Gear</a>
+            </div>
+        </div>
+        <div class="tbc-sidebar-category">
+            <button class="tbc-sidebar-category-header" aria-expanded="false">Gold Making</button>
+            <div class="tbc-sidebar-category-items">
+                <a href="#gold-making">Farming Methods</a>
+            </div>
+        </div>
+        <div class="tbc-sidebar-category">
+            <button class="tbc-sidebar-category-header" aria-expanded="false">Reputation</button>
+            <div class="tbc-sidebar-category-items">
+                <a href="#reputation">All Factions</a>
+            </div>
+        </div>
+        <div class="tbc-sidebar-category">
+            <button class="tbc-sidebar-category-header" aria-expanded="false">Enchants &amp; Consumables</button>
+            <div class="tbc-sidebar-category-items">
+                <a href="#enchants">Enchant Guide</a>
+                <a href="#consumables">Consumables</a>
+            </div>
+        </div>
+        <div class="tbc-sidebar-category">
+            <button class="tbc-sidebar-category-header" aria-expanded="false">Macros</button>
+            <div class="tbc-sidebar-category-items">
+                <a href="#macros">Essential Macros</a>
+            </div>
+        </div>
+    </aside>
 
-            <div class="feature-card">
-                <div class="feature-icon">&#128176;</div>
-                <h3>Gold Making</h3>
-                <p>Farming routes, profession guides, and AH strategies for TBC Classic.</p>
+    <!-- Main Content -->
+    <div class="tbc-main-content">
+
+<!-- ==================== PvE TIER LIST ==================== -->
+<div class="tbc-hub-section" id="tier-lists" data-reveal>
+    <div class="tbc-hub-section-header">
+        <img src="https://wow.zamimg.com/images/wow/icons/large/inv_sword_48.jpg" alt="" class="section-icon" loading="lazy">
+        <h2>PvE DPS Tier List</h2>
+    </div>
+    <p class="tbc-hub-section-desc">Class rankings for raiding and dungeon DPS in The Burning Crusade.</p>
+
+    <div class="tbc-hub-tier-list">
+        <!-- S Tier -->
+        <div class="tbc-hub-tier-row">
+            <div class="tbc-hub-tier-label tier-s">S</div>
+            <div class="tbc-hub-tier-classes">
+                <div class="tbc-hub-tier-class">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_warlock.jpg" alt="Warlock" loading="lazy">
+                    <div class="tbc-hub-tier-class-info">
+                        <span class="tbc-hub-tier-class-name" style="color: var(--warlock)">Warlock</span>
+                        <span class="tbc-hub-tier-class-spec">Destruction</span>
+                    </div>
+                </div>
+                <div class="tbc-hub-tier-class">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_hunter.jpg" alt="Hunter" loading="lazy">
+                    <div class="tbc-hub-tier-class-info">
+                        <span class="tbc-hub-tier-class-name" style="color: var(--hunter)">Hunter</span>
+                        <span class="tbc-hub-tier-class-spec">Beast Mastery</span>
+                    </div>
+                </div>
+            </div>
+            <p class="tbc-tier-explanation">Warlocks and BM Hunters dominate TBC with insane scaling &mdash; Seed of Corruption for AoE, Shadow Bolt spam on single target, and BM Hunter's pet deals 40%+ of total damage with zero mana issues.</p>
+        </div>
+        <!-- A Tier -->
+        <div class="tbc-hub-tier-row">
+            <div class="tbc-hub-tier-label tier-a">A</div>
+            <div class="tbc-hub-tier-classes">
+                <div class="tbc-hub-tier-class">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_mage.jpg" alt="Mage" loading="lazy">
+                    <div class="tbc-hub-tier-class-info">
+                        <span class="tbc-hub-tier-class-name" style="color: var(--mage)">Mage</span>
+                        <span class="tbc-hub-tier-class-spec">Fire / Arcane</span>
+                    </div>
+                </div>
+                <div class="tbc-hub-tier-class">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_rogue.jpg" alt="Rogue" loading="lazy">
+                    <div class="tbc-hub-tier-class-info">
+                        <span class="tbc-hub-tier-class-name" style="color: var(--rogue)">Rogue</span>
+                        <span class="tbc-hub-tier-class-spec">Combat</span>
+                    </div>
+                </div>
+                <div class="tbc-hub-tier-class">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_shaman.jpg" alt="Shaman" loading="lazy">
+                    <div class="tbc-hub-tier-class-info">
+                        <span class="tbc-hub-tier-class-name" style="color: var(--shaman)">Shaman</span>
+                        <span class="tbc-hub-tier-class-spec">Enhancement</span>
+                    </div>
+                </div>
+            </div>
+            <p class="tbc-tier-explanation">Fire Mage scales incredibly with T5/T6 crit gear, Combat Rogue brings massive sustained melee damage, and Enhancement Shaman provides Windfury Totem &mdash; the best melee raid buff in the game.</p>
+        </div>
+        <!-- B Tier -->
+        <div class="tbc-hub-tier-row">
+            <div class="tbc-hub-tier-label tier-b">B</div>
+            <div class="tbc-hub-tier-classes">
+                <div class="tbc-hub-tier-class">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_warrior.jpg" alt="Warrior" loading="lazy">
+                    <div class="tbc-hub-tier-class-info">
+                        <span class="tbc-hub-tier-class-name" style="color: var(--warrior)">Warrior</span>
+                        <span class="tbc-hub-tier-class-spec">Fury</span>
+                    </div>
+                </div>
+                <div class="tbc-hub-tier-class">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_druid.jpg" alt="Druid" loading="lazy">
+                    <div class="tbc-hub-tier-class-info">
+                        <span class="tbc-hub-tier-class-name" style="color: var(--druid)">Druid</span>
+                        <span class="tbc-hub-tier-class-spec">Balance</span>
+                    </div>
+                </div>
+                <div class="tbc-hub-tier-class">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_paladin.jpg" alt="Paladin" loading="lazy">
+                    <div class="tbc-hub-tier-class-info">
+                        <span class="tbc-hub-tier-class-name" style="color: var(--paladin)">Paladin</span>
+                        <span class="tbc-hub-tier-class-spec">Retribution</span>
+                    </div>
+                </div>
+            </div>
+            <p class="tbc-tier-explanation">Solid DPS with great raid utility &mdash; Fury Warriors bring Blood Frenzy, Balance Druids provide Moonkin Aura, and Ret Paladins supply Judgement of Wisdom for the entire raid.</p>
+        </div>
+        <!-- C Tier -->
+        <div class="tbc-hub-tier-row">
+            <div class="tbc-hub-tier-label tier-c">C</div>
+            <div class="tbc-hub-tier-classes">
+                <div class="tbc-hub-tier-class">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_priest.jpg" alt="Priest" loading="lazy">
+                    <div class="tbc-hub-tier-class-info">
+                        <span class="tbc-hub-tier-class-name" style="color: var(--priest)">Priest</span>
+                        <span class="tbc-hub-tier-class-spec">Shadow</span>
+                    </div>
+                </div>
+            </div>
+            <p class="tbc-tier-explanation">Lower personal DPS, but Shadow Priests are mandatory in every raid for Vampiric Touch mana regeneration &mdash; one of the most valuable support specs in TBC.</p>
+        </div>
+    </div>
+
+    <div class="tbc-community-actions">
+        <div class="tbc-vote-group">
+            <button class="tbc-vote-btn" data-section="tier-lists" data-vote="up" title="Helpful" aria-label="Upvote tier lists">&#9650;</button>
+            <span class="tbc-vote-count" data-section="tier-lists">0</span>
+            <button class="tbc-vote-btn" data-section="tier-lists" data-vote="down" title="Not helpful" aria-label="Downvote tier lists">&#9660;</button>
+        </div>
+        <button class="tbc-share-btn" data-section="tier-lists" title="Share this section">&#128279; Share</button>
+        <button class="tbc-report-btn" data-section="tier-lists" title="Report outdated info">&#9873; Report</button>
+        <span class="tbc-updated-badge">Last Updated: Feb 2026</span>
+    </div>
+</div>
+
+<!-- PvP Tier List -->
+<div class="tbc-hub-section" data-reveal>
+    <div class="tbc-hub-section-header">
+        <img src="https://wow.zamimg.com/images/wow/icons/large/inv_axe_66.jpg" alt="" class="section-icon" loading="lazy">
+        <h2>PvP Arena Tier List</h2>
+    </div>
+    <p class="tbc-hub-section-desc">Class rankings for Arena and Battleground PvP in TBC.</p>
+
+    <div class="tbc-hub-tier-list">
+        <!-- S Tier -->
+        <div class="tbc-hub-tier-row">
+            <div class="tbc-hub-tier-label tier-s">S</div>
+            <div class="tbc-hub-tier-classes">
+                <div class="tbc-hub-tier-class">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_warrior.jpg" alt="Warrior" loading="lazy">
+                    <div class="tbc-hub-tier-class-info">
+                        <span class="tbc-hub-tier-class-name" style="color: var(--warrior)">Warrior</span>
+                        <span class="tbc-hub-tier-class-spec">Arms</span>
+                    </div>
+                </div>
+                <div class="tbc-hub-tier-class">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_rogue.jpg" alt="Rogue" loading="lazy">
+                    <div class="tbc-hub-tier-class-info">
+                        <span class="tbc-hub-tier-class-name" style="color: var(--rogue)">Rogue</span>
+                        <span class="tbc-hub-tier-class-spec">Subtlety</span>
+                    </div>
+                </div>
+                <div class="tbc-hub-tier-class">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_warlock.jpg" alt="Warlock" loading="lazy">
+                    <div class="tbc-hub-tier-class-info">
+                        <span class="tbc-hub-tier-class-name" style="color: var(--warlock)">Warlock</span>
+                        <span class="tbc-hub-tier-class-spec">SL/SL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- A Tier -->
+        <div class="tbc-hub-tier-row">
+            <div class="tbc-hub-tier-label tier-a">A</div>
+            <div class="tbc-hub-tier-classes">
+                <div class="tbc-hub-tier-class">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_druid.jpg" alt="Druid" loading="lazy">
+                    <div class="tbc-hub-tier-class-info">
+                        <span class="tbc-hub-tier-class-name" style="color: var(--druid)">Druid</span>
+                        <span class="tbc-hub-tier-class-spec">Restoration</span>
+                    </div>
+                </div>
+                <div class="tbc-hub-tier-class">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_priest.jpg" alt="Priest" loading="lazy">
+                    <div class="tbc-hub-tier-class-info">
+                        <span class="tbc-hub-tier-class-name" style="color: var(--priest)">Priest</span>
+                        <span class="tbc-hub-tier-class-spec">Discipline</span>
+                    </div>
+                </div>
+                <div class="tbc-hub-tier-class">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_mage.jpg" alt="Mage" loading="lazy">
+                    <div class="tbc-hub-tier-class-info">
+                        <span class="tbc-hub-tier-class-name" style="color: var(--mage)">Mage</span>
+                        <span class="tbc-hub-tier-class-spec">Frost</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- B Tier -->
+        <div class="tbc-hub-tier-row">
+            <div class="tbc-hub-tier-label tier-b">B</div>
+            <div class="tbc-hub-tier-classes">
+                <div class="tbc-hub-tier-class">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_paladin.jpg" alt="Paladin" loading="lazy">
+                    <div class="tbc-hub-tier-class-info">
+                        <span class="tbc-hub-tier-class-name" style="color: var(--paladin)">Paladin</span>
+                        <span class="tbc-hub-tier-class-spec">Holy</span>
+                    </div>
+                </div>
+                <div class="tbc-hub-tier-class">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_shaman.jpg" alt="Shaman" loading="lazy">
+                    <div class="tbc-hub-tier-class-info">
+                        <span class="tbc-hub-tier-class-name" style="color: var(--shaman)">Shaman</span>
+                        <span class="tbc-hub-tier-class-spec">Restoration</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- C Tier -->
+        <div class="tbc-hub-tier-row">
+            <div class="tbc-hub-tier-label tier-c">C</div>
+            <div class="tbc-hub-tier-classes">
+                <div class="tbc-hub-tier-class">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_hunter.jpg" alt="Hunter" loading="lazy">
+                    <div class="tbc-hub-tier-class-info">
+                        <span class="tbc-hub-tier-class-name" style="color: var(--hunter)">Hunter</span>
+                        <span class="tbc-hub-tier-class-spec">Marksmanship</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<style>
-.hero {
-    text-align: center;
-    padding: 4rem 2rem;
-    background: linear-gradient(135deg, rgba(20, 20, 30, 0.95), rgba(10, 10, 15, 0.98));
-    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-    margin-bottom: 2rem;
-}
+<!-- ==================== ALL CLASSES GRID ==================== -->
+<div class="tbc-hub-section" id="classes" data-reveal>
+    <div class="tbc-hub-section-header">
+        <img src="https://wow.zamimg.com/images/wow/icons/large/achievement_general_classact.jpg" alt="" class="section-icon" loading="lazy">
+        <h2>All Class Guides</h2>
+    </div>
+    <p class="tbc-hub-section-desc">Talent calculators, rotation guides, BiS gear, enchants, and macros for every class in TBC Classic.</p>
 
-.hero-badge {
-    display: inline-block;
-    background: linear-gradient(135deg, #00ff88, #00cc6a);
-    color: #000;
-    padding: 0.5rem 1.5rem;
-    border-radius: 50px;
-    font-weight: 700;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 1.5rem;
-}
+    <div class="tbc-hub-class-grid">
 
-.hero h1 {
-    font-family: 'Orbitron', monospace;
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    color: #fff;
-    margin-bottom: 1rem;
-    text-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
-}
+        <!-- Warrior -->
+        <a href="/wow-tbc-guides/warrior-arms-pve/" class="tbc-hub-class-card tbc-guide-card warrior" data-category="class">
+            <div class="tbc-hub-card-header">
+                <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_warrior.jpg" alt="Warrior" class="tbc-hub-card-icon" loading="lazy">
+                <h3 class="tbc-hub-card-title">Warrior</h3>
+            </div>
+            <p class="tbc-card-tagline">Blood Frenzy debuff king. Mortal Strike never gets old.</p>
+            <div class="tbc-hub-card-specs">
+                <div class="tbc-hub-spec-row">
+                    <span class="tbc-hub-spec-label">PvE</span>
+                    <span class="tbc-hub-spec-name">Arms / Fury</span>
+                </div>
+                <div class="tbc-hub-spec-row">
+                    <span class="tbc-hub-spec-label">PvP</span>
+                    <span class="tbc-hub-spec-name">Arms</span>
+                </div>
+            </div>
+            <div class="tbc-hub-card-roles">
+                <span class="tbc-hub-role-badge tank">Tank</span>
+                <span class="tbc-hub-role-badge dps">DPS</span>
+            </div>
+            <span class="tbc-hub-card-btn available">View Guide</span>
+        </a>
 
-.hero-subtitle {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin: 0 auto;
-}
+        <!-- Paladin -->
+        <a href="/wow-tbc-guides/paladin-ret-pve/" class="tbc-hub-class-card tbc-guide-card paladin" data-category="class">
+            <div class="tbc-hub-card-header">
+                <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_paladin.jpg" alt="Paladin" class="tbc-hub-card-icon" loading="lazy">
+                <h3 class="tbc-hub-card-title">Paladin</h3>
+            </div>
+            <p class="tbc-card-tagline">The Light's champion. Blessings, auras, and Seal twisting.</p>
+            <div class="tbc-hub-card-specs">
+                <div class="tbc-hub-spec-row">
+                    <span class="tbc-hub-spec-label">PvE</span>
+                    <span class="tbc-hub-spec-name">Retribution</span>
+                </div>
+                <div class="tbc-hub-spec-row">
+                    <span class="tbc-hub-spec-label">PvP</span>
+                    <span class="tbc-hub-spec-name">Holy</span>
+                </div>
+            </div>
+            <div class="tbc-hub-card-roles">
+                <span class="tbc-hub-role-badge tank">Tank</span>
+                <span class="tbc-hub-role-badge healer">Healer</span>
+                <span class="tbc-hub-role-badge dps">DPS</span>
+            </div>
+            <span class="tbc-hub-card-btn available">View Guide</span>
+        </a>
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1.5rem 4rem;
-}
+        <!-- Hunter -->
+        <a href="/wow-tbc-guides/hunter-bm-pve/" class="tbc-hub-class-card tbc-guide-card hunter" data-category="class">
+            <div class="tbc-hub-card-header">
+                <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_hunter.jpg" alt="Hunter" class="tbc-hub-card-icon" loading="lazy">
+                <h3 class="tbc-hub-card-title">Hunter</h3>
+            </div>
+            <p class="tbc-card-tagline">Unleash your pet. BM is the #1 DPS in early TBC.</p>
+            <div class="tbc-hub-card-specs">
+                <div class="tbc-hub-spec-row">
+                    <span class="tbc-hub-spec-label">PvE</span>
+                    <span class="tbc-hub-spec-name">Beast Mastery</span>
+                </div>
+                <div class="tbc-hub-spec-row">
+                    <span class="tbc-hub-spec-label">PvP</span>
+                    <span class="tbc-hub-spec-name">Marksmanship</span>
+                </div>
+            </div>
+            <div class="tbc-hub-card-roles">
+                <span class="tbc-hub-role-badge dps">DPS</span>
+            </div>
+            <span class="tbc-hub-card-btn available">View Guide</span>
+        </a>
 
-.content-section {
-    background: rgba(20, 20, 30, 0.8);
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    border-radius: 12px;
-    padding: 2rem;
-}
+        <!-- Rogue -->
+        <a href="/wow-tbc-guides/rogue-combat-pve/" class="tbc-hub-class-card tbc-guide-card rogue" data-category="class">
+            <div class="tbc-hub-card-header">
+                <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_rogue.jpg" alt="Rogue" class="tbc-hub-card-icon" loading="lazy">
+                <h3 class="tbc-hub-card-title">Rogue</h3>
+            </div>
+            <p class="tbc-card-tagline">Blade Flurry cleave machine. Pure melee DPS.</p>
+            <div class="tbc-hub-card-specs">
+                <div class="tbc-hub-spec-row">
+                    <span class="tbc-hub-spec-label">PvE</span>
+                    <span class="tbc-hub-spec-name">Combat</span>
+                </div>
+                <div class="tbc-hub-spec-row">
+                    <span class="tbc-hub-spec-label">PvP</span>
+                    <span class="tbc-hub-spec-name">Subtlety</span>
+                </div>
+            </div>
+            <div class="tbc-hub-card-roles">
+                <span class="tbc-hub-role-badge dps">DPS</span>
+            </div>
+            <span class="tbc-hub-card-btn available">View Guide</span>
+        </a>
 
-.content-section h2 {
-    font-family: 'Orbitron', monospace;
-    color: var(--gold, #d4af37);
-    margin-bottom: 1rem;
-}
+        <!-- Priest -->
+        <a href="/wow-tbc-guides/priest-shadow-pve/" class="tbc-hub-class-card tbc-guide-card priest" data-category="class">
+            <div class="tbc-hub-card-header">
+                <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_priest.jpg" alt="Priest" class="tbc-hub-card-icon" loading="lazy">
+                <h3 class="tbc-hub-card-title">Priest</h3>
+            </div>
+            <p class="tbc-card-tagline">Vampiric Touch mana battery. Every raid needs one.</p>
+            <div class="tbc-hub-card-specs">
+                <div class="tbc-hub-spec-row">
+                    <span class="tbc-hub-spec-label">PvE</span>
+                    <span class="tbc-hub-spec-name">Shadow</span>
+                </div>
+                <div class="tbc-hub-spec-row">
+                    <span class="tbc-hub-spec-label">PvP</span>
+                    <span class="tbc-hub-spec-name">Discipline</span>
+                </div>
+            </div>
+            <div class="tbc-hub-card-roles">
+                <span class="tbc-hub-role-badge healer">Healer</span>
+                <span class="tbc-hub-role-badge dps">DPS</span>
+            </div>
+            <span class="tbc-hub-card-btn available">View Guide</span>
+        </a>
 
-.content-section > p {
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 2rem;
-}
+        <!-- Shaman -->
+        <a href="/wow-tbc-guides/shaman-enh-pve/" class="tbc-hub-class-card tbc-guide-card shaman" data-category="class">
+            <div class="tbc-hub-card-header">
+                <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_shaman.jpg" alt="Shaman" class="tbc-hub-card-icon" loading="lazy">
+                <h3 class="tbc-hub-card-title">Shaman</h3>
+            </div>
+            <p class="tbc-card-tagline">Windfury procs and totem twisting. The melee enabler.</p>
+            <div class="tbc-hub-card-specs">
+                <div class="tbc-hub-spec-row">
+                    <span class="tbc-hub-spec-label">PvE</span>
+                    <span class="tbc-hub-spec-name">Enhancement</span>
+                </div>
+                <div class="tbc-hub-spec-row">
+                    <span class="tbc-hub-spec-label">PvP</span>
+                    <span class="tbc-hub-spec-name">Restoration</span>
+                </div>
+            </div>
+            <div class="tbc-hub-card-roles">
+                <span class="tbc-hub-role-badge healer">Healer</span>
+                <span class="tbc-hub-role-badge dps">DPS</span>
+            </div>
+            <span class="tbc-hub-card-btn available">View Guide</span>
+        </a>
 
-.feature-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-}
+        <!-- Mage -->
+        <a href="/wow-tbc-guides/mage-fire-pve/" class="tbc-hub-class-card tbc-guide-card mage" data-category="class">
+            <div class="tbc-hub-card-header">
+                <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_mage.jpg" alt="Mage" class="tbc-hub-card-icon" loading="lazy">
+                <h3 class="tbc-hub-card-title">Mage</h3>
+            </div>
+            <p class="tbc-card-tagline">Ignite-stacking pyromaniac. Scales hardest in T6.</p>
+            <div class="tbc-hub-card-specs">
+                <div class="tbc-hub-spec-row">
+                    <span class="tbc-hub-spec-label">PvE</span>
+                    <span class="tbc-hub-spec-name">Fire / Arcane</span>
+                </div>
+                <div class="tbc-hub-spec-row">
+                    <span class="tbc-hub-spec-label">PvP</span>
+                    <span class="tbc-hub-spec-name">Frost</span>
+                </div>
+            </div>
+            <div class="tbc-hub-card-roles">
+                <span class="tbc-hub-role-badge dps">DPS</span>
+            </div>
+            <span class="tbc-hub-card-btn available">View Guide</span>
+        </a>
 
-.feature-card {
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(0, 255, 136, 0.2);
-    border-radius: 8px;
-    padding: 1.5rem;
-    text-align: center;
-    transition: all 0.3s ease;
-}
+        <!-- Warlock -->
+        <a href="/wow-tbc-guides/warlock-destro-pve/" class="tbc-hub-class-card tbc-guide-card warlock" data-category="class">
+            <div class="tbc-hub-card-header">
+                <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_warlock.jpg" alt="Warlock" class="tbc-hub-card-icon" loading="lazy">
+                <h3 class="tbc-hub-card-title">Warlock</h3>
+            </div>
+            <p class="tbc-card-tagline">Shadow Bolt spam king. #1 DPS in TBC &mdash; period.</p>
+            <div class="tbc-hub-card-specs">
+                <div class="tbc-hub-spec-row">
+                    <span class="tbc-hub-spec-label">PvE</span>
+                    <span class="tbc-hub-spec-name">Destruction</span>
+                </div>
+                <div class="tbc-hub-spec-row">
+                    <span class="tbc-hub-spec-label">PvP</span>
+                    <span class="tbc-hub-spec-name">SL/SL</span>
+                </div>
+            </div>
+            <div class="tbc-hub-card-roles">
+                <span class="tbc-hub-role-badge dps">DPS</span>
+            </div>
+            <span class="tbc-hub-card-btn available">View Guide</span>
+        </a>
 
-.feature-card:hover {
-    border-color: rgba(0, 255, 136, 0.5);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 255, 136, 0.15);
-}
+        <!-- Druid -->
+        <a href="/wow-tbc-guides/druid-feral-pve/" class="tbc-hub-class-card tbc-guide-card druid" data-category="class">
+            <div class="tbc-hub-card-header">
+                <img src="https://wow.zamimg.com/images/wow/icons/large/classicon_druid.jpg" alt="Druid" class="tbc-hub-card-icon" loading="lazy">
+                <h3 class="tbc-hub-card-title">Druid</h3>
+            </div>
+            <p class="tbc-card-tagline">Powershifting prodigy. Tank or DPS in one respec.</p>
+            <div class="tbc-hub-card-specs">
+                <div class="tbc-hub-spec-row">
+                    <span class="tbc-hub-spec-label">PvE</span>
+                    <span class="tbc-hub-spec-name">Feral</span>
+                </div>
+                <div class="tbc-hub-spec-row">
+                    <span class="tbc-hub-spec-label">PvP</span>
+                    <span class="tbc-hub-spec-name">Restoration</span>
+                </div>
+            </div>
+            <div class="tbc-hub-card-roles">
+                <span class="tbc-hub-role-badge tank">Tank</span>
+                <span class="tbc-hub-role-badge healer">Healer</span>
+                <span class="tbc-hub-role-badge dps">DPS</span>
+            </div>
+            <span class="tbc-hub-card-btn available">View Guide</span>
+        </a>
 
-.feature-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
+    </div>
 
-.feature-card h3 {
-    font-family: 'Orbitron', monospace;
-    color: #00ff88;
-    font-size: 1.1rem;
-    margin-bottom: 0.75rem;
-}
+    <div class="tbc-community-actions">
+        <div class="tbc-vote-group">
+            <button class="tbc-vote-btn" data-section="classes" data-vote="up" title="Helpful" aria-label="Upvote class guides">&#9650;</button>
+            <span class="tbc-vote-count" data-section="classes">0</span>
+            <button class="tbc-vote-btn" data-section="classes" data-vote="down" title="Not helpful" aria-label="Downvote class guides">&#9660;</button>
+        </div>
+        <button class="tbc-share-btn" data-section="classes" title="Share this section">&#128279; Share</button>
+        <button class="tbc-report-btn" data-section="classes" title="Report outdated info">&#9873; Report</button>
+        <span class="tbc-updated-badge">Last Updated: Feb 2026</span>
+    </div>
+</div>
 
-.feature-card p {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.9rem;
-    line-height: 1.5;
-}
+<!-- ==================== DUNGEON & RAID DATABASE ==================== -->
+<div class="tbc-hub-section" id="dungeon-db" data-reveal>
+    <div class="tbc-hub-section-header">
+        <img src="https://wow.zamimg.com/images/wow/icons/large/inv_misc_key_10.jpg" alt="" class="section-icon" loading="lazy">
+        <h2>Dungeon &amp; Raid Database</h2>
+    </div>
+    <p class="tbc-hub-section-desc">Complete database of every TBC dungeon and raid instance with key reputation, loot, and attunement info.</p>
 
-@media (max-width: 640px) {
-    .hero {
-        padding: 3rem 1rem;
-    }
+    <div class="tbc-db-controls">
+        <div class="tbc-db-filter-wrap">
+            <label for="tbc-db-filter-select" class="tbc-db-label">Filter:</label>
+            <select class="tbc-db-filter-select" id="tbc-db-filter-select" aria-label="Filter dungeon type">
+                <option value="all">All Instances</option>
+                <option value="normal">Normal Dungeons</option>
+                <option value="heroic">Heroic Dungeons</option>
+                <option value="raid">Raids</option>
+            </select>
+        </div>
+    </div>
 
-    .content-section {
-        padding: 1.5rem;
-    }
+    <div class="tbc-prof-table-wrap">
+        <table class="tbc-prof-table tbc-db-table" id="tbc-db-table">
+            <thead>
+                <tr>
+                    <th><button class="tbc-db-sort" data-sort="name">Name</button></th>
+                    <th><button class="tbc-db-sort" data-sort="level">Level</button></th>
+                    <th><button class="tbc-db-sort" data-sort="size">Size</button></th>
+                    <th><button class="tbc-db-sort" data-sort="type">Type</button></th>
+                    <th>Location</th>
+                    <th>Key Rep</th>
+                    <th>Notable</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-type="normal"><td>Hellfire Ramparts</td><td>60-62</td><td>5</td><td>Normal</td><td>Hellfire Peninsula</td><td>Honor Hold / Thrallmar</td><td>First dungeon in Outland</td></tr>
+                <tr data-type="normal"><td>The Blood Furnace</td><td>61-63</td><td>5</td><td>Normal</td><td>Hellfire Peninsula</td><td>Honor Hold / Thrallmar</td><td>Fel Orc experiments</td></tr>
+                <tr data-type="normal"><td>The Slave Pens</td><td>62-64</td><td>5</td><td>Normal</td><td>Zangarmarsh</td><td>Cenarion Expedition</td><td>SSC attunement chain</td></tr>
+                <tr data-type="normal"><td>The Underbog</td><td>63-65</td><td>5</td><td>Normal</td><td>Zangarmarsh</td><td>Cenarion Expedition</td><td>Sporeggar rep turn-ins</td></tr>
+                <tr data-type="normal"><td>Mana-Tombs</td><td>64-66</td><td>5</td><td>Normal</td><td>Terokkar Forest</td><td>The Consortium</td><td>Free monthly gems</td></tr>
+                <tr data-type="normal"><td>Auchenai Crypts</td><td>65-67</td><td>5</td><td>Normal</td><td>Terokkar Forest</td><td>Lower City</td><td>Draenei lore</td></tr>
+                <tr data-type="normal"><td>Old Hillsbrad Foothills</td><td>66-68</td><td>5</td><td>Normal</td><td>Caverns of Time</td><td>Keepers of Time</td><td>Thrall escape event</td></tr>
+                <tr data-type="normal"><td>Sethekk Halls</td><td>67-69</td><td>5</td><td>Normal</td><td>Terokkar Forest</td><td>Lower City</td><td>Raven Lord Mount (Heroic)</td></tr>
+                <tr data-type="normal"><td>Shadow Labyrinth</td><td>70</td><td>5</td><td>Normal</td><td>Terokkar Forest</td><td>Lower City</td><td>Kara Key Fragment #1</td></tr>
+                <tr data-type="normal"><td>The Steamvault</td><td>70</td><td>5</td><td>Normal</td><td>Zangarmarsh</td><td>Cenarion Expedition</td><td>Kara Key Fragment #2</td></tr>
+                <tr data-type="normal"><td>The Shattered Halls</td><td>70</td><td>5</td><td>Normal</td><td>Hellfire Peninsula</td><td>Honor Hold / Thrallmar</td><td>Pre-raid melee gear</td></tr>
+                <tr data-type="normal"><td>The Mechanar</td><td>69-70</td><td>5</td><td>Normal</td><td>Netherstorm</td><td>The Sha'tar</td><td>TK attunement chain</td></tr>
+                <tr data-type="normal"><td>The Botanica</td><td>70</td><td>5</td><td>Normal</td><td>Netherstorm</td><td>The Sha'tar</td><td>TK attunement chain</td></tr>
+                <tr data-type="normal"><td>The Arcatraz</td><td>70</td><td>5</td><td>Normal</td><td>Netherstorm</td><td>The Sha'tar</td><td>Kara Key Fragment #3</td></tr>
+                <tr data-type="normal"><td>The Black Morass</td><td>70</td><td>5</td><td>Normal</td><td>Caverns of Time</td><td>Keepers of Time</td><td>Kara attunement final</td></tr>
+                <tr data-type="normal"><td>Magisters' Terrace</td><td>70</td><td>5</td><td>Normal</td><td>Isle of Quel'Danas</td><td>Shattered Sun Offensive</td><td>Swift White Hawkstrider (H)</td></tr>
+                <tr data-type="raid"><td>Karazhan</td><td>70</td><td>10</td><td>Raid</td><td>Deadwind Pass</td><td>The Violet Eye</td><td>12 bosses, first TBC raid</td></tr>
+                <tr data-type="raid"><td>Gruul's Lair</td><td>70</td><td>25</td><td>Raid</td><td>Blade's Edge Mountains</td><td>&mdash;</td><td>Dragonspine Trophy</td></tr>
+                <tr data-type="raid"><td>Magtheridon's Lair</td><td>70</td><td>25</td><td>Raid</td><td>Hellfire Peninsula</td><td>&mdash;</td><td>Cube clicking mechanic</td></tr>
+                <tr data-type="raid"><td>Serpentshrine Cavern</td><td>70</td><td>25</td><td>Raid</td><td>Zangarmarsh</td><td>&mdash;</td><td>Lady Vashj, T5 tokens</td></tr>
+                <tr data-type="raid"><td>Tempest Keep: The Eye</td><td>70</td><td>25</td><td>Raid</td><td>Netherstorm</td><td>&mdash;</td><td>Ashes of Al'ar mount</td></tr>
+                <tr data-type="raid"><td>Hyjal Summit</td><td>70</td><td>25</td><td>Raid</td><td>Caverns of Time</td><td>&mdash;</td><td>Archimonde, T6 tokens</td></tr>
+                <tr data-type="raid"><td>Black Temple</td><td>70</td><td>25</td><td>Raid</td><td>Shadowmoon Valley</td><td>Ashtongue Deathsworn</td><td>Warglaives of Azzinoth</td></tr>
+                <tr data-type="raid"><td>Zul'Aman</td><td>70</td><td>10</td><td>Raid</td><td>Ghostlands</td><td>&mdash;</td><td>Timed bear run mount</td></tr>
+                <tr data-type="raid"><td>Sunwell Plateau</td><td>70</td><td>25</td><td>Raid</td><td>Isle of Quel'Danas</td><td>&mdash;</td><td>Kil'jaeden, hardest TBC</td></tr>
+            </tbody>
+        </table>
+    </div>
 
-    .feature-grid {
-        grid-template-columns: 1fr;
-    }
-}
-</style>
+    <div class="tbc-community-actions">
+        <div class="tbc-vote-group">
+            <button class="tbc-vote-btn" data-section="dungeon-db" data-vote="up" title="Helpful" aria-label="Upvote dungeon database">&#9650;</button>
+            <span class="tbc-vote-count" data-section="dungeon-db">0</span>
+            <button class="tbc-vote-btn" data-section="dungeon-db" data-vote="down" title="Not helpful" aria-label="Downvote dungeon database">&#9660;</button>
+        </div>
+        <button class="tbc-share-btn" data-section="dungeon-db" title="Share this section">&#128279; Share</button>
+        <button class="tbc-report-btn" data-section="dungeon-db" title="Report outdated info">&#9873; Report</button>
+        <span class="tbc-updated-badge">Last Updated: Feb 2026</span>
+    </div>
+</div>
+
+<!-- ==================== RAID & DUNGEON PROGRESSION ==================== -->
+<div class="tbc-hub-section" id="raids" data-reveal>
+    <div class="tbc-hub-section-header">
+        <img src="https://wow.zamimg.com/images/wow/icons/large/inv_misc_head_dragon_black.jpg" alt="" class="section-icon" loading="lazy">
+        <h2>Raid &amp; Dungeon Progression</h2>
+    </div>
+    <p class="tbc-hub-section-desc">The complete TBC raid progression path from Karazhan to Sunwell Plateau.</p>
+    <blockquote class="wow-lore-quote">"Tempest Keep was merely a setback!" &mdash; Kael'thas Sunstrider</blockquote>
+
+    <div class="tbc-raid-timeline">
+        <!-- Tier 4 -->
+        <div class="tbc-raid-phase">
+            <div class="tbc-raid-phase-header">
+                <span class="tbc-raid-phase-badge">Phase 1 - Tier 4</span>
+            </div>
+            <div class="tbc-raid-cards">
+                <div class="tbc-raid-card">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/inv_misc_key_07.jpg" alt="" class="tbc-raid-icon" loading="lazy">
+                    <div class="tbc-raid-info">
+                        <h4>Karazhan</h4>
+                        <div class="tbc-raid-meta">
+                            <span class="tbc-raid-size">10-Man</span>
+                            <span class="tbc-raid-bosses">12 Bosses</span>
+                        </div>
+                        <p>The haunted tower of Medivh. First raid of TBC featuring Prince Malchezaar, Shade of Aran, and the iconic chess event. Requires attunement via The Master's Key questline.</p>
+                    </div>
+                </div>
+                <div class="tbc-raid-card">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/spell_nature_acid_01.jpg" alt="" class="tbc-raid-icon" loading="lazy">
+                    <div class="tbc-raid-info">
+                        <h4>Gruul's Lair</h4>
+                        <div class="tbc-raid-meta">
+                            <span class="tbc-raid-size">25-Man</span>
+                            <span class="tbc-raid-bosses">2 Bosses</span>
+                        </div>
+                        <p>Home of Gruul the Dragonkiller and High King Maulgar. Quick raid with excellent loot including the Dragonspine Trophy trinket.</p>
+                    </div>
+                </div>
+                <div class="tbc-raid-card">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/spell_fire_incinerate.jpg" alt="" class="tbc-raid-icon" loading="lazy">
+                    <div class="tbc-raid-info">
+                        <h4>Magtheridon's Lair</h4>
+                        <div class="tbc-raid-meta">
+                            <span class="tbc-raid-size">25-Man</span>
+                            <span class="tbc-raid-bosses">1 Boss</span>
+                        </div>
+                        <p>Single-boss encounter beneath Hellfire Citadel. Requires coordinated clicking of Manticron Cubes to interrupt Blast Nova.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tier 5 -->
+        <div class="tbc-raid-phase">
+            <div class="tbc-raid-phase-header">
+                <span class="tbc-raid-phase-badge">Phase 2 - Tier 5</span>
+            </div>
+            <div class="tbc-raid-cards">
+                <div class="tbc-raid-card">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/spell_nature_elementalshields.jpg" alt="" class="tbc-raid-icon" loading="lazy">
+                    <div class="tbc-raid-info">
+                        <h4>Serpentshrine Cavern</h4>
+                        <div class="tbc-raid-meta">
+                            <span class="tbc-raid-size">25-Man</span>
+                            <span class="tbc-raid-bosses">6 Bosses</span>
+                        </div>
+                        <p>Lady Vashj's underwater lair in Zangarmarsh. Features the notorious Vashj encounter with tainted core passing mechanics. Drops Tier 5 tokens.</p>
+                    </div>
+                </div>
+                <div class="tbc-raid-card">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/spell_arcane_portalshattrath.jpg" alt="" class="tbc-raid-icon" loading="lazy">
+                    <div class="tbc-raid-info">
+                        <h4>Tempest Keep: The Eye</h4>
+                        <div class="tbc-raid-meta">
+                            <span class="tbc-raid-size">25-Man</span>
+                            <span class="tbc-raid-bosses">4 Bosses</span>
+                        </div>
+                        <p>Kael'thas Sunstrider's fortress in Netherstorm. One of the most complex encounters in WoW history with a 5-phase fight. Drops the legendary Ashes of Al'ar mount.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tier 6 -->
+        <div class="tbc-raid-phase">
+            <div class="tbc-raid-phase-header">
+                <span class="tbc-raid-phase-badge">Phase 3 - Tier 6</span>
+            </div>
+            <div class="tbc-raid-cards">
+                <div class="tbc-raid-card">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/spell_nature_wrathofair_totem.jpg" alt="" class="tbc-raid-icon" loading="lazy">
+                    <div class="tbc-raid-info">
+                        <h4>Hyjal Summit</h4>
+                        <div class="tbc-raid-meta">
+                            <span class="tbc-raid-size">25-Man</span>
+                            <span class="tbc-raid-bosses">5 Bosses</span>
+                        </div>
+                        <p>Defend the World Tree alongside Thrall and Jaina Proudmoore against waves of undead culminating in the fight against Archimonde.</p>
+                    </div>
+                </div>
+                <div class="tbc-raid-card">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/achievement_boss_illidan.jpg" alt="" class="tbc-raid-icon" loading="lazy">
+                    <div class="tbc-raid-info">
+                        <h4>Black Temple</h4>
+                        <div class="tbc-raid-meta">
+                            <span class="tbc-raid-size">25-Man</span>
+                            <span class="tbc-raid-bosses">9 Bosses</span>
+                        </div>
+                        <p>The iconic fortress of Illidan Stormrage. TBC's flagship raid with 9 bosses including the legendary "You are not prepared!" encounter. Drops Tier 6 and the Warglaives of Azzinoth.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sunwell -->
+        <div class="tbc-raid-phase">
+            <div class="tbc-raid-phase-header">
+                <span class="tbc-raid-phase-badge phase-final">Phase 5 - Sunwell</span>
+            </div>
+            <div class="tbc-raid-cards">
+                <div class="tbc-raid-card sunwell">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/spell_holy_summonlightwell.jpg" alt="" class="tbc-raid-icon" loading="lazy">
+                    <div class="tbc-raid-info">
+                        <h4>Sunwell Plateau</h4>
+                        <div class="tbc-raid-meta">
+                            <span class="tbc-raid-size">25-Man</span>
+                            <span class="tbc-raid-bosses">6 Bosses</span>
+                        </div>
+                        <p>The ultimate TBC challenge. Face Kil'jaeden himself in the hardest content ever released. Features Brutallus (the DPS check), M'uru (the guild breaker), and Kil'jaeden emerging from the Sunwell.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Heroic Dungeons -->
+    <div class="tbc-hub-subsection">
+        <h3 class="tbc-subsection-title">
+            <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_misc_key_10.jpg" alt="" loading="lazy">
+            Key Heroic Dungeons
+        </h3>
+        <div class="tbc-dungeon-grid">
+            <div class="tbc-dungeon-item">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_warrior_decisivestrike.jpg" alt="" loading="lazy">
+                <div>
+                    <strong>Shattered Halls</strong>
+                    <span>Honor Hold/Thrallmar Rep - Pre-raid DPS gear</span>
+                </div>
+            </div>
+            <div class="tbc-dungeon-item">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_shadowworddominate.jpg" alt="" loading="lazy">
+                <div>
+                    <strong>Shadow Labyrinth</strong>
+                    <span>Lower City Rep - First Fragment of the Master's Key</span>
+                </div>
+            </div>
+            <div class="tbc-dungeon-item">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_nature_lightningoverload.jpg" alt="" loading="lazy">
+                <div>
+                    <strong>Mechanar / Botanica / Arcatraz</strong>
+                    <span>Sha'tar Rep - Tempest Keep attunement chain</span>
+                </div>
+            </div>
+            <div class="tbc-dungeon-item">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_nature_abolishmagic.jpg" alt="" loading="lazy">
+                <div>
+                    <strong>Steamvault / Slave Pens / Underbog</strong>
+                    <span>Cenarion Expedition Rep - SSC attunement</span>
+                </div>
+            </div>
+            <div class="tbc-dungeon-item">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_demoniccircleteleport.jpg" alt="" loading="lazy">
+                <div>
+                    <strong>Sethekk Halls / Auchenai Crypts</strong>
+                    <span>Lower City Rep - Excellent caster loot</span>
+                </div>
+            </div>
+            <div class="tbc-dungeon-item">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_holy_championsbond.jpg" alt="" loading="lazy">
+                <div>
+                    <strong>Magisters' Terrace</strong>
+                    <span>Shattered Sun Rep - Catch-up gear, Phoenix Hatchling pet</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tbc-community-actions">
+        <div class="tbc-vote-group">
+            <button class="tbc-vote-btn" data-section="raids" data-vote="up" title="Helpful" aria-label="Upvote raids section">&#9650;</button>
+            <span class="tbc-vote-count" data-section="raids">0</span>
+            <button class="tbc-vote-btn" data-section="raids" data-vote="down" title="Not helpful" aria-label="Downvote raids section">&#9660;</button>
+        </div>
+        <button class="tbc-share-btn" data-section="raids" title="Share this section">&#128279; Share</button>
+        <button class="tbc-report-btn" data-section="raids" title="Report outdated info">&#9873; Report</button>
+        <span class="tbc-updated-badge">Last Updated: Feb 2026</span>
+    </div>
+</div>
+
+<!-- ==================== ATTUNEMENT TRACKER ==================== -->
+<div class="tbc-hub-section" id="attunement-tracker" data-reveal>
+    <div class="tbc-hub-section-header">
+        <img src="https://wow.zamimg.com/images/wow/icons/large/inv_misc_key_03.jpg" alt="" class="section-icon" loading="lazy">
+        <h2>Raid Attunement Tracker</h2>
+    </div>
+    <p class="tbc-hub-section-desc">Track your attunement progress across all TBC raids. Your progress is saved locally in your browser.</p>
+    <blockquote class="wow-lore-quote">"The key to every locked door is persistence &mdash; and knowing which dungeon to run." &mdash; Khadgar</blockquote>
+
+    <div class="tbc-attune-tracker-controls">
+        <button class="tbc-attune-reset-btn" id="tbc-attune-reset" aria-label="Reset all attunement progress">Reset All Progress</button>
+    </div>
+
+    <div class="tbc-attune-grid">
+        <!-- Karazhan -->
+        <div class="tbc-attune-card">
+            <div class="tbc-attune-header">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_misc_key_07.jpg" alt="" loading="lazy">
+                <h4>Karazhan</h4>
+            </div>
+            <div class="tbc-attune-progress" data-raid="karazhan">
+                <div class="tbc-attune-progress-bar"><div class="tbc-attune-progress-fill"></div></div>
+                <span class="tbc-attune-progress-text">0 / 5</span>
+            </div>
+            <div class="tbc-attune-steps">
+                <label class="tbc-attune-step" data-attune-id="karazhan-1">
+                    <input type="checkbox" aria-label="Speak to Archmage Alturus outside Karazhan">
+                    <span class="step-num">1</span>
+                    <span>Speak to Archmage Alturus outside Karazhan</span>
+                </label>
+                <label class="tbc-attune-step" data-attune-id="karazhan-2">
+                    <input type="checkbox" aria-label="Get First Key Fragment from Shadow Labyrinth">
+                    <span class="step-num">2</span>
+                    <span>Get First Key Fragment from Shadow Labyrinth</span>
+                </label>
+                <label class="tbc-attune-step" data-attune-id="karazhan-3">
+                    <input type="checkbox" aria-label="Get Second Key Fragment from Steamvault">
+                    <span class="step-num">3</span>
+                    <span>Get Second Key Fragment from Steamvault</span>
+                </label>
+                <label class="tbc-attune-step" data-attune-id="karazhan-4">
+                    <input type="checkbox" aria-label="Get Third Key Fragment from Arcatraz">
+                    <span class="step-num">4</span>
+                    <span>Get Third Key Fragment from Arcatraz</span>
+                </label>
+                <label class="tbc-attune-step" data-attune-id="karazhan-5">
+                    <input type="checkbox" aria-label="Return to Khadgar for The Master's Key">
+                    <span class="step-num">5</span>
+                    <span>Return to Khadgar for The Master's Key</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Serpentshrine Cavern -->
+        <div class="tbc-attune-card">
+            <div class="tbc-attune-header">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_nature_elementalshields.jpg" alt="" loading="lazy">
+                <h4>Serpentshrine Cavern</h4>
+            </div>
+            <div class="tbc-attune-progress" data-raid="ssc">
+                <div class="tbc-attune-progress-bar"><div class="tbc-attune-progress-fill"></div></div>
+                <span class="tbc-attune-progress-text">0 / 4</span>
+            </div>
+            <div class="tbc-attune-steps">
+                <label class="tbc-attune-step" data-attune-id="ssc-1">
+                    <input type="checkbox" aria-label="Complete Slave Pens quest chain">
+                    <span class="step-num">1</span>
+                    <span>Complete Slave Pens quest chain</span>
+                </label>
+                <label class="tbc-attune-step" data-attune-id="ssc-2">
+                    <input type="checkbox" aria-label="Kill Gruul the Dragonkiller">
+                    <span class="step-num">2</span>
+                    <span>Kill Gruul the Dragonkiller</span>
+                </label>
+                <label class="tbc-attune-step" data-attune-id="ssc-3">
+                    <input type="checkbox" aria-label="Kill Nightbane in Karazhan">
+                    <span class="step-num">3</span>
+                    <span>Kill Nightbane in Karazhan</span>
+                </label>
+                <label class="tbc-attune-step" data-attune-id="ssc-4">
+                    <input type="checkbox" aria-label="Complete Heroic Slave Pens for Mark of Vashj">
+                    <span class="step-num">4</span>
+                    <span>Complete Heroic Slave Pens for Mark of Vashj</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Tempest Keep -->
+        <div class="tbc-attune-card">
+            <div class="tbc-attune-header">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_arcane_portalshattrath.jpg" alt="" loading="lazy">
+                <h4>Tempest Keep: The Eye</h4>
+            </div>
+            <div class="tbc-attune-progress" data-raid="tk">
+                <div class="tbc-attune-progress-bar"><div class="tbc-attune-progress-fill"></div></div>
+                <span class="tbc-attune-progress-text">0 / 4</span>
+            </div>
+            <div class="tbc-attune-steps">
+                <label class="tbc-attune-step" data-attune-id="tk-1">
+                    <input type="checkbox" aria-label="Complete Arcatraz Key questline">
+                    <span class="step-num">1</span>
+                    <span>Complete Arcatraz Key questline</span>
+                </label>
+                <label class="tbc-attune-step" data-attune-id="tk-2">
+                    <input type="checkbox" aria-label="Kill Magtheridon in Magtheridon's Lair">
+                    <span class="step-num">2</span>
+                    <span>Kill Magtheridon in Magtheridon's Lair</span>
+                </label>
+                <label class="tbc-attune-step" data-attune-id="tk-3">
+                    <input type="checkbox" aria-label="Complete Trial of the Naaru quest chain">
+                    <span class="step-num">3</span>
+                    <span>Complete Trial of the Naaru quest chain</span>
+                </label>
+                <label class="tbc-attune-step" data-attune-id="tk-4">
+                    <input type="checkbox" aria-label="Receive The Tempest Key from A'dal">
+                    <span class="step-num">4</span>
+                    <span>Receive The Tempest Key from A'dal</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Hyjal Summit -->
+        <div class="tbc-attune-card">
+            <div class="tbc-attune-header">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_nature_wrathofair_totem.jpg" alt="" loading="lazy">
+                <h4>Hyjal Summit</h4>
+            </div>
+            <div class="tbc-attune-progress" data-raid="hyjal">
+                <div class="tbc-attune-progress-bar"><div class="tbc-attune-progress-fill"></div></div>
+                <span class="tbc-attune-progress-text">0 / 3</span>
+            </div>
+            <div class="tbc-attune-steps">
+                <label class="tbc-attune-step" data-attune-id="hyjal-1">
+                    <input type="checkbox" aria-label="Kill Lady Vashj in SSC">
+                    <span class="step-num">1</span>
+                    <span>Kill Lady Vashj in Serpentshrine Cavern</span>
+                </label>
+                <label class="tbc-attune-step" data-attune-id="hyjal-2">
+                    <input type="checkbox" aria-label="Kill Kael'thas in TK">
+                    <span class="step-num">2</span>
+                    <span>Kill Kael'thas in Tempest Keep</span>
+                </label>
+                <label class="tbc-attune-step" data-attune-id="hyjal-3">
+                    <input type="checkbox" aria-label="Bring Vials of Eternity to Soridormi">
+                    <span class="step-num">3</span>
+                    <span>Bring Vials of Eternity to Soridormi in Caverns of Time</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Black Temple -->
+        <div class="tbc-attune-card">
+            <div class="tbc-attune-header">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/achievement_boss_illidan.jpg" alt="" loading="lazy">
+                <h4>Black Temple</h4>
+            </div>
+            <div class="tbc-attune-progress" data-raid="bt">
+                <div class="tbc-attune-progress-bar"><div class="tbc-attune-progress-fill"></div></div>
+                <span class="tbc-attune-progress-text">0 / 4</span>
+            </div>
+            <div class="tbc-attune-steps">
+                <label class="tbc-attune-step" data-attune-id="bt-1">
+                    <input type="checkbox" aria-label="Complete Tablets of Baa'ri quest in Shadowmoon Valley">
+                    <span class="step-num">1</span>
+                    <span>Complete Tablets of Baa'ri quest in Shadowmoon Valley</span>
+                </label>
+                <label class="tbc-attune-step" data-attune-id="bt-2">
+                    <input type="checkbox" aria-label="Infiltrate via Ashtongue Deathsworn">
+                    <span class="step-num">2</span>
+                    <span>Infiltrate Illidan's forces via the Ashtongue Deathsworn</span>
+                </label>
+                <label class="tbc-attune-step" data-attune-id="bt-3">
+                    <input type="checkbox" aria-label="Kill Al'ar in TK and Rage Winterchill in Hyjal">
+                    <span class="step-num">3</span>
+                    <span>Kill Al'ar in Tempest Keep and Rage Winterchill in Hyjal</span>
+                </label>
+                <label class="tbc-attune-step" data-attune-id="bt-4">
+                    <input type="checkbox" aria-label="Obtain Medallion of Karabor from A'dal">
+                    <span class="step-num">4</span>
+                    <span>Obtain Medallion of Karabor from A'dal</span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="tbc-community-actions">
+        <div class="tbc-vote-group">
+            <button class="tbc-vote-btn" data-section="attunement-tracker" data-vote="up" title="Helpful" aria-label="Upvote attunements">&#9650;</button>
+            <span class="tbc-vote-count" data-section="attunement-tracker">0</span>
+            <button class="tbc-vote-btn" data-section="attunement-tracker" data-vote="down" title="Not helpful" aria-label="Downvote attunements">&#9660;</button>
+        </div>
+        <button class="tbc-share-btn" data-section="attunement-tracker" title="Share this section">&#128279; Share</button>
+        <button class="tbc-report-btn" data-section="attunement-tracker" title="Report outdated info">&#9873; Report</button>
+        <span class="tbc-updated-badge">Last Updated: Feb 2026</span>
+    </div>
+</div>
+
+<!-- ==================== LEVELING PATH PLANNER ==================== -->
+<div class="tbc-hub-section" id="leveling" data-reveal>
+    <div class="tbc-hub-section-header">
+        <img src="https://wow.zamimg.com/images/wow/icons/large/achievement_level_70.jpg" alt="" class="section-icon" loading="lazy">
+        <h2>Leveling Path Planner (58-70)</h2>
+    </div>
+    <p class="tbc-hub-section-desc">Optimal zone-by-zone leveling route through Outland. Toggle your faction to see faction-specific quest hubs and tips.</p>
+
+    <div class="tbc-faction-toggle">
+        <button class="tbc-faction-btn active" data-faction="both" aria-label="Show both factions">Both</button>
+        <button class="tbc-faction-btn" data-faction="horde" aria-label="Show Horde route">Horde</button>
+        <button class="tbc-faction-btn" data-faction="alliance" aria-label="Show Alliance route">Alliance</button>
+    </div>
+
+    <div class="tbc-zone-grid">
+        <div class="tbc-zone-card tbc-guide-card" data-zone="hellfire" data-faction="both" data-category="leveling">
+            <div class="tbc-zone-header">
+                <h4>Hellfire Peninsula</h4>
+                <span class="tbc-zone-levels">58-63</span>
+            </div>
+            <div class="tbc-zone-meta">
+                <span class="tbc-zone-time">4-6 hours</span>
+                <span class="tbc-zone-density" title="Quest Density: High">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <p>Your starting zone in Outland. Dense quest hubs around Honor Hold (Alliance) and Thrallmar (Horde). Complete all quests before moving on &mdash; the XP here is excellent.</p>
+            <div class="tbc-zone-details">
+                <div class="tbc-zone-hubs">
+                    <strong>Horde Hub:</strong> Thrallmar, Falcon Watch<br>
+                    <strong>Alliance Hub:</strong> Honor Hold, Temple of Telhamat
+                </div>
+                <div class="tbc-zone-tips">
+                    <strong>Key Quests:</strong> Fel Iron bounty, Shattered Hand chain, Mag'har rescue<br>
+                    <strong>Dungeon Alt:</strong> Ramparts + Blood Furnace spam (60-63)
+                </div>
+            </div>
+        </div>
+
+        <div class="tbc-zone-card tbc-guide-card" data-zone="zangarmarsh" data-faction="both" data-category="leveling">
+            <div class="tbc-zone-header">
+                <h4>Zangarmarsh</h4>
+                <span class="tbc-zone-levels">60-64</span>
+            </div>
+            <div class="tbc-zone-meta">
+                <span class="tbc-zone-time">3-5 hours</span>
+                <span class="tbc-zone-density" title="Quest Density: Medium">&#9733;&#9733;&#9733;&#9734;&#9734;</span>
+            </div>
+            <p>The mushroom swamp zone. Start Cenarion Expedition rep early here &mdash; you need Honored for the Heroic key. Sporeggar rep begins here as well.</p>
+            <div class="tbc-zone-details">
+                <div class="tbc-zone-hubs">
+                    <strong>Horde Hub:</strong> Swamprat Post, Zabra'jin<br>
+                    <strong>Alliance Hub:</strong> Telredor, Orebor Harborage
+                </div>
+                <div class="tbc-zone-tips">
+                    <strong>Key Quests:</strong> Cenarion chain, Drain the Sub-Basins, Naga plotline<br>
+                    <strong>Dungeon Alt:</strong> Slave Pens + Underbog (62-65)
+                </div>
+            </div>
+        </div>
+
+        <div class="tbc-zone-card tbc-guide-card" data-zone="terokkar" data-faction="both" data-category="leveling">
+            <div class="tbc-zone-header">
+                <h4>Terokkar Forest</h4>
+                <span class="tbc-zone-levels">62-65</span>
+            </div>
+            <div class="tbc-zone-meta">
+                <span class="tbc-zone-time">4-6 hours</span>
+                <span class="tbc-zone-density" title="Quest Density: High">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <p>Home to Shattrath City, your Outland capital. Choose Aldor or Scryers here for shoulder enchants. Lower City rep from Auchindoun dungeons is valuable.</p>
+            <div class="tbc-zone-details">
+                <div class="tbc-zone-hubs">
+                    <strong>Horde Hub:</strong> Stonebreaker Hold<br>
+                    <strong>Alliance Hub:</strong> Allerian Stronghold
+                </div>
+                <div class="tbc-zone-tips">
+                    <strong>Key Quests:</strong> Bone Wastes chain, Arakkoa invasion, Shattrath tour<br>
+                    <strong>Dungeon Alt:</strong> Mana-Tombs + Auchenai Crypts (64-67)
+                </div>
+            </div>
+        </div>
+
+        <div class="tbc-zone-card tbc-guide-card" data-zone="nagrand" data-faction="both" data-category="leveling">
+            <div class="tbc-zone-header">
+                <h4>Nagrand</h4>
+                <span class="tbc-zone-levels">64-67</span>
+            </div>
+            <div class="tbc-zone-meta">
+                <span class="tbc-zone-time">4-5 hours</span>
+                <span class="tbc-zone-density" title="Quest Density: High">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <p>The most beautiful zone in Outland and one of the best for leveling. Ring of Blood gives massive XP and a great weapon. Kurenai/Mag'har rep for Talbuk mounts.</p>
+            <div class="tbc-zone-details">
+                <div class="tbc-zone-hubs">
+                    <strong>Horde Hub:</strong> Garadar<br>
+                    <strong>Alliance Hub:</strong> Telaar
+                </div>
+                <div class="tbc-zone-tips">
+                    <strong>Key Quests:</strong> Ring of Blood (group), Nesingwary safari, Consortium gems<br>
+                    <strong>Dungeon Alt:</strong> Not efficient &mdash; questing is better here
+                </div>
+            </div>
+        </div>
+
+        <div class="tbc-zone-card tbc-guide-card" data-zone="blades-edge" data-faction="both" data-category="leveling">
+            <div class="tbc-zone-header">
+                <h4>Blade's Edge Mountains</h4>
+                <span class="tbc-zone-levels">65-68</span>
+            </div>
+            <div class="tbc-zone-meta">
+                <span class="tbc-zone-time">3-5 hours</span>
+                <span class="tbc-zone-density" title="Quest Density: Medium">&#9733;&#9733;&#9733;&#9734;&#9734;</span>
+            </div>
+            <p>Rugged mountain zone with Ogri'la daily quest hub at 70. Some players skip this zone entirely and go straight to Netherstorm, but the quest XP is solid.</p>
+            <div class="tbc-zone-details">
+                <div class="tbc-zone-hubs">
+                    <strong>Horde Hub:</strong> Thunderlord Stronghold<br>
+                    <strong>Alliance Hub:</strong> Sylvanaar, Toshley's Station
+                </div>
+                <div class="tbc-zone-tips">
+                    <strong>Key Quests:</strong> Ogri'la pre-chain, Gronn hunting, Apexis shards<br>
+                    <strong>Dungeon Alt:</strong> Sethekk Halls + Shadow Lab (67-70)
+                </div>
+            </div>
+        </div>
+
+        <div class="tbc-zone-card tbc-guide-card" data-zone="netherstorm" data-faction="both" data-category="leveling">
+            <div class="tbc-zone-header">
+                <h4>Netherstorm</h4>
+                <span class="tbc-zone-levels">67-70</span>
+            </div>
+            <div class="tbc-zone-meta">
+                <span class="tbc-zone-time">4-6 hours</span>
+                <span class="tbc-zone-density" title="Quest Density: High">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <p>End-game questing zone with Consortium and Sha'tar rep. Area 52 is a major quest hub. Tempest Keep dungeons (Mechanar, Botanica, Arcatraz) are here.</p>
+            <div class="tbc-zone-details">
+                <div class="tbc-zone-hubs">
+                    <strong>Neutral Hub:</strong> Area 52, The Stormspire, Cosmowrench
+                </div>
+                <div class="tbc-zone-tips">
+                    <strong>Key Quests:</strong> Consortium chain, Kael'thas investigation, Socrethar chain<br>
+                    <strong>Dungeon Alt:</strong> Mechanar + Botanica + Arcatraz (69-70)
+                </div>
+            </div>
+        </div>
+
+        <div class="tbc-zone-card tbc-guide-card" data-zone="shadowmoon" data-faction="both" data-category="leveling">
+            <div class="tbc-zone-header">
+                <h4>Shadowmoon Valley</h4>
+                <span class="tbc-zone-levels">67-70</span>
+            </div>
+            <div class="tbc-zone-meta">
+                <span class="tbc-zone-time">3-5 hours</span>
+                <span class="tbc-zone-density" title="Quest Density: Medium">&#9733;&#9733;&#9733;&#9734;&#9734;</span>
+            </div>
+            <p>The endgame zone where the Black Temple and Netherwing Ledge reside. Great for hitting 70 and starting Netherwing rep for Drake mounts immediately after.</p>
+            <div class="tbc-zone-details">
+                <div class="tbc-zone-hubs">
+                    <strong>Horde Hub:</strong> Shadowmoon Village<br>
+                    <strong>Alliance Hub:</strong> Wildhammer Stronghold
+                </div>
+                <div class="tbc-zone-tips">
+                    <strong>Key Quests:</strong> Cipher of Damnation, BT attunement start, Netherwing intro<br>
+                    <strong>Dungeon Alt:</strong> Shattered Halls + Steamvault (70)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tbc-community-actions">
+        <div class="tbc-vote-group">
+            <button class="tbc-vote-btn" data-section="leveling" data-vote="up" title="Helpful" aria-label="Upvote leveling">&#9650;</button>
+            <span class="tbc-vote-count" data-section="leveling">0</span>
+            <button class="tbc-vote-btn" data-section="leveling" data-vote="down" title="Not helpful" aria-label="Downvote leveling">&#9660;</button>
+        </div>
+        <button class="tbc-share-btn" data-section="leveling" title="Share this section">&#128279; Share</button>
+        <button class="tbc-report-btn" data-section="leveling" title="Report outdated info">&#9873; Report</button>
+        <span class="tbc-updated-badge">Last Updated: Feb 2026</span>
+    </div>
+</div>
+
+<!-- ==================== PROFESSIONS ==================== -->
+<div class="tbc-hub-section" id="professions" data-reveal>
+    <div class="tbc-hub-section-header">
+        <img src="https://wow.zamimg.com/images/wow/icons/large/trade_engineering.jpg" alt="" class="section-icon" loading="lazy">
+        <h2>Profession Guide</h2>
+    </div>
+    <p class="tbc-hub-section-desc">Best professions for every class and the most impactful crafting benefits in TBC.</p>
+
+    <!-- Profession Tier List -->
+    <div class="tbc-hub-subsection">
+        <h3 class="tbc-subsection-title">
+            <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_misc_gear_01.jpg" alt="" loading="lazy">
+            Profession Tier List
+        </h3>
+        <div class="tbc-hub-tier-list">
+            <div class="tbc-hub-tier-row">
+                <div class="tbc-hub-tier-label tier-s">S</div>
+                <div class="tbc-hub-tier-classes">
+                    <div class="tbc-hub-tier-class">
+                        <img src="https://wow.zamimg.com/images/wow/icons/large/trade_engineering.jpg" alt="Engineering" loading="lazy">
+                        <div class="tbc-hub-tier-class-info">
+                            <span class="tbc-hub-tier-class-name" style="color: #ffd700">Engineering</span>
+                            <span class="tbc-hub-tier-class-spec">Goggles, Grenades, Mounts</span>
+                        </div>
+                    </div>
+                    <div class="tbc-hub-tier-class">
+                        <img src="https://wow.zamimg.com/images/wow/icons/large/inv_enchant_disenchant.jpg" alt="Enchanting" loading="lazy">
+                        <div class="tbc-hub-tier-class-info">
+                            <span class="tbc-hub-tier-class-name" style="color: #ffd700">Enchanting</span>
+                            <span class="tbc-hub-tier-class-spec">Ring Enchants (+24 SP total)</span>
+                        </div>
+                    </div>
+                    <div class="tbc-hub-tier-class">
+                        <img src="https://wow.zamimg.com/images/wow/icons/large/inv_misc_armorkit_17.jpg" alt="Leatherworking" loading="lazy">
+                        <div class="tbc-hub-tier-class-info">
+                            <span class="tbc-hub-tier-class-name" style="color: #ffd700">Leatherworking</span>
+                            <span class="tbc-hub-tier-class-spec">Drums of Battle/Speed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tbc-hub-tier-row">
+                <div class="tbc-hub-tier-label tier-a">A</div>
+                <div class="tbc-hub-tier-classes">
+                    <div class="tbc-hub-tier-class">
+                        <img src="https://wow.zamimg.com/images/wow/icons/large/inv_misc_gem_01.jpg" alt="Jewelcrafting" loading="lazy">
+                        <div class="tbc-hub-tier-class-info">
+                            <span class="tbc-hub-tier-class-name" style="color: #4caf50">Jewelcrafting</span>
+                            <span class="tbc-hub-tier-class-spec">Unique Gems, Gold Making</span>
+                        </div>
+                    </div>
+                    <div class="tbc-hub-tier-class">
+                        <img src="https://wow.zamimg.com/images/wow/icons/large/trade_tailoring.jpg" alt="Tailoring" loading="lazy">
+                        <div class="tbc-hub-tier-class-info">
+                            <span class="tbc-hub-tier-class-name" style="color: #4caf50">Tailoring</span>
+                            <span class="tbc-hub-tier-class-spec">Spellstrike, Shadoweave Sets</span>
+                        </div>
+                    </div>
+                    <div class="tbc-hub-tier-class">
+                        <img src="https://wow.zamimg.com/images/wow/icons/large/trade_blacksmithing.jpg" alt="Blacksmithing" loading="lazy">
+                        <div class="tbc-hub-tier-class-info">
+                            <span class="tbc-hub-tier-class-name" style="color: #4caf50">Blacksmithing</span>
+                            <span class="tbc-hub-tier-class-spec">Weaponsmithing, Stormherald</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tbc-hub-tier-row">
+                <div class="tbc-hub-tier-label tier-b">B</div>
+                <div class="tbc-hub-tier-classes">
+                    <div class="tbc-hub-tier-class">
+                        <img src="https://wow.zamimg.com/images/wow/icons/large/trade_alchemy.jpg" alt="Alchemy" loading="lazy">
+                        <div class="tbc-hub-tier-class-info">
+                            <span class="tbc-hub-tier-class-name" style="color: #2196f3">Alchemy</span>
+                            <span class="tbc-hub-tier-class-spec">Transmutes, Flask Procs</span>
+                        </div>
+                    </div>
+                    <div class="tbc-hub-tier-class">
+                        <img src="https://wow.zamimg.com/images/wow/icons/large/trade_mining.jpg" alt="Mining" loading="lazy">
+                        <div class="tbc-hub-tier-class-info">
+                            <span class="tbc-hub-tier-class-name" style="color: #2196f3">Mining</span>
+                            <span class="tbc-hub-tier-class-spec">Gold Farm, Mat Supply</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Best Professions Per Class -->
+    <div class="tbc-hub-subsection">
+        <h3 class="tbc-subsection-title">
+            <img src="https://wow.zamimg.com/images/wow/icons/medium/achievement_general_classact.jpg" alt="" loading="lazy">
+            Best Professions by Class
+        </h3>
+        <div class="tbc-prof-table-wrap">
+            <table class="tbc-prof-table">
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Primary</th>
+                        <th>Secondary</th>
+                        <th>Why</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><span style="color: var(--warrior)">Warrior</span></td><td>Blacksmithing</td><td>Engineering</td><td>Stormherald (PvP) + Goggles + Grenades</td></tr>
+                    <tr><td><span style="color: var(--paladin)">Paladin</span></td><td>Engineering</td><td>Mining</td><td>Tanking goggles + grenades for snap threat</td></tr>
+                    <tr><td><span style="color: var(--hunter)">Hunter</span></td><td>Leatherworking</td><td>Skinning</td><td>Drums of Battle for raid + leg armor crafts</td></tr>
+                    <tr><td><span style="color: var(--rogue)">Rogue</span></td><td>Engineering</td><td>Mining</td><td>Goblin Sapper Charges + goggles + utility</td></tr>
+                    <tr><td><span style="color: #ccc">Priest</span></td><td>Enchanting</td><td>Tailoring</td><td>Ring enchants (+24 SP) + Primal Mooncloth set</td></tr>
+                    <tr><td><span style="color: var(--shaman)">Shaman</span></td><td>Alchemy</td><td>Herbalism</td><td>Mad Alchemist's Potion + flask procs</td></tr>
+                    <tr><td><span style="color: var(--mage)">Mage</span></td><td>Enchanting</td><td>Tailoring</td><td>Ring enchants + Spellstrike/Spellfire sets</td></tr>
+                    <tr><td><span style="color: var(--warlock)">Warlock</span></td><td>Enchanting</td><td>Tailoring</td><td>Ring enchants + Frozen Shadoweave set</td></tr>
+                    <tr><td><span style="color: var(--druid)">Druid</span></td><td>Alchemy</td><td>Herbalism</td><td>Flask of Fortification + herb gathering in forms</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Profession Calculator -->
+    <div class="tbc-hub-subsection">
+        <h3 class="tbc-subsection-title">
+            <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_misc_gear_01.jpg" alt="" loading="lazy">
+            Profession Calculator
+        </h3>
+        <p>Select a profession to see leveling cost estimates and key milestones.</p>
+        <select class="tbc-prof-select" id="tbc-prof-select" aria-label="Choose a profession">
+            <option value="">Choose a Profession...</option>
+            <option value="alchemy">Alchemy</option>
+            <option value="blacksmithing">Blacksmithing</option>
+            <option value="enchanting">Enchanting</option>
+            <option value="engineering">Engineering</option>
+            <option value="herbalism">Herbalism</option>
+            <option value="jewelcrafting">Jewelcrafting</option>
+            <option value="leatherworking">Leatherworking</option>
+            <option value="mining">Mining</option>
+            <option value="skinning">Skinning</option>
+            <option value="tailoring">Tailoring</option>
+        </select>
+        <div class="tbc-prof-results" id="tbc-prof-results"></div>
+    </div>
+
+    <div class="tbc-community-actions">
+        <div class="tbc-vote-group">
+            <button class="tbc-vote-btn" data-section="professions" data-vote="up" title="Helpful" aria-label="Upvote professions">&#9650;</button>
+            <span class="tbc-vote-count" data-section="professions">0</span>
+            <button class="tbc-vote-btn" data-section="professions" data-vote="down" title="Not helpful" aria-label="Downvote professions">&#9660;</button>
+        </div>
+        <button class="tbc-share-btn" data-section="professions" title="Share this section">&#128279; Share</button>
+        <button class="tbc-report-btn" data-section="professions" title="Report outdated info">&#9873; Report</button>
+        <span class="tbc-updated-badge">Last Updated: Feb 2026</span>
+    </div>
+</div>
+
+<!-- ==================== PVP SECTION ==================== -->
+<div class="tbc-hub-section" id="pvp" data-reveal>
+    <div class="tbc-hub-section-header">
+        <img src="https://wow.zamimg.com/images/wow/icons/large/inv_axe_66.jpg" alt="" class="section-icon" loading="lazy">
+        <h2>PvP Arena &amp; Battlegrounds</h2>
+    </div>
+    <p class="tbc-hub-section-desc">Top arena compositions, honor gear priorities, and battleground strategies for TBC Classic.</p>
+
+    <!-- 2v2 -->
+    <div class="tbc-hub-subsection">
+        <h3 class="tbc-subsection-title">
+            <img src="https://wow.zamimg.com/images/wow/icons/medium/achievement_arena_2v2_7.jpg" alt="" loading="lazy">
+            Top 2v2 Arena Compositions
+        </h3>
+        <div class="tbc-arena-grid">
+            <div class="tbc-arena-card tbc-guide-card" data-category="pvp">
+                <div class="tbc-arena-tier tier-s">S</div>
+                <h4>Warrior + Druid</h4>
+                <p>The most dominant 2v2 comp. MS warrior pressure combined with Resto druid HoTs, Cyclone CC, and unmatched survivability through shifting. The comp that defined TBC arena.</p>
+            </div>
+            <div class="tbc-arena-card tbc-guide-card" data-category="pvp">
+                <div class="tbc-arena-tier tier-s">S</div>
+                <h4>Rogue + Priest</h4>
+                <p>Sap/Blind CC chain into burst windows. Disc priest provides Mana Burn pressure, Pain Suppression saves, and Dispels. Classic control-based gameplay.</p>
+            </div>
+            <div class="tbc-arena-card tbc-guide-card" data-category="pvp">
+                <div class="tbc-arena-tier tier-a">A</div>
+                <h4>Warlock + Druid</h4>
+                <p>SL/SL tanky warlock with unstoppable Fear chains plus Cyclone. Dots everything, outlasts opponents. Extremely hard to kill with dual healing pressure.</p>
+            </div>
+            <div class="tbc-arena-card tbc-guide-card" data-category="pvp">
+                <div class="tbc-arena-tier tier-a">A</div>
+                <h4>Mage + Priest</h4>
+                <p>Frost mage Shatter combos plus priest CC. Amazing burst potential with Ice Lance crits. Priest provides Dispel and Mana Burn to drain enemy healer.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3v3 -->
+    <div class="tbc-hub-subsection">
+        <h3 class="tbc-subsection-title">
+            <img src="https://wow.zamimg.com/images/wow/icons/medium/achievement_arena_3v3_7.jpg" alt="" loading="lazy">
+            Top 3v3 Arena Compositions
+        </h3>
+        <div class="tbc-arena-grid">
+            <div class="tbc-arena-card tbc-guide-card" data-category="pvp">
+                <div class="tbc-arena-tier tier-s">S</div>
+                <h4>RMP: Rogue / Mage / Priest</h4>
+                <p>The legendary comp. Coordinated CC chains between Sap, Polymorph, and Psychic Scream create kill windows. Highest skill ceiling and most rewarding comp in TBC.</p>
+            </div>
+            <div class="tbc-arena-card tbc-guide-card" data-category="pvp">
+                <div class="tbc-arena-tier tier-s">S</div>
+                <h4>WLD: Warrior / Lock / Druid</h4>
+                <p>Sustained pressure comp. MS warrior plus DoT warlock plus Resto druid HoTs. Extremely forgiving and consistent. The "train the healer" comp.</p>
+            </div>
+            <div class="tbc-arena-card tbc-guide-card" data-category="pvp">
+                <div class="tbc-arena-tier tier-a">A</div>
+                <h4>RLS: Rogue / Lock / Shaman</h4>
+                <p>Double DPS pressure with strong burst and CC. Rogue opens, Lock fears, Shaman provides Earth Shock interrupts and Purge. Very aggressive playstyle.</p>
+            </div>
+            <div class="tbc-arena-card tbc-guide-card" data-category="pvp">
+                <div class="tbc-arena-tier tier-a">A</div>
+                <h4>PMR: Priest / Mage / Rogue</h4>
+                <p>Variant of RMP with more defensive options. Priest can play Shadow for additional damage or Disc for more healing. Flexible and adaptable.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5v5 -->
+    <div class="tbc-hub-subsection">
+        <h3 class="tbc-subsection-title">
+            <img src="https://wow.zamimg.com/images/wow/icons/medium/achievement_arena_5v5_7.jpg" alt="" loading="lazy">
+            Top 5v5 Arena Compositions
+        </h3>
+        <div class="tbc-arena-grid">
+            <div class="tbc-arena-card tbc-guide-card" data-category="pvp">
+                <div class="tbc-arena-tier tier-s">S</div>
+                <h4>Melee Cleave</h4>
+                <p>2x Warriors + Enhancement Shaman + 2x Healers (Paladin + Druid). Pure melee pressure with Windfury Totem, MS debuffs, and nearly unkillable healing duo.</p>
+            </div>
+            <div class="tbc-arena-card tbc-guide-card" data-category="pvp">
+                <div class="tbc-arena-tier tier-a">A</div>
+                <h4>Caster Cleave</h4>
+                <p>2x Warlocks + Mage + 2x Healers (Paladin + Priest). Dot everything, AoE Fear, and Mage provides Polymorph CC. Slower games but very consistent wins.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Honor Gear -->
+    <div class="tbc-hub-subsection">
+        <h3 class="tbc-subsection-title">
+            <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_jewelry_amulet_07.jpg" alt="" loading="lazy">
+            Honor Gear Priority
+        </h3>
+        <p>When gearing for PvP through honor, prioritize in this order:</p>
+        <ol class="tbc-honor-priority">
+            <li><strong>Weapon</strong> &mdash; Biggest single upgrade. S1/S2 weapons are massive stat boosts.</li>
+            <li><strong>Trinket (Insignia)</strong> &mdash; PvP trinket for CC break is mandatory.</li>
+            <li><strong>Gloves</strong> &mdash; Cheapest arena piece. Buy first for the set bonus.</li>
+            <li><strong>Boots &amp; Belt</strong> &mdash; Honor gear fills these non-set slots well.</li>
+            <li><strong>Chest &amp; Legs</strong> &mdash; Big stat pieces. Save arena points for these.</li>
+        </ol>
+    </div>
+
+    <div class="tbc-community-actions">
+        <div class="tbc-vote-group">
+            <button class="tbc-vote-btn" data-section="pvp" data-vote="up" title="Helpful" aria-label="Upvote PvP section">&#9650;</button>
+            <span class="tbc-vote-count" data-section="pvp">0</span>
+            <button class="tbc-vote-btn" data-section="pvp" data-vote="down" title="Not helpful" aria-label="Downvote PvP section">&#9660;</button>
+        </div>
+        <button class="tbc-share-btn" data-section="pvp" title="Share this section">&#128279; Share</button>
+        <button class="tbc-report-btn" data-section="pvp" title="Report outdated info">&#9873; Report</button>
+        <span class="tbc-updated-badge">Last Updated: Feb 2026</span>
+    </div>
+</div>
+
+<!-- ==================== GOLD MAKING ==================== -->
+<div class="tbc-hub-section" id="gold-making" data-reveal>
+    <div class="tbc-hub-section-header">
+        <img src="https://wow.zamimg.com/images/wow/icons/large/inv_misc_coin_01.jpg" alt="" class="section-icon" loading="lazy">
+        <h2>Gold Making Methods</h2>
+    </div>
+    <p class="tbc-hub-section-desc">The best gold farming methods in TBC Classic, from casual daily quests to hardcore AH flipping.</p>
+
+    <div class="tbc-gold-grid">
+        <div class="tbc-gold-card tbc-guide-card" data-category="gold">
+            <div class="tbc-gold-header">
+                <h4>Primal Air Farming</h4>
+                <span class="tbc-gold-amount">100-150g/hr</span>
+            </div>
+            <span class="tbc-difficulty-badge medium">Medium</span>
+            <p>Farm Dust Howlers in western Nagrand (Elemental Plateau). Requires flying mount for efficient access. High demand for Primal Airs due to enchanting mats.</p>
+            <div class="tbc-gold-req">Requires: Level 70, Flying Mount</div>
+        </div>
+
+        <div class="tbc-gold-card tbc-guide-card" data-category="gold">
+            <div class="tbc-gold-header">
+                <h4>Daily Quests (Isle + Shattrath)</h4>
+                <span class="tbc-gold-amount">100-150g/hr</span>
+            </div>
+            <span class="tbc-difficulty-badge easy">Easy</span>
+            <p>Complete the full circuit of Isle of Quel'Danas dailies plus Shattrath cooking/fishing dailies. Consistent gold with zero risk and no competition.</p>
+            <div class="tbc-gold-req">Requires: Level 70</div>
+        </div>
+
+        <div class="tbc-gold-card tbc-guide-card" data-category="gold">
+            <div class="tbc-gold-header">
+                <h4>Primal Fire Farming</h4>
+                <span class="tbc-gold-amount">80-120g/hr</span>
+            </div>
+            <span class="tbc-difficulty-badge easy">Easy</span>
+            <p>Farm fire elementals in Shadowmoon Valley near the Hand of Gul'dan. Also drops Motes of Fire from Incandescent Fel Sparks. Excellent for alchemists.</p>
+            <div class="tbc-gold-req">Requires: Level 70</div>
+        </div>
+
+        <div class="tbc-gold-card tbc-guide-card" data-category="gold">
+            <div class="tbc-gold-header">
+                <h4>Dungeon Boosting (SP/SH)</h4>
+                <span class="tbc-gold-amount">100-200g/hr</span>
+            </div>
+            <span class="tbc-difficulty-badge hard">Hard</span>
+            <p>Boost low-level characters through Slave Pens or Shattered Halls. Requires a well-geared AoE class (Paladin, Mage). Gold from green/blue drops plus tips.</p>
+            <div class="tbc-gold-req">Requires: Geared Level 70, AoE class</div>
+        </div>
+
+        <div class="tbc-gold-card tbc-guide-card" data-category="gold">
+            <div class="tbc-gold-header">
+                <h4>Primal Water Farming</h4>
+                <span class="tbc-gold-amount">60-100g/hr</span>
+            </div>
+            <span class="tbc-difficulty-badge easy">Easy</span>
+            <p>Farm water elementals at Skysong Lake in Nagrand or in Zangarmarsh. Primal Waters are used for many crafting recipes including Primal Mooncloth.</p>
+            <div class="tbc-gold-req">Requires: Level 70</div>
+        </div>
+
+        <div class="tbc-gold-card tbc-guide-card" data-category="gold">
+            <div class="tbc-gold-header">
+                <h4>Herbalism Route (Terokkar)</h4>
+                <span class="tbc-gold-amount">70-100g/hr</span>
+            </div>
+            <span class="tbc-difficulty-badge easy">Easy</span>
+            <p>Fly a circuit through Terokkar Forest picking Terocone, Dreaming Glory, and Felweed. Terocone is always in demand for Flask of Relentless Assault.</p>
+            <div class="tbc-gold-req">Requires: Herbalism 350+, Flying Mount</div>
+        </div>
+
+        <div class="tbc-gold-card tbc-guide-card" data-category="gold">
+            <div class="tbc-gold-header">
+                <h4>Mining Route (Nagrand)</h4>
+                <span class="tbc-gold-amount">60-90g/hr</span>
+            </div>
+            <span class="tbc-difficulty-badge easy">Easy</span>
+            <p>Circle Nagrand's edges mining Adamantite and Fel Iron nodes. Adamantite Ore is always in demand for Jewelcrafting prospecting and Engineering.</p>
+            <div class="tbc-gold-req">Requires: Mining 350+, Flying Mount</div>
+        </div>
+
+        <div class="tbc-gold-card tbc-guide-card" data-category="gold">
+            <div class="tbc-gold-header">
+                <h4>Alchemy Transmutes</h4>
+                <span class="tbc-gold-amount">30-50g/day</span>
+            </div>
+            <span class="tbc-difficulty-badge easy">Easy</span>
+            <p>Daily transmute of Primal Might or meta gems. Transmute Master specialization gives extra proc chance. Passive income on every alt with Alchemy.</p>
+            <div class="tbc-gold-req">Requires: Alchemy 350</div>
+        </div>
+
+        <div class="tbc-gold-card tbc-guide-card" data-category="gold">
+            <div class="tbc-gold-header">
+                <h4>Fishing (Cooked)</h4>
+                <span class="tbc-gold-amount">40-60g/hr</span>
+            </div>
+            <span class="tbc-difficulty-badge easy">Easy</span>
+            <p>Fish Golden Darters and Spotted Feltail in Terokkar, then cook into Golden Fish Sticks (+44 Healing food). Raiders always need these consumables.</p>
+            <div class="tbc-gold-req">Requires: Fishing 350+, Cooking 350+</div>
+        </div>
+
+        <div class="tbc-gold-card tbc-guide-card" data-category="gold">
+            <div class="tbc-gold-header">
+                <h4>AH Flipping (Gems)</h4>
+                <span class="tbc-gold-amount">Variable</span>
+            </div>
+            <span class="tbc-difficulty-badge hard">Hard</span>
+            <p>Buy uncut gems cheap, cut them into popular cuts (Delicate Living Ruby, Solid Star of Elune), and resell. Requires JC knowledge and starting capital.</p>
+            <div class="tbc-gold-req">Requires: Capital + Market knowledge</div>
+        </div>
+    </div>
+
+    <div class="tbc-community-actions">
+        <div class="tbc-vote-group">
+            <button class="tbc-vote-btn" data-section="gold-making" data-vote="up" title="Helpful" aria-label="Upvote gold making">&#9650;</button>
+            <span class="tbc-vote-count" data-section="gold-making">0</span>
+            <button class="tbc-vote-btn" data-section="gold-making" data-vote="down" title="Not helpful" aria-label="Downvote gold making">&#9660;</button>
+        </div>
+        <button class="tbc-share-btn" data-section="gold-making" title="Share this section">&#128279; Share</button>
+        <button class="tbc-report-btn" data-section="gold-making" title="Report outdated info">&#9873; Report</button>
+        <span class="tbc-updated-badge">Last Updated: Feb 2026</span>
+    </div>
+</div>
+
+<!-- ==================== REPUTATION ==================== -->
+<div class="tbc-hub-section" id="reputation" data-reveal>
+    <div class="tbc-hub-section-header">
+        <img src="https://wow.zamimg.com/images/wow/icons/large/inv_misc_token_argentdawn3.jpg" alt="" class="section-icon" loading="lazy">
+        <h2>Reputation Guide</h2>
+    </div>
+    <p class="tbc-hub-section-desc">All TBC factions, their key rewards, and the fastest ways to grind reputation to Exalted.</p>
+
+    <div class="tbc-prof-table-wrap">
+        <table class="tbc-prof-table tbc-rep-table">
+            <thead>
+                <tr>
+                    <th>Faction</th>
+                    <th>Zone</th>
+                    <th>Key Rewards</th>
+                    <th>How to Grind</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Honor Hold / Thrallmar</strong></td>
+                    <td>Hellfire Peninsula</td>
+                    <td>Head enchant (Revered), Heroic key (Honored)</td>
+                    <td>Hellfire Ramparts, Blood Furnace, Shattered Halls</td>
+                </tr>
+                <tr>
+                    <td><strong>Cenarion Expedition</strong></td>
+                    <td>Zangarmarsh</td>
+                    <td>Hippogriff mount (Exalted), Nature resist gear</td>
+                    <td>Coilfang dungeons, Unidentified Plant Parts turn-ins</td>
+                </tr>
+                <tr>
+                    <td><strong>Lower City</strong></td>
+                    <td>Terokkar Forest</td>
+                    <td>Auchenai Key (Honored), crafting patterns</td>
+                    <td>Shadow Lab, Auchenai Crypts, Sethekk Halls</td>
+                </tr>
+                <tr>
+                    <td><strong>The Sha'tar</strong></td>
+                    <td>Shattrath</td>
+                    <td>Head enchant (Revered), epic gems</td>
+                    <td>Mechanar, Botanica, Arcatraz</td>
+                </tr>
+                <tr>
+                    <td><strong>Keepers of Time</strong></td>
+                    <td>Caverns of Time</td>
+                    <td>Head enchant (Revered), Heroic key (Honored)</td>
+                    <td>Old Hillsbrad, Black Morass</td>
+                </tr>
+                <tr>
+                    <td><strong>The Consortium</strong></td>
+                    <td>Nagrand / Netherstorm</td>
+                    <td>Free gems monthly (Friendly+)</td>
+                    <td>Mana-Tombs, Ethereal quests, Zaxxis Insignias</td>
+                </tr>
+                <tr>
+                    <td><strong>Kurenai / Mag'har</strong></td>
+                    <td>Nagrand</td>
+                    <td>Talbuk mounts (Exalted)</td>
+                    <td>Nagrand quests, Obsidian Warbeads turn-ins</td>
+                </tr>
+                <tr>
+                    <td><strong>Sporeggar</strong></td>
+                    <td>Zangarmarsh</td>
+                    <td>Tiny Sporebat pet, recipes</td>
+                    <td>Underbog runs, Fertile Spore turn-ins</td>
+                </tr>
+                <tr>
+                    <td><strong>The Scryers / Aldor</strong></td>
+                    <td>Shattrath</td>
+                    <td>Shoulder enchants, crafting patterns</td>
+                    <td>Sunfury Signets / Marks of Sargeras turn-ins</td>
+                </tr>
+                <tr>
+                    <td><strong>Ashtongue Deathsworn</strong></td>
+                    <td>Black Temple</td>
+                    <td>Neck pieces at various ranks</td>
+                    <td>BT trash and boss kills</td>
+                </tr>
+                <tr>
+                    <td><strong>Shattered Sun Offensive</strong></td>
+                    <td>Isle of Quel'Danas</td>
+                    <td>Daily quest hub, epic necklaces, recipes</td>
+                    <td>Isle of Quel'Danas daily quests</td>
+                </tr>
+                <tr>
+                    <td><strong>Netherwing</strong></td>
+                    <td>Shadowmoon Valley</td>
+                    <td>Netherwing Drake mounts (Exalted)</td>
+                    <td>Netherwing Ledge dailies, egg farming</td>
+                </tr>
+                <tr>
+                    <td><strong>Ogri'la</strong></td>
+                    <td>Blade's Edge Mountains</td>
+                    <td>Apexis shards, trinkets, flasks</td>
+                    <td>Daily quests (Simon Says, Bomb Them Again)</td>
+                </tr>
+                <tr>
+                    <td><strong>Sha'tari Skyguard</strong></td>
+                    <td>Terokkar / Blade's Edge</td>
+                    <td>Nether Ray mounts (Exalted)</td>
+                    <td>Skettis daily quests, Blade's Edge towers</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tbc-community-actions">
+        <div class="tbc-vote-group">
+            <button class="tbc-vote-btn" data-section="reputation" data-vote="up" title="Helpful" aria-label="Upvote reputation">&#9650;</button>
+            <span class="tbc-vote-count" data-section="reputation">0</span>
+            <button class="tbc-vote-btn" data-section="reputation" data-vote="down" title="Not helpful" aria-label="Downvote reputation">&#9660;</button>
+        </div>
+        <button class="tbc-share-btn" data-section="reputation" title="Share this section">&#128279; Share</button>
+        <button class="tbc-report-btn" data-section="reputation" title="Report outdated info">&#9873; Report</button>
+        <span class="tbc-updated-badge">Last Updated: Feb 2026</span>
+    </div>
+</div>
+
+<!-- ==================== MACROS ==================== -->
+<div class="tbc-hub-section" id="macros" data-reveal>
+    <div class="tbc-hub-section-header">
+        <img src="https://wow.zamimg.com/images/wow/icons/large/inv_misc_note_01.jpg" alt="" class="section-icon" loading="lazy">
+        <h2>Essential Macros</h2>
+    </div>
+    <p class="tbc-hub-section-desc">Universal and class-specific macros to optimize your gameplay in TBC Classic.</p>
+
+    <!-- Universal Macros -->
+    <div class="tbc-hub-subsection">
+        <h3 class="tbc-subsection-title">
+            <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_misc_gear_01.jpg" alt="" loading="lazy">
+            Universal Macros
+        </h3>
+        <div class="tbc-macro-grid">
+            <div class="tbc-macro-card">
+                <div class="tbc-macro-header">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_rogue_sprint.jpg" alt="" loading="lazy">
+                    <h4>Mouseover Heal/Debuff</h4>
+                </div>
+                <code class="tbc-macro-code">#showtooltip
+/cast [@mouseover,help,nodead][@target,help,nodead][@player] Heal Name</code>
+                <p class="tbc-macro-desc">Heals your mouseover target, your target, or yourself as fallback. Works for any healing spell.</p>
+            </div>
+            <div class="tbc-macro-card">
+                <div class="tbc-macro-header">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_nature_diseasecleansingtotem.jpg" alt="" loading="lazy">
+                    <h4>Stopcasting + Spell</h4>
+                </div>
+                <code class="tbc-macro-code">#showtooltip
+/stopcasting
+/cast Counterspell</code>
+                <p class="tbc-macro-desc">Instantly stops your current cast and fires off an interrupt. Essential for Counterspell, Pummel, Kick, etc.</p>
+            </div>
+            <div class="tbc-macro-card">
+                <div class="tbc-macro-header">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_trinket_naxxramas04.jpg" alt="" loading="lazy">
+                    <h4>Trinket + Cooldown</h4>
+                </div>
+                <code class="tbc-macro-code">#showtooltip
+/use 13
+/use 14
+/cast Bestial Wrath</code>
+                <p class="tbc-macro-desc">Pops both trinkets and a major cooldown simultaneously for maximum burst damage.</p>
+            </div>
+            <div class="tbc-macro-card">
+                <div class="tbc-macro-header">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_hunter_pet_assist.jpg" alt="" loading="lazy">
+                    <h4>Pet Attack + Ability</h4>
+                </div>
+                <code class="tbc-macro-code">#showtooltip
+/petattack
+/cast Kill Command
+/cast Intimidation</code>
+                <p class="tbc-macro-desc">Sends pet to attack and fires Kill Command + Intimidation. Great for Hunters and Warlocks.</p>
+            </div>
+            <div class="tbc-macro-card">
+                <div class="tbc-macro-header">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_nature_purge.jpg" alt="" loading="lazy">
+                    <h4>Focus Target Interrupt</h4>
+                </div>
+                <code class="tbc-macro-code">#showtooltip
+/cast [@focus,exists,nodead][@target] Counterspell</code>
+                <p class="tbc-macro-desc">Interrupts your focus target without switching targets. Critical for boss add control.</p>
+            </div>
+            <div class="tbc-macro-card">
+                <div class="tbc-macro-header">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_hunter_aspectoftheviper.jpg" alt="" loading="lazy">
+                    <h4>Weapon Swap</h4>
+                </div>
+                <code class="tbc-macro-code">#showtooltip
+/equipslot 16 [noequipped:Axes] Axe Name
+/equipslot 16 [equipped:Axes] Sword Name</code>
+                <p class="tbc-macro-desc">Toggles between two weapons. Useful for Warriors and Rogues switching for different proc effects.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Class-Specific Macros -->
+    <div class="tbc-hub-subsection">
+        <h3 class="tbc-subsection-title">
+            <img src="https://wow.zamimg.com/images/wow/icons/medium/classicon_warrior.jpg" alt="" loading="lazy">
+            Class-Specific Macros
+        </h3>
+        <div class="tbc-macro-grid">
+            <div class="tbc-macro-card">
+                <div class="tbc-macro-header">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/classicon_warrior.jpg" alt="" loading="lazy">
+                    <h4>Warrior - Stance Dance</h4>
+                </div>
+                <code class="tbc-macro-code">#showtooltip Intercept
+/cast [stance:1/2] Berserker Stance
+/cast [stance:3] Intercept</code>
+                <p class="tbc-macro-desc">Switches to Berserker Stance and uses Intercept in one button press. Essential for PvP warriors.</p>
+            </div>
+            <div class="tbc-macro-card">
+                <div class="tbc-macro-header">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/classicon_warlock.jpg" alt="" loading="lazy">
+                    <h4>Warlock - Soulshatter</h4>
+                </div>
+                <code class="tbc-macro-code">#showtooltip Soulshatter
+/stopcasting
+/cast Soulshatter</code>
+                <p class="tbc-macro-desc">Emergency threat dump. Stops casting and immediately drops 50% of your threat on all targets.</p>
+            </div>
+            <div class="tbc-macro-card">
+                <div class="tbc-macro-header">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/classicon_mage.jpg" alt="" loading="lazy">
+                    <h4>Mage - Spellsteal</h4>
+                </div>
+                <code class="tbc-macro-code">#showtooltip Spellsteal
+/stopcasting
+/cast [@focus,exists,nodead][@target] Spellsteal</code>
+                <p class="tbc-macro-desc">Stops casting and steals a buff from your focus target. Critical on fights like High Astromancer Solarian.</p>
+            </div>
+            <div class="tbc-macro-card">
+                <div class="tbc-macro-header">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/classicon_paladin.jpg" alt="" loading="lazy">
+                    <h4>Paladin - Mouseover BoP</h4>
+                </div>
+                <code class="tbc-macro-code">#showtooltip Blessing of Protection
+/cast [@mouseover,help,nodead][@target] Blessing of Protection</code>
+                <p class="tbc-macro-desc">Quickly saves a raid member with Blessing of Protection without switching targets.</p>
+            </div>
+            <div class="tbc-macro-card">
+                <div class="tbc-macro-header">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/classicon_shaman.jpg" alt="" loading="lazy">
+                    <h4>Shaman - Totem Twist</h4>
+                </div>
+                <code class="tbc-macro-code">#showtooltip
+/castsequence reset=10 Windfury Totem(Rank 1), Grace of Air Totem</code>
+                <p class="tbc-macro-desc">Alternates between Windfury and Grace of Air totems every 10 seconds for maximum melee group DPS.</p>
+            </div>
+            <div class="tbc-macro-card">
+                <div class="tbc-macro-header">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/classicon_druid.jpg" alt="" loading="lazy">
+                    <h4>Druid - Powershift</h4>
+                </div>
+                <code class="tbc-macro-code">#showtooltip Cat Form
+/cancelaura Cat Form
+/cast Cat Form</code>
+                <p class="tbc-macro-desc">Instantly re-enters Cat Form to gain energy from Furor talent. Core Feral DPS technique.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="tbc-community-actions">
+        <div class="tbc-vote-group">
+            <button class="tbc-vote-btn" data-section="macros" data-vote="up" title="Helpful" aria-label="Upvote macros">&#9650;</button>
+            <span class="tbc-vote-count" data-section="macros">0</span>
+            <button class="tbc-vote-btn" data-section="macros" data-vote="down" title="Not helpful" aria-label="Downvote macros">&#9660;</button>
+        </div>
+        <button class="tbc-share-btn" data-section="macros" title="Share this section">&#128279; Share</button>
+        <button class="tbc-report-btn" data-section="macros" title="Report outdated info">&#9873; Report</button>
+        <span class="tbc-updated-badge">Last Updated: Feb 2026</span>
+    </div>
+</div>
+
+<!-- ==================== ENCHANTS ==================== -->
+<div class="tbc-hub-section" id="enchants" data-reveal>
+    <div class="tbc-hub-section-header">
+        <img src="https://wow.zamimg.com/images/wow/icons/large/spell_holy_greaterheal.jpg" alt="" class="section-icon" loading="lazy">
+        <h2>Enchantment Guide</h2>
+    </div>
+    <p class="tbc-hub-section-desc">Best-in-slot enchantments for every gear slot, organized by role.</p>
+
+    <div class="tbc-enchant-tabs">
+        <button class="tbc-enchant-tab active" data-tab="melee-dps" aria-label="Melee DPS enchants">Melee DPS</button>
+        <button class="tbc-enchant-tab" data-tab="caster-dps" aria-label="Caster DPS enchants">Caster DPS</button>
+        <button class="tbc-enchant-tab" data-tab="tank-enc" aria-label="Tank enchants">Tank</button>
+        <button class="tbc-enchant-tab" data-tab="healer-enc" aria-label="Healer enchants">Healer</button>
+    </div>
+
+    <div class="tbc-enchant-content active" id="melee-dps" data-tab="melee-dps">
+        <div class="tbc-prof-table-wrap">
+            <table class="tbc-prof-table tbc-enchant-table">
+                <thead><tr><th>Slot</th><th>Enchant</th><th>Source</th></tr></thead>
+                <tbody>
+                    <tr><td>Head</td><td>Glyph of Ferocity (+34 AP, +16 Hit)</td><td>Cenarion Expedition - Revered</td></tr>
+                    <tr><td>Shoulders</td><td>Greater Inscription of Vengeance (+30 AP, +10 Crit)</td><td>Aldor - Exalted</td></tr>
+                    <tr><td>Back</td><td>Enchant Cloak - Greater Agility (+12 Agi)</td><td>Enchanting</td></tr>
+                    <tr><td>Chest</td><td>Enchant Chest - Exceptional Stats (+6 All Stats)</td><td>Enchanting</td></tr>
+                    <tr><td>Wrists</td><td>Enchant Bracer - Brawn (+12 Str)</td><td>Enchanting</td></tr>
+                    <tr><td>Gloves</td><td>Enchant Gloves - Superior Agility (+15 Agi)</td><td>Enchanting</td></tr>
+                    <tr><td>Legs</td><td>Nethercobra Leg Armor (+50 AP, +12 Crit)</td><td>Leatherworking</td></tr>
+                    <tr><td>Feet</td><td>Enchant Boots - Cat's Swiftness (+6 Agi, +Speed)</td><td>Enchanting</td></tr>
+                    <tr><td>Main Hand</td><td>Enchant Weapon - Mongoose (+120 Agi proc)</td><td>Enchanting</td></tr>
+                    <tr><td>Off Hand</td><td>Enchant Weapon - Mongoose (+120 Agi proc)</td><td>Enchanting</td></tr>
+                    <tr><td>Ranged</td><td>Stabilized Eternium Scope (+28 Crit)</td><td>Engineering</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="tbc-enchant-content" id="caster-dps" data-tab="caster-dps">
+        <div class="tbc-prof-table-wrap">
+            <table class="tbc-prof-table tbc-enchant-table">
+                <thead><tr><th>Slot</th><th>Enchant</th><th>Source</th></tr></thead>
+                <tbody>
+                    <tr><td>Head</td><td>Glyph of Power (+22 SP, +14 Hit)</td><td>Sha'tar - Revered</td></tr>
+                    <tr><td>Shoulders</td><td>Greater Inscription of the Orb (+12 SP, +15 Crit)</td><td>Scryers - Exalted</td></tr>
+                    <tr><td>Back</td><td>Enchant Cloak - Subtlety (-2% Threat)</td><td>Enchanting</td></tr>
+                    <tr><td>Chest</td><td>Enchant Chest - Exceptional Stats (+6 All Stats)</td><td>Enchanting</td></tr>
+                    <tr><td>Wrists</td><td>Enchant Bracer - Spellpower (+15 SP)</td><td>Enchanting</td></tr>
+                    <tr><td>Gloves</td><td>Enchant Gloves - Major Spellpower (+20 SP)</td><td>Enchanting</td></tr>
+                    <tr><td>Legs</td><td>Runic Spellthread (+35 SP, +20 Stamina)</td><td>Tailoring</td></tr>
+                    <tr><td>Feet</td><td>Enchant Boots - Boar's Speed (+9 Sta, +Speed)</td><td>Enchanting</td></tr>
+                    <tr><td>Weapon</td><td>Enchant Weapon - Soulfrost (+54 Shadow/Frost SP)</td><td>Enchanting</td></tr>
+                    <tr><td>Weapon (alt)</td><td>Enchant Weapon - Sunfire (+50 Arcane/Fire SP)</td><td>Enchanting</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="tbc-enchant-content" id="tank-enc" data-tab="tank-enc">
+        <div class="tbc-prof-table-wrap">
+            <table class="tbc-prof-table tbc-enchant-table">
+                <thead><tr><th>Slot</th><th>Enchant</th><th>Source</th></tr></thead>
+                <tbody>
+                    <tr><td>Head</td><td>Glyph of the Defender (+17 Def, +16 Dodge)</td><td>Keepers of Time - Revered</td></tr>
+                    <tr><td>Shoulders</td><td>Greater Inscription of Warding (+15 Dodge, +10 Def)</td><td>Aldor - Exalted</td></tr>
+                    <tr><td>Back</td><td>Enchant Cloak - Greater Agility (+12 Agi)</td><td>Enchanting</td></tr>
+                    <tr><td>Chest</td><td>Enchant Chest - Exceptional Stats (+6 All Stats)</td><td>Enchanting</td></tr>
+                    <tr><td>Wrists</td><td>Enchant Bracer - Major Defense (+12 Def)</td><td>Enchanting</td></tr>
+                    <tr><td>Gloves</td><td>Enchant Gloves - Superior Agility (+15 Agi)</td><td>Enchanting</td></tr>
+                    <tr><td>Legs</td><td>Nethercleft Leg Armor (+40 Sta, +12 Agi)</td><td>Leatherworking</td></tr>
+                    <tr><td>Feet</td><td>Enchant Boots - Fortitude (+12 Stamina)</td><td>Enchanting</td></tr>
+                    <tr><td>Weapon</td><td>Enchant Weapon - Mongoose (+120 Agi proc)</td><td>Enchanting</td></tr>
+                    <tr><td>Shield</td><td>Enchant Shield - Major Stamina (+18 Sta)</td><td>Enchanting</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="tbc-enchant-content" id="healer-enc" data-tab="healer-enc">
+        <div class="tbc-prof-table-wrap">
+            <table class="tbc-prof-table tbc-enchant-table">
+                <thead><tr><th>Slot</th><th>Enchant</th><th>Source</th></tr></thead>
+                <tbody>
+                    <tr><td>Head</td><td>Glyph of Renewal (+35 Healing, +7 MP5)</td><td>Honor Hold/Thrallmar - Revered</td></tr>
+                    <tr><td>Shoulders</td><td>Greater Inscription of Faith (+33 Healing, +4 MP5)</td><td>Aldor - Exalted</td></tr>
+                    <tr><td>Back</td><td>Enchant Cloak - Subtlety (-2% Threat)</td><td>Enchanting</td></tr>
+                    <tr><td>Chest</td><td>Enchant Chest - Exceptional Stats (+6 All Stats)</td><td>Enchanting</td></tr>
+                    <tr><td>Wrists</td><td>Enchant Bracer - Superior Healing (+30 Healing)</td><td>Enchanting</td></tr>
+                    <tr><td>Gloves</td><td>Enchant Gloves - Major Healing (+35 Healing)</td><td>Enchanting</td></tr>
+                    <tr><td>Legs</td><td>Golden Spellthread (+66 Healing, +20 Stamina)</td><td>Tailoring</td></tr>
+                    <tr><td>Feet</td><td>Enchant Boots - Boar's Speed (+9 Sta, +Speed)</td><td>Enchanting</td></tr>
+                    <tr><td>Weapon</td><td>Enchant Weapon - Major Healing (+81 Healing)</td><td>Enchanting</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="tbc-community-actions">
+        <div class="tbc-vote-group">
+            <button class="tbc-vote-btn" data-section="enchants" data-vote="up" title="Helpful" aria-label="Upvote enchants">&#9650;</button>
+            <span class="tbc-vote-count" data-section="enchants">0</span>
+            <button class="tbc-vote-btn" data-section="enchants" data-vote="down" title="Not helpful" aria-label="Downvote enchants">&#9660;</button>
+        </div>
+        <button class="tbc-share-btn" data-section="enchants" title="Share this section">&#128279; Share</button>
+        <button class="tbc-report-btn" data-section="enchants" title="Report outdated info">&#9873; Report</button>
+        <span class="tbc-updated-badge">Last Updated: Feb 2026</span>
+    </div>
+</div>
+
+<!-- ==================== CONSUMABLES ==================== -->
+<div class="tbc-hub-section" id="consumables" data-reveal>
+    <div class="tbc-hub-section-header">
+        <img src="https://wow.zamimg.com/images/wow/icons/large/inv_potion_109.jpg" alt="" class="section-icon" loading="lazy">
+        <h2>Consumables Quick Reference</h2>
+    </div>
+    <p class="tbc-hub-section-desc">Essential flasks, elixirs, food, and potions for every role in TBC raids.</p>
+
+    <div class="tbc-consumable-grid">
+        <!-- Melee DPS -->
+        <div class="tbc-consumable-card">
+            <h4 class="tbc-consumable-role melee">Melee DPS</h4>
+            <div class="tbc-consumable-list">
+                <div class="tbc-consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_117.jpg" alt="" loading="lazy">
+                    <div><strong>Flask of Relentless Assault</strong><span>+120 Attack Power</span></div>
+                </div>
+                <div class="tbc-consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_misc_food_67.jpg" alt="" loading="lazy">
+                    <div><strong>Roasted Clefthoof</strong><span>+20 Strength, +20 Spirit</span></div>
+                </div>
+                <div class="tbc-consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_105.jpg" alt="" loading="lazy">
+                    <div><strong>Haste Potion</strong><span>+400 Haste for 15 sec</span></div>
+                </div>
+                <div class="tbc-consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_stone_weightstone_06.jpg" alt="" loading="lazy">
+                    <div><strong>Adamantite Weightstone</strong><span>+12 Damage (Blunt weapons)</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Caster DPS -->
+        <div class="tbc-consumable-card">
+            <h4 class="tbc-consumable-role caster">Caster DPS</h4>
+            <div class="tbc-consumable-list">
+                <div class="tbc-consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_125.jpg" alt="" loading="lazy">
+                    <div><strong>Flask of Pure Death</strong><span>+80 Shadow/Fire/Frost SP</span></div>
+                </div>
+                <div class="tbc-consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_misc_food_95_grainbread.jpg" alt="" loading="lazy">
+                    <div><strong>Blackened Basilisk</strong><span>+23 Spell Damage, +20 Spirit</span></div>
+                </div>
+                <div class="tbc-consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_130.jpg" alt="" loading="lazy">
+                    <div><strong>Destruction Potion</strong><span>+120 SP, +2% Crit for 15 sec</span></div>
+                </div>
+                <div class="tbc-consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_misc_oil_06.jpg" alt="" loading="lazy">
+                    <div><strong>Superior Wizard Oil</strong><span>+42 Spell Damage</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tank -->
+        <div class="tbc-consumable-card">
+            <h4 class="tbc-consumable-role tank-cons">Tank</h4>
+            <div class="tbc-consumable-list">
+                <div class="tbc-consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_119.jpg" alt="" loading="lazy">
+                    <div><strong>Flask of Fortification</strong><span>+500 HP, +10 Defense</span></div>
+                </div>
+                <div class="tbc-consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_misc_food_86_basilisk.jpg" alt="" loading="lazy">
+                    <div><strong>Fisherman's Feast</strong><span>+30 Stamina, +20 Spirit</span></div>
+                </div>
+                <div class="tbc-consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_131.jpg" alt="" loading="lazy">
+                    <div><strong>Ironshield Potion</strong><span>+2500 Armor for 2 min</span></div>
+                </div>
+                <div class="tbc-consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_57.jpg" alt="" loading="lazy">
+                    <div><strong>Elixir of Major Agility</strong><span>+35 Agi, +20 Crit (Battle)</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Healer -->
+        <div class="tbc-consumable-card">
+            <h4 class="tbc-consumable-role healer-cons">Healer</h4>
+            <div class="tbc-consumable-list">
+                <div class="tbc-consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_167.jpg" alt="" loading="lazy">
+                    <div><strong>Flask of Mighty Restoration</strong><span>+25 MP5</span></div>
+                </div>
+                <div class="tbc-consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_misc_food_67.jpg" alt="" loading="lazy">
+                    <div><strong>Golden Fish Sticks</strong><span>+44 Healing, +20 Spirit</span></div>
+                </div>
+                <div class="tbc-consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_01.jpg" alt="" loading="lazy">
+                    <div><strong>Super Mana Potion</strong><span>Restores 1800-3000 Mana</span></div>
+                </div>
+                <div class="tbc-consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_116.jpg" alt="" loading="lazy">
+                    <div><strong>Elixir of Healing Power</strong><span>+50 Healing (Battle)</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tbc-community-actions">
+        <div class="tbc-vote-group">
+            <button class="tbc-vote-btn" data-section="consumables" data-vote="up" title="Helpful" aria-label="Upvote consumables">&#9650;</button>
+            <span class="tbc-vote-count" data-section="consumables">0</span>
+            <button class="tbc-vote-btn" data-section="consumables" data-vote="down" title="Not helpful" aria-label="Downvote consumables">&#9660;</button>
+        </div>
+        <button class="tbc-share-btn" data-section="consumables" title="Share this section">&#128279; Share</button>
+        <button class="tbc-report-btn" data-section="consumables" title="Report outdated info">&#9873; Report</button>
+        <span class="tbc-updated-badge">Last Updated: Feb 2026</span>
+    </div>
+</div>
+
+    </div><!-- /.tbc-main-content -->
+</div><!-- /.tbc-layout-wrapper -->
+
+<!-- CTA -->
+<div class="tbc-hub-cta" data-reveal>
+    <h3>Ready to Conquer Outland?</h3>
+    <p>Track your raid attunements with our interactive checker, plan your 58-70 leveling route zone by zone, and master your class with in-depth guides from Karazhan to Sunwell.</p>
+    <a href="/wow-tbc-guides/hunter-bm-pve/" class="tbc-hub-cta-btn">Start With BM Hunter Guide</a>
+    <p class="tbc-cta-subtext">Or pick your class above &mdash; all 9 guides have interactive talent calculators, BiS gear lists, macros, and more.</p>
+</div>
+
+<!-- Toast Container -->
+<div class="tbc-toast-container" id="tbc-toast-container" aria-live="polite"></div>

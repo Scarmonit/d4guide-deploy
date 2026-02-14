@@ -1,0 +1,492 @@
+---
+layout: base.njk
+title: "Feral Druid PvE Guide | TBC Classic | Scarmonit"
+description: "Complete Feral Druid (Cat DPS) PvE guide for WoW TBC Classic. Interactive talent calculator with level-by-level progression from 10-70."
+styles:
+  - /assets/css/wow-talents.css
+schemaType: guide
+scripts:
+  - /assets/js/druid-feral-data.js
+  - /assets/js/talent-calc.js
+  - /assets/js/accordion.js
+---
+
+<section class="guide-hero druid-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="hero-badge">TBC Classic</div>
+        <h1>Feral Druid</h1>
+        <p class="hero-subtitle">PvE Talent Guide & Calculator (Cat DPS)</p>
+        <div class="build-summary">
+            <span class="build-type">0/47/14</span>
+            <span class="build-role">Raiding & Dungeons</span>
+        </div>
+    </div>
+</section>
+
+<div class="guide-breadcrumb">
+    <a href="/">Home</a>
+    <span class="bc-sep">&#9656;</span>
+    <a href="/wow-tbc-guides/">TBC Guides</a>
+    <span class="bc-sep">&#9656;</span>
+    <span class="bc-current">Feral Druid</span>
+</div>
+
+<div class="guide-container">
+    <!-- Level Selector -->
+    <div class="level-selector wow-panel">
+        <div class="panel-header">Character Level</div>
+        <div class="panel-content">
+            <div class="level-input-group">
+                <label for="player-level">Level:</label>
+                <button type="button" class="level-btn" id="level-down" aria-label="Decrease level">-</button>
+                <input type="number" id="player-level" min="10" max="70" value="70" aria-label="Character level">
+                <button type="button" class="level-btn" id="level-up" aria-label="Increase level">+</button>
+            </div>
+            <div class="talent-points-display">
+                <span class="points-label">Talent Points:</span>
+                <span class="points-value" id="available-points">61</span>
+            </div>
+            <div class="button-group">
+                <button id="reset-talents" class="wow-btn red">Reset All</button>
+                <button id="apply-recommended" class="wow-btn green">Apply Build</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="level-progress-container">
+        <div class="level-progress-bar">
+            <div class="level-progress-fill" id="level-progress"></div>
+        </div>
+        <div class="level-markers">
+            <span>10</span><span>20</span><span>30</span><span>40</span><span>50</span><span>60</span><span>70</span>
+        </div>
+    </div>
+
+    <!-- Current Talent Recommendation -->
+    <div class="recommendation-box wow-panel" id="recommendation-box">
+        <div class="panel-header">Next Talent Point</div>
+        <div class="panel-content">
+            <p id="next-talent-text">Put your next point in: <strong id="next-talent-name">Loading...</strong></p>
+        </div>
+    </div>
+
+    <!-- Talent Trees Container -->
+    <div class="talent-trees">
+        <!-- Balance Tree -->
+        <div class="talent-tree" id="balance-tree">
+            <div class="tree-header bal">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_nature_starfall.jpg" alt="Balance" class="tree-icon">
+                <h2>Balance</h2>
+                <span class="tree-points" id="bal-points">0</span>
+            </div>
+            <div class="tree-background bal"></div>
+            <div class="tree-grid-wrapper">
+                <svg class="arrow-layer" id="bal-arrows"></svg>
+                <div class="tree-grid" id="bal-grid">
+                    <!-- Talents injected by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Feral Combat Tree -->
+        <div class="talent-tree" id="feral-tree">
+            <div class="tree-header feral">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_racial_bearform.jpg" alt="Feral Combat" class="tree-icon">
+                <h2>Feral Combat</h2>
+                <span class="tree-points" id="feral-points">0</span>
+            </div>
+            <div class="tree-background feral"></div>
+            <div class="tree-grid-wrapper">
+                <svg class="arrow-layer" id="feral-arrows"></svg>
+                <div class="tree-grid" id="feral-grid">
+                    <!-- Talents injected by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Restoration Tree -->
+        <div class="talent-tree" id="restoration-tree">
+            <div class="tree-header dru-resto">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_nature_healingtouch.jpg" alt="Restoration" class="tree-icon">
+                <h2>Restoration</h2>
+                <span class="tree-points" id="resto-points">0</span>
+            </div>
+            <div class="tree-background dru-resto"></div>
+            <div class="tree-grid-wrapper">
+                <svg class="arrow-layer" id="resto-arrows"></svg>
+                <div class="tree-grid" id="resto-grid">
+                    <!-- Talents injected by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Build Summary -->
+    <div class="build-export wow-panel">
+        <div class="panel-header">Current Build</div>
+        <div class="panel-content">
+            <div class="build-string" id="build-string">0/0/0</div>
+        </div>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="guide-content wow-panel">
+        <div class="panel-header">Why Feral?</div>
+        <div class="panel-content">
+            <p>Feral Druids are one of TBC's most versatile melee DPS specs. As a Cat, you deal competitive melee damage while bringing Leader of the Pack (5% melee crit aura) to your group. The 0/47/14 build goes deep Feral for Mangle — your primary combo point generator that also debuffs the target for increased Bleed damage — while dipping into Restoration for Omen of Clarity (free ability procs) and Intensity for mana regeneration. Ferals can also off-tank in a pinch by shifting to Bear Form.</p>
+
+            <h3>Key Talents</h3>
+            <div class="talent-explanations">
+                <div class="talent-explain">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_druid_mangle2.jpg" alt="Mangle" class="explain-icon">
+                    <div>
+                        <h4>Mangle (Cat)</h4>
+                        <p>Mangle the target, inflicting damage and causing the target to take 30% additional damage from Bleed effects for 12 sec. Awards 1 combo point. Your bread-and-butter ability.</p>
+                    </div>
+                </div>
+                <div class="talent-explain">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_nature_unyieldingstamina.jpg" alt="Leader of the Pack" class="explain-icon">
+                    <div>
+                        <h4>Leader of the Pack</h4>
+                        <p>While in Cat or Bear Form, your critical strike chance and that of all party members within 45 yards is increased by 5%. Essential raid buff.</p>
+                    </div>
+                </div>
+                <div class="talent-explain">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_nature_protectionformnature.jpg" alt="Survival of the Fittest" class="explain-icon">
+                    <div>
+                        <h4>Survival of the Fittest</h4>
+                        <p>Increases all attributes by 3% and reduces the chance you'll be critically hit by melee attacks by 3%. Huge stat boost and crit immunity for tanking.</p>
+                    </div>
+                </div>
+                <div class="talent-explain">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_vampiricaura.jpg" alt="Omen of Clarity" class="explain-icon">
+                    <div>
+                        <h4>Omen of Clarity</h4>
+                        <p>Each melee hit has a chance of causing the caster to enter a Clearcasting state, making the next ability cost no mana, rage, or energy. Huge DPS and efficiency boost from the Restoration tree.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Stat Priority</h3>
+            <ol>
+                <li><strong>Hit Rating</strong> (until 9% / 142 rating)</li>
+                <li><strong>Expertise</strong> (until 6.5% / 26 rating)</li>
+                <li><strong>Agility</strong></li>
+                <li><strong>Strength</strong></li>
+                <li><strong>Critical Strike Rating</strong></li>
+                <li><strong>Attack Power</strong></li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Rotation -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Rotation / Ability Priority</div>
+        <div class="panel-content accordion-body">
+            <p class="section-intro">Feral Cat DPS in TBC revolves around maintaining Mangle's bleed debuff, building combo points with Shred from behind, and keeping Rip active. Powershifting (shifting out and back into Cat Form) with a Wolfshead Helm provides extra energy ticks for higher throughput.</p>
+            <ol class="rotation-list">
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_druid_mangle2.jpg" alt="Mangle" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Mangle (Cat)</span> — Apply and maintain the debuff (+30% bleed damage for 12s). Use as your primary combo point builder when Shred is unavailable.</div>
+                </li>
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_vampiricaura.jpg" alt="Shred" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Shred</span> — Main combo point builder. Must be used from behind the target. Higher damage than Mangle when the bleed debuff is already active.</div>
+                </li>
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_ghoulfrenzy.jpg" alt="Rip" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Rip</span> — Your primary finisher. Keep this DoT active at all times at 5 combo points. Benefits from the Mangle bleed debuff.</div>
+                </li>
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_druid_disembowel.jpg" alt="Rake" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Rake</span> — Use as a filler when Mangle debuff is active and you have energy to spare. Benefits from the Mangle bleed bonus.</div>
+                </li>
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_druid_ferociousbite.jpg" alt="Ferocious Bite" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Ferocious Bite</span> — Only use at 5 combo points when Rip is active with more than 8 seconds remaining. Dump excess combo points.</div>
+                </li>
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_mount_jungletiger.jpg" alt="Tiger's Fury" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Tiger's Fury</span> — Use when energy is low for a burst of energy and bonus damage. Cannot be used while in Cat Form in TBC — use during powershifting.</div>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Pre-Raid BiS -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Pre-Raid Best in Slot</div>
+        <div class="panel-content accordion-body">
+            <p class="section-intro">Best gear obtainable from heroic dungeons, crafting, reputation, and quests before entering Karazhan. Many leather rogue items are excellent for Feral Druids.</p>
+            <table class="bis-table">
+                <thead>
+                    <tr><th class="slot-col">Slot</th><th>Item</th><th>Source</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="slot-col">Head</td><td class="item-col rare">Stag-Helm of Malorne</td><td class="source-col">Quest — The Cipher of Damnation (Shadowmoon Valley)</td></tr>
+                    <tr><td class="slot-col">Neck</td><td class="item-col rare">Choker of Vile Intent</td><td class="source-col">Heroic Shadow Labyrinth — Murmur</td></tr>
+                    <tr><td class="slot-col">Shoulders</td><td class="item-col rare">Wastewalker Shoulderpads</td><td class="source-col">Heroic The Steamvault — Hydromancer Thespia</td></tr>
+                    <tr><td class="slot-col">Back</td><td class="item-col rare">Blood Knight War Cloak</td><td class="source-col">Heroic Shattered Halls — Warchief Kargath</td></tr>
+                    <tr><td class="slot-col">Chest</td><td class="item-col rare">Wastewalker Tunic</td><td class="source-col">Heroic Slave Pens — Quagmirran</td></tr>
+                    <tr><td class="slot-col">Wrists</td><td class="item-col rare">Felstalker Bracers</td><td class="source-col">Leatherworking (Crafted)</td></tr>
+                    <tr><td class="slot-col">Hands</td><td class="item-col rare">Wastewalker Gloves</td><td class="source-col">Heroic Underbog — The Black Stalker</td></tr>
+                    <tr><td class="slot-col">Waist</td><td class="item-col rare">Primalstrike Belt</td><td class="source-col">Leatherworking (Crafted)</td></tr>
+                    <tr><td class="slot-col">Legs</td><td class="item-col">Heavy Clefthoof Leggings</td><td class="source-col">Leatherworking (Crafted)</td></tr>
+                    <tr><td class="slot-col">Feet</td><td class="item-col rare">Edgewalker Longboots</td><td class="source-col">Heroic Mana-Tombs — Nexus-Prince Shaffar</td></tr>
+                    <tr><td class="slot-col">Ring 1</td><td class="item-col rare">A'dal's Command</td><td class="source-col">Sha'tar — Exalted</td></tr>
+                    <tr><td class="slot-col">Ring 2</td><td class="item-col rare">Ring of Umbral Doom</td><td class="source-col">Heroic Shadow Labyrinth — Ambassador Hellmaw</td></tr>
+                    <tr><td class="slot-col">Trinket 1</td><td class="item-col rare">Abacus of Violent Odds</td><td class="source-col">Heroic Mechanar — Pathaleon</td></tr>
+                    <tr><td class="slot-col">Trinket 2</td><td class="item-col rare">Bladefist's Breadth</td><td class="source-col">Quest — Overlord (Hellfire Peninsula)</td></tr>
+                    <tr><td class="slot-col">Weapon</td><td class="item-col rare">Braxxis' Staff of Slumber</td><td class="source-col">Heroic Underbog — Swamplord Musel'ek</td></tr>
+                    <tr><td class="slot-col">Idol</td><td class="item-col rare">Idol of the Wild</td><td class="source-col">Cenarion Expedition — Revered</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Raid BiS -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Raid Best in Slot (T5 / T6)</div>
+        <div class="panel-content accordion-body">
+            <p class="section-intro">Best endgame gear from SSC, Tempest Keep, Hyjal, Black Temple, and Sunwell Plateau. Focus on Hit (9%) > Expertise > Agility > Strength > Crit > AP.</p>
+            <table class="bis-table">
+                <thead>
+                    <tr><th class="slot-col">Slot</th><th>Item</th><th>Source</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="slot-col">Head</td><td class="item-col">Thunderheart Cover</td><td class="source-col">Black Temple — Archimonde (Hyjal T6 token)</td></tr>
+                    <tr><td class="slot-col">Neck</td><td class="item-col">Choker of Serrated Blades</td><td class="source-col">Zul'Aman — Nalorakk</td></tr>
+                    <tr><td class="slot-col">Shoulders</td><td class="item-col">Thunderheart Pauldrons</td><td class="source-col">Black Temple — Mother Shahraz</td></tr>
+                    <tr><td class="slot-col">Back</td><td class="item-col">Thalassian Wildercloak</td><td class="source-col">Sunwell Plateau — Trash Drop</td></tr>
+                    <tr><td class="slot-col">Chest</td><td class="item-col">Thunderheart Chestguard</td><td class="source-col">Black Temple — Illidan Stormrage</td></tr>
+                    <tr><td class="slot-col">Wrists</td><td class="item-col">Bracers of the Pathfinder</td><td class="source-col">Sunwell Plateau — Kalecgos</td></tr>
+                    <tr><td class="slot-col">Hands</td><td class="item-col">Gloves of Immortal Dusk</td><td class="source-col">Sunwell Plateau — Felmyst</td></tr>
+                    <tr><td class="slot-col">Waist</td><td class="item-col">Belt of One-Hundred Deaths</td><td class="source-col">Sunwell Plateau — Brutallus</td></tr>
+                    <tr><td class="slot-col">Legs</td><td class="item-col">Thunderheart Leggings</td><td class="source-col">Black Temple — Azgalor (Hyjal T6 token)</td></tr>
+                    <tr><td class="slot-col">Feet</td><td class="item-col">Boots of Utter Darkness</td><td class="source-col">Black Temple — Teron Gorefiend</td></tr>
+                    <tr><td class="slot-col">Ring 1</td><td class="item-col">Hard Khorium Band</td><td class="source-col">Jewelcrafting (Crafted)</td></tr>
+                    <tr><td class="slot-col">Ring 2</td><td class="item-col">Band of the Eternal Champion</td><td class="source-col">Hyjal Summit — Exalted</td></tr>
+                    <tr><td class="slot-col">Trinket 1</td><td class="item-col">Madness of the Betrayer</td><td class="source-col">Black Temple — Illidan Stormrage</td></tr>
+                    <tr><td class="slot-col">Trinket 2</td><td class="item-col">Berserker's Call</td><td class="source-col">Zul'Aman — Timed Chest (4th boss)</td></tr>
+                    <tr><td class="slot-col">Weapon</td><td class="item-col">Pillar of Ferocity</td><td class="source-col">Black Temple — Gurtogg Bloodboil</td></tr>
+                    <tr><td class="slot-col">Idol</td><td class="item-col">Idol of Terror</td><td class="source-col">Zul'Aman — Hex Lord Malacrass</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Macros & Keybinds</div>
+        <div class="panel-content accordion-body">
+            <p class="section-intro">Essential Feral Druid macros for TBC Classic. Powershifting is the core advanced technique.</p>
+            <div class="guide-macro-grid">
+                <div class="guide-macro-card">
+                    <div class="guide-macro-title">
+                        <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_druid_catform.jpg" alt="" loading="lazy">
+                        <h4>Powershift (Cat Form)</h4>
+                    </div>
+                    <code class="guide-macro-code">#showtooltip Cat Form
+/cancelaura Cat Form
+/cast Cat Form</code>
+                    <p class="guide-macro-desc">Re-enters Cat Form instantly to gain energy from Furor talent. Core Feral DPS technique.</p>
+                </div>
+                <div class="guide-macro-card">
+                    <div class="guide-macro-title">
+                        <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_druid_ravage.jpg" alt="" loading="lazy">
+                        <h4>Mangle + Trinkets</h4>
+                    </div>
+                    <code class="guide-macro-code">#showtooltip Mangle (Cat)
+/use 13
+/use 14
+/cast Mangle (Cat)()</code>
+                    <p class="guide-macro-desc">Pops trinkets with Mangle for burst windows. Mangle increases bleed damage.</p>
+                </div>
+                <div class="guide-macro-card">
+                    <div class="guide-macro-title">
+                        <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_druid_bash.jpg" alt="" loading="lazy">
+                        <h4>Bear Form Emergency</h4>
+                    </div>
+                    <code class="guide-macro-code">#showtooltip Dire Bear Form
+/cast [nostance:1] Dire Bear Form
+/cast [stance:1] Frenzied Regeneration</code>
+                    <p class="guide-macro-desc">Shifts to Bear Form or uses Frenzied Regen if already in bear. Emergency survival button.</p>
+                </div>
+                <div class="guide-macro-card">
+                    <div class="guide-macro-title">
+                        <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_nature_faeriefire.jpg" alt="" loading="lazy">
+                        <h4>Faerie Fire (Feral)</h4>
+                    </div>
+                    <code class="guide-macro-code">#showtooltip Faerie Fire (Feral)()
+/cast Faerie Fire (Feral)()</code>
+                    <p class="guide-macro-desc">Applies -610 armor debuff. Keep this up on the boss at all times if no other class is applying it.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Quick Tips & Common Mistakes</div>
+        <div class="panel-content accordion-body">
+            <ul class="quick-tips-list">
+                <li class="tip-do"><span class="tip-icon">+</span> Master powershifting — canceling and re-entering Cat Form gives you energy from Furor, massively increasing DPS.</li>
+                <li class="tip-do"><span class="tip-icon">+</span> Keep Mangle debuff up at all times — it increases Shred and Rip damage by 30%.</li>
+                <li class="tip-dont"><span class="tip-icon">-</span> Don't use Rip and Ferocious Bite at the same time — pick one finisher based on fight duration.</li>
+                <li class="tip-dont"><span class="tip-icon">-</span> Don't forget to use Faerie Fire (Feral) — the armor reduction benefits all physical DPS in the raid.</li>
+                <li class="tip-info"><span class="tip-icon">i</span> Hit cap is 9% (142 rating). Expertise soft cap is 6.5% (26 rating).</li>
+                <li class="tip-info"><span class="tip-icon">i</span> Feral Druids can off-tank while still dealing competitive DPS — your hybrid flexibility is your biggest strength.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Gems & Enchants -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Gems & Enchants</div>
+        <div class="panel-content accordion-body">
+            <h3>Meta Gem</h3>
+            <p><span class="gem-meta">Relentless Earthstorm Diamond</span> — +12 Agility, +3% Critical Strike Damage. Requires more red gems than blue.</p>
+
+            <h3>Gem Priority</h3>
+            <p>Use <span class="gem-red">Delicate Living Ruby</span> (+8 Agility) in red sockets. Use <span class="gem-orange">Glinting Noble Topaz</span> (+4 Agi / +4 Hit) in yellow sockets when you need hit rating. Use <span class="gem-purple">Shifting Nightseye</span> (+4 Agi / +6 Stamina) in blue sockets to activate meta requirement.</p>
+
+            <h3>Enchants</h3>
+            <div class="enchant-grid">
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Head</div>
+                        <div class="enchant-name">Glyph of Ferocity</div>
+                        <div class="enchant-source">Cenarion Expedition — Revered</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Shoulders</div>
+                        <div class="enchant-name">Greater Inscription of Vengeance</div>
+                        <div class="enchant-source">Aldor — Exalted</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Back</div>
+                        <div class="enchant-name">Enchant Cloak — Greater Agility</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Chest</div>
+                        <div class="enchant-name">Enchant Chest — Exceptional Stats</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Wrists</div>
+                        <div class="enchant-name">Enchant Bracer — Assault</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Hands</div>
+                        <div class="enchant-name">Enchant Gloves — Superior Agility</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Legs</div>
+                        <div class="enchant-name">Nethercobra Leg Armor</div>
+                        <div class="enchant-source">Leatherworking</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Feet</div>
+                        <div class="enchant-name">Enchant Boots — Cat's Swiftness</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Weapon</div>
+                        <div class="enchant-name">Enchant Weapon — Mongoose</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Consumables -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Consumables</div>
+        <div class="panel-content accordion-body">
+            <h3>Flasks & Elixirs</h3>
+            <div class="consumable-grid">
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_117.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Flask of Relentless Assault</div>
+                        <div class="consumable-type">Flask — +120 Attack Power</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Food</h3>
+            <div class="consumable-grid">
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_misc_food_95_grainbread.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Warp Burger</div>
+                        <div class="consumable-type">+20 Agility, +20 Spirit</div>
+                    </div>
+                </div>
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_misc_food_86_basilisk.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Grilled Mudfish</div>
+                        <div class="consumable-type">+20 Agility, +20 Spirit</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Other</h3>
+            <div class="consumable-grid">
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_108.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Haste Potion</div>
+                        <div class="consumable-type">+400 Haste for 15s — Use in burst windows</div>
+                    </div>
+                </div>
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_scroll_02.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Scroll of Agility V</div>
+                        <div class="consumable-type">+20 Agility — Does not stack with Elixirs</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="guide-nav">
+        <div class="guide-nav-grid">
+            <a href="/wow-tbc-guides/warlock-destro-pve/" class="guide-nav-link prev">
+                <span class="nav-arrow">&#9666;</span>
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/classicon_warlock.jpg" alt="" class="nav-icon" loading="lazy">
+                <div>
+                    <span class="nav-label">Previous Guide</span>
+                    <span class="nav-class">Destro Warlock</span>
+                </div>
+            </a>
+            <div></div>
+        </div>
+        <a href="/wow-tbc-guides/" class="guide-back-link">&#9664; Back to All Guides</a>
+    </div>
+</div>
+
+<!-- Tooltip -->
+<div class="talent-tooltip" id="talent-tooltip"></div>

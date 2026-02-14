@@ -1,0 +1,499 @@
+---
+layout: base.njk
+title: "Fire Mage PvE Guide | TBC Classic | Scarmonit"
+description: "Complete Fire Mage PvE guide for WoW TBC Classic. Interactive talent calculator with level-by-level progression from 10-70."
+styles:
+  - /assets/css/wow-talents.css
+schemaType: guide
+scripts:
+  - /assets/js/mage-fire-data.js
+  - /assets/js/talent-calc.js
+  - /assets/js/accordion.js
+---
+
+<section class="guide-hero mage-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="hero-badge">TBC Classic</div>
+        <h1>Fire Mage</h1>
+        <p class="hero-subtitle">PvE Talent Guide & Calculator</p>
+        <div class="build-summary">
+            <span class="build-type">2/48/11</span>
+            <span class="build-role">Raiding & Dungeons</span>
+        </div>
+    </div>
+</section>
+
+<div class="guide-breadcrumb">
+    <a href="/">Home</a>
+    <span class="bc-sep">&#9656;</span>
+    <a href="/wow-tbc-guides/">TBC Guides</a>
+    <span class="bc-sep">&#9656;</span>
+    <span class="bc-current">Fire Mage</span>
+</div>
+
+<div class="guide-container">
+    <!-- Level Selector -->
+    <div class="level-selector wow-panel">
+        <div class="panel-header">Character Level</div>
+        <div class="panel-content">
+            <div class="level-input-group">
+                <label for="player-level">Level:</label>
+                <button type="button" class="level-btn" id="level-down" aria-label="Decrease level">-</button>
+                <input type="number" id="player-level" min="10" max="70" value="70" aria-label="Character level">
+                <button type="button" class="level-btn" id="level-up" aria-label="Increase level">+</button>
+            </div>
+            <div class="talent-points-display">
+                <span class="points-label">Talent Points:</span>
+                <span class="points-value" id="available-points">61</span>
+            </div>
+            <div class="button-group">
+                <button id="reset-talents" class="wow-btn red">Reset All</button>
+                <button id="apply-recommended" class="wow-btn green">Apply Build</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="level-progress-container">
+        <div class="level-progress-bar">
+            <div class="level-progress-fill" id="level-progress"></div>
+        </div>
+        <div class="level-markers">
+            <span>10</span><span>20</span><span>30</span><span>40</span><span>50</span><span>60</span><span>70</span>
+        </div>
+    </div>
+
+    <!-- Current Talent Recommendation -->
+    <div class="recommendation-box wow-panel" id="recommendation-box">
+        <div class="panel-header">Next Talent Point</div>
+        <div class="panel-content">
+            <p id="next-talent-text">Put your next point in: <strong id="next-talent-name">Loading...</strong></p>
+        </div>
+    </div>
+
+    <!-- Talent Trees Container -->
+    <div class="talent-trees">
+        <!-- Arcane Tree -->
+        <div class="talent-tree" id="arcane-tree">
+            <div class="tree-header arc">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_holy_magicalsentry.jpg" alt="Arcane" class="tree-icon">
+                <h2>Arcane</h2>
+                <span class="tree-points" id="arcane-points">0</span>
+            </div>
+            <div class="tree-background arc"></div>
+            <div class="tree-grid-wrapper">
+                <svg class="arrow-layer" id="arcane-arrows"></svg>
+                <div class="tree-grid" id="arcane-grid">
+                    <!-- Talents injected by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Fire Tree -->
+        <div class="talent-tree" id="fire-tree">
+            <div class="tree-header fr">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_fire_firebolt02.jpg" alt="Fire" class="tree-icon">
+                <h2>Fire</h2>
+                <span class="tree-points" id="fire-points">0</span>
+            </div>
+            <div class="tree-background fr"></div>
+            <div class="tree-grid-wrapper">
+                <svg class="arrow-layer" id="fire-arrows"></svg>
+                <div class="tree-grid" id="fire-grid">
+                    <!-- Talents injected by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Frost Tree -->
+        <div class="talent-tree" id="frost-tree">
+            <div class="tree-header fst">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_frost_frostbolt02.jpg" alt="Frost" class="tree-icon">
+                <h2>Frost</h2>
+                <span class="tree-points" id="frost-points">0</span>
+            </div>
+            <div class="tree-background fst"></div>
+            <div class="tree-grid-wrapper">
+                <svg class="arrow-layer" id="frost-arrows"></svg>
+                <div class="tree-grid" id="frost-grid">
+                    <!-- Talents injected by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Build Summary -->
+    <div class="build-export wow-panel">
+        <div class="panel-header">Current Build</div>
+        <div class="panel-content">
+            <div class="build-string" id="build-string">0/0/0</div>
+        </div>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="guide-content wow-panel">
+        <div class="panel-header">Why Fire?</div>
+        <div class="panel-content">
+            <p>Fire Mages are one of the strongest DPS specs throughout TBC Classic, scaling incredibly well with gear as the expansion progresses. The 2/48/11 build maximizes Fire damage through Ignite, Fire Power, and Empowered Fireball while dipping into Frost for the powerful Icy Veins haste cooldown. Your rotation revolves around Fireball spam with Scorch weaving to maintain the Fire Vulnerability debuff.</p>
+
+            <h3>Key Talents</h3>
+            <div class="talent-explanations">
+                <div class="talent-explain">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_fire_incinerate.jpg" alt="Ignite" class="explain-icon">
+                    <div>
+                        <h4>Ignite</h4>
+                        <p>Your Fire crits cause the target to burn for an additional 40% of your spell's damage over 4 seconds. Stacks and rolls with multiple crits for massive damage.</p>
+                    </div>
+                </div>
+                <div class="talent-explain">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_fire_sealoffire.jpg" alt="Combustion" class="explain-icon">
+                    <div>
+                        <h4>Combustion</h4>
+                        <p>Each Fire spell hit increases your crit chance by 10% until you land 3 crits. Amazing burst cooldown that synergizes with Ignite.</p>
+                    </div>
+                </div>
+                <div class="talent-explain">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_fire_flamebolt.jpg" alt="Empowered Fireball" class="explain-icon">
+                    <div>
+                        <h4>Empowered Fireball</h4>
+                        <p>Your Fireball gains an additional 15% of your bonus spell damage. Massive scaling talent that makes Fire better with every gear upgrade.</p>
+                    </div>
+                </div>
+                <div class="talent-explain">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_frost_coldhearted.jpg" alt="Icy Veins" class="explain-icon">
+                    <div>
+                        <h4>Icy Veins</h4>
+                        <p>20% spell haste for 20 seconds with pushback immunity. The reason you invest 11 points into Frost — a massive DPS cooldown.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Stat Priority</h3>
+            <ol>
+                <li><strong>Hit Rating</strong> (until 16% cap / 202 rating)</li>
+                <li><strong>Spell Damage</strong></li>
+                <li><strong>Spell Haste</strong></li>
+                <li><strong>Spell Critical Strike</strong></li>
+                <li><strong>Intellect</strong></li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Rotation -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Rotation / Ability Priority</div>
+        <div class="panel-content accordion-body">
+            <p class="section-intro">Fire Mage DPS revolves around Fireball spam while maintaining the Scorch debuff on the target. Use Combustion and Icy Veins on cooldown for burst windows, and Fire Blast while moving.</p>
+            <ol class="rotation-list">
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_fire_soulburn.jpg" alt="Scorch" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Scorch</span> — Maintain the Improved Scorch debuff (5 stacks, +15% Fire crit). Refresh before it falls off. Only 1 Mage needs to maintain this.</div>
+                </li>
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_fire_flamebolt.jpg" alt="Fireball" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Fireball</span> — Your primary nuke. Spam this as your main cast. Benefits massively from Empowered Fireball (+15% spell power coefficient).</div>
+                </li>
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_fire_sealoffire.jpg" alt="Combustion" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Combustion</span> — Use on cooldown. Stacks +10% Fire crit per cast until you land 3 crits. Synergizes with Ignite for huge burst damage.</div>
+                </li>
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_fire_fireball.jpg" alt="Fire Blast" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Fire Blast</span> — Instant cast. Use while moving or when you cannot stand still to cast Fireball.</div>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Pre-Raid BiS -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Pre-Raid Best in Slot</div>
+        <div class="panel-content accordion-body">
+            <p class="section-intro">Best gear obtainable from heroic dungeons, crafting, reputation, and quests before entering Karazhan. Spell hit cap is your top priority.</p>
+            <table class="bis-table">
+                <thead>
+                    <tr><th class="slot-col">Slot</th><th>Item</th><th>Source</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="slot-col">Head</td><td class="item-col">Spellstrike Hood</td><td class="source-col">Tailoring (Crafted)</td></tr>
+                    <tr><td class="slot-col">Neck</td><td class="item-col rare">Brooch of Heightened Potential</td><td class="source-col">Heroic Underbog — Ghaz'an</td></tr>
+                    <tr><td class="slot-col">Shoulders</td><td class="item-col rare">Mana-Etched Spaulders</td><td class="source-col">Heroic Mechanar — Nethermancer Sepethrea</td></tr>
+                    <tr><td class="slot-col">Back</td><td class="item-col rare">Cloak of the Black Void</td><td class="source-col">Tailoring (Crafted)</td></tr>
+                    <tr><td class="slot-col">Chest</td><td class="item-col">Spellfire Robe</td><td class="source-col">Tailoring (Crafted — Spellfire set)</td></tr>
+                    <tr><td class="slot-col">Wrists</td><td class="item-col rare">Bracers of Havok</td><td class="source-col">Tailoring (Crafted)</td></tr>
+                    <tr><td class="slot-col">Hands</td><td class="item-col">Spellfire Gloves</td><td class="source-col">Tailoring (Crafted — Spellfire set)</td></tr>
+                    <tr><td class="slot-col">Waist</td><td class="item-col">Spellfire Belt</td><td class="source-col">Tailoring (Crafted — Spellfire set)</td></tr>
+                    <tr><td class="slot-col">Legs</td><td class="item-col">Spellstrike Pants</td><td class="source-col">Tailoring (Crafted)</td></tr>
+                    <tr><td class="slot-col">Feet</td><td class="item-col rare">Sigil-Laced Boots</td><td class="source-col">Heroic Shattered Halls — Warchief Kargath</td></tr>
+                    <tr><td class="slot-col">Ring 1</td><td class="item-col rare">Seer's Signet</td><td class="source-col">The Scryers — Exalted</td></tr>
+                    <tr><td class="slot-col">Ring 2</td><td class="item-col rare">Ashyen's Gift</td><td class="source-col">Cenarion Expedition — Exalted</td></tr>
+                    <tr><td class="slot-col">Trinket 1</td><td class="item-col rare">Icon of the Silver Crescent</td><td class="source-col">41 Badge of Justice</td></tr>
+                    <tr><td class="slot-col">Trinket 2</td><td class="item-col rare">Quagmirran's Eye</td><td class="source-col">Heroic Slave Pens — Quagmirran</td></tr>
+                    <tr><td class="slot-col">Weapon</td><td class="item-col rare">Greatsword of Horrid Dreams</td><td class="source-col">Heroic Shadow Labyrinth — Murmur</td></tr>
+                    <tr><td class="slot-col">Wand</td><td class="item-col rare">Nether Core's Control Rod</td><td class="source-col">Heroic Mechanar — Nethermancer Sepethrea</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Raid BiS -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Raid Best in Slot (T5 / T6)</div>
+        <div class="panel-content accordion-body">
+            <p class="section-intro">Best endgame gear from SSC, Tempest Keep, Hyjal, Black Temple, and Sunwell Plateau. Prioritize spell hit cap > spell damage > haste > crit.</p>
+            <table class="bis-table">
+                <thead>
+                    <tr><th class="slot-col">Slot</th><th>Item</th><th>Source</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="slot-col">Head</td><td class="item-col">Helm of Burning Righteousness</td><td class="source-col">Sunwell Plateau — Kil'jaeden</td></tr>
+                    <tr><td class="slot-col">Neck</td><td class="item-col">Amulet of Unfettered Magics</td><td class="source-col">Sunwell Plateau — Brutallus</td></tr>
+                    <tr><td class="slot-col">Shoulders</td><td class="item-col">Mantle of the Tempest</td><td class="source-col">Black Temple — Mother Shahraz</td></tr>
+                    <tr><td class="slot-col">Back</td><td class="item-col">Tattered Cape of Antonidas</td><td class="source-col">Sunwell Plateau — Kil'jaeden</td></tr>
+                    <tr><td class="slot-col">Chest</td><td class="item-col">Robes of the Tempest</td><td class="source-col">Black Temple — Illidan Stormrage</td></tr>
+                    <tr><td class="slot-col">Wrists</td><td class="item-col">Bracers of the Tempest</td><td class="source-col">Sunwell Plateau — Kalecgos</td></tr>
+                    <tr><td class="slot-col">Hands</td><td class="item-col">Gloves of the Tempest</td><td class="source-col">Hyjal Summit — Azgalor</td></tr>
+                    <tr><td class="slot-col">Waist</td><td class="item-col">Belt of Divine Inspiration</td><td class="source-col">Sunwell Plateau — M'uru</td></tr>
+                    <tr><td class="slot-col">Legs</td><td class="item-col">Leggings of Calamity</td><td class="source-col">Sunwell Plateau — Felmyst</td></tr>
+                    <tr><td class="slot-col">Feet</td><td class="item-col">Boots of the Tempest</td><td class="source-col">Black Temple — Teron Gorefiend</td></tr>
+                    <tr><td class="slot-col">Ring 1</td><td class="item-col">Ring of Omnipotence</td><td class="source-col">Sunwell Plateau — M'uru</td></tr>
+                    <tr><td class="slot-col">Ring 2</td><td class="item-col">Band of the Eternal Sage</td><td class="source-col">Hyjal Summit — Exalted</td></tr>
+                    <tr><td class="slot-col">Trinket 1</td><td class="item-col">The Skull of Gul'dan</td><td class="source-col">Black Temple — Illidan Stormrage</td></tr>
+                    <tr><td class="slot-col">Trinket 2</td><td class="item-col">Shifting Naaru Sliver</td><td class="source-col">Sunwell Plateau — M'uru</td></tr>
+                    <tr><td class="slot-col">Weapon</td><td class="item-col">Sunflare</td><td class="source-col">Sunwell Plateau — Kil'jaeden</td></tr>
+                    <tr><td class="slot-col">Offhand</td><td class="item-col">Chronicle of Dark Secrets</td><td class="source-col">Sunwell Plateau — Felmyst</td></tr>
+                    <tr><td class="slot-col">Wand</td><td class="item-col">Wand of the Demonsoul</td><td class="source-col">Black Temple — Teron Gorefiend</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Macros & Keybinds</div>
+        <div class="panel-content accordion-body">
+            <p class="section-intro">Essential Fire Mage macros for TBC Classic raiding.</p>
+            <div class="guide-macro-grid">
+                <div class="guide-macro-card">
+                    <div class="guide-macro-title">
+                        <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_fire_fireball02.jpg" alt="" loading="lazy">
+                        <h4>Fireball + Trinkets</h4>
+                    </div>
+                    <code class="guide-macro-code">#showtooltip Fireball
+/use 13
+/use 14
+/cast Fireball</code>
+                    <p class="guide-macro-desc">Uses both on-use trinkets with Fireball for burst windows.</p>
+                </div>
+                <div class="guide-macro-card">
+                    <div class="guide-macro-title">
+                        <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_frost_iceshock.jpg" alt="" loading="lazy">
+                        <h4>Counterspell (Stopcasting)</h4>
+                    </div>
+                    <code class="guide-macro-code">#showtooltip Counterspell
+/stopcasting
+/cast Counterspell</code>
+                    <p class="guide-macro-desc">Stops current cast and immediately interrupts. Essential for raid interrupt duty.</p>
+                </div>
+                <div class="guide-macro-card">
+                    <div class="guide-macro-title">
+                        <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_arcane_arcane02.jpg" alt="" loading="lazy">
+                        <h4>Spellsteal on Focus</h4>
+                    </div>
+                    <code class="guide-macro-code">#showtooltip Spellsteal
+/stopcasting
+/cast [@focus,exists,nodead][@target] Spellsteal</code>
+                    <p class="guide-macro-desc">Stops casting and steals a buff from focus target. Key on Solarian and other fights.</p>
+                </div>
+                <div class="guide-macro-card">
+                    <div class="guide-macro-title">
+                        <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_fire_soulburn.jpg" alt="" loading="lazy">
+                        <h4>Scorch Weave</h4>
+                    </div>
+                    <code class="guide-macro-code">#showtooltip Scorch
+/cast Scorch
+/cast Fireball</code>
+                    <p class="guide-macro-desc">Casts Scorch to maintain the Fire Vulnerability debuff, then queues Fireball.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Quick Tips & Common Mistakes</div>
+        <div class="panel-content accordion-body">
+            <ul class="quick-tips-list">
+                <li class="tip-do"><span class="tip-icon">+</span> Keep Scorch debuff (Improved Scorch) on the boss at all times if assigned — 15% more Fire damage for all casters.</li>
+                <li class="tip-do"><span class="tip-icon">+</span> Use Combustion with Icy Veins and trinkets for your biggest burst window.</li>
+                <li class="tip-dont"><span class="tip-icon">-</span> Don't forget to use Mana Gems — they're free mana on a separate cooldown from potions.</li>
+                <li class="tip-dont"><span class="tip-icon">-</span> Don't stand in melee range — you'll eat cleave damage and lose casting uptime dodging mechanics.</li>
+                <li class="tip-info"><span class="tip-icon">i</span> Hit cap is 16% (202 rating). With Elemental Precision, you only need 164 rating from gear.</li>
+                <li class="tip-info"><span class="tip-icon">i</span> Fire Mages scale extremely well — by T6 you'll be competing with Warlocks for top DPS.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Gems & Enchants -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Gems & Enchants</div>
+        <div class="panel-content accordion-body">
+            <h3>Meta Gem</h3>
+            <p><span class="gem-meta">Chaotic Skyfire Diamond</span> — +12 Spell Critical Strike, +3% Critical Strike Damage. Requires more blue gems than yellow.</p>
+
+            <h3>Gem Priority</h3>
+            <p>Use <span class="gem-red">Runed Living Ruby</span> (+9 Spell Damage) in red sockets. Use <span class="gem-orange">Veiled Noble Topaz</span> (+4 Spell Hit / +5 Spell Damage) in yellow sockets until hit capped. Use <span class="gem-purple">Glowing Nightseye</span> (+5 Spell Damage / +6 Stamina) in blue sockets to activate meta requirement.</p>
+
+            <h3>Enchants</h3>
+            <div class="enchant-grid">
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Head</div>
+                        <div class="enchant-name">Glyph of Power</div>
+                        <div class="enchant-source">Sha'tar — Revered</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Shoulders</div>
+                        <div class="enchant-name">Greater Inscription of Discipline</div>
+                        <div class="enchant-source">Aldor — Exalted</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Back</div>
+                        <div class="enchant-name">Enchant Cloak — Subtlety</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Chest</div>
+                        <div class="enchant-name">Enchant Chest — Exceptional Stats</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Wrists</div>
+                        <div class="enchant-name">Enchant Bracer — Spellpower</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Hands</div>
+                        <div class="enchant-name">Enchant Gloves — Major Spellpower</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Legs</div>
+                        <div class="enchant-name">Runic Spellthread</div>
+                        <div class="enchant-source">Tailoring</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Feet</div>
+                        <div class="enchant-name">Enchant Boots — Boar's Speed</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Weapon</div>
+                        <div class="enchant-name">Enchant Weapon — Sunfire</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Ring (if Enchanter)</div>
+                        <div class="enchant-name">Enchant Ring — Spellpower</div>
+                        <div class="enchant-source">Enchanting (370)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Consumables -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Consumables</div>
+        <div class="panel-content accordion-body">
+            <h3>Flasks & Elixirs</h3>
+            <div class="consumable-grid">
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_121.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Flask of Pure Death</div>
+                        <div class="consumable-type">Flask — +80 Shadow, Fire, and Frost Spell Damage</div>
+                    </div>
+                </div>
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_41.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Flask of Supreme Power</div>
+                        <div class="consumable-type">Flask — +70 All Spell Damage (alternative)</div>
+                    </div>
+                </div>
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_107.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Destruction Potion</div>
+                        <div class="consumable-type">Potion — +120 Spell Damage, +2% Spell Crit for 15s</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Food</h3>
+            <div class="consumable-grid">
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_misc_food_86_basilisk.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Blackened Basilisk</div>
+                        <div class="consumable-type">+23 Spell Damage, +20 Spirit</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Other</h3>
+            <div class="consumable-grid">
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_105.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Brilliant Wizard Oil</div>
+                        <div class="consumable-type">+36 Spell Damage, +14 Spell Crit — Applied to weapon</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="guide-nav">
+        <div class="guide-nav-grid">
+            <a href="/wow-tbc-guides/shaman-enh-pve/" class="guide-nav-link prev">
+                <span class="nav-arrow">&#9666;</span>
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/classicon_shaman.jpg" alt="" class="nav-icon" loading="lazy">
+                <div>
+                    <span class="nav-label">Previous Guide</span>
+                    <span class="nav-class">Enh Shaman</span>
+                </div>
+            </a>
+            <a href="/wow-tbc-guides/warlock-destro-pve/" class="guide-nav-link next">
+                <div>
+                    <span class="nav-label">Next Guide</span>
+                    <span class="nav-class">Destro Warlock</span>
+                </div>
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/classicon_warlock.jpg" alt="" class="nav-icon" loading="lazy">
+                <span class="nav-arrow">&#9656;</span>
+            </a>
+        </div>
+        <a href="/wow-tbc-guides/" class="guide-back-link">&#9664; Back to All Guides</a>
+    </div>
+</div>
+
+<!-- Tooltip -->
+<div class="talent-tooltip" id="talent-tooltip"></div>

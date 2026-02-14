@@ -7,7 +7,7 @@
     "api": "node k8s-api-server.js",
     "dev": "concurrently \"npm run api\" \"npx wrangler pages dev _site\"",
     "build": "npx @11ty/eleventy",
-    "deploy": "npm run build && npx wrangler pages deploy _site --project-name=d4guide"
+    "deploy": "npm run build && npx wrangler pages deploy _site --project-name=d4guide --branch=master"
   },
   "repository": {
     "type": "git",

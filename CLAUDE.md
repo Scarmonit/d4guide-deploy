@@ -39,7 +39,13 @@ npx wrangler pages dev _site
 node node_modules/@11ty/eleventy/cmd.cjs
 ```
 
-**Deploy:**
+**Quick Deploy (recommended):**
+```bash
+npm run deploy
+```
+> Note: This runs build + deploy with --branch=master automatically.
+
+**Manual Deploy:**
 ```bash
 node "C:\Users\scarm\AppData\Roaming\npm\node_modules\wrangler\bin\wrangler.js" pages deploy _site --project-name=d4guide --branch=master
 ```
@@ -49,7 +55,6 @@ node "C:\Users\scarm\AppData\Roaming\npm\node_modules\wrangler\bin\wrangler.js" 
 ## Key Files
 - `wrangler.toml` - R2 bindings and Pages config
 - `src/assets/js/upload.js` - Multipart upload logic
-- `src/assets/js/cursor-particles.js` - Signature cursor effects
 
 ## Adding a New Page
 

@@ -361,6 +361,7 @@ function renderGuidePage(build) {
                 <button class="nav-dropdown-trigger active" aria-haspopup="true">Content <span class="dropdown-arrow">▾</span></button>
                 <div class="dropdown-menu">
                     <a href="/build-guides" class="active">Build Guides</a>
+                    <a href="/wow-tbc-guides">WoW TBC Guides</a>
                     <a href="/videos">Videos</a>
                     <a href="/socials">Socials</a>
                 </div>
@@ -474,18 +475,19 @@ function renderGuidePage(build) {
         </div>
 
         <script>
-            function showTab(tabId) {
+            function showTab(tabId, evt) {
                 document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
                 document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
                 const target = document.getElementById(tabId);
                 if (target) target.classList.add('active');
-                if (event && event.target) event.target.classList.add('active');
+                const e = evt || window.event;
+                if (e && e.target) e.target.classList.add('active');
             }
         </script>
     </main>
 
     <footer>
-        <p>&copy; 2025 <a href="https://scarmonit.com">Scarmonit.com</a> - All Rights Reserved</p>
+        <p>&copy; 2026 <a href="https://scarmonit.com">Scarmonit.com</a> &mdash; All Rights Reserved</p>
     </footer>
 
     <script src="/assets/js/main.js" defer></script>

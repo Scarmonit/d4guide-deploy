@@ -1,0 +1,531 @@
+---
+layout: base.njk
+title: "Beast Mastery Hunter PvE Guide | TBC Classic | Scarmonit"
+description: "Complete Beast Mastery Hunter PvE guide for WoW TBC Classic. Interactive talent calculator with level-by-level progression from 10-70."
+styles:
+  - /assets/css/wow-talents.css
+schemaType: guide
+scripts:
+  - /assets/js/hunter-bm-data.js
+  - /assets/js/talent-calc.js
+  - /assets/js/accordion.js
+---
+
+<section class="guide-hero hunter-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="hero-badge">TBC Classic</div>
+        <h1>Beast Mastery Hunter</h1>
+        <p class="hero-subtitle">PvE Talent Guide & Calculator</p>
+        <div class="build-summary">
+            <span class="build-type">41/20/0</span>
+            <span class="build-role">Raiding & Dungeons</span>
+        </div>
+    </div>
+</section>
+
+<div class="guide-breadcrumb">
+    <a href="/">Home</a>
+    <span class="bc-sep">&#9656;</span>
+    <a href="/wow-tbc-guides/">TBC Guides</a>
+    <span class="bc-sep">&#9656;</span>
+    <span class="bc-current">BM Hunter</span>
+</div>
+
+<div class="guide-container">
+    <!-- Level Selector -->
+    <div class="level-selector wow-panel">
+        <div class="panel-header">Character Level</div>
+        <div class="panel-content">
+            <div class="level-input-group">
+                <label for="player-level">Level:</label>
+                <button type="button" class="level-btn" id="level-down" aria-label="Decrease level">-</button>
+                <input type="number" id="player-level" min="10" max="70" value="70" aria-label="Character level">
+                <button type="button" class="level-btn" id="level-up" aria-label="Increase level">+</button>
+            </div>
+            <div class="talent-points-display">
+                <span class="points-label">Talent Points:</span>
+                <span class="points-value" id="available-points">61</span>
+            </div>
+            <div class="button-group">
+                <button id="reset-talents" class="wow-btn red">Reset All</button>
+                <button id="apply-recommended" class="wow-btn green">Apply Build</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="level-progress-container">
+        <div class="level-progress-bar">
+            <div class="level-progress-fill" id="level-progress"></div>
+        </div>
+        <div class="level-markers">
+            <span>10</span><span>20</span><span>30</span><span>40</span><span>50</span><span>60</span><span>70</span>
+        </div>
+    </div>
+
+    <!-- Current Talent Recommendation -->
+    <div class="recommendation-box wow-panel" id="recommendation-box">
+        <div class="panel-header">Next Talent Point</div>
+        <div class="panel-content">
+            <p id="next-talent-text">Put your next point in: <strong id="next-talent-name">Loading...</strong></p>
+        </div>
+    </div>
+
+    <!-- Talent Trees Container -->
+    <div class="talent-trees">
+        <!-- Beast Mastery Tree -->
+        <div class="talent-tree" id="beast-mastery-tree">
+            <div class="tree-header bm">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_hunter_beastwithin.jpg" alt="BM" class="tree-icon">
+                <h2>Beast Mastery</h2>
+                <span class="tree-points" id="bm-points">0</span>
+            </div>
+            <div class="tree-background bm"></div>
+            <div class="tree-grid-wrapper">
+                <svg class="arrow-layer" id="bm-arrows"></svg>
+                <div class="tree-grid" id="bm-grid">
+                    <!-- Talents injected by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Marksmanship Tree -->
+        <div class="talent-tree" id="marksmanship-tree">
+            <div class="tree-header mm">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_trueshot.jpg" alt="MM" class="tree-icon">
+                <h2>Marksmanship</h2>
+                <span class="tree-points" id="mm-points">0</span>
+            </div>
+            <div class="tree-background mm"></div>
+            <div class="tree-grid-wrapper">
+                <svg class="arrow-layer" id="mm-arrows"></svg>
+                <div class="tree-grid" id="mm-grid">
+                    <!-- Talents injected by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Survival Tree -->
+        <div class="talent-tree" id="survival-tree">
+            <div class="tree-header sv">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_hunter_swiftstrike.jpg" alt="SV" class="tree-icon">
+                <h2>Survival</h2>
+                <span class="tree-points" id="sv-points">0</span>
+            </div>
+            <div class="tree-background sv"></div>
+            <div class="tree-grid-wrapper">
+                <svg class="arrow-layer" id="sv-arrows"></svg>
+                <div class="tree-grid" id="sv-grid">
+                    <!-- Talents injected by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Build Summary -->
+    <div class="build-export wow-panel">
+        <div class="panel-header">Current Build</div>
+        <div class="panel-content">
+            <div class="build-string" id="build-string">0/0/0</div>
+        </div>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="guide-content wow-panel">
+        <div class="panel-header">Why Beast Mastery?</div>
+        <div class="panel-content">
+            <p>Beast Mastery Hunters are absolute powerhouses in The Burning Crusade. While Hunters were off-meta in Classic, they become one of the strongest DPS classes for the entire TBC expansion. Your pet will contribute 40-50% of your total damage output thanks to improved pet scaling — a dead pet means your DPS falls off a cliff, so pet management is the single most important skill you'll develop.</p>
+
+            <h3>Key Talents</h3>
+            <div class="talent-explanations">
+                <div class="talent-explain">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_hunter_serpentswiftness.jpg" alt="Serpent's Swiftness" class="explain-icon">
+                    <div>
+                        <h4>Serpent's Swiftness</h4>
+                        <p>20% haste for both you and your pet. Core talent for all BM builds.</p>
+                    </div>
+                </div>
+                <div class="talent-explain">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_hunter_beastwithin.jpg" alt="The Beast Within" class="explain-icon">
+                    <div>
+                        <h4>The Beast Within</h4>
+                        <p>41-point talent. 10% more damage and 20% mana reduction for 18 seconds.</p>
+                    </div>
+                </div>
+                <div class="talent-explain">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_hunter_ferociousinspiration.jpg" alt="Ferocious Inspiration" class="explain-icon">
+                    <div>
+                        <h4>Ferocious Inspiration</h4>
+                        <p>Pet crits give 3% damage to all party members. Raid MVP talent.</p>
+                    </div>
+                </div>
+                <div class="talent-explain">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_piercedamage.jpg" alt="Mortal Shots" class="explain-icon">
+                    <div>
+                        <h4>Mortal Shots</h4>
+                        <p>30% crit damage bonus. Mandatory for all Hunters.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Stat Priority</h3>
+            <ol>
+                <li><strong>Hit Rating</strong> (until 9% cap / 142 rating)</li>
+                <li><strong>Agility</strong></li>
+                <li><strong>Attack Power</strong></li>
+                <li><strong>Critical Strike</strong></li>
+                <li><strong>Haste</strong></li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Rotation -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Rotation / Ability Priority</div>
+        <div class="panel-content accordion-body">
+            <p class="section-intro">BM Hunter DPS revolves around maintaining Steady Shot weaving between Auto Shots while keeping your pet alive and using Kill Command on cooldown.</p>
+            <ol class="rotation-list">
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_hunter_killcommand.jpg" alt="Kill Command" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Kill Command</span> — Use on cooldown. Your pet's strongest attack, benefits from all BM talents.</div>
+                </li>
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_hunter_steadyshot.jpg" alt="Steady Shot" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Steady Shot</span> — Your main filler. Weave between Auto Shots (fire Steady immediately after each Auto Shot lands).</div>
+                </li>
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_impalingbolt.jpg" alt="Multi-Shot" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Multi-Shot</span> — Use on cooldown in single-target when mana allows. Skip if mana is tight.</div>
+                </li>
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_hunter_beastwithin.jpg" alt="Bestial Wrath" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Bestial Wrath</span> — Use on cooldown for 18s of 50% pet damage boost. Macro with The Beast Within.</div>
+                </li>
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_trueshot.jpg" alt="Rapid Fire" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Rapid Fire</span> — Use on cooldown, ideally with Bestial Wrath and Haste Potion for burst windows.</div>
+                </li>
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_upgrademoonglaive.jpg" alt="Arcane Shot" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Arcane Shot</span> — Only use to dump excess mana or when moving and can't Steady Shot.</div>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Pre-Raid BiS -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Pre-Raid Best in Slot</div>
+        <div class="panel-content accordion-body">
+            <p class="section-intro">Best gear obtainable from heroic dungeons, crafting, reputation, and quests before entering Karazhan.</p>
+            <table class="bis-table">
+                <thead>
+                    <tr><th class="slot-col">Slot</th><th>Item</th><th>Source</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="slot-col">Head</td><td class="item-col rare">Beast Lord Helm</td><td class="source-col">Heroic Steamvault — Warlord Kalithresh</td></tr>
+                    <tr><td class="slot-col">Neck</td><td class="item-col rare">Choker of Vile Intent</td><td class="source-col">Heroic Shadow Labyrinth — Murmur</td></tr>
+                    <tr><td class="slot-col">Shoulders</td><td class="item-col rare">Beast Lord Mantle</td><td class="source-col">Heroic Mechanar — Nethermancer Sepethrea</td></tr>
+                    <tr><td class="slot-col">Back</td><td class="item-col rare">Blood Knight War Cloak</td><td class="source-col">Heroic Shattered Halls — Warchief Kargath</td></tr>
+                    <tr><td class="slot-col">Chest</td><td class="item-col rare">Beast Lord Cuirass</td><td class="source-col">Heroic The Mechanar — Pathaleon</td></tr>
+                    <tr><td class="slot-col">Wrists</td><td class="item-col rare">Felstalker Bracers</td><td class="source-col">Leatherworking (Crafted)</td></tr>
+                    <tr><td class="slot-col">Hands</td><td class="item-col rare">Beast Lord Handguards</td><td class="source-col">Heroic Underbog — The Black Stalker</td></tr>
+                    <tr><td class="slot-col">Waist</td><td class="item-col rare">Primalstrike Belt</td><td class="source-col">Leatherworking (Crafted)</td></tr>
+                    <tr><td class="slot-col">Legs</td><td class="item-col rare">Scaled Greaves of Patience</td><td class="source-col">Heroic Old Hillsbrad — Epoch Hunter</td></tr>
+                    <tr><td class="slot-col">Feet</td><td class="item-col rare">Edgewalker Longboots</td><td class="source-col">Heroic Mana-Tombs — Nexus-Prince Shaffar</td></tr>
+                    <tr><td class="slot-col">Ring 1</td><td class="item-col rare">A'dal's Command</td><td class="source-col">Sha'tar — Exalted</td></tr>
+                    <tr><td class="slot-col">Ring 2</td><td class="item-col rare">Ring of Umbral Doom</td><td class="source-col">Heroic Shadow Labyrinth — Ambassador Hellmaw</td></tr>
+                    <tr><td class="slot-col">Trinket 1</td><td class="item-col rare">Abacus of Violent Odds</td><td class="source-col">Heroic Mechanar — Pathaleon</td></tr>
+                    <tr><td class="slot-col">Trinket 2</td><td class="item-col rare">Bladefist's Breadth</td><td class="source-col">Quest — Overlord (Hellfire Peninsula)</td></tr>
+                    <tr><td class="slot-col">Ranged</td><td class="item-col rare">Valanos' Longbow</td><td class="source-col">Heroic Mechanar — Pathaleon</td></tr>
+                    <tr><td class="slot-col">Melee</td><td class="item-col rare">Sonic Spear</td><td class="source-col">Heroic Underbog — Quagmirran</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Raid BiS -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Raid Best in Slot (T5 / T6)</div>
+        <div class="panel-content accordion-body">
+            <p class="section-intro">Best endgame gear from SSC, Tempest Keep, Hyjal, Black Temple, and Sunwell Plateau.</p>
+            <table class="bis-table">
+                <thead>
+                    <tr><th class="slot-col">Slot</th><th>Item</th><th>Source</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="slot-col">Head</td><td class="item-col">Gronnstalker's Helmet</td><td class="source-col">Black Temple — Archimonde (Hyjal T6 token)</td></tr>
+                    <tr><td class="slot-col">Neck</td><td class="item-col">Choker of Serrated Blades</td><td class="source-col">Zul'Aman — Nalorakk</td></tr>
+                    <tr><td class="slot-col">Shoulders</td><td class="item-col">Gronnstalker's Spaulders</td><td class="source-col">Black Temple — Mother Shahraz</td></tr>
+                    <tr><td class="slot-col">Back</td><td class="item-col">Thalassian Wildercloak</td><td class="source-col">Sunwell Plateau — Trash Drop</td></tr>
+                    <tr><td class="slot-col">Chest</td><td class="item-col">Gronnstalker's Chestguard</td><td class="source-col">Black Temple — Illidan Stormrage</td></tr>
+                    <tr><td class="slot-col">Wrists</td><td class="item-col">Bracers of the Pathfinder</td><td class="source-col">Sunwell Plateau — Kalecgos</td></tr>
+                    <tr><td class="slot-col">Hands</td><td class="item-col">Gloves of Immortal Dusk</td><td class="source-col">Sunwell Plateau — Felmyst</td></tr>
+                    <tr><td class="slot-col">Waist</td><td class="item-col">Belt of One-Hundred Deaths</td><td class="source-col">Sunwell Plateau — Brutallus</td></tr>
+                    <tr><td class="slot-col">Legs</td><td class="item-col">Gronnstalker's Leggings</td><td class="source-col">Black Temple — Azgalor (Hyjal T6 token)</td></tr>
+                    <tr><td class="slot-col">Feet</td><td class="item-col">Boots of Utter Darkness</td><td class="source-col">Black Temple — Teron Gorefiend</td></tr>
+                    <tr><td class="slot-col">Ring 1</td><td class="item-col">Hard Khorium Band</td><td class="source-col">Jewelcrafting (Crafted)</td></tr>
+                    <tr><td class="slot-col">Ring 2</td><td class="item-col">Band of the Eternal Champion</td><td class="source-col">Hyjal Summit — Exalted</td></tr>
+                    <tr><td class="slot-col">Trinket 1</td><td class="item-col">Madness of the Betrayer</td><td class="source-col">Black Temple — Illidan Stormrage</td></tr>
+                    <tr><td class="slot-col">Trinket 2</td><td class="item-col">Berserker's Call</td><td class="source-col">Zul'Aman — Timed Chest (4th boss)</td></tr>
+                    <tr><td class="slot-col">Ranged</td><td class="item-col">Golden Bow of Quel'Thalas</td><td class="source-col">Sunwell Plateau — Kil'jaeden</td></tr>
+                    <tr><td class="slot-col">Melee</td><td class="item-col">Mounting Vengeance</td><td class="source-col">Sunwell Plateau — M'uru</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Macros -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Macros & Keybinds</div>
+        <div class="panel-content accordion-body">
+            <p class="section-intro">Essential Beast Mastery Hunter macros for TBC Classic. Steady Shot weaving macros are critical for optimal DPS.</p>
+            <div class="guide-macro-grid">
+                <div class="guide-macro-card">
+                    <div class="guide-macro-title">
+                        <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_hunter_steadyshot.jpg" alt="" loading="lazy">
+                        <h4>Steady Shot + Kill Command</h4>
+                    </div>
+                    <code class="guide-macro-code">#showtooltip Steady Shot
+/cast !Auto Shot
+/cast Kill Command
+/cast Steady Shot</code>
+                    <p class="guide-macro-desc">The core BM macro. Ensures Auto Shot is active, fires Kill Command, and weaves Steady Shot.</p>
+                </div>
+                <div class="guide-macro-card">
+                    <div class="guide-macro-title">
+                        <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_hunter_misdirection.jpg" alt="" loading="lazy">
+                        <h4>Misdirection on Focus</h4>
+                    </div>
+                    <code class="guide-macro-code">#showtooltip Misdirection
+/cast [@focus,help,nodead] Misdirection</code>
+                    <p class="guide-macro-desc">Casts Misdirection on your focus target (set tank as focus). Essential for pull management.</p>
+                </div>
+                <div class="guide-macro-card">
+                    <div class="guide-macro-title">
+                        <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_hunter_beastwithin.jpg" alt="" loading="lazy">
+                        <h4>Bestial Wrath + Trinkets</h4>
+                    </div>
+                    <code class="guide-macro-code">#showtooltip Bestial Wrath
+/use 13
+/use 14
+/cast Bestial Wrath
+/cast Rapid Fire</code>
+                    <p class="guide-macro-desc">Pops both trinkets, Bestial Wrath, and Rapid Fire for maximum burst window.</p>
+                </div>
+                <div class="guide-macro-card">
+                    <div class="guide-macro-title">
+                        <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_hunter_pet_assist.jpg" alt="" loading="lazy">
+                        <h4>Pet Attack + Hunter's Mark</h4>
+                    </div>
+                    <code class="guide-macro-code">#showtooltip Hunter's Mark
+/cast Hunter's Mark
+/petattack
+/cast !Auto Shot</code>
+                    <p class="guide-macro-desc">Marks target, sends pet, and starts Auto Shot. Perfect opener macro.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Tips -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Quick Tips & Common Mistakes</div>
+        <div class="panel-content accordion-body">
+            <ul class="quick-tips-list">
+                <li class="tip-do"><span class="tip-icon">+</span> Keep your pet alive at ALL costs — a dead pet means 40-50% of your DPS is gone. Use Mend Pet proactively.</li>
+                <li class="tip-do"><span class="tip-icon">+</span> Use Misdirection on the tank before every pull, especially on bosses.</li>
+                <li class="tip-dont"><span class="tip-icon">-</span> Don't clip your Auto Shots — wait for the Auto Shot to fire before casting Steady Shot.</li>
+                <li class="tip-dont"><span class="tip-icon">-</span> Don't use Arcane Shot as filler in raids — it shares a cooldown with other shots and costs too much mana.</li>
+                <li class="tip-info"><span class="tip-icon">i</span> Hit cap is 9% (142 rating). Once capped, Agility becomes your best stat.</li>
+                <li class="tip-info"><span class="tip-icon">i</span> Ravagers are the best DPS pet due to their Screech ability and high attack speed.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Gems & Enchants -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Gems & Enchants</div>
+        <div class="panel-content accordion-body">
+            <h3>Meta Gem</h3>
+            <p><span class="gem-meta">Relentless Earthstorm Diamond</span> — +12 Agility, +3% Critical Strike Damage. Requires more red gems than blue.</p>
+
+            <h3>Gem Priority</h3>
+            <p>Use <span class="gem-red">Delicate Living Ruby</span> (+8 Agility) in red sockets. Use <span class="gem-orange">Glinting Noble Topaz</span> (+4 Agi / +4 Hit) in yellow sockets if you need hit rating. Ignore blue sockets unless the bonus is +4 Agility or better — use <span class="gem-purple">Shifting Nightseye</span> (+4 Agi / +6 Stamina) to activate meta requirement.</p>
+
+            <h3>Enchants</h3>
+            <div class="enchant-grid">
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Head</div>
+                        <div class="enchant-name">Glyph of Ferocity</div>
+                        <div class="enchant-source">Cenarion Expedition — Revered</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Shoulders</div>
+                        <div class="enchant-name">Greater Inscription of Vengeance</div>
+                        <div class="enchant-source">Aldor — Exalted</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Back</div>
+                        <div class="enchant-name">Enchant Cloak — Greater Agility</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Chest</div>
+                        <div class="enchant-name">Enchant Chest — Exceptional Stats</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Wrists</div>
+                        <div class="enchant-name">Enchant Bracer — Assault</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Hands</div>
+                        <div class="enchant-name">Enchant Gloves — Superior Agility</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Legs</div>
+                        <div class="enchant-name">Nethercobra Leg Armor</div>
+                        <div class="enchant-source">Leatherworking</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Feet</div>
+                        <div class="enchant-name">Enchant Boots — Dexterity</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Ranged Weapon</div>
+                        <div class="enchant-name">Stabilized Eternium Scope</div>
+                        <div class="enchant-source">Engineering</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Ring (if Enchanter)</div>
+                        <div class="enchant-name">Enchant Ring — Stats</div>
+                        <div class="enchant-source">Enchanting (370)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Consumables -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Consumables</div>
+        <div class="panel-content accordion-body">
+            <h3>Flasks & Elixirs</h3>
+            <div class="consumable-grid">
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_117.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Flask of Relentless Assault</div>
+                        <div class="consumable-type">Flask — +120 Attack Power</div>
+                    </div>
+                </div>
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_112.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Elixir of Major Agility</div>
+                        <div class="consumable-type">Battle Elixir — +35 Agi, +20 Crit</div>
+                    </div>
+                </div>
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_105.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Elixir of Draenic Wisdom</div>
+                        <div class="consumable-type">Guardian Elixir — +30 Int, +30 Spirit</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Food</h3>
+            <div class="consumable-grid">
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_misc_food_95_grainbread.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Warp Burger</div>
+                        <div class="consumable-type">+20 Agility, +20 Spirit</div>
+                    </div>
+                </div>
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_misc_food_86_basilisk.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Grilled Mudfish</div>
+                        <div class="consumable-type">+20 Agility, +20 Spirit</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Other</h3>
+            <div class="consumable-grid">
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_108.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Haste Potion</div>
+                        <div class="consumable-type">+400 Haste for 15s — Use in burst</div>
+                    </div>
+                </div>
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_stone_04.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Adamantite Weightstone</div>
+                        <div class="consumable-type">+12 Damage, +14 Crit — Melee weapon</div>
+                    </div>
+                </div>
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_misc_ammo_arrow_02.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Adamantite Stinger</div>
+                        <div class="consumable-type">Best TBC ammo — 43 DPS</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="guide-nav">
+        <div class="guide-nav-grid">
+            <a href="/wow-tbc-guides/paladin-ret-pve/" class="guide-nav-link prev">
+                <span class="nav-arrow">&#9666;</span>
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/classicon_paladin.jpg" alt="" class="nav-icon" loading="lazy">
+                <div>
+                    <span class="nav-label">Previous Guide</span>
+                    <span class="nav-class">Ret Paladin</span>
+                </div>
+            </a>
+            <a href="/wow-tbc-guides/rogue-combat-pve/" class="guide-nav-link next">
+                <div>
+                    <span class="nav-label">Next Guide</span>
+                    <span class="nav-class">Combat Rogue</span>
+                </div>
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/classicon_rogue.jpg" alt="" class="nav-icon" loading="lazy">
+                <span class="nav-arrow">&#9656;</span>
+            </a>
+        </div>
+        <a href="/wow-tbc-guides/" class="guide-back-link">&#9664; Back to All Guides</a>
+    </div>
+</div>
+
+<!-- Tooltip -->
+<div class="talent-tooltip" id="talent-tooltip"></div>

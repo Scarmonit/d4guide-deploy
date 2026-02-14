@@ -1,0 +1,495 @@
+---
+layout: base.njk
+title: "Combat Rogue PvE Guide | TBC Classic | Scarmonit"
+description: "Complete Combat Rogue PvE guide for WoW TBC Classic. Interactive talent calculator with level-by-level progression from 10-70."
+styles:
+  - /assets/css/wow-talents.css
+schemaType: guide
+scripts:
+  - /assets/js/rogue-combat-data.js
+  - /assets/js/talent-calc.js
+  - /assets/js/accordion.js
+---
+
+<section class="guide-hero rogue-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="hero-badge">TBC Classic</div>
+        <h1>Combat Rogue</h1>
+        <p class="hero-subtitle">PvE Talent Guide & Calculator</p>
+        <div class="build-summary">
+            <span class="build-type">20/41/0</span>
+            <span class="build-role">Raiding & Dungeons</span>
+        </div>
+    </div>
+</section>
+
+<div class="guide-breadcrumb">
+    <a href="/">Home</a>
+    <span class="bc-sep">&#9656;</span>
+    <a href="/wow-tbc-guides/">TBC Guides</a>
+    <span class="bc-sep">&#9656;</span>
+    <span class="bc-current">Combat Rogue</span>
+</div>
+
+<div class="guide-container">
+    <!-- Level Selector -->
+    <div class="level-selector wow-panel">
+        <div class="panel-header">Character Level</div>
+        <div class="panel-content">
+            <div class="level-input-group">
+                <label for="player-level">Level:</label>
+                <button type="button" class="level-btn" id="level-down" aria-label="Decrease level">-</button>
+                <input type="number" id="player-level" min="10" max="70" value="70" aria-label="Character level">
+                <button type="button" class="level-btn" id="level-up" aria-label="Increase level">+</button>
+            </div>
+            <div class="talent-points-display">
+                <span class="points-label">Talent Points:</span>
+                <span class="points-value" id="available-points">61</span>
+            </div>
+            <div class="button-group">
+                <button id="reset-talents" class="wow-btn red">Reset All</button>
+                <button id="apply-recommended" class="wow-btn green">Apply Build</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="level-progress-container">
+        <div class="level-progress-bar">
+            <div class="level-progress-fill" id="level-progress"></div>
+        </div>
+        <div class="level-markers">
+            <span>10</span><span>20</span><span>30</span><span>40</span><span>50</span><span>60</span><span>70</span>
+        </div>
+    </div>
+
+    <!-- Current Talent Recommendation -->
+    <div class="recommendation-box wow-panel" id="recommendation-box">
+        <div class="panel-header">Next Talent Point</div>
+        <div class="panel-content">
+            <p id="next-talent-text">Put your next point in: <strong id="next-talent-name">Loading...</strong></p>
+        </div>
+    </div>
+
+    <!-- Talent Trees Container -->
+    <div class="talent-trees">
+        <!-- Assassination Tree -->
+        <div class="talent-tree" id="assassination-tree">
+            <div class="tree-header assa">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_rogue_eviscerate.jpg" alt="Assassination" class="tree-icon">
+                <h2>Assassination</h2>
+                <span class="tree-points" id="assa-points">0</span>
+            </div>
+            <div class="tree-background assa"></div>
+            <div class="tree-grid-wrapper">
+                <svg class="arrow-layer" id="assa-arrows"></svg>
+                <div class="tree-grid" id="assa-grid">
+                    <!-- Talents injected by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Combat Tree -->
+        <div class="talent-tree" id="combat-tree">
+            <div class="tree-header comb">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_backstab.jpg" alt="Combat" class="tree-icon">
+                <h2>Combat</h2>
+                <span class="tree-points" id="comb-points">0</span>
+            </div>
+            <div class="tree-background comb"></div>
+            <div class="tree-grid-wrapper">
+                <svg class="arrow-layer" id="comb-arrows"></svg>
+                <div class="tree-grid" id="comb-grid">
+                    <!-- Talents injected by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Subtlety Tree -->
+        <div class="talent-tree" id="subtlety-tree">
+            <div class="tree-header subt">
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_stealth.jpg" alt="Subtlety" class="tree-icon">
+                <h2>Subtlety</h2>
+                <span class="tree-points" id="subt-points">0</span>
+            </div>
+            <div class="tree-background subt"></div>
+            <div class="tree-grid-wrapper">
+                <svg class="arrow-layer" id="subt-arrows"></svg>
+                <div class="tree-grid" id="subt-grid">
+                    <!-- Talents injected by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Build Summary -->
+    <div class="build-export wow-panel">
+        <div class="panel-header">Current Build</div>
+        <div class="panel-content">
+            <div class="build-string" id="build-string">0/0/0</div>
+        </div>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="guide-content wow-panel">
+        <div class="panel-header">Why Combat?</div>
+        <div class="panel-content">
+            <p>Combat Rogues are the premier melee DPS spec in TBC Classic. The 20/41/0 Combat Swords build delivers consistent, high sustained damage through Sinister Strike spam and powerful cooldowns like Adrenaline Rush and Blade Flurry. Sword Specialization gives you free extra attacks, while deep Assassination talents like Lethality and Malice boost your critical strike damage and chance.</p>
+
+            <h3>Key Talents</h3>
+            <div class="talent-explanations">
+                <div class="talent-explain">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_sword_27.jpg" alt="Sword Specialization" class="explain-icon">
+                    <div>
+                        <h4>Sword Specialization</h4>
+                        <p>5% chance to get an extra attack on the same target after dealing damage with a Sword. More procs means more damage and more combo points.</p>
+                    </div>
+                </div>
+                <div class="talent-explain">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_shadowworddominate.jpg" alt="Adrenaline Rush" class="explain-icon">
+                    <div>
+                        <h4>Adrenaline Rush</h4>
+                        <p>100% increased Energy regeneration for 15 seconds. Your primary DPS cooldown — use it on every boss fight for massive burst damage.</p>
+                    </div>
+                </div>
+                <div class="talent-explain">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_warrior_punishingblow.jpg" alt="Blade Flurry" class="explain-icon">
+                    <div>
+                        <h4>Blade Flurry</h4>
+                        <p>20% attack speed increase plus cleave to a nearby target. Incredible on AoE pulls and still strong in single-target with the haste bonus.</p>
+                    </div>
+                </div>
+                <div class="talent-explain">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_criticalstrike.jpg" alt="Lethality" class="explain-icon">
+                    <div>
+                        <h4>Lethality</h4>
+                        <p>30% bonus critical strike damage on Sinister Strike and key abilities. Combined with Malice's 5% crit, this makes your crits devastating.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Stat Priority</h3>
+            <ol>
+                <li><strong>Hit Rating</strong> (until 9% / 142 rating for specials, 28% for white hits)</li>
+                <li><strong>Expertise</strong> (until 6.5% / 26 rating)</li>
+                <li><strong>Attack Power</strong></li>
+                <li><strong>Agility</strong></li>
+                <li><strong>Critical Strike Rating</strong></li>
+                <li><strong>Haste Rating</strong></li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Rotation -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Rotation / Ability Priority</div>
+        <div class="panel-content accordion-body">
+            <p class="section-intro">Combat Rogue DPS revolves around keeping Slice and Dice up at all times, building combo points with Sinister Strike, and using Rupture and cooldowns for maximum sustained damage.</p>
+            <ol class="rotation-list">
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_rogue_slicedice.jpg" alt="Slice and Dice" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Slice and Dice</span> — Always your #1 priority. Keep this buff active at all times. Open with 1 CP SnD then refresh at 5 CP.</div>
+                </li>
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_ritualofsacrifice.jpg" alt="Sinister Strike" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Sinister Strike</span> — Your main combo point builder. Spam to 5 CP between finishers.</div>
+                </li>
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_rogue_rupture.jpg" alt="Rupture" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Rupture</span> — Apply at 5 CP when Slice and Dice is already active. High sustained damage over time.</div>
+                </li>
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_warrior_punishingblow.jpg" alt="Blade Flurry" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Blade Flurry</span> — Use on cooldown. 20% attack speed increase plus cleave damage to a nearby target.</div>
+                </li>
+                <li>
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/spell_shadow_shadowworddominate.jpg" alt="Adrenaline Rush" class="rotation-icon" loading="lazy">
+                    <div><span class="rotation-ability">Adrenaline Rush</span> — Use for burst phases. 100% increased Energy regeneration for 15 seconds. Pair with Blade Flurry for maximum output.</div>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Pre-Raid BiS -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Pre-Raid Best in Slot</div>
+        <div class="panel-content accordion-body">
+            <p class="section-intro">Best gear obtainable from heroic dungeons, crafting, reputation, and quests before entering Karazhan. Focus on reaching the hit cap (363 rating for dual wield white hits) then stack agility and attack power.</p>
+            <table class="bis-table">
+                <thead>
+                    <tr><th class="slot-col">Slot</th><th>Item</th><th>Source</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="slot-col">Head</td><td class="item-col rare">Wastewalker Helm</td><td class="source-col">Heroic Shattered Halls — Warchief Kargath</td></tr>
+                    <tr><td class="slot-col">Neck</td><td class="item-col rare">Choker of Vile Intent</td><td class="source-col">Heroic Shadow Labyrinth — Murmur</td></tr>
+                    <tr><td class="slot-col">Shoulders</td><td class="item-col rare">Wastewalker Shoulderpads</td><td class="source-col">Heroic Steamvault — Hydromancer Thespia</td></tr>
+                    <tr><td class="slot-col">Back</td><td class="item-col rare">Blood Knight War Cloak</td><td class="source-col">Heroic Shattered Halls — Warchief Kargath</td></tr>
+                    <tr><td class="slot-col">Chest</td><td class="item-col">Nethercobra Chestguard</td><td class="source-col">Leatherworking (Crafted)</td></tr>
+                    <tr><td class="slot-col">Wrists</td><td class="item-col rare">Felstalker Bracers</td><td class="source-col">Leatherworking (Crafted)</td></tr>
+                    <tr><td class="slot-col">Hands</td><td class="item-col rare">Wastewalker Gloves</td><td class="source-col">Heroic Underbog — The Black Stalker</td></tr>
+                    <tr><td class="slot-col">Waist</td><td class="item-col">Nethercobra Belt</td><td class="source-col">Leatherworking (Crafted)</td></tr>
+                    <tr><td class="slot-col">Legs</td><td class="item-col rare">Wastewalker Leggings</td><td class="source-col">Heroic Shadow Labyrinth — Murmur</td></tr>
+                    <tr><td class="slot-col">Feet</td><td class="item-col rare">Edgewalker Longboots</td><td class="source-col">Heroic Mana-Tombs — Nexus-Prince Shaffar</td></tr>
+                    <tr><td class="slot-col">Ring 1</td><td class="item-col rare">A'dal's Command</td><td class="source-col">Sha'tar — Exalted</td></tr>
+                    <tr><td class="slot-col">Ring 2</td><td class="item-col rare">Ring of Umbral Doom</td><td class="source-col">Heroic Shadow Labyrinth — Ambassador Hellmaw</td></tr>
+                    <tr><td class="slot-col">Trinket 1</td><td class="item-col rare">Abacus of Violent Odds</td><td class="source-col">Heroic Mechanar — Pathaleon</td></tr>
+                    <tr><td class="slot-col">Trinket 2</td><td class="item-col rare">Bladefist's Breadth</td><td class="source-col">Quest — Overlord (Hellfire Peninsula)</td></tr>
+                    <tr><td class="slot-col">Main Hand</td><td class="item-col rare">Assassination's Blade</td><td class="source-col">Heroic Blood Furnace — Keli'dan</td></tr>
+                    <tr><td class="slot-col">Off Hand</td><td class="item-col rare">Latro's Shifting Sword</td><td class="source-col">Heroic Black Morass — Aeonus</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Raid BiS -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Raid Best in Slot (T5 / T6)</div>
+        <div class="panel-content accordion-body">
+            <p class="section-intro">Best endgame gear from SSC, Tempest Keep, Hyjal, Black Temple, and Sunwell Plateau. Stat priority: Hit (until 363 for dual wield) > Expertise > Agility > Crit > AP > Haste.</p>
+            <table class="bis-table">
+                <thead>
+                    <tr><th class="slot-col">Slot</th><th>Item</th><th>Source</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="slot-col">Head</td><td class="item-col">Slayer's Helm</td><td class="source-col">Hyjal Summit — Archimonde (T6 token)</td></tr>
+                    <tr><td class="slot-col">Neck</td><td class="item-col">Choker of Serrated Blades</td><td class="source-col">Zul'Aman — Nalorakk</td></tr>
+                    <tr><td class="slot-col">Shoulders</td><td class="item-col">Slayer's Shoulderpads</td><td class="source-col">Black Temple — Mother Shahraz</td></tr>
+                    <tr><td class="slot-col">Back</td><td class="item-col">Thalassian Wildercloak</td><td class="source-col">Sunwell Plateau — Trash Drop</td></tr>
+                    <tr><td class="slot-col">Chest</td><td class="item-col">Slayer's Chestguard</td><td class="source-col">Black Temple — Illidan Stormrage</td></tr>
+                    <tr><td class="slot-col">Wrists</td><td class="item-col">Bracers of the Forgotten Vanquisher</td><td class="source-col">Sunwell Plateau — Kalecgos</td></tr>
+                    <tr><td class="slot-col">Hands</td><td class="item-col">Gloves of Immortal Dusk</td><td class="source-col">Sunwell Plateau — Felmyst</td></tr>
+                    <tr><td class="slot-col">Waist</td><td class="item-col">Belt of One-Hundred Deaths</td><td class="source-col">Sunwell Plateau — Brutallus</td></tr>
+                    <tr><td class="slot-col">Legs</td><td class="item-col">Slayer's Legguards</td><td class="source-col">Hyjal Summit — Azgalor (T6 token)</td></tr>
+                    <tr><td class="slot-col">Feet</td><td class="item-col">Boots of Utter Darkness</td><td class="source-col">Black Temple — Teron Gorefiend</td></tr>
+                    <tr><td class="slot-col">Ring 1</td><td class="item-col">Hard Khorium Band</td><td class="source-col">Jewelcrafting (Crafted)</td></tr>
+                    <tr><td class="slot-col">Ring 2</td><td class="item-col">Band of the Eternal Champion</td><td class="source-col">Hyjal Summit — Exalted</td></tr>
+                    <tr><td class="slot-col">Trinket 1</td><td class="item-col">Madness of the Betrayer</td><td class="source-col">Black Temple — Illidan Stormrage</td></tr>
+                    <tr><td class="slot-col">Trinket 2</td><td class="item-col">Berserker's Call</td><td class="source-col">Zul'Aman — Timed Chest (4th boss)</td></tr>
+                    <tr><td class="slot-col">Main Hand</td><td class="item-col">Blade of Harbingers</td><td class="source-col">Sunwell Plateau — Eredar Twins</td></tr>
+                    <tr><td class="slot-col">Off Hand</td><td class="item-col">Mounting Vengeance</td><td class="source-col">Sunwell Plateau — M'uru</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Macros & Keybinds</div>
+        <div class="panel-content accordion-body">
+            <p class="section-intro">Essential Combat Rogue macros for TBC Classic raiding and dungeons.</p>
+            <div class="guide-macro-grid">
+                <div class="guide-macro-card">
+                    <div class="guide-macro-title">
+                        <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_rogue_sinisterstrike.jpg" alt="" loading="lazy">
+                        <h4>Sinister Strike + Blade Flurry</h4>
+                    </div>
+                    <code class="guide-macro-code">#showtooltip Sinister Strike
+/cast Blade Flurry
+/cast Sinister Strike</code>
+                    <p class="guide-macro-desc">Uses Blade Flurry if available, then Sinister Strike. Ensures cooldowns don't get missed.</p>
+                </div>
+                <div class="guide-macro-card">
+                    <div class="guide-macro-title">
+                        <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_kick.jpg" alt="" loading="lazy">
+                        <h4>Focus Kick</h4>
+                    </div>
+                    <code class="guide-macro-code">#showtooltip Kick
+/cast [@focus,exists,nodead][@target] Kick</code>
+                    <p class="guide-macro-desc">Kicks your focus target without switching targets. Critical for raid interrupt duties.</p>
+                </div>
+                <div class="guide-macro-card">
+                    <div class="guide-macro-title">
+                        <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_rogue_sprint.jpg" alt="" loading="lazy">
+                        <h4>Trinket + Adrenaline Rush</h4>
+                    </div>
+                    <code class="guide-macro-code">#showtooltip Adrenaline Rush
+/use 13
+/use 14
+/cast Adrenaline Rush</code>
+                    <p class="guide-macro-desc">Pops trinkets with Adrenaline Rush for maximum burst.</p>
+                </div>
+                <div class="guide-macro-card">
+                    <div class="guide-macro-title">
+                        <img src="https://wow.zamimg.com/images/wow/icons/medium/ability_stealth.jpg" alt="" loading="lazy">
+                        <h4>Stealth + Cheap Shot</h4>
+                    </div>
+                    <code class="guide-macro-code">#showtooltip
+/cast [nostealth] Stealth
+/cast [stealth] Cheap Shot</code>
+                    <p class="guide-macro-desc">Toggles stealth or uses Cheap Shot if already stealthed.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Quick Tips & Common Mistakes</div>
+        <div class="panel-content accordion-body">
+            <ul class="quick-tips-list">
+                <li class="tip-do"><span class="tip-icon">+</span> Keep Slice and Dice up 100% of the time — it's your highest DPS ability. Refresh at 1-2 combo points if needed.</li>
+                <li class="tip-do"><span class="tip-icon">+</span> Use Expose Armor if no Warrior is applying Sunder Armor — the debuff is essential for physical DPS.</li>
+                <li class="tip-dont"><span class="tip-icon">-</span> Don't use Eviscerate when Slice and Dice is about to fall off — SnD uptime always comes first.</li>
+                <li class="tip-dont"><span class="tip-icon">-</span> Don't forget to use poisons — Instant Poison on MH, Deadly Poison on OH for sustained fights.</li>
+                <li class="tip-info"><span class="tip-icon">i</span> Hit cap is 9% for special attacks (142 rating). You also need 28% hit for off-hand auto attacks (dual wield penalty).</li>
+                <li class="tip-info"><span class="tip-icon">i</span> Combat Potency procs from off-hand hits — a fast off-hand weapon (1.4-1.5 speed) generates more energy.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Gems & Enchants -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Gems & Enchants</div>
+        <div class="panel-content accordion-body">
+            <h3>Meta Gem</h3>
+            <p><span class="gem-meta">Relentless Earthstorm Diamond</span> — +12 Agility, +3% Critical Strike Damage. Requires more red gems than blue.</p>
+
+            <h3>Gem Priority</h3>
+            <p>Use <span class="gem-red">Delicate Living Ruby</span> (+8 Agility) in red sockets. Use <span class="gem-orange">Glinting Noble Topaz</span> (+4 Agi / +4 Hit) in yellow sockets if you need hit rating. Ignore blue sockets unless the bonus is +4 Agility or better — use <span class="gem-purple">Shifting Nightseye</span> (+4 Agi / +6 Stamina) to activate meta requirement.</p>
+
+            <h3>Enchants</h3>
+            <div class="enchant-grid">
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Head</div>
+                        <div class="enchant-name">Glyph of Ferocity</div>
+                        <div class="enchant-source">Cenarion Expedition — Revered</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Shoulders</div>
+                        <div class="enchant-name">Greater Inscription of Vengeance</div>
+                        <div class="enchant-source">Aldor — Exalted</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Back</div>
+                        <div class="enchant-name">Enchant Cloak — Greater Agility</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Chest</div>
+                        <div class="enchant-name">Enchant Chest — Exceptional Stats</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Wrists</div>
+                        <div class="enchant-name">Enchant Bracer — Assault</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Hands</div>
+                        <div class="enchant-name">Enchant Gloves — Superior Agility</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Legs</div>
+                        <div class="enchant-name">Nethercobra Leg Armor</div>
+                        <div class="enchant-source">Leatherworking</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Feet</div>
+                        <div class="enchant-name">Enchant Boots — Dexterity</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Main Hand</div>
+                        <div class="enchant-name">Enchant Weapon — Mongoose</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+                <div class="enchant-item">
+                    <div>
+                        <div class="enchant-slot">Off Hand</div>
+                        <div class="enchant-name">Enchant Weapon — Mongoose</div>
+                        <div class="enchant-source">Enchanting</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Consumables -->
+    <div class="wow-panel">
+        <div class="panel-header collapsible">Consumables</div>
+        <div class="panel-content accordion-body">
+            <h3>Flasks & Elixirs</h3>
+            <div class="consumable-grid">
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_117.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Flask of Relentless Assault</div>
+                        <div class="consumable-type">Flask — +120 Attack Power</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Food</h3>
+            <div class="consumable-grid">
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_misc_food_47.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Roasted Clefthoof</div>
+                        <div class="consumable-type">+20 Strength, +20 Spirit</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Other</h3>
+            <div class="consumable-grid">
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_potion_108.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Haste Potion</div>
+                        <div class="consumable-type">+400 Haste for 15s — Use in burst</div>
+                    </div>
+                </div>
+                <div class="consumable-item">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inv_stone_04.jpg" alt="" class="consumable-icon" loading="lazy">
+                    <div>
+                        <div class="consumable-name">Adamantite Sharpening Stone</div>
+                        <div class="consumable-type">+12 Damage, +14 Crit — Melee weapon</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="guide-nav">
+        <div class="guide-nav-grid">
+            <a href="/wow-tbc-guides/hunter-bm-pve/" class="guide-nav-link prev">
+                <span class="nav-arrow">&#9666;</span>
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/classicon_hunter.jpg" alt="" class="nav-icon" loading="lazy">
+                <div>
+                    <span class="nav-label">Previous Guide</span>
+                    <span class="nav-class">BM Hunter</span>
+                </div>
+            </a>
+            <a href="/wow-tbc-guides/priest-shadow-pve/" class="guide-nav-link next">
+                <div>
+                    <span class="nav-label">Next Guide</span>
+                    <span class="nav-class">Shadow Priest</span>
+                </div>
+                <img src="https://wow.zamimg.com/images/wow/icons/medium/classicon_priest.jpg" alt="" class="nav-icon" loading="lazy">
+                <span class="nav-arrow">&#9656;</span>
+            </a>
+        </div>
+        <a href="/wow-tbc-guides/" class="guide-back-link">&#9664; Back to All Guides</a>
+    </div>
+</div>
+
+<!-- Tooltip -->
+<div class="talent-tooltip" id="talent-tooltip"></div>

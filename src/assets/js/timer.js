@@ -51,7 +51,6 @@ function getNextWorldBoss() {
     };
 }
 
-const BOSS_SPAWN_INTERVAL_MS = 6300 * 1000;
 const HELLTIDE_DURATION_MS = 55 * 60 * 1000;
 const HELLTIDE_INTERVAL_MS = 60 * 60 * 1000;
 const PROGRESS_RING_CIRCUMFERENCE = 264;
@@ -101,7 +100,7 @@ function updateBossTimer() {
         bossMinutes.textContent = String(minutes).padStart(2, '0');
         bossSeconds.textContent = String(seconds).padStart(2, '0');
 
-        const progress = countdown / BOSS_SPAWN_INTERVAL_MS;
+        const progress = countdown / SPAWN_INTERVAL_MS;
         const offset = PROGRESS_RING_CIRCUMFERENCE * progress;
         bossProgressRing.style.strokeDashoffset = offset;
 

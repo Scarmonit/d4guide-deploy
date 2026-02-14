@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://scarmonit.com/sitemap.xml
+
+Disallow: /changepassword/
+Disallow: /kpass/
+Disallow: /upload/
+Disallow: /screen-share/

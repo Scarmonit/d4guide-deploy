@@ -15,12 +15,23 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/kpass/scripts");
   eleventyConfig.addPassthroughCopy("src/changepassword/css");
   eleventyConfig.addPassthroughCopy("src/changepassword/scripts");
+  eleventyConfig.addPassthroughCopy({ "src/music/music.css": "music/music.css" });
+  eleventyConfig.addPassthroughCopy("src/music/songs");
+  eleventyConfig.addPassthroughCopy("src/music/covers");
+
   eleventyConfig.addPassthroughCopy({ "src/ai/ai.css": "ai/ai.css" });
   eleventyConfig.addPassthroughCopy({ "src/ai/ai.js": "ai/ai.js" });
   eleventyConfig.addPassthroughCopy({ "src/_routes.json": "_routes.json" });
   eleventyConfig.addPassthroughCopy({ "src/manifest.json": "manifest.json" });
   eleventyConfig.addPassthroughCopy({ "src/_redirects": "_redirects" });
   eleventyConfig.addPassthroughCopy({ "src/_headers": "_headers" });
+  eleventyConfig.addPassthroughCopy({ "src/robots.txt": "robots.txt" });
+
+  // Date filter for sitemap
+  eleventyConfig.addFilter("dateFormat", function(dateObj) {
+    if (!dateObj) return '';
+    return new Date(dateObj).toISOString().split('T')[0];
+  });
 
   return {
     dir: {
